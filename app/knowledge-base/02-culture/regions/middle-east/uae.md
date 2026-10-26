@@ -192,6 +192,26 @@ Coverage:
   boxes, couple poses.
 - Confidence: MEDIUM shell, EDITORIAL styling. [S9, S10]
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials (typical · upmarket · modest):
+    - Table: low rectangular coffee table, 100–120 × 50–60 cm, light oak veneer or white gloss · marble-look sintered stone on thin black legs · flat-pack white laminate. [EDITORIAL; "coffee table" in listings MEDIUM · M5]
+    - Table cover: none. [EDITORIAL]
+    - Seating edge in frame: L-shaped fabric sofa in grey or beige, low arms, two or three plain cushions · bouclé or velvet · dark grey with a throw. [MEDIUM · M5]
+    - Walls: smooth white or off-white matte paint, one framed print. [MEDIUM · M9]
+    - Floor: wood-style porcelain planks, pale oak or grey · marble-look large tiles · beige 60 × 60 cm ceramic. Rug: none confirmed; a flat-weave grey rug is EDITORIAL. [MEDIUM · M5]
+    - Ceiling and light fittings: white gypsum, recessed downlights, linear AC grille; floor lamp; warm 2700K at night. [MEDIUM shell · EDITORIAL lamp]
+    - Windows and treatments: floor-to-ceiling glass with sheer and blackout curtains, sliding door to a balcony with seating. [MEDIUM · M5]
+    - Decor objects: wall-mounted smart TV (a dark rectangle or soft glow), wall art, a snake plant or fiddle-leaf fig in a matte pot, a candle, a few books. [MEDIUM TV and art · M5; EDITORIAL plants]
+    - Tableware: open kraft delivery boxes; plain white porcelain side plates 20 cm or none; clear plastic dip cups. [EDITORIAL]
+    - Cutlery: none for pizza, burgers, fried chicken; wooden or plastic delivery fork or chopsticks for poke. [EDITORIAL]
+    - Glassware and cups: the hero SKU per person only.
+    - Linens and paper: white paper napkins from the delivery bag.
+    - Plating style: food stays in the delivery boxes on the table.
+    - Wear and density: newly built, tidy, few personal objects. [EDITORIAL]
+    - Zone variants: Sharjah and Ajman flats are older, larger and more traditional (heavier curtains, darker furniture). [EDITORIAL]
+    - Traps: New York brick loft; US basement den; marble palace; a recognisable tower in the window.
+    - Materials prompt line: "Light oak coffee table, grey L-shaped fabric sofa, white matte walls, pale wood-look porcelain floor, floor-to-ceiling glass with white sheers and grey blackout curtains, a wall TV as a dark rectangle."
+
 #### Venue: Emirati villa dining room (home, indoor, midday or evening) · app: Dining room
 - Prompt-ready line: "An Emirati villa dining room: the shared platter of
   machboos sharp on a long rectangular dark-wood table, behind it softly
@@ -238,6 +258,33 @@ Coverage:
   photos.
 - Confidence: MEDIUM-LOW (design-guide sources, no photo review). [S11, S12]
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials (typical · upmarket · modest):
+    - Table: long rectangular table seating 8–12, dark wood or wood with a glass top · marble or lacquered top, very long (5 m in one Dubai villa) · smaller laminate table. [MEDIUM upmarket · M6; EDITORIAL typical]
+    - Table cover: plastic protective cover or a printed disposable sufra sheet over the top for everyday meals · bare polished top or a runner for guests. [MEDIUM sheet exists · M4; EDITORIAL use at the table]
+    - Seating edge in frame: high-back upholstered chairs in velvet or brocade, gold, beige or cream, carved or lacquered frames. [MEDIUM · M12]
+    - Walls: cream or beige paint with gypsum cornices · marble feature wall (Calacatta-type white with grey veins) · plain paint. [MEDIUM · M6]
+    - Floor: polished marble or large porcelain slabs, white or beige, sometimes with water-jet inlay · plain porcelain. Patterned rug beyond the table. [MEDIUM · M6]
+    - Ceiling and light fittings: suspended decorative gypsum ceiling with cove light; large crystal chandelier over the table · contemporary sculptural chandelier · simple ceiling light. [MEDIUM · M6]
+    - Windows and treatments: tall windows, heavy silk or satin curtains in gold, champagne or beige over white sheers, tie-backs and valances. [MEDIUM · M6]
+    - Decor objects: brass dallah with finjan cups on a tray, a covered date dish, a mabkhara, a mirror with a gilded frame, a large vase. [MEDIUM dallah and cups · M1, M3; mirrors MEDIUM · M6]
+    - Tableware: white porcelain dinner plates with a gold or silver rim; a large round platter 45–60 cm (stainless steel or white porcelain) for the rice; deep bowls for harees and saloona. [EDITORIAL; gold-rim porcelain common in UAE retail · M3]
+    - Cutlery: stainless steel spoon and fork per setting, often gold-tone in upmarket homes; knives rare; rice may be eaten by hand at family meals. [EDITORIAL]
+    - Glassware and cups: clear glass tumblers for water or laban.
+    - Linens and paper: a tissue box on the table; paper napkins. [EDITORIAL]
+    - Plating style: shared central platters, meat on top of rice; individual plates. [MEDIUM · M11]
+    - Wear and density: spacious, formal, very clean.
+    - Upmarket designer register (more design-firm projects, 2026-10-26): marble-top dining tables with matching modern buffets; plush upholstered chairs; cool white, grey and blue palettes with silver and gold accents, or earthy tones with a light green accent; mirrors and wood against marble floors; sculptural or bespoke chandeliers from decorative ceilings; Calacatta marble feature walls, dark timber and bronze, long tables for up to 24. These are showcase interiors: use only for the upmarket register, never as the typical Emirati home. [MEDIUM upmarket · M6, M21]
+    - Formal room sizes and proportions (furniture-firm guide, upmarket register): rectangular tops about 220–240 x 100–110 cm for 8, 280–300 x 110 cm for 10–12, up to 420–440 x 120 cm for 16, allowing 60–65 cm per setting; table height 73–76 cm, chair seat 45–48 cm, backrests 90–110 cm. Use these as scale anchors for the SKU and plates. [MEDIUM upmarket · M22]
+    - Formal room tops and chairs: bookmatched marble (white with grey or violet veins), solid walnut or smoked oak 5–8 cm thick with a mitred edge, or a marble-look porcelain slab; chairs fully upholstered, upholstered seat with an open back, leather, or a cane or rattan back. [MEDIUM upmarket · M22]
+    - Formal room lighting: villa ceilings about 3.4–3.8 m; chandelier about half to two-thirds of the table width, hanging 75–95 cm above the top; on tables over 3 m a linear fitting or two or three pendants instead of one. [MEDIUM upmarket · M22]
+    - Formal room background: a feature wall behind the head of the table (bookmatched stone or travertine, fluted oak or walnut panelling, or one large artwork); a console at 60–75% of the table length holding art objects, flowers and an unreadable calligraphy piece; a rug reaching 60–75 cm past the table on every side; floor-length heavy jacquard curtains over sheers; AC diffusers at the ceiling edge. [MEDIUM upmarket · M22]
+    - Hospitality station, not a bar: Emirati villas skip the bar cabinet and use a coffee, tea and water station on the console or sideboard (dallah, thermos flasks, finjan cups, dates). Matches the no-alcohol rule and puts tea and coffee off the table. [MEDIUM · M22, agrees with M1, M3]
+    - Formal room versus daily meals: the formal room is for guests and occasions (regular hosting 8–12, peaks of 14–22, several courses); everyday family meals happen at the kitchen table or a breakfast room. So a weekday family scene belongs in the kitchen, and the formal room fits Eid, iftar with guests or a celebration. [MEDIUM · M22]
+    - Zone variants: Abu Dhabi and Al Ain lean classic (Rococo-style ceilings, crystal, silk); new Dubai villas lean modern (marble feature wall, LED cove, sculptural lights). [MEDIUM · M6]
+    - Traps: Moroccan riad, Indian palace, Western white-cloth dinner party, desert tent.
+    - Materials prompt line: "Long dark-wood table with a thin printed plastic sheet, cream walls with gypsum cornices and cove light, a crystal chandelier, polished beige marble floor, gold silk curtains over white sheers, velvet high-back chairs, a brass dallah and gold-rim finjan cups on the sideboard."
+
 #### Venue: Majlis floor meal (sufra) (home, indoor)
 - Prompt-ready line: "An Emirati majlis floor meal: platters of rice and
   meat massed on a plastic sheet over a patterned carpet, floor cushions
@@ -283,6 +330,10 @@ Coverage:
   Gulf majlis for this household.
 - Confidence: EDITORIAL (no source pass on expat home interiors).
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials: no source this pass. Search found Karama described as one of Dubai's oldest, mostly low-rise areas with family flats, built-in wardrobes and balconies; nothing on interiors. Keep the profile above as EDITORIAL and photo-review Karama, Satwa and Sharjah listings. [MEDIUM area · M9]
+  - Materials prompt line (EDITORIAL): "A six-seat glass-topped table, white walls, beige ceramic floor tile, a patterned curtain, steel pots on a white kitchen counter behind."
+
 #### Venue: Kitchen island, Dubai apartment (home, daylight) · app: Kitchen island
 - Prompt-ready line: "A white quartz kitchen island in a modern Dubai
   apartment at midday: the meal sharp on the counter, behind it softly
@@ -297,6 +348,14 @@ Coverage:
   island sink and bar stools of dark leather.
 - Confidence: MEDIUM shell, EDITORIAL use.
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials (typical · upmarket · modest):
+    - Counter: white quartz or marble-effect top · Calacatta-look sintered stone · white laminate. [MEDIUM marble-effect backsplash · M9]
+    - Cabinets: white high-gloss, handleless · matte grey or wood veneer · plain white. [MEDIUM · M9]
+    - Appliances: built-in oven, gas or induction hob, in-unit washing machine. [MEDIUM · M9]
+    - Stools: two upholstered or wood bar stools. [EDITORIAL]
+    - Materials prompt line: "White quartz island, white high-gloss cabinets, a marble-effect backsplash, a built-in oven and bright daylight from a balcony door."
+
 #### Venue: Villa garden or balcony, winter evening (home, outdoor) · app: Dining room, outdoor
 - Prompt-ready line: "A villa garden on a cool winter evening in the UAE:
   the meal sharp on an outdoor wooden table, behind it softly blurred a
@@ -308,6 +367,15 @@ Coverage:
 - Never stage in summer daylight (outdoor eating stops in the heat);
   never on a tower balcony with a barbecue (barred in apartments).
 - Confidence: MEDIUM season, EDITORIAL look.
+
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials (typical · upmarket · modest):
+    - Masonry and hard surfaces: sand-tone rendered or limestone boundary wall · travertine terraces and steps · interlock or concrete pavers (not confirmed). [MEDIUM travertine and sand-tone wall, upmarket · M7]
+    - Planting: date palms in rows or clusters; bougainvillea over walls and pergolas; strelitzia and grasses; a clipped lawn in irrigated gardens. [MEDIUM · M7, M8]
+    - Lights: string lights along the boundary wall; garden lanterns. [MEDIUM · M8]
+    - Cultural cues: half-buried clay pots by the driveway. [MEDIUM · M8]
+    - Table: outdoor teak or aluminium table; rattan-look chairs. [EDITORIAL]
+    - Materials prompt line: "Sand-tone garden wall with magenta bougainvillea, date palms, travertine paving, warm string lights along the wall, a teak outdoor table."
 
 #### Venue: Cafeteria (كافتيريا) (street, day and night) · app: Counter service, Street market
 - Prompt-ready line: "A small UAE cafeteria at night: a paratha roll on
@@ -337,6 +405,11 @@ Coverage:
   besides the hero, shisha.
 - Confidence: MEDIUM.
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials: sources confirm that cafeterias have "their own aesthetic in decor, menu displays and presentation" (Sharjah Art Foundation, Fikra Design's research and the Afaaq Al Mustaqbal exhibition) but no search result describes the materials. A well-known Satwa cafeteria reads as informal and busy, with bright green neon and seats along the main road. [MEDIUM · M10, M11]
+  - Keep the list above (steel counter, glass chiller, spit, tiles, plastic chairs, fluorescent light) as EDITORIAL until a photo review.
+  - Materials prompt line: "A narrow cafeteria shopfront with bright green neon, a steel counter, a lit drinks chiller, white wall tiles and plastic chairs on the pavement under fluorescent light."
+
 #### Venue: Shawarma counter (street, evening) · app: Counter service, Street market
 - Prompt-ready line: "A UAE shawarma counter in the evening: a
   paper-wrapped chicken shawarma cut on the diagonal sharp on a steel
@@ -351,6 +424,11 @@ Coverage:
 - Hallucination traps: a Turkish döner shop with red signage; a Greek
   gyro pita with tzatziki.
 - Confidence: MEDIUM.
+
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials: as the cafeteria; neon signage, outdoor tables beside the road, an air-conditioned indoor room. [MEDIUM · M11]
+  - Tableware: shawarma in paper, sometimes on a plastic or steel tray; garlic sauce in small plastic cups. [EDITORIAL]
+  - Cutlery: none (by hand).
 
 #### Venue: Arabic grill restaurant (family hall) · app: Sit-down
 - Prompt-ready line: "A Lebanese-Syrian grill restaurant in Dubai: a
@@ -375,6 +453,12 @@ Coverage:
   shisha on the terrace.
 - Confidence: MEDIUM.
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials: family-oriented Lebanese restaurants with extravagant but comfortable décor; gardens with ornaments, lights and statuettes; indoor and outdoor seating. No detail on table tops or tableware. [MEDIUM · M12]
+  - Tableware (EDITORIAL): white oval and round porcelain, a stainless steel grill tray, small white mezze bowls, Arabic bread in a basket.
+  - Cutlery (EDITORIAL): stainless fork and knife per setting; bread used to scoop.
+  - Screenshot review (modern casual Arabic grill and fried-chicken hall, 2026-10-26) [MEDIUM, one venue · M23]: rectangular four-seat tables pushed together, tops in a sunburst wood veneer with a thin brass edge; grey bouclé chairs with a black metal frame and brass-capped feet; dark woven placemats; slate-grey round plates for the fried platters, wooden boards for shawarma platters, small white side plates; fork and spoon (no knife) on a folded beige paper napkin; black napkin caddies; wood-look floor, cream walls, brass and mirror columns, warm light. Shawarma platter = cut rolls with fries and a dip cup. Glasses of juice and water sat beside the food: in our scenes only the Coke stays on the table.
+
 #### Venue: Kerala / South Asian restaurant (Karama, Deira) · app: Sit-down
 - Prompt-ready line: "A busy Kerala restaurant in Karama at lunchtime:
   chicken biryani on a steel plate with raita and pickle sharp in front,
@@ -390,6 +474,10 @@ Coverage:
   screens; a Punjabi dhaba with charpoys.
 - Confidence: MEDIUM.
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials: banana-leaf meals are the shared signature (rice and many small dishes on a leaf, lunch only at some places); reviews describe small, clean, crowded rooms. Steel plates, steel tumblers and tiled walls are not confirmed. [MEDIUM banana leaf · M13]
+  - Cutlery: none; eaten by the right hand. A spoon on request. [EDITORIAL]
+
 #### Venue: Healthy café (restaurant, daylight) · app: Café
 - Prompt-ready line: "A bright, plant-filled healthy café in Dubai at
   lunchtime: the bowl sharp on a light wood table by a big window, behind
@@ -399,6 +487,39 @@ Coverage:
   Americano and matcha are among the most-ordered drinks). [MEDIUM · S20]
 - Variant: winter terrace seating with palms blurred.
 - Confidence: MEDIUM.
+
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  From search (M14) plus Fernando's café screenshots (M20: one healthy-café interior and a grid of nine shots of one independent café; read once, not kept).
+
+  - Materials (typical · upmarket · modest):
+    - Table: solid wood tops (honey oak or dark walnut stain) on black cast-iron or steel bases; small two-tops and a long shared table · thick live-edge or reclaimed-wood tops · dark laminate two-tops. [MEDIUM · M20]
+    - Table cover: none; a few indie cafés use a bright printed oilcloth (yellow lemon print) on the counter front, not on tables. [MEDIUM bare tops; LOW oilcloth · M20]
+    - Seating edge in frame: mint-green or grey metal stools in the Tolix style; light-wood wishbone or cross-back chairs; a slatted wood banquette with patterned cushions; mismatched armchairs (red, mustard) in indie cafés. [MEDIUM · M20]
+    - Walls: bold botanical palm-leaf wallpaper on a feature wall; white-painted block or brick; chalkboard panels; a hand-painted mural (cyclist, flowers); polaroid and photo walls. Cement or micro-cement in design-led places. [MEDIUM · M14, M20]
+    - Floor: pale grey concrete-look or wood-look tile; patterned rugs in indie cafés. [MEDIUM · M20]
+    - Ceiling and light fittings: dark grey and sage-green metal dome pendants; woven rattan or bamboo pendants (2 of 2 cafés); a dropped ceiling with downlights or exposed ducts; string lights and greenery strung overhead in indie places. [MEDIUM · M20]
+    - Windows and treatments: floor-to-ceiling glass along one side, no curtains, hard daylight. [MEDIUM · M20]
+    - Decor objects: many potted plants (palms, ficus, snake plants, cacti in terracotta); white-washed wood crates; floating wood shelves with jars; a glass-front drinks fridge. [MEDIUM · M20]
+    - Tableware: white or speckled stoneware bowls and plates; a galvanised tin or ceramic cup holding cutlery and napkins on each table. [MEDIUM cutlery cup · M20; EDITORIAL stoneware]
+    - Cutlery: stainless fork and spoon from the table cup; chopsticks for poke. [MEDIUM · M20]
+    - Glassware and cups: clear tumblers; iced coffee in clear plastic or glass. [EDITORIAL]
+    - Linens and paper: paper napkins in the table cup.
+    - Wear and density: indie cafés are dense and personal (stickers, notes, plants everywhere); design-led ones are clean and airy.
+    - Traps: a US chain coffee shop; a Scandinavian all-white café; a Parisian bistro.
+    - Never stage: legible chalkboards, signs, photo walls in focus, neon words.
+    - Materials prompt line: "A bright Dubai healthy café: honey-oak table on a black iron base, mint-green metal stools and light-wood wishbone chairs, a palm-leaf wallpaper wall, woven rattan and green metal dome pendants, potted palms, floor-to-ceiling windows with hard daylight."
+  - Correction: the earlier "rattan not confirmed" note is withdrawn; rattan pendants appear in both cafés.
+
+
+#### Venue notes: other Dubai restaurant looks from screenshots · app: Sit-down, Café, Modern bistro
+- **Modern Indian casual restaurant (mall or Dubai Hills type) [M20, one venue, many angles]:** cognac leather banquettes, bar chairs in mixed bright colours (red, green, yellow, blue), teal-painted wood panelling and cabinetry, black-and-white chevron floor tile, exposed teal ductwork, hanging glass and amber lanterns, upside-down Indian embroidered parasols on the ceiling, magenta and black graphic ceiling murals, Bollywood pop-art posters, a vintage auto-rickshaw as a prop, bangle-strip trims. Use for an upmarket South Asian register (Sit-down). Its bar with bottles and magenta under-lighting is **never** staged; frame away from it.
+- **Hotel all-day dining (upmarket) [M20]:** wood-slat and walnut walls, burgundy and tan leather chairs, a copper-domed pizza oven, log-end feature wall, terrazzo floor, hanging plants, city towers through glass. It uses **white tablecloths**: never stage those (project rule); use the bare-table corners only.
+- **Contemporary Japanese-style restaurant [M20]:** warm wood counters and tables, open kitchen with stacked ceramics, a green planted wall, maroon leather banquette, a graffiti mural. Wine glasses and bottles on tables: never stage. Useful only for Modern bistro tone (warm wood, planted wall).
+
+- **Emirati heritage courtyard café (Al Fahidi / old Dubai type) [M23, one venue]:** open courtyard under a tree canopy; sand-coloured plaster walls, carved wooden doors, a gypsum lattice balcony rail, hurricane lanterns on the walls; columns of bundled palm or bamboo poles bound with rope; thick varnished plank tables in warm orange-brown wood with log legs; chair arms wrapped in rope, white cushions with embroidered palm motifs; a wooden tissue box and a wooden sugar caddy on the table, dates on a small saucer; Arabic coffee served from a server's hand in small cups. Good for a traditional Emirati register by day (Café or Sit-down). People in costume headpieces are tourist styling: never stage.
+- **Emirati modern café (heritage-minimal) [M23, one venue]:** grey microcement walls, a white breeze-block screen with interlocking circle pattern, polished concrete floor with a patterned encaustic-tile panel under the tables; square oak tables on black pedestal bases; wishbone-style oak chairs with woven paper-cord seats; an upholstered bench with grey cushions; framed black-and-white heritage photos (fort, old doorway, camel herders) with nothing legible; exposed ducting and track spots; a tin milk can of fresh flowers and a paper napkin cup on the table. Fits Café and Modern bistro.
+- **Emirati home-style meal spread (Ramadan or iftar, restaurant photo) [M23]:** dark varnished wood table; white porcelain with a pink floral border (soup cups with saucers, rimmed plates, bowls); rice with meat on an oval floral plate, a tomato salad, samosas and fritters, lentil soup, harees with ghee, dates on a small dish, a lime half, small dip cups; behind them a round wooden tray holding a brass dallah, a brass incense burner, small lanterns and finjan cups; a cream cloth napkin. The floral-border porcelain is a strong UAE home and iftar marker. A glass of laban sat on the table: keep it off in our scenes.
+- **Upscale Indian dining room [M23, one venue]:** green velvet chairs with striped backs on walnut frames, fluted wood pedestal bases, rattan placemats, dark plates with a gold rim, green napkins folded upright, a hand-painted mural wall lit by a warm cove, arched wall niches with vases, a wood-slat ceiling. Its tables are **round**: never stage the table shape; use only the chairs, mural and place settings, on a rectangular table.
 
 #### Venue: Design-led burger spot (restaurant, night) · app: Counter service, Modern bistro
 - Prompt-ready line: "A design-led Dubai burger spot at night: the burger
@@ -411,6 +532,46 @@ Coverage:
 - Never stage: chain packaging or recognisable restaurant branding; bar
   taps or bottles.
 - Confidence: MEDIUM.
+
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  Two registers, from search plus Fernando's research import of 2026-10-26 (source pages not named, so its claims are capped at MEDIUM where search agrees and LOW otherwise).
+
+  - **Register A, streetwear / cyber-diner (typical; Counter service):**
+    - Walls and decor: neon tube signs and strips, graffiti or bold pop-art murals, industrial metal grating and corrugated metal, raw concrete. [MEDIUM: neon and concrete agree with M15; murals and grating LOW · M18]
+    - Seating: fluted leather banquettes, vintage or metal chairs, counter stools. [MEDIUM · M15]
+    - Table: concrete, steel or dark laminate top. [EDITORIAL]
+    - Light: coloured neon glow, dark room, spot over the pass. [MEDIUM]
+    - Tableware: burger wrapped tightly in parchment paper, in a black tray or basket; fries in a paper cone; small sauce cups. Packaging in these places is custom-branded: stage it plain and unprinted (project rule). [LOW · M18]
+    - Cutlery: none. [EDITORIAL]
+    - Never stage: live DJs or a party scene, legible neon words, graffiti lettering, brand marks on paper or boxes.
+    - Materials prompt line: "A dark Dubai burger joint: raw concrete walls with coloured neon tubes and a pop-art mural softly blurred, black metal grating, a fluted leather banquette, the burger in plain parchment in a black tray."
+  - **Register B, elevated bistro / lounge (upmarket; Modern bistro):**
+    - Walls and decor: deep emerald green or dark moody colour schemes, dark wood accents, greenery, linear LED ceiling lighting. [LOW · M18]
+    - Seating: plush velvet or custom booths. [LOW · M18]
+    - Table and counters: marble tops, metal bar fronts. [LOW · M18]
+    - Light: warm, low-contrast, dim. [LOW · M18]
+    - Tableware: thick-cut wagyu or Angus burger served cleanly stacked or open-faced on a ceramic plate, with a steak knife laid beside it. [LOW · M18]
+    - Cutlery: knife (and fork) on the plate edge, stainless or black matte. [LOW · M18]
+    - Never stage: bottles, bar taps or a cocktail bar look behind (the "lounge" register must stay alcohol-free).
+    - Materials prompt line: "A moody Dubai burger bistro: deep emerald walls and dark wood softly blurred, a velvet booth, linear LED lines in the ceiling, a marble table, the burger cleanly stacked on a matte ceramic plate with a steak knife beside it."
+  - **The burger itself (both registers), for the dish entry:**
+    - Bun: soft, uniform potato or brioche bun, toasted inside, shiny golden-brown glaze on top. [MEDIUM: agrees with M21 · M18]
+    - Smash patty: smashed very thin, wide crispy "lace" edges spilling past the bun. [MEDIUM · M18, M21]
+    - Cheese: American or cheddar slices fully draped and fused over the patties, a "cheese waterfall". [LOW · M18]
+    - Gourmet stack: thick medium-cooked wagyu or Angus, caramelised onion jam, artisanal pickles, sometimes shaved truffle; built cleanly to show a cross-section. [LOW · M18]
+    - Note: "medium-cooked" means a pink centre; check with the client, since some briefs want well-done beef.
+  - Zone note: the named concept in the import is not used in prompts (no restaurant names).
+  - **Screenshot review (Fernando, 2026-10-26, 4 social-media shots of Dubai burger spots; described in text, images not kept) [M19]:**
+    - Tray service (2 of 4 shots): each burger on a square of plain brown kraft or parchment paper laid on a round brushed stainless or spun-aluminium tray, 25–30 cm; small white paper or clear plastic sauce cups beside it; a red sauce squeeze bottle on the table. This is the clearest Dubai smash-burger look. [MEDIUM]
+    - Diner plates (2 of 4): white ceramic or enamel plates with a thin red band on the rim, 25–28 cm. [MEDIUM]
+    - Tables: long dark charcoal or black communal bar table with stools; light wood table in a casual room. [MEDIUM]
+    - Walls: plain white or pale grey; framed burger posters (soft, unreadable); a fluted-glass or metal-chain screen at one side. [LOW, one shot]
+    - Terrace register (1 shot): red leather booth, green-and-white checkered tile band, brass globe pendants, dark wood frames, palms and towers behind. [LOW]
+    - Buns: glossy golden potato or brioche buns (3 shots) and dark glossy pretzel buns with a scored top (3 shots). Pretzel buns are a clear Dubai trend; add them to the dish entry. [MEDIUM]
+    - Patties: double smash with dark lacy edges, orange cheese and an orange house sauce, pickles, grilled onion; one thick burger cut to a pink, medium centre. [MEDIUM]
+    - Cutlery: none in any shot. [MEDIUM]
+    - Never stage: paper menu placemats (legible), poster text, recognisable towers, people.
+    - Materials prompt line (tray register): "A double smash burger in a glossy golden bun on a square of plain kraft paper on a round brushed-steel tray, a small sauce cup beside it, on a long charcoal bar table, white wall with soft framed posters behind."
 
 #### Venue: Beach boardwalk with food trucks (outdoor, winter evening) · app: Beach or waterfront, Food truck
 - Prompt-ready line: "A UAE beach boardwalk on a cool winter evening: the
@@ -425,6 +586,10 @@ Coverage:
   signage.
 - Confidence: MEDIUM.
 
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials: a long promenade with a jogging track; a food-truck zone with ice-cream and coffee carts steps from the sand; shaded sections near the skate park; showers and changing facilities. Deck material and palms not confirmed. [MEDIUM · M16]
+  - Materials prompt line: "A paved beach promenade at dusk, a row of food trucks with warm lights, shade structures, pale sand and the sea beyond."
+
 #### Venue: Park or lakeside winter barbecue (outdoor) · app: Park
 - Prompt-ready line: "A UAE park on a winter afternoon: the meal sharp on
   a picnic mat, behind it softly blurred green grass, date palms, a
@@ -434,6 +599,10 @@ Coverage:
   camping season draw families to grill in the desert. [MEDIUM · S13]
 - Hallucination traps: an English park with oaks; a summer midday scene.
 - Confidence: MEDIUM.
+
+- **Materials (search and photo review, 2026-10-26; M# = venue-materials sources):**
+  - Materials: lawns and lakes with barbecue areas under tall palms (Zabeel); shaded picnic areas, a boating lake and jogging track (Safa); a natural ghaf forest with barbecue pits (Mushrif). [HIGH · M17]
+  - Materials prompt line: "A green lawn under tall date palms, a fixed barbecue pit, families' mats far off and a lake glinting behind."
 
 #### Venue: Fan zone or stadium concourse (outdoor event, night) · app: Stadium or event
 - Prompt-ready line: "A UAE cricket fan zone at night: the food sharp on
@@ -446,6 +615,22 @@ Coverage:
 - Never stage: legible scores, team crests, kits, sponsor boards, flags,
   betting.
 - Confidence: MEDIUM.
+
+## COUNTRY OBJECTS REGISTER — UAE (objects and materials that read as the UAE in any venue)
+
+| Object or material | Where it shows | Look (material, colour, size) | Register | Trap | Confidence | Source |
+|---|---|---|---|---|---|---|
+| Dallah coffee pot | Villa sideboard, majlis, heritage restaurants | Brass or copper, 25–35 cm, long curved beak spout, domed lid | Emirati, all incomes | Moroccan teapot, Turkish cezve | HIGH | M1, M2 |
+| Finjan cups on a tray | Beside the dallah | Small handleless cups, white porcelain with gold rim, sets of 6 on a matching tray | Emirati, all incomes | Espresso cups with handles | MEDIUM | M3 |
+| Dates in a covered dish | Villa table and sideboard | Glossy brown dates in a glass or metal dish with a domed lid | Emirati, all | A fruit bowl of fresh fruit | HIGH | M1 |
+| Mabkhara incense burner | Majlis, villa hall | Square-footed wooden or metal burner, 15–25 cm, a thin wisp at most | Emirati | Hookah or shisha (never) | MEDIUM | S24 |
+| Printed disposable sufra sheet | Floor meals and table tops | Thin plastic-like sheet off a roll, 100–130 cm wide, white with a printed border | Everyday, modest to middle | Embroidered cloth, picnic blanket | MEDIUM | M4 |
+| Wood-look porcelain tile | Tower apartments | Long planks, pale oak to grey | Typical expat | Real hardwood boards | MEDIUM | M5 |
+| Polished marble floor | Villas | Large white or beige slabs, high gloss, sometimes water-jet patterns | Emirati and upmarket | Terracotta tiles | MEDIUM | M6 |
+| Sheer plus blackout curtains | Apartments | White sheer layer, grey or beige blackout layer, floor to ceiling | Typical | Venetian blinds | MEDIUM | M5 |
+| Date palm | Villas, parks, beaches | Tall trunk with clipped skirt, crown of grey-green fronds | All | Coconut palm leaning on a beach | HIGH | M7, M8 |
+| Bougainvillea | Villa boundary walls, pergolas | Magenta or orange bracts cascading over a sand-tone wall | Villas | Climbing roses, ivy | MEDIUM | M7 |
+| Foam or paper karak cup | Cafeterias, cars | Small white foam or paper cup, 7–8 cm | Everyday | Ceramic mug | HIGH | M14 |
 
 ## TRUSTED CONTENT
 
@@ -1123,3 +1308,28 @@ summaries (no full-page reads).
   added fried chicken and pointed grill at the mixed grill entry. No
   images kept. Hard rules moved to their own section so the app's
   excerpt keeps them.
+
+### Sources consulted — venue materials (M1–M23, 2026-10-26)
+- M1: Gulf News on gahwa and the dallah; Abu Dhabi DCT hospitality guide (English).
+- M2: UNESCO listing of Arabic coffee, via Gulf News (English).
+- M3: Centrepoint UAE kahwa cup and tray set listings; Al Muftah Center gold-rim glass set (English).
+- M4: Lulu Hypermarket UAE "Home Mate printed biodegradable sufra roll" listings (English, Arabic).
+- M5: dubizzle and Airbnb listings, JLT Lake View Tower and Me Do Re (English, 2025–26).
+- M6: Enness Global Dubai villa spotlight; Architizer and Architect Magazine (Algedra Dubai and Abu Dhabi villas); Inter-Lux Emirates Hills residence (English).
+- M7: Acacia Garden Center villa garden guides; Sandrini Green Architecture Dubai residence; Algedra Meydan villa (English).
+- M8: The National "Ask Ali: Emirati garden designs" (English).
+- M9: Gulf News "Why Karama remains a big draw"; Property Finder and dubizzle Karama listings (English).
+- M10: Sharjah Art Foundation "In Search of the Emirati Cafeteria"; Gulf News "An ode to Dubai's ubiquitous cafeterias" (English).
+- M11: Emirates Open Skies "Al Mallah, Dubai"; Gulf News and Visit Dubai shawarma guides (English).
+- M12: Gulf News iftar review Reem Al Bawadi; magicpin Sultan Al Arab (English).
+- M13: Halalxplorer Aaraamam; Frying Pan Adventures Lallumma's; Wanderlog Karama listings (English).
+- M14: Archello Plain Dessert (Jumeirah 1); Emirates "amongst few café"; Trend Hunter Studio EM; Dezeen Drop Coffee (English).
+- M15: Fact Magazine SLAW and More (Abu Dhabi) and WINDOW (Alserkal Avenue) (English).
+- M16: Expedia, Nomado and Lonely Planet on Kite Beach (English).
+- M18: Fernando's research import on Dubai burger joints (2026-10-26; source pages not named).
+- M19: Fernando's screenshots of Dubai burger spots (4 social-media images, 2026-10-26; read once, not kept).
+- M20: Fernando's café and restaurant screenshots (8 images, 2026-10-26; read once, not kept; people and text ignored).
+- M21: Architect Magazine (Algedra contemporary Dubai villa dining room); Design Middle East (SHH Mediterranean Dubai villa); Algedra Dubai villa project page.
+- M22: ELEVÉ by Section Interiors blog, "Designing the Formal Dining Room in a Dubai Villa" (English, 24 May 2026), full text pasted by Fernando. A furniture firm's guide: good for sizes and the upmarket register, not for the typical home.
+- M23: Fernando's Dubai restaurant screenshots (5 images, 2026-10-26: upscale Indian, Emirati modern café, heritage courtyard café, Emirati meal spread, modern Arabic grill; read once, not kept; people and text ignored).
+- M17: Gulf News winter parks and barbecue spots; Lonely Planet and Bayut on Dubai parks (English).

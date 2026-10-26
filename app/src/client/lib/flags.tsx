@@ -21,6 +21,7 @@ import flag_us from 'flag-icons/flags/4x3/us.svg';
 import flag_uy from 'flag-icons/flags/4x3/uy.svg';
 import flag_iq from 'flag-icons/flags/4x3/iq.svg';
 import flag_za from 'flag-icons/flags/4x3/za.svg';
+import flag_ae from 'flag-icons/flags/4x3/ae.svg';
 
 const FLAGS: Record<string, string> = {
   argentina: flag_ar,
@@ -43,6 +44,7 @@ const FLAGS: Record<string, string> = {
   united_states: flag_us,
   uruguay: flag_uy,
   iraq: flag_iq,
+  united_arab_emirates: flag_ae,
 };
 
 /** The flag image URL for a knowledge-base country id, if the app has one. */

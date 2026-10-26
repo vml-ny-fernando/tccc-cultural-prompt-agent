@@ -316,6 +316,9 @@ const FOCUS: Record<ContextFocus, RegExp> = {
 
 const ALWAYS = /never|avoid|taboo|file-wide rules|do not|don'?t/i;
 
+/** A country's hard staging rules go into every excerpt, ahead of everything else. */
+const HARD_RULES = /hard staging rules/i;
+
 /** Useful to every step; fills whatever budget the dish-specific sections leave. */
 const GENERAL =
   /general norms|visual|plating|vessel|scale|environment|staging|quick-reference|texture|model failure|wording|zone characterization/i;
@@ -331,6 +334,7 @@ function scoreSection(s: Section, words: string[], focus: RegExp): number {
   }
   if (focus.test(head)) score += 5;
   if (ALWAYS.test(s.heading)) score += 4;
+  if (HARD_RULES.test(s.heading)) score += 1000;
   if (GENERAL.test(head)) score += 2;
   return score;
 }

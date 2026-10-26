@@ -186,6 +186,12 @@ export const MARKETS: Market[] = [
     zones: ['Baghdad & Central', 'South & Basra', 'North & Mosul', 'Kurdistan', 'West & Anbar'],
   },
   {
+    name: 'United Arab Emirates',
+    country: 'united_arab_emirates',
+    structure: '5 zones',
+    zones: ['Dubai', 'Abu Dhabi', 'Al Ain & interior', 'Sharjah & Northern Emirates', 'East Coast'],
+  },
+  {
     name: 'China',
     country: 'china',
     structure: '8 zones',

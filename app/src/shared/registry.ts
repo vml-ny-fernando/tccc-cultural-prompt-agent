@@ -158,16 +158,15 @@ export const SKU_CATALOG: Array<SkuInfo & { shortName: string; markets?: string[
     appearance: "single-serve 450 mL contour bottle in clear PET, about three times as tall as it is wide. Top to bottom: a red ribbed screw cap with a smooth band at its top edge; a short clear neck with a thin support ring; a clear sloping shoulder; cola filling the bottle up to the shoulder with a thin line of foam at the top. A red wrap label sits high on the upper body, between two faint horizontal rings moulded into the plastic, and carries the white Coca-Cola script logo with ORIGINAL TASTE in white capitals beneath it and a narrow vertical white recycling note along its left edge. Below the label the body pinches in at a gentle contour waist and then widens again toward the base. The moulded lower body starts at a slanted edge that rises from one side to the other. On one side it has three staggered columns of round raised dimples running down the bottle; beside them sits a recessed panel shaped like the contour-bottle silhouette, its surface covered in a fine pebbled stipple, with a large embossed Coca-Cola script running diagonally upward across it, the same colour as the cola, read only by its highlights. The bottle ends in a five-lobed base with rounded feet",
   },
   // UAE, from Grip's OpenUSD digital twins (USD.zip, 2026-10-26). Sizes are measured from the twin geometry and the
-  // reference photos are renders of the twins (tablescape/sku-renders/). No markets filter yet, so they show for every
-  // country until the UAE knowledge base lands. GTIN-14 padded from Grip's GTIN-13 / GTIN-8.
+  // reference photos are renders of the twins (tablescape/sku-renders/). GTIN-14 padded from Grip's GTIN-13 / GTIN-8.
   {
     id: "coke-zero-uae-330ml-sleek-can", gtin: "05449000131805", shortName: "330 mL sleek can, Zero Sugar (UAE)",
-    displayName: "Coca-Cola Zero Sugar 330 mL sleek can", package: "can", volumeMl: 330, heightM: 0.149, radiusM: 0.02865,
+    displayName: "Coca-Cola Zero Sugar 330 mL sleek can", package: "can", volumeMl: 330, heightM: 0.149, radiusM: 0.02865, markets: ["united_arab_emirates"],
     appearance: "slim, tall red aluminium sleek can, about two and a half times as tall as it is wide (14.9 cm tall, 5.7 cm across), with a straight body, a short tapered silver neck and a brushed silver lid with a closed ring-pull tab; the large black Coca-Cola script logo wraps around the red body with ZERO SUGAR in black capitals beneath it",
   },
   {
     id: "coke-zero-uae-290ml-glass", gtin: "00000054007659", shortName: "290 mL glass bottle, Zero Sugar (UAE)",
-    displayName: "Coca-Cola Zero Sugar 290 mL contour glass bottle", package: "contour-glass-bottle", volumeMl: 290, heightM: 0.204, radiusM: 0.0294,
+    displayName: "Coca-Cola Zero Sugar 290 mL contour glass bottle", package: "contour-glass-bottle", volumeMl: 290, heightM: 0.204, radiusM: 0.0294, markets: ["united_arab_emirates"],
     appearance: "clear glass bottle in the classic contour shape, 20.4 cm tall and 5.9 cm across at its widest, with a pinched waist low on the body and a black crown cap; filled to the neck with dark cola that glows red-amber where light passes through, a thin ring of light foam at the surface and fine bubbles clinging to the glass, clear empty glass in the neck above it; a red label band around the upper body carries the black Coca-Cola script logo with ZERO SUGAR in black capitals beneath it",
   },
   // Retired provisional sizes (coca-cola-guidelines.md §4.3), hidden from the brief.

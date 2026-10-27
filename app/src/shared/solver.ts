@@ -1823,8 +1823,10 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
         want.set(it.label, clock(m2, facing2, 9, r1 + 0.03 + half));
         break;
       case "sku":
-        // A shared large bottle stands between the two, in front of the far plate; a single serve at 3 o'clock.
-        want.set(it.label, sharedBottle ? { x: mid.x + 0.1, d: mid.d - 0.05 } : clock(m1, facing1, 2.5, reach));
+        // A shared large bottle stands between the two, in front of the far plate. A single serve
+        // stands at 4 o'clock from PERSON_1's plate, toward the camera and clear of their arm
+        // (Fernando, 2026-10-27).
+        want.set(it.label, sharedBottle ? { x: mid.x + 0.1, d: mid.d - 0.05 } : clock(m1, facing1, 4, reach + 0.08));
         break;
       case "glass":
         want.set(it.label, sharedBottle ? clock(m1, facing1, 2.5, reach) : clock(m1, facing1, 3.5, reach));
@@ -1904,8 +1906,10 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
   };
   const [s1, s2] = seats as [Seat, Seat];
   let best: { cam: CameraParams; score: number } | null = null;
-  for (const yaw of [0, -5, -10, 5]) {
-    for (let tx = -0.1; tx <= 0.3 + 1e-9; tx += 0.05) {
+  // The table at an angle (Fernando, 2026-10-27): the most turned camera that frames the shot wins.
+  for (const yaw of [30, -30, 25, -25, 20, -20, 15, -15, 10, -10, 0]) {
+    if (best) break;
+    for (let tx = -0.4; tx <= 0.4 + 1e-9; tx += 0.05) {
       for (let ty = -0.2; ty <= 0.4 + 1e-9; ty += 0.05) {
         for (let dist = 0.8; dist <= 4; dist *= 1.03) {
           const cam = yawedCamera(focal, pitch, yaw, tx, ty, D / 2, dist);
@@ -1927,8 +1931,8 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
             head1 = at(proj, s1, NOSE);
           if (shoulder1.x < 0.0 || shoulder1.x > 0.22 || shoulder1.depth >= shoulder2.depth) continue;
           if (head1.x + 0.08 > Math.min(...heroIdx.filter((i) => !placed[i]!.heldBy).map((i) => boxes[i]!.x0))) continue;
-          // The table fills the bottom of the frame.
-          if (Math.min(...boxes.map((b) => b.y0)) > 0.35) continue;
+          // The table fills the bottom of the frame and the food sits low in it, no empty foreground.
+          if (Math.min(...boxes.map((b) => b.y0)) > 0.35 || u.y0 > 0.2) continue;
           const score = -dist - 0.5 * Math.abs(nose2.y - 1.05) - 0.3 * Math.abs(shoulder1.x - 0.12);
           if (!best || score > best.score) best = { cam, score };
           break;

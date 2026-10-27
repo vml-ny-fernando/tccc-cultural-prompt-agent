@@ -224,6 +224,12 @@ export interface SceneSpec {
      * "across" facing each other, PERSON_1 in the near-left foreground seen over the shoulder.
      */
     seating?: "corner" | "across";
+    /**
+     * One person at the table (party "1"): "facing" sits across the table facing the camera, face
+     * cropped; "shoulder" sits in the near-left foreground seen from behind; "hands" shows only
+     * their forearms and hands reaching in. Unset = nobody at the table.
+     */
+    solo?: "facing" | "shoulder" | "hands";
   };
   /** depth: a depth_of_field preset id (camera-options.json); unset means the default. */
   camera: { look: string; angle: string; depth?: string };
@@ -320,5 +326,7 @@ export interface Blueprint {
     pose?: string;
     /** Seated layouts: "across" when the two face each other (over the shoulder); unset at the corner. */
     seating?: "across";
+    /** One-person layouts: how the one person shows (see SceneSpec scene.solo). */
+    solo?: "facing" | "shoulder" | "hands";
   };
 }

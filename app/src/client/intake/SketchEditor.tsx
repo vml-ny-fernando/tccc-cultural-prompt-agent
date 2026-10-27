@@ -4,7 +4,8 @@
 // on a hidden grid of real tabletop points; points that would hang off the table,
 // crowd another item, leave the frame or hide the Coca-Cola product are closed
 // (shared/layoutEdit.ts), and a drop with nowhere open nearby slides back with the
-// reason. Saving hands back the new spots; the step turns them into a new
+// reason. Seated people and the drink in a person's hand hold the pose and don't
+// move. Saving hands back the new spots; the step turns them into a new
 // arrangement and redraws the sketch from it.
 
 import { RotateCcw, Trash2, Undo2 } from 'lucide-react';
@@ -12,7 +13,7 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointer
 import { Dialog, Heading, Modal } from 'react-aria-components';
 import * as THREE from 'three';
 
-import { EditRules, editedBlueprint, isEdited, placementOf, removable, type Placement, type Spot } from '../../shared/layoutEdit.ts';
+import { EditRules, editedBlueprint, isEdited, movable, placementOf, removable, type Placement, type Spot } from '../../shared/layoutEdit.ts';
 import type { LightingPreset } from '../../shared/rules.ts';
 import type { Blueprint, Primitive, SceneSpec } from '../../shared/types.ts';
 import { renderSketch, type Sketch } from '../lib/renderProxy.ts';
@@ -134,6 +135,7 @@ export function SketchEditor({
     setMessage(null);
     if (!id || !place[id]) return;
     const p = rules.item(id);
+    if (!movable(p)) return;
     const plane = p.dimensions.height / 2;
     const grab = tableAt(e, plane);
     if (!grab) return;
@@ -338,6 +340,7 @@ export function SketchEditor({
           <p className={styles.lede}>
             Your layout in outline, through the photo's camera. Drag an item to move it; it lands on the nearest spot with room for it. Select an item and
             press Delete to take it off the table. The Coca-Cola product and the main dish stay in every scene.
+            {blueprint.primitives.some((p) => p.role === 'person') && ' The people keep their pose and the drink in their hand; everything else moves around them, clear of their hands.'}
           </p>
         </div>
 
@@ -357,7 +360,8 @@ export function SketchEditor({
               !drag?.moved &&
               shown.primitives.map((p, i) => {
                 const a = sketch.anchors[i];
-                if (!a) return null;
+                // The people are named on Review the Sketch; here they're only what the rest moves around.
+                if (!a || p.role === 'person') return null;
                 return (
                   <button
                     key={p.id}
@@ -396,7 +400,7 @@ export function SketchEditor({
               ) : sel ? (
                 <span>
                   <strong>{sel.component_name}</strong>
-                  {removable(sel) ? '' : ' stays in every scene. You can move it.'}
+                  {!movable(sel) ? (sel.held_by ? ' stays in the hand that holds it.' : ' holds the pose you picked.') : removable(sel) ? '' : ' stays in every scene. You can move it.'}
                 </span>
               ) : (
                 <span className={styles.muted}>Select or drag an item.</span>

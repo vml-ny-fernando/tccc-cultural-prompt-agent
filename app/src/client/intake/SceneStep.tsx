@@ -212,8 +212,8 @@ export function SceneStep({
           <div className={styles.hint}>
             {scene.seated
               ? scene.seating === 'across'
-                ? 'They face each other across the table, seen over the first person\'s shoulder. Pick their pose below; you describe who they are and what they wear on Review the Sketch.'
-                : 'They sit at a corner of the table, at a right angle to each other. Pick their pose below; you describe who they are and what they wear on Review the Sketch.'
+                ? 'They face each other across the table, seen over the first person\'s shoulder. Pick their moment below; you describe who they are and what they wear on Review the Sketch.'
+                : 'They sit at a corner of the table, at a right angle to each other. Pick their moment below; you describe who they are and what they wear on Review the Sketch.'
               : 'The place settings show who the meal is for; nobody appears at the table.'}
           </div>
         </div>
@@ -233,7 +233,7 @@ export function SceneStep({
       {scene.seated && (
         <div className={`${styles.field} ${styles.poseField}`}>
           <Select
-            label="Pose"
+            label="Moment"
             value={poseById(scene.pose).id}
             onChange={(pose) => update({ pose })}
             options={POSES.map((p) => ({ id: p.id, label: p.label }))}

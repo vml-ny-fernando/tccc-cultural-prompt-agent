@@ -5,7 +5,7 @@
 // §3-§7 and coca-cola-guidelines.md §4; composition rules follow
 // docs/tablescape/PLAN.md §5.
 
-import { heldLabel, poseById, poseRole, sideToward, toWorld, type PersonId } from "./poses";
+import { heldLabel, holdingHand, poseById, poseRole, sideToward, toWorld, type PersonId } from "./poses";
 import { ASPECT, clipConvex, fovFromFocal, makeCameraParams, overlapArea, polyArea, Projector, rectPoly, screenBox, silhouette, type Poly, type ScreenBox } from "./camera";
 import { bottleClearance, footprintRadius, SURFACES, type ProxyDef } from "./registry";
 import { angleById, depthById, lookById } from "./rules";
@@ -1586,7 +1586,8 @@ function solveSeatedCorner(spec: SceneSpec, items: ItemSpec[], side: -1 | 1, bot
     const self = { x: s.x, d: s.d, yawDeg: s.yaw };
     const sx = sideToward(self, seats.find((o) => o.id !== s.id)!);
     // A little in front of the palm, so the fingers wrap around it.
-    const hand = toWorld(self, [pp.near.hand[0], pp.near.hand[1], pp.near.hand[2] - 0.03], sx);
+    const grip = holdingHand(pp);
+    const hand = toWorld(self, [grip.hand[0], grip.hand[1], grip.hand[2] - 0.03], (sx * grip.side) as 1 | -1);
     const h = drink.item.def.height + drink.item.extraHeight;
     const base = hand.y - SEAT_DROP - 0.4 * h; // the hand grips it a little below the middle
     drink.x = hand.x;
@@ -1886,7 +1887,8 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
     if (!pp || !drink) continue;
     const self = { x: s.x, d: s.d, yawDeg: s.yaw };
     const sx = sideToward(self, seats.find((o) => o.id !== s.id)!);
-    const hand = toWorld(self, [pp.near.hand[0], pp.near.hand[1], pp.near.hand[2] - 0.03], sx);
+    const grip = holdingHand(pp);
+    const hand = toWorld(self, [grip.hand[0], grip.hand[1], grip.hand[2] - 0.03], (sx * grip.side) as 1 | -1);
     const h = drink.item.def.height + drink.item.extraHeight;
     const base = hand.y - SEAT_DROP - 0.4 * h;
     drink.x = hand.x;

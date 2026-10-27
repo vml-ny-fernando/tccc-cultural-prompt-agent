@@ -1,8 +1,9 @@
-// Poses for the two seated people (staging, 2026-10-15). Fernando's rule: at least one person
-// holds the Coca-Cola product (a glass for a large SKU, the bottle or can itself for a small
-// one), and every pose is casual. The art director picks a pose before the layout is drawn;
-// the solver puts the held drink in the hand, the proxy draws the arms, and the sketch and
-// photo prompts describe the same pose in words.
+// Moments for the two seated people (Fernando, 2026-10-27; first built as poses on staging,
+// 2026-10-15). Every moment is candid: both people are caught mid-action, talking, laughing,
+// reaching, passing or eating, never neutral, limp or posed like stock photography. At least one
+// person holds their Coca-Cola (a glass for a large SKU, the bottle or can itself for a small one).
+// The art director picks a moment before the layout is drawn; the solver puts the held drink in the
+// hand, the proxy draws the arms, and the sketch and photo prompts describe the same moment in words.
 
 import { isLargeSku } from "./rules";
 import type { Blueprint, Primitive, SceneSpec } from "./types";
@@ -23,8 +24,9 @@ export interface PersonPose {
   near: Arm;
   /** The other hand. */
   far: Arm;
-  /** The near hand holds this person's own Coca-Cola drink. */
+  /** This person holds their own Coca-Cola drink, in the near hand unless `holdWith` says far. */
   holds: boolean;
+  holdWith?: "far";
   /** The pose in words; {drink} becomes what they hold. */
   text: string;
 }
@@ -42,95 +44,131 @@ const T = 0.475;
 const REST: Arm = { elbow: [0.2, T, -0.36], hand: [0.1, T, -0.58] };
 const IN = -0.18;
 
-/** A hand holding a fork just above the plate, mid-meal (never lifted to the mouth). */
-const FORK: Arm = { elbow: [0.2, T, -0.34], hand: [0.1, T + 0.07, -0.6] };
+/** A hand wrapped around a drink standing on the table. */
+const AROUND_DRINK: Arm = { elbow: [0.22, T, -0.34], hand: [0.12, T + 0.05, -0.55] };
+/** A drink held loosely just above the table. */
+const DRINK_UP: Arm = { elbow: [0.22, T, -0.36], hand: [0.15, T + 0.1, -0.54] };
+/** A hand raised high mid-gesture, telling a story. */
+const STORY: Arm = { elbow: [0.26, T + 0.02, -0.28], hand: [0.28, T + 0.22, -0.42] };
 /** A hand open mid-gesture while talking. */
 const GESTURE: Arm = { elbow: [0.24, T, -0.3], hand: [0.24, T + 0.13, -0.48] };
+/** A hand reaching into their own plate for a bite. */
+const REACH_PLATE: Arm = { elbow: [0.18, T + 0.02, -0.38], hand: [0.06, T + 0.04, -0.64] };
+/** A hand flat on the table, leaning back laughing. */
+const PALM_DOWN: Arm = { elbow: [0.24, T, -0.3], hand: [0.22, T, -0.46] };
+/** An arm stretched across the table, passing or taking a dish. */
+const ACROSS_TABLE: Arm = { elbow: [0.16, T + 0.02, -0.46], hand: [0.06, T + 0.03, -0.78] };
+/** Food held up in the hand, about to take a bite, not yet at the mouth. */
+const BITE: Arm = { elbow: [0.2, T + 0.02, -0.3], hand: [0.08, T + 0.2, -0.4] };
+/** Raising a drink toward the other person. */
+const RAISE: Arm = { elbow: [0.24, T + 0.02, -0.34], hand: [0.14, T + 0.14, -0.6] };
 
 // Modelled on the brand's meal photography (Fernando's references, 2026-10-16): faces cropped out,
 // the story told by hands around the food and the Coca-Cola.
 export const POSES: Pose[] = [
   {
-    id: "drink-in-hand",
-    label: "Drink in hand, chatting",
-    detail: "One person holds their drink loosely mid-conversation; the other has a fork over their plate.",
+    id: "telling-a-story",
+    label: "Telling a story",
+    detail: "One person tells a story mid-sentence, one hand up; the other laughs and reaches into their food.",
     people: {
       PERSON_1: {
-        lean: IN,
-        near: { elbow: [0.22, T, -0.36], hand: [0.15, T + 0.1, -0.54] },
-        far: REST,
+        lean: IN + 0.06,
+        near: AROUND_DRINK,
+        far: STORY,
         holds: true,
-        text: "leaning in with one elbow on the table, holding {drink} loosely in the hand nearer the other person, just above the table, the other forearm resting on the table, mid-conversation",
+        text: "mid-sentence telling a story, animated, one hand raised mid-gesture, the other hand wrapped loosely around {drink} on the table",
       },
       PERSON_2: {
         lean: IN,
         near: REST,
-        far: FORK,
+        far: REACH_PLATE,
         holds: false,
-        text: "leaning in, one hand holding a fork just above their own plate mid-meal, the other forearm resting on the table, listening",
+        text: "laughing at the story, leaning in and reaching into their own plate for a bite, the other forearm resting on the table",
       },
     },
   },
   {
-    id: "hand-on-drink",
-    label: "Hand on the bottle",
-    detail: "One person rests a hand around their drink on the table while talking; the other reaches into their meal.",
+    id: "sharing-a-laugh",
+    label: "Sharing a laugh",
+    detail: "One person leans back laughing, a hand flat on the table; the other laughs too, drink in hand.",
     people: {
       PERSON_1: {
+        lean: 0.06,
+        near: PALM_DOWN,
+        far: REST,
+        holds: false,
+        text: "leaning back mid-laugh, one hand flat on the table, the other resting near their plate",
+      },
+      PERSON_2: {
         lean: IN,
-        near: { elbow: [0.22, T, -0.34], hand: [0.12, T + 0.05, -0.55] },
+        near: DRINK_UP,
         far: GESTURE,
         holds: true,
-        text: "leaning in, one hand resting loosely around {drink} as it stands on the table, the other hand open mid-gesture as they talk",
-      },
-      PERSON_2: {
-        lean: IN,
-        near: REST,
-        far: FORK,
-        holds: false,
-        text: "leaning in, one hand holding a fork just above their own plate, the other forearm resting on the table",
+        text: "laughing along, holding {drink} loosely just above the table in the hand nearer the other person, the other hand open mid-gesture",
       },
     },
   },
   {
-    id: "sharing-the-meal",
-    label: "Sharing the meal",
-    detail: "Both lean in over the food; one holds their drink just above the table, the other serves themselves.",
+    id: "passing-a-dish",
+    label: "Passing a dish",
+    detail: "One person slides a side dish across the table; the other reaches to take it, their drink in the other hand.",
     people: {
       PERSON_1: {
         lean: IN - 0.04,
-        near: FORK,
+        near: ACROSS_TABLE,
         far: REST,
         holds: false,
-        text: "leaning in over the table, one hand holding a fork just above their own plate as they eat, the other forearm resting on the table",
+        text: "leaning in and sliding a side dish across the table toward the other person, mid-sentence",
+      },
+      PERSON_2: {
+        lean: IN - 0.04,
+        near: ACROSS_TABLE,
+        far: AROUND_DRINK,
+        holds: true,
+        holdWith: "far",
+        text: "smiling and reaching across with one hand to take the dish, the other hand wrapped loosely around {drink} on the table",
+      },
+    },
+  },
+  {
+    id: "digging-in",
+    label: "Digging in",
+    detail: "One person holds up some food, about to take a bite; the other talks about it, drink in hand.",
+    people: {
+      PERSON_1: {
+        lean: IN,
+        near: BITE,
+        far: REST,
+        holds: false,
+        text: "holding a piece of their food up in one hand, about to take a bite but not yet at the mouth, the other forearm resting on the table",
       },
       PERSON_2: {
         lean: IN,
-        near: { elbow: [0.22, T, -0.34], hand: [0.15, T + 0.08, -0.54] },
-        far: FORK,
+        near: DRINK_UP,
+        far: GESTURE,
         holds: true,
-        text: "leaning in, holding {drink} loosely just above the table in the hand nearer the other person, the other hand holding a fork over their own plate",
+        text: "mid-sentence, gesturing at the food with one open hand, holding {drink} loosely just above the table in the other",
       },
     },
   },
   {
     id: "cheers",
-    label: "Cheers over the corner",
-    detail: "Both raise their drinks toward each other over the corner of the table, about to clink.",
+    label: "Cheers",
+    detail: "Both raise their drinks toward each other over the table, about to clink.",
     people: {
       PERSON_1: {
         lean: IN,
-        near: { elbow: [0.24, T + 0.02, -0.34], hand: [0.14, T + 0.14, -0.6] },
+        near: RAISE,
         far: REST,
         holds: true,
-        text: "leaning in, raising {drink} a little above the table toward the other person, over the corner of the table, about to clink",
+        text: "leaning in and smiling, raising {drink} a little above the table toward the other person, about to clink",
       },
       PERSON_2: {
         lean: IN,
-        near: { elbow: [0.24, T + 0.02, -0.34], hand: [0.14, T + 0.14, -0.6] },
+        near: RAISE,
         far: REST,
         holds: true,
-        text: "leaning in, raising {drink} a little above the table toward the other person, over the corner of the table, about to clink",
+        text: "leaning in and smiling, raising {drink} a little above the table toward the other person, about to clink",
       },
     },
   },
@@ -184,6 +222,11 @@ export function poseRole(id: string, seating: "across" | "corner" | undefined, p
   const swap = seating === "across" && pose.people.PERSON_1.holds && !pose.people.PERSON_2.holds;
   if (!swap) return id as PersonId;
   return id === "PERSON_1" ? "PERSON_2" : "PERSON_1";
+}
+
+/** The hand that holds this person's drink, in their own frame, and which side it is on (near = +1). */
+export function holdingHand(pp: PersonPose): { hand: V3; side: 1 | -1 } {
+  return pp.holdWith === "far" ? { hand: pp.far.hand, side: -1 } : { hand: pp.near.hand, side: 1 };
 }
 
 export function poseOf(bp: Blueprint, p: Primitive): PersonPose {

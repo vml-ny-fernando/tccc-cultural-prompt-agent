@@ -215,7 +215,7 @@ export interface SceneSpec {
     venueType?: string;
     /** The operator's own description of the environment. */
     environmentNote?: string;
-    /** Two people sit at the table (party "2" only): the seated-corner layout with posed figures. */
+    /** People sit at the table: two (party "2", posed figures) or one (party "1", see solo). */
     seated?: boolean;
     /** How the seated people sit (see shared/poses.ts); at least one holds their Coca-Cola. */
     pose?: string;
@@ -229,7 +229,7 @@ export interface SceneSpec {
      * cropped; "shoulder" sits in the near-left foreground seen from behind; "hands" shows only
      * their forearms and hands reaching in. Unset = nobody at the table.
      */
-    solo?: "facing" | "shoulder" | "hands";
+    solo?: "facing" | "hands";
   };
   /** depth: a depth_of_field preset id (camera-options.json); unset means the default. */
   camera: { look: string; angle: string; depth?: string };
@@ -327,6 +327,6 @@ export interface Blueprint {
     /** Seated layouts: "across" when the two face each other (over the shoulder); unset at the corner. */
     seating?: "across";
     /** One-person layouts: how the one person shows (see SceneSpec scene.solo). */
-    solo?: "facing" | "shoulder" | "hands";
+    solo?: "facing" | "hands";
   };
 }

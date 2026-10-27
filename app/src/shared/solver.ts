@@ -50,7 +50,7 @@ export const ARCHETYPE_INFO: Record<Archetype, { name: string; idea: string }> =
   corner: { name: "Corner Seating", idea: "two place settings at a right angle around a far corner of the table, seen from the opposite corner" },
   "seated-corner": { name: "Seated Corner", idea: "two people sit at a right angle around a far corner of the table, seen from the opposite corner" },
   "seated-across": { name: "Over the Shoulder", idea: "two people face each other across the table, seen over the near person's shoulder" },
-  "seated-solo": { name: "One at the Table", idea: "one person at the table, mid-meal: across from the camera, seen from behind, or only their hands" },
+  "seated-solo": { name: "One at the Table", idea: "one person at the table, mid-meal: across from the camera, or only their hands" },
 };
 
 export interface LayoutOption {
@@ -1046,7 +1046,7 @@ export function signature(spec: SceneSpec): string {
     spec.camera.look,
     spec.camera.angle,
     `surface:${spec.scene.surface}`,
-    `settings:${spec.scene.party === "2" ? 2 : 1}${spec.scene.seated ? `+seated:${spec.scene.pose ?? ""}` : ""}`,
+    `settings:${spec.scene.party === "2" ? 2 : 1}${spec.scene.seated ? `+seated:${spec.scene.solo ?? spec.scene.pose ?? ""}` : ""}`,
     `sku:${spec.sku.id}`,
     `glass:${spec.sku.glass ? "Y" : "N"}`,
     `main:${spec.entree.plating.vessel}(${spec.entree.prep.massClass})${spec.entree.plating.service === "shared" ? "+shared" : ""}`,
@@ -2005,15 +2005,13 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
 // ---------------------------------------------------------------------------
 
 /**
- * One person at the table, mid-meal, in three versions:
+ * One person at the table, mid-meal, in two versions (Fernando picked these two, 2026-10-27):
  * - "facing": across the table facing the camera, the top edge cropping the face between the chin
  *   and the nose; their plate in front of them, the Coca-Cola at their left (the camera's right) in hand.
- * - "shoulder": in the near-left foreground seen three-quarters from behind, as in Over the
- *   shoulder; their plate and drink beyond their shoulder.
- * - "hands": across the table like "facing", framed tighter so only their forearms and hands
- *   come into the frame from the top.
+ * - "hands": seated on the near side beside the camera, just out of frame, so only their hand and
+ *   forearm reach in from the right for the Coca-Cola.
  */
-function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulder" | "hands"): LayoutOption | string {
+function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "hands"): LayoutOption | string {
   const archetype: Archetype = "seated-solo";
   const surf = SURFACES[spec.scene.surface];
   const W = surf.width,
@@ -2021,17 +2019,13 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulde
   const main = items.find((i) => i.kind === "main");
   if (!main) return "no entree to seat around";
   const r1 = footprintRadius(main.def);
-  // Behind: seen from behind at the near-left. Hands: seated at the near-right, beside the camera,
-  // so only their arm reaches into the frame.
-  const behind = mode === "shoulder" || mode === "hands";
-  const seat: Seat =
-    mode === "shoulder"
-      ? { id: "PERSON_1", name: "the diner, seated on the near side with their back to the camera", x: -0.45, d: -SEAT_BACK, yaw: 0 }
-      : mode === "hands"
-        ? { id: "PERSON_1", name: "the diner, seated on the near side just out of frame, only their hand and forearm in the picture", x: 0.5, d: -SEAT_BACK, yaw: 0 }
-        : { id: "PERSON_1", name: "the diner, seated across the table facing the camera", x: 0, d: D + SEAT_BACK, yaw: 180 };
+  // Hands: seated at the near-right, beside the camera, so only their arm reaches into the frame.
+  const behind = mode === "hands";
+  const seat: Seat = behind
+    ? { id: "PERSON_1", name: "the diner, seated on the near side just out of frame, only their hand and forearm in the picture", x: 0.5, d: -SEAT_BACK, yaw: 0 }
+    : { id: "PERSON_1", name: "the diner, seated across the table facing the camera", x: 0, d: D + SEAT_BACK, yaw: 180 };
   const facing = (behind ? [0, 1] : [0, -1]) as readonly [number, number];
-  const m = mode === "shoulder" ? { x: seat.x + 0.12, d: r1 + 0.07 } : mode === "hands" ? { x: -0.1, d: r1 + 0.1 } : { x: 0, d: D - r1 - 0.07 };
+  const m = behind ? { x: -0.1, d: r1 + 0.1 } : { x: 0, d: D - r1 - 0.07 };
   const clock = (plate: Anchor, hours: number, dist: number): Anchor => {
     const t = (hours * Math.PI) / 6;
     const right = [facing[1], -facing[0]];
@@ -2048,7 +2042,7 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulde
     const half = (it.def.width ?? 2 * (it.def.radius ?? 0.05)) / 2;
     switch (it.kind) {
       case "sku":
-        // Facing: at their left, the camera's right, in their hand. Behind: toward the camera at 4 o'clock.
+        // Facing: at their left, the camera's right, in their hand. Hands: toward the camera at 4 o'clock.
         want.set(it.label, behind ? clock(m, 4, reach + 0.08) : clock(m, 9, reach));
         break;
       case "glass":
@@ -2082,7 +2076,7 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulde
   }
   const P1 = placed.find((p) => p.item.label === "MAIN")!;
 
-  const pose = poseById(mode === "shoulder" ? "solo-from-behind" : mode === "hands" ? "solo-hands" : "solo-enjoying");
+  const pose = poseById(behind ? "solo-hands" : "solo-enjoying");
   const pp = pose.people.PERSON_1;
   if (pp.holds) {
     const label = heldLabel(spec, placed.map((p) => p.item.label), "PERSON_1");
@@ -2120,9 +2114,8 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulde
         for (let dist = 0.6; dist <= 4; dist *= 1.03) {
           const cam = yawedCamera(focal, pitch, yaw, tx, ty, D / 2, dist);
           const [cx, , cz] = cam.position;
-          if (mode === "shoulder" && (-cz > seat.d - 0.1 || cx < seat.x + 0.3)) continue;
-          if (mode === "hands" && (-cz > -0.05 || cx > seat.x - 0.25)) continue;
-          if (!behind && -cz > -0.05) continue; // in front of the table
+          if (behind && cx > seat.x - 0.25) continue;
+          if (-cz > -0.05) continue; // in front of the table
           const proj = new Projector(cam);
           const boxes = placed.map((p) => screenBox(proj, p.item.def, p.x, p.d, p.yaw, p.elev ?? 0, p.item.extraHeight));
           const u = unionBox(heroIdx.map((i) => boxes[i]!));
@@ -2132,7 +2125,7 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulde
           if (mode === "facing") {
             // Face cropped between the chin and the nose, shoulders in frame, near the middle.
             if (nose.y < 1.01 || shoulder.y > 0.99 || shoulder.x < 0.3 || shoulder.x > 0.7) continue;
-          } else if (mode === "hands") {
+          } else {
             // The body off the frame's right edge (or behind the camera); the reaching hand well inside it.
             const reach = handAt(proj, pp.far.hand, -1);
             // A body point is out of the picture when it is behind the camera or off the right edge.
@@ -2143,10 +2136,6 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulde
               return !ahead || proj.project(w.x, w.y - SEAT_DROP, w.d).x > 1.05;
             };
             if (!out(SHOULDER) || !out(NOSE) || reach.x > 0.85 || reach.x < 0.3 || reach.y < 0.1 || reach.y > 0.9) continue;
-          } else {
-            const head = at(proj, NOSE);
-            if (shoulder.x < 0 || shoulder.x > 0.22) continue;
-            if (head.x + 0.08 > Math.min(...heroIdx.filter((i) => !placed[i]!.heldBy).map((i) => boxes[i]!.x0))) continue;
           }
           if (Math.min(...boxes.map((b) => b.y0)) > 0.35 || u.y0 > 0.25) continue;
           const score = -dist - (mode === "facing" ? 0.5 * Math.abs(nose.y - 1.05) : 0);
@@ -2156,7 +2145,7 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "shoulde
       }
     }
   }
-  if (!best) return `no camera frames one person ${mode === "shoulder" ? "over their shoulder" : mode === "hands" ? "with only their hands in the frame" : "across the table with the face cropped at the top"}`;
+  if (!best) return `no camera frames one person ${behind ? "with only their hands in the frame" : "across the table with the face cropped at the top"}`;
   const cam = best.cam;
   const { boxes, proj } = project(placed, cam);
   const sils = new Map<string, Poly[]>();

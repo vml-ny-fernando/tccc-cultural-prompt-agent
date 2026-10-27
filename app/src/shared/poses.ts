@@ -193,14 +193,6 @@ const SOLO_ENJOYING: PersonPose = {
   holdWith: "far",
   text: "mid-meal, leaning in and reaching into their plate for the next bite with one hand, the other hand wrapped loosely around {drink} on the table, smiling, caught in the moment",
 };
-/** Seen from behind: their drink stays on the table, label to the camera. */
-const SOLO_FROM_BEHIND: PersonPose = {
-  lean: IN,
-  near: REACH_PLATE,
-  far: REST,
-  holds: false,
-  text: "mid-meal, leaning in and reaching into their plate for the next bite, the other forearm resting on the table, relaxed and enjoying it",
-};
 /** Only hands in the frame: one hand brings their drink in toward the plate; the body stays out of frame. */
 const SOLO_HANDS: PersonPose = {
   lean: IN,
@@ -213,7 +205,6 @@ const SOLO_HANDS: PersonPose = {
 export const SOLO_POSES: Pose[] = [
   { id: "solo-hands", label: "Hands in frame", detail: "A hand brings their drink in beside the plate.", people: { PERSON_1: SOLO_HANDS, PERSON_2: SOLO_HANDS } },
   { id: "solo-enjoying", label: "Enjoying the meal", detail: "Reaching into their food, a hand around their drink.", people: { PERSON_1: SOLO_ENJOYING, PERSON_2: SOLO_ENJOYING } },
-  { id: "solo-from-behind", label: "Enjoying the meal", detail: "Reaching into their food, seen from behind.", people: { PERSON_1: SOLO_FROM_BEHIND, PERSON_2: SOLO_FROM_BEHIND } },
 ];
 
 export function poseById(id: string | undefined): Pose {

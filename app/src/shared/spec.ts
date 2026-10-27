@@ -23,13 +23,13 @@ export interface Selections {
     surfaceText?: string;
     venueType?: string;
     environmentNote?: string;
-    /** People sit at the table (two people only, for now). */
+    /** People sit at the table: one (see solo) or two. */
     seated?: boolean;
     pose?: string;
     /** Where the two seated people sit; the corner unless "across" (over the shoulder). */
     seating?: "corner" | "across";
-    /** One person at the table (party "1"): how they show; unset = nobody at the table. */
-    solo?: "facing" | "shoulder" | "hands";
+    /** One person at the table (party "1", seated): across the table facing the camera, or only their hands. */
+    solo?: "facing" | "hands";
   };
   glass?: boolean;
   camera?: { look: string; angle: string };
@@ -102,7 +102,8 @@ export function buildSpec(brief: IntakeInput & { countryLabel?: string }, sel: S
       venueType: place?.id,
       environmentNote: scene.environmentNote?.trim() || undefined,
       ...(scene.seated && scene.party === "2" ? { seated: true, pose: scene.pose ?? DEFAULT_POSE, ...(scene.seating === "across" ? { seating: "across" as const } : {}) } : {}),
-      ...(scene.party === "1" && scene.solo ? { solo: scene.solo } : {}),
+      // One person at the table (Fernando, 2026-10-27): across the table, face cropped, or only their hands.
+      ...(scene.seated && scene.party === "1" ? { seated: true, solo: scene.solo === "hands" ? ("hands" as const) : ("facing" as const) } : {}),
     },
     camera: sel.camera,
     sku: { ...sku, glass: resolveGlass(sku, venue, sel.glass) },

@@ -6,7 +6,7 @@
 import { z } from "zod";
 import { BELL_GLASS, NAPKIN_SIZES, SURFACES, VESSELS, RECTANGULAR_TABLE_RULE, VESSEL_SHORT, napkinFoldedCm, skuProxy, vesselPhrase, withoutRoundTable } from "./registry";
 import { Projector } from "./camera";
-import { seatedPeopleRule, hasSeatedPeople, isOverShoulder, personText } from "./people";
+import { seatedPeopleRule, hasSeatedPeople, isOverShoulder, personText, soloMode } from "./people";
 import { BACKGROUND_PEOPLE_RULE, type LightingPreset, angleById, angleSentence, backgroundPerspectiveSentence, farEdgeSentence, depthById, glassRules, isLargeSku, lookById, lookSentence, selectLighting, skuLightSentence, withoutHands } from "./rules";
 import { sceneItems } from "./scene";
 import type { Blueprint, Primitive, SceneSpec, Vessel } from "./types";
@@ -190,7 +190,7 @@ function labelVessel(spec: SceneSpec, proxy: string, role: string, style?: strin
 function whereInFrame(bp: Blueprint, p: Primitive): string {
   const b = p.screen_bbox;
   const h = b ? ((b.x0 + b.x1) / 2 < 0.38 ? "left" : (b.x0 + b.x1) / 2 > 0.62 ? "right" : "centre") : "centre";
-  if (p.role === "person") return `seated at the table, on the ${h} of the frame`;
+  if (p.role === "person") return soloMode(bp) === "hands" ? "out of frame at the right; only their hand and forearm reach in" : `seated at the table, on the ${h} of the frame`;
   if (p.held_by) return `in ${p.held_by}'s hand, ${h === "centre" ? "centre of the frame" : `${h} of the frame`}`;
   const v = b ? ((b.y0 + b.y1) / 2 < 0.3 ? "lower" : (b.y0 + b.y1) / 2 > 0.55 ? "upper" : "middle") : "middle";
   const spot = h === "centre" ? `${v} centre of the frame` : `${v} ${h} of the frame`;
@@ -200,6 +200,8 @@ function whereInFrame(bp: Blueprint, p: Primitive): string {
     const plate = bp.primitives.find((q) => q.id === id);
     return people || !plate ? "" : ` ${edgePhrase(bp, plate)}`;
   };
+  // One person at the table: everything is theirs.
+  if (soloMode(bp)) return `${spot}${["main", "sku", "glass", "napkin-set"].includes(p.role) ? ", at PERSON_1's place" : ""}`;
   const whose = p.role.startsWith("partner-")
     ? `, at ${people ? "PERSON_2's" : "the second diner's"} place${at("MAIN_2")}`
     : p.role === "sku" && !bp.primitives.some((q) => q.role === "partner-sku")
@@ -368,7 +370,12 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
   const farEdge = farEdgeSentence(angleById(spec.camera.angle));
   const holders = bp.primitives.filter((p) => p.held_by).map((p) => p.held_by!);
   const holding = holders.length === 2 ? " Both people hold their own drink." : holders.length ? ` ${holders[0]} holds their own drink.` : "";
-  const serving = seated
+  const solo = soloMode(bp);
+  const serving = solo
+    ? (spec.sku.glass
+      ? `A ${spec.sku.displayName} with a branded bell-shaped Coca-Cola glass filled to the top beside PERSON_1's plate.`
+      : `A ${spec.sku.displayName} beside PERSON_1's plate, served as is, no glass.`) + holding
+    : seated
     ? (spec.sku.glass
       ? shared || spec.sku.volumeMl >= 1000
         ? `A ${spec.sku.displayName} stands in the foreground as the one shared bottle, fully visible with nothing in front of it, its label to the camera; each person has a Coca-Cola bell glass filled to the top at their place.`
@@ -397,7 +404,11 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     angleSentence: angleSentence(angleById(spec.camera.angle)),
     backgroundPerspective: backgroundPerspectiveSentence(angleById(spec.camera.angle)),
     viewSentence: cornerViewSentence(spec, bp),
-    framingSentence: isOverShoulder(bp)
+    framingSentence: solo === "hands"
+      ? "The camera looks across the table at one person's meal, low and close like the brand's meal photography: the food and the Coca-Cola products sit sharp in the frame, and PERSON_1's hand and forearm reach in from the right edge toward their drink, the rest of them out of frame."
+      : solo
+      ? "The camera looks across the table at one person mid-meal, low and close like the brand's meal photography: the food and the Coca-Cola products sit sharp in the front of the frame, and PERSON_1 sits just behind them facing the camera, the top edge of the frame cutting across them between the chin and the nose, so we see their shoulders, arms and hands but never their eyes."
+      : isOverShoulder(bp)
       ? "The camera looks over PERSON_1's shoulder across the table, low and close like the brand's meal photography: PERSON_1's back and shoulder frame the left foreground, soft; the food and the Coca-Cola products sit sharp in the middle of the frame; PERSON_2 sits across the table on the right, the top edge of the frame cutting across them between the chin and the nose, so we see their shoulders, arms and hands but never their eyes."
       : seated
       ? "The camera looks across the table toward one of its corners, low and close like the brand's meal photography: the food and the Coca-Cola products sit sharp in the front of the frame, and the corner of the table sits near the center. PERSON_1 sits along one side and PERSON_2 at the end, perpendicular to each other, just behind the food; the top edge of the frame cuts across both of them between the chin and the nose, so we see their shoulders, arms and hands but never their eyes."

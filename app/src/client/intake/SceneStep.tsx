@@ -40,6 +40,12 @@ const SEATING_OPTIONS: Array<{ value: 'corner' | 'across'; label: string }> = [
   { value: 'across', label: 'Over the shoulder' },
 ];
 
+// One person at the table (Fernando, 2026-10-27): across the table, face cropped, or only their hands.
+const SOLO_OPTIONS: Array<{ value: 'facing' | 'hands'; label: string }> = [
+  { value: 'facing', label: 'Across the table' },
+  { value: 'hands', label: 'Hands only' },
+];
+
 const PARTY_OPTIONS: Array<{ value: Scene['party']; label: string }> = [
   { value: '1', label: '1 person' },
   { value: '2', label: '2 people' },
@@ -133,6 +139,7 @@ export function SceneStep({
   }, [surfaceDecision]);
 
   const needSurface = scene.venue === 'on-the-go' && !scene.surface;
+  const solo = scene.party === '1';
 
   return (
     <section className={clearsNote ? noteStyles.withNote : undefined}>
@@ -206,20 +213,65 @@ export function SceneStep({
       {SCENE_LIMITS.seatedPeople && (
         <div className={styles.field}>
           <span className={styles.fieldLabel}>People at the table</span>
-          <Switch isSelected={!!scene.seated} onChange={(seated) => update(seated ? { seated, party: '2' } : { seated: false })}>
-            {scene.seated ? 'Yes, two people sit at the table' : 'No, the table is set but nobody sits at it'}
+          <Switch isSelected={!!scene.seated} onChange={(seated) => update(seated ? { seated } : { seated: false })}>
+            {scene.seated
+              ? solo
+                ? 'Yes, one person sits at the table'
+                : 'Yes, two people sit at the table'
+              : 'No, the table is set but nobody sits at it'}
           </Switch>
           <div className={styles.hint}>
             {scene.seated
-              ? scene.seating === 'across'
-                ? 'They face each other across the table, seen over the first person\'s shoulder. Pick their moment below; you describe who they are and what they wear on Review the Sketch.'
-                : 'They sit at a corner of the table, at a right angle to each other. Pick their moment below; you describe who they are and what they wear on Review the Sketch.'
+              ? solo
+                ? scene.solo === 'hands'
+                  ? 'Only their hand and forearm reach into the frame for their drink; the rest of them stays out of the picture. You describe who they are and what they wear on Review the Sketch.'
+                  : 'They sit across the table facing the camera, their face cropped by the top of the frame. You describe who they are and what they wear on Review the Sketch.'
+                : scene.seating === 'across'
+                  ? 'They face each other across the table, seen over the first person\'s shoulder. Pick their moment below; you describe who they are and what they wear on Review the Sketch.'
+                  : 'They sit at a corner of the table, at a right angle to each other. Pick their moment below; you describe who they are and what they wear on Review the Sketch.'
               : 'The place settings show who the meal is for; nobody appears at the table.'}
           </div>
         </div>
       )}
 
-      {scene.seated && (
+      <div className={styles.field}>
+        <SegmentedControl
+          label="People"
+          value={scene.party}
+          onChange={(v) => update({ party: v as Scene['party'] })}
+          options={PARTY_OPTIONS.map((o) => ({
+            ...o,
+            // Group and family layouts aren't built yet; two people are off on main (SCENE_LIMITS).
+            disabled: o.value === 'group' || o.value === 'family' || (o.value === '2' && !SCENE_LIMITS.twoDiners),
+          }))}
+        />
+        <div className={styles.hint}>
+          {SCENE_LIMITS.twoDiners
+            ? 'Group and family layouts come in a future build.'
+            : 'Every scene is set for one person for now; two people, groups and families come in a future build.'}
+        </div>
+      </div>
+
+      {scene.seated && solo && (
+        <div className={`${styles.field} ${styles.poseField}`}>
+          <SegmentedControl
+            label="View"
+            value={scene.solo ?? 'facing'}
+            onChange={(v) => update({ solo: v === 'hands' ? 'hands' : undefined })}
+            options={SOLO_OPTIONS}
+          />
+          <figure className={styles.pose}>
+            <img src={`/poses/solo/${scene.solo === 'hands' ? 'hands' : 'facing'}.png`} alt="Layout preview: one person at the table" width={480} height={270} />
+            <figcaption className={styles.hint}>
+              {scene.solo === 'hands'
+                ? 'A hand reaches in to set their Coca-Cola down beside the plate, label to the camera.'
+                : 'Reaching into their food with one hand, the other around their Coca-Cola: a glass for a large bottle, the bottle or can itself for a small one.'}
+            </figcaption>
+          </figure>
+        </div>
+      )}
+
+      {scene.seated && !solo && (
         <div className={styles.field}>
           <SegmentedControl
             label="Seating"
@@ -230,7 +282,7 @@ export function SceneStep({
         </div>
       )}
 
-      {scene.seated && (
+      {scene.seated && !solo && (
         <div className={`${styles.field} ${styles.poseField}`}>
           <Select
             label="Moment"
@@ -244,26 +296,6 @@ export function SceneStep({
           </figure>
         </div>
       )}
-
-      <div className={styles.field}>
-        <SegmentedControl
-          label="People"
-          value={scene.party}
-          onChange={(v) => update({ party: v as Scene['party'] })}
-          options={PARTY_OPTIONS.map((o) => ({
-            ...o,
-            // Group and family layouts aren't built yet; two people are off on main (SCENE_LIMITS), and seated people come as a pair.
-            disabled: o.value === 'group' || o.value === 'family' || (o.value === '2' && !SCENE_LIMITS.twoDiners) || (!!scene.seated && o.value === '1'),
-          }))}
-        />
-        <div className={styles.hint}>
-          {scene.seated
-            ? 'One seated person, groups and families come in a future build.'
-            : SCENE_LIMITS.twoDiners
-              ? 'Group and family layouts come in a future build.'
-              : 'Every scene is set for one person for now; two people, groups and families come in a future build.'}
-        </div>
-      </div>
 
       <div className={styles.field}>
         <label className={styles.fieldLabel}>

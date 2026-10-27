@@ -26,6 +26,11 @@ export function isOverShoulder(bp: Blueprint): boolean {
   return bp.layout_meta.seating === "across" && hasSeatedPeople(bp);
 }
 
+/** One person at the table (Fernando, 2026-10-27): across the table facing the camera, or only their hands. */
+export function soloMode(bp: Blueprint): "facing" | "hands" | null {
+  return hasSeatedPeople(bp) ? (bp.layout_meta.solo ?? null) : null;
+}
+
 /** What a person is when the art director hasn't said: an adult local to the market, dressed for the place. */
 export function defaultPersonDetails(spec: SceneSpec, id: string): PersonDetails {
   const place = spec.scene.venue === "restaurant" ? "a meal out" : spec.scene.venue === "home" ? "a relaxed meal at home" : "a casual meal on the go";
@@ -50,6 +55,7 @@ export function personDetails(spec: SceneSpec, p: Primitive): PersonDetails {
 function poseText(spec: SceneSpec, p: Primitive, bp: Blueprint): string {
   const other = bp.primitives.find((q) => q.role === "person" && q.id !== p.id);
   const pose = poseOf(bp, p);
+  const solo = soloMode(bp);
   const across = isOverShoulder(bp);
   const seat = across
     ? p.id === "PERSON_1"
@@ -61,6 +67,11 @@ function poseText(spec: SceneSpec, p: Primitive, bp: Blueprint): string {
   const plate = p.id === "PERSON_1" ? "MAIN" : "MAIN_2";
   const held = bp.primitives.find((q) => q.held_by === p.id);
   const doing = pose.text.replace("{drink}", held ? `${drinkWord(spec)} (${held.id})` : drinkWord(spec));
+  if (solo) {
+    return solo === "hands"
+      ? `Sits on a chair on the table's near side, just out of frame to the right beside the camera, in exactly the pose of the ${p.id} arm in image 1: ${doing}. Only their hand, wrist and forearm (and at most a sleeve) are in the picture; their body, shoulder and face are never shown.`
+      : `Sits on a chair on the table's far long side, facing the camera across their plate (MAIN), in exactly the pose of the ${p.id} figure in image 1: ${doing}. A casual, unposed moment, their face above the top of the frame.`;
+  }
   return `Sits on a chair ${seat}, near their plate (${plate}), in exactly the pose of the ${p.id} figure in image 1: ${doing}. Turned toward ${other?.id ?? "the other person"}; a casual, unposed moment, ${across && p.id === "PERSON_1" ? "seen from behind: the back of their head, hair and one shoulder, their face turned away and never shown" : "their face above the top of the frame"}.`;
 }
 
@@ -76,6 +87,13 @@ export function seatedPeopleRule(bp: Blueprint): string {
   const hold = holders.length
     ? `${holders.join(" and ")} in a relaxed, natural grip, label turned toward the camera so the logo reads, never covered by the fingers; nobody drinks from it, and nobody else touches a Coca-Cola product.`
     : "Nobody touches the Coca-Cola product.";
+  const solo = soloMode(bp);
+  if (solo) {
+    const shown = solo === "hands"
+      ? "We see only PERSON_1's hand and forearm reaching into the frame from the right edge; their body, shoulder and face stay out of the picture."
+      : "PERSON_1 sits across the table facing the camera; the top edge of the frame crops them between the chin and the nose, so their eyes and upper face are never in the picture and they are not recognizable; we see at most a smile, then shoulders, arms and hands. They sit just behind the food and the Coca-Cola, a little softer than them.";
+    return `Exactly one person is at the table, PERSON_1, eating alone, and no one else is at or beside it. They are an adult (21 or older), fictional, and look like no real or famous person. ${shown} ${hold} They are caught mid-action in a candid moment, exactly as their pose describes: never neutral, limp, stiff or posed like stock photography, and never looking into the lens. They may eat, but nobody drinks from a Coca-Cola product in the frame. Anyone further back stays a soft, out-of-focus shape with no visible face, and no children.`;
+  }
   const faces = isOverShoulder(bp)
     ? "PERSON_1 sits in the left foreground with their back three-quarters to the camera: we see the back of their head, their hair, a shoulder and an arm, soft and out of focus, and never their face. PERSON_2 sits across the table facing the camera; the top edge of the frame crops them between the chin and the nose, so their eyes and upper face are never in the picture and nobody is recognizable. PERSON_2 sits just behind the food and the Coca-Cola, a little softer than them."
     : "The top edge of the frame crops both people between the chin and the nose: their eyes and upper face are never in the picture, so nobody is recognizable; we see at most a smile, then shoulders, arms and hands. They sit just behind the food and the Coca-Cola, a little softer than them.";

@@ -35,11 +35,11 @@ export interface Selections {
 }
 
 /**
- * Main keeps every scene to one diner's place setting with nobody at the table (Fernando,
- * 2026-10-20): "2 people" and the "People at the table" switch are off. Set either back to true
- * to offer it again; saved projects that picked them open as one diner meanwhile.
+ * What main offers at the table. Fernando held it to one diner with nobody seated on 2026-10-20
+ * and brought people back on 2026-10-27, up to two. Set either to false to hide it again; saved
+ * projects that picked it then open as one diner with nobody seated.
  */
-export const SCENE_LIMITS = { twoDiners: false, seatedPeople: false };
+export const SCENE_LIMITS = { twoDiners: true, seatedPeople: true };
 
 /** A scene answer held to SCENE_LIMITS: a party of two becomes one, and nobody sits at the table. */
 export function limitScene<S extends { party: SceneSpec["scene"]["party"]; seated?: boolean; pose?: string }>(scene: S): S {

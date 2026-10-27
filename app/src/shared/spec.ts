@@ -26,6 +26,8 @@ export interface Selections {
     /** People sit at the table (two people only, for now). */
     seated?: boolean;
     pose?: string;
+    /** Where the two seated people sit; the corner unless "across" (over the shoulder). */
+    seating?: "corner" | "across";
   };
   glass?: boolean;
   camera?: { look: string; angle: string };
@@ -35,18 +37,18 @@ export interface Selections {
 }
 
 /**
- * Main keeps every scene to one diner's place setting with nobody at the table (Fernando,
- * 2026-10-20): "2 people" and the "People at the table" switch are off. Set either back to true
- * to offer it again; saved projects that picked them open as one diner meanwhile.
+ * What main offers at the table. Fernando held it to one diner with nobody seated on 2026-10-20
+ * and brought people back on 2026-10-27, up to two. Set either to false to hide it again; saved
+ * projects that picked it then open as one diner with nobody seated.
  */
-export const SCENE_LIMITS = { twoDiners: false, seatedPeople: false };
+export const SCENE_LIMITS = { twoDiners: true, seatedPeople: true };
 
 /** A scene answer held to SCENE_LIMITS: a party of two becomes one, and nobody sits at the table. */
-export function limitScene<S extends { party: SceneSpec["scene"]["party"]; seated?: boolean; pose?: string }>(scene: S): S {
+export function limitScene<S extends { party: SceneSpec["scene"]["party"]; seated?: boolean; pose?: string; seating?: string }>(scene: S): S {
   let next = scene;
   if (!SCENE_LIMITS.twoDiners && next.party === "2") next = { ...next, party: "1" };
   if (!SCENE_LIMITS.seatedPeople && (next.seated || next.pose)) {
-    const { seated: _seated, pose: _pose, ...rest } = next;
+    const { seated: _seated, pose: _pose, seating: _seating, ...rest } = next;
     next = rest as S;
   }
   return next;
@@ -97,7 +99,7 @@ export function buildSpec(brief: IntakeInput & { countryLabel?: string }, sel: S
       surfaceText: (seatLikeSurface(scene.surfaceText) ? undefined : scene.surfaceText && withoutRoundTable(scene.surfaceText)) ?? place?.surfaceText,
       venueType: place?.id,
       environmentNote: scene.environmentNote?.trim() || undefined,
-      ...(scene.seated && scene.party === "2" ? { seated: true, pose: scene.pose ?? DEFAULT_POSE } : {}),
+      ...(scene.seated && scene.party === "2" ? { seated: true, pose: scene.pose ?? DEFAULT_POSE, ...(scene.seating === "across" ? { seating: "across" as const } : {}) } : {}),
     },
     camera: sel.camera,
     sku: { ...sku, glass: resolveGlass(sku, venue, sel.glass) },

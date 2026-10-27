@@ -84,6 +84,12 @@ export function CameraStep({
           recommendedId={recAngle?.id}
         />
       </div>
+      {sel.scene?.seated && sel.scene.seating === 'across' && cam.angle === 'low' && (
+        <div className={sceneStyles.hint}>
+          Over the shoulder doesn't fit from Low: the food ends up mid-frame above the table's legs. Pick Diner's eye or Looking down, or go back
+          and seat the two around a corner.
+        </div>
+      )}
       {cfg.looks.some((l) => l.placeholder) && (
         <div className={sceneStyles.hint}>Lens and angle values are placeholders until the team finalizes them.</div>
       )}

@@ -417,10 +417,9 @@ export function ReviewStep({
   }, [signature]);
 
   // Seated people aren't marked Working or Change: their pose is locked, their looks are edited in place.
-  const seated = bp.primitives.some((p) => p.role === 'person');
   const unmarked = bp.primitives.filter((p) => p.role !== 'person' && !removing.has(p.id)).length - counts.keep - counts.change;
-  // Removal goes through the same edit as Edit sketch, so it isn't offered where that is off.
-  const canRemove = (p: Blueprint['primitives'][number]) => !seated && removable(p);
+  // Removal goes through the same edit as Edit sketch; seated people and a drink in a hand stay.
+  const canRemove = (p: Blueprint['primitives'][number]) => removable(p);
   const removals = bp.primitives.filter((p) => removing.has(p.id));
   const removalLines = removals.map((p) => `Remove ${p.component_name}`);
   const editCount = pending.length + removals.length;
@@ -571,7 +570,7 @@ export function ReviewStep({
 
         {/* Under the sketch: change it by hand on the left, draw it again on the right. */}
         <div className={styles.toolbar}>
-          <Button size="sm" icon={<Move size={14} aria-hidden />} onPress={() => setEditOpen(true)} disabled={!sketch || drawing || seated}>
+          <Button size="sm" icon={<Move size={14} aria-hidden />} onPress={() => setEditOpen(true)} disabled={!sketch || drawing}>
             Edit sketch
           </Button>
           <Button

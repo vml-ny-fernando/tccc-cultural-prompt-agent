@@ -4,10 +4,12 @@
 // hang off the table, crowd another item closer than the spacing rules allow,
 // fall out of frame, or hide more of the Coca-Cola product than 5%. Saving turns
 // the moves and deletions into a new blueprint, so the sketch and the photo are
-// drawn from the edited layout.
+// drawn from the edited layout. Seated people and the drink in a person's hand stay
+// where the pose puts them; the rest moves around them, clear of their hands.
 
 import { overlapArea, polyArea, Projector, screenBox, silhouette, type Poly } from "./camera";
 import { BELL_GLASS, bottleClearance, footprintRadius, napkinDef, VESSELS, type ProxyDef } from "./registry";
+import { poseOf, sideToward, toWorld } from "./poses";
 import { isLargeSku } from "./rules";
 import { kindGap } from "./solver";
 import type { Blueprint, Primitive, SceneSpec } from "./types";
@@ -22,13 +24,45 @@ const MAIN_FRONT_MAX = 0.15;
 const SKU_HIDDEN_MAX = 0.05;
 /** Share of an item's on-screen box that must stay inside the frame. */
 const IN_FRAME_MIN = 0.8;
+/** Room kept clear around a seated person's hand or elbow resting on the table, in metres. */
+const HAND_CLEAR = 0.03;
+/** Height above the seat of a hand or elbow resting on the tabletop (the pose's table height, T in poses.ts). */
+const ON_TABLE = 0.5;
 
 /** Items the scene is built around: they move, but are never removed. */
 const LOCKED = new Set(["main", "shared-hero", "sku", "glass", "partner-main", "partner-sku", "partner-glass"]);
 const DRINKS = new Set(["sku", "glass", "partner-sku", "partner-glass"]);
 
 export function removable(p: Primitive): boolean {
-  return !LOCKED.has(p.role);
+  return !LOCKED.has(p.role) && movable(p);
+}
+
+/** Seated people and the drink in a person's hand hold the pose: they never move. */
+export function movable(p: Primitive): boolean {
+  return p.role !== "person" && !p.held_by;
+}
+
+/** Where each seated person's hands and elbows rest on the table, as table points. A raised hand (holding a fork or a drink, mid-gesture) is above the items, so it keeps nothing clear. */
+export function handSpots(bp: Blueprint): Array<{ person: Primitive; at: Spot }> {
+  const people = bp.primitives.filter((p) => p.role === "person");
+  return people.flatMap((p) => {
+    const other = people.find((q) => q.id !== p.id);
+    const self = { x: p.world.x, d: p.world.d, yawDeg: p.world.yawDeg };
+    const toward = other ? sideToward(self, other.world) : 1;
+    const pose = poseOf(bp, p);
+    return [
+      [pose.near, toward],
+      [pose.far, -toward as 1 | -1],
+    ].flatMap(([arm, sx]) => {
+      const a = arm as (typeof pose)["near"];
+      return [a.hand, a.elbow]
+        .filter((v) => v[1] <= ON_TABLE)
+        .map((v) => {
+          const w = toWorld(self, v, sx as 1 | -1);
+          return { person: p, at: { x: w.x, d: w.d } };
+        });
+    });
+  });
 }
 
 /** The proxy shape of a blueprint item: its footprint and vessel height (the food sits on top). */
@@ -94,6 +128,7 @@ export class EditRules {
   readonly home: Placement;
   readonly grid: Spot[];
   private multi: { clearance: number } | null;
+  private hands: Array<{ person: Primitive; at: Spot }>;
 
   constructor(
     readonly bp: Blueprint,
@@ -103,6 +138,7 @@ export class EditRules {
     this.home = placementOf(bp);
     this.grid = gridPoints(bp);
     this.multi = isLargeSku(spec.sku) ? { clearance: bottleClearance(spec.sku) } : null;
+    this.hands = handSpots(bp);
   }
 
   item(id: string): Primitive {
@@ -130,7 +166,8 @@ export class EditRules {
   /** Why `id` can't stand at `at` given where everything else is (`place`), or null when it can. */
   block(place: Placement, id: string, at: Spot): Block | null {
     const p = this.item(id);
-    if (!p || this.isHome(id, at)) return null;
+    if (!p || !movable(p)) return { reason: "item", text: `${p?.component_name ?? "That"} stays where the pose puts it.` };
+    if (this.isHome(id, at)) return null;
     const { width: W, depth: D } = this.bp.table;
     const r = this.radius(p);
     if (at.x - r < -W / 2 + EDGE_INSET - 1e-9 || at.x + r > W / 2 - EDGE_INSET + 1e-9 || at.d - r < EDGE_INSET - 1e-9 || at.d + r > D - EDGE_INSET + 1e-9) {
@@ -139,9 +176,15 @@ export class EditRules {
     if (p.role === "main" && at.d - r > Math.max(MAIN_FRONT_MAX, this.home[id]!.d - r + GRID_STEP) + 1e-9) {
       return { reason: "front", text: `${p.component_name} stays at the front of the table, in front of the diner.` };
     }
+    for (const h of this.hands) {
+      // Fingertips may touch a rim, as at a real table; the hand never lands in the middle of an item.
+      if (Math.hypot(at.x - h.at.x, at.d - h.at.d) - r / 2 < HAND_CLEAR - 1e-6) {
+        return { reason: "item", text: `${p.component_name} would sit under the hands of ${h.person.component_name}.` };
+      }
+    }
     for (const o of this.bp.primitives) {
       const there = place[o.id];
-      if (o.id === id || !there) continue;
+      if (o.id === id || !there || o.role === "person") continue;
       const need = this.gap(p, o);
       if (Math.hypot(at.x - there.x, at.d - there.d) - r - this.radius(o) < need - 1e-6) {
         return { reason: "item", text: `${p.component_name} would crowd ${o.component_name} (they need ${Math.round(need * 100)} cm between them).` };
@@ -165,7 +208,7 @@ export class EditRules {
   /** How much of each drink the items in front of it hide (0..1), by drink id. */
   private drinkHidden(place: Placement): Record<string, number> {
     const out: Record<string, number> = {};
-    const live = this.bp.primitives.filter((p) => place[p.id]);
+    const live = this.bp.primitives.filter((p) => place[p.id] && p.role !== "person");
     const depth = (p: Primitive) => this.proj.project(place[p.id]!.x, 0, place[p.id]!.d).depth;
     for (const back of live) {
       if (!DRINKS.has(back.role)) continue;
@@ -209,16 +252,15 @@ export class EditRules {
   /** The ring each other item keeps clear around itself for `id`: its footprint grown by the gap, as table points. */
   keepOut(place: Placement, id: string): Array<Array<[number, number]>> {
     const p = this.item(id);
-    return this.bp.primitives
-      .filter((o) => o.id !== id && place[o.id])
-      .map((o) => {
-        const c = place[o.id]!;
-        const r = this.radius(o) + this.gap(p, o);
-        return Array.from({ length: 40 }, (_, i): [number, number] => {
-          const a = (i / 40) * Math.PI * 2;
-          return [c.x + r * Math.cos(a), c.d + r * Math.sin(a)];
-        });
+    const ring = (c: Spot, r: number) =>
+      Array.from({ length: 40 }, (_, i): [number, number] => {
+        const a = (i / 40) * Math.PI * 2;
+        return [c.x + r * Math.cos(a), c.d + r * Math.sin(a)];
       });
+    return [
+      ...this.bp.primitives.filter((o) => o.id !== id && place[o.id] && o.role !== "person").map((o) => ring(place[o.id]!, this.radius(o) + this.gap(p, o))),
+      ...this.hands.map((h) => ring(h.at, this.radius(p) / 2 + HAND_CLEAR)),
+    ];
   }
 }
 

@@ -1880,7 +1880,7 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
   // The pose, as at the corner: whoever holds their drink takes it into the hand nearer the other.
   const pose = poseById(spec.scene.pose);
   for (const s of seats) {
-    const pp = pose.people[poseRole(s.id, "across")];
+    const pp = pose.people[poseRole(s.id, "across", pose)];
     const label = pp?.holds ? heldLabel(spec, placed.map((p) => p.item.label), s.id as PersonId) : null;
     const drink = placed.find((p) => p.item.label === label);
     if (!pp || !drink) continue;
@@ -1893,6 +1893,19 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
     drink.d = hand.d;
     drink.elev = base < 0.05 ? 0 : base;
     drink.heldBy = s.id;
+  }
+  // Cheers: the two drinks meet over the table at the rims, side by side across the frame, each
+  // on its holder's side (PERSON_1 at the left), never one hidden behind the other.
+  const held = placed.filter((p) => p.heldBy);
+  if (held.length === 2) {
+    const [a, b] = held as [Placed, Placed];
+    const mx = (a.x + b.x) / 2,
+      md = (a.d + b.d) / 2;
+    const half = (radiusOf(a) + radiusOf(b) + 0.005) / 2;
+    const [l, r] = a.heldBy === "PERSON_1" ? [a, b] : [b, a];
+    l.x = mx - half;
+    r.x = mx + half;
+    l.d = r.d = md;
   }
 
   // The camera stands behind PERSON_1's right shoulder, turned a little toward PERSON_2.
@@ -1940,7 +1953,8 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
       }
     }
   }
-  if (!best) return "no camera sees across the table over the near person's shoulder with the far face cropped at the top";
+  // From Low 10 degrees the food sits mid-frame above the table's legs, so no camera passes.
+  if (!best) return "no camera sees across the table over the near person's shoulder with the far face cropped at the top; try Diner's eye or Looking down";
   const cam = best.cam;
   const { boxes, proj } = project(placed, cam);
   const sils = new Map<string, Poly[]>();

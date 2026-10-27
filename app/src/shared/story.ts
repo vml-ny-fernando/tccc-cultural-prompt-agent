@@ -6,7 +6,7 @@
 import { z } from "zod";
 import { BELL_GLASS, NAPKIN_SIZES, SURFACES, VESSELS, RECTANGULAR_TABLE_RULE, VESSEL_SHORT, napkinFoldedCm, skuProxy, vesselPhrase, withoutRoundTable } from "./registry";
 import { Projector } from "./camera";
-import { seatedPeopleRule, hasSeatedPeople, personText } from "./people";
+import { seatedPeopleRule, hasSeatedPeople, isOverShoulder, personText } from "./people";
 import { BACKGROUND_PEOPLE_RULE, type LightingPreset, angleById, angleSentence, backgroundPerspectiveSentence, farEdgeSentence, depthById, glassRules, isLargeSku, lookById, lookSentence, selectLighting, skuLightSentence, withoutHands } from "./rules";
 import { sceneItems } from "./scene";
 import type { Blueprint, Primitive, SceneSpec, Vessel } from "./types";
@@ -240,6 +240,7 @@ function isCornerLayout(bp: Blueprint): boolean {
  * otherwise redraws the table square-on with the plates side by side, ignoring image 1.
  */
 export function cornerViewSentence(spec: SceneSpec, bp: Blueprint): string {
+  if (isOverShoulder(bp)) return overShoulderViewSentence(bp);
   if (!isCornerLayout(bp)) return "";
   const main2 = bp.primitives.find((q) => q.role === "partner-main");
   if (!main2) return "";
@@ -266,6 +267,18 @@ export function cornerViewSentence(spec: SceneSpec, bp: Blueprint): string {
     ? `${first}'s place (MAIN) is on the far long side and ${second}'s place (MAIN_2) is at the table's ${side} end, at a right angle to each other around that corner, never side by side or opposite each other.`
     : `${first[0]!.toUpperCase()}${first.slice(1)}'s plate (MAIN) is ${main ? edgePhrase(bp, main) : "on the far long side"} and ${second}'s plate (MAIN_2) is ${edgePhrase(bp, main2)}${around ? ", at a right angle to each other around that corner, never side by side or opposite each other." : ", each exactly where image 1 puts it."}`;
   return `The camera is not square to the table: it stands off the table's near ${other} side and is turned about ${turn} degrees, looking diagonally across the tabletop toward the table's far ${side} corner, which sits ${h}, ${v}, exactly as in image 1. From that corner the table's far long edge runs away toward the ${other} of the frame and its ${side} end edge runs down toward the ${side}, so no table edge runs straight across the frame. ${places} The table's near edges and near corner are mostly out of frame.${people ? "" : " An empty chair is pulled up at each diner's place, just behind the table edge nearest their plate, as in image 1."}`;
+}
+
+/**
+ * Over the shoulder (Fernando, 2026-10-27): the camera stands behind PERSON_1, off the near side,
+ * turned so the table's near edge runs diagonally across the frame.
+ */
+function overShoulderViewSentence(bp: Blueprint): string {
+  const c = bp.camera;
+  const turn = Math.round((Math.abs(Math.atan2(c.target[0] - c.position[0], -(c.target[2] - c.position[2]))) * 180) / Math.PI / 5) * 5;
+  const from = c.position[0] > c.target[0] ? "right" : "left";
+  const angled = turn >= 10 ? `, turned about ${turn} degrees so the table's near edge runs diagonally across the lower part of the frame and no table edge runs straight across it` : "";
+  return `The camera stands behind PERSON_1, just past their ${from === "right" ? "right" : "left"} shoulder on the table's near side${angled}, exactly as in image 1. PERSON_1 fills the left foreground, seen from behind; PERSON_2 sits across the table on the right, facing the camera. Each has their own place (PERSON_1's is MAIN, near the camera; PERSON_2's is MAIN_2, across the table), opposite each other.`;
 }
 
 /** An edit moved MAIN off its spot front and centre: say where it now stands, on the table and in the frame. */
@@ -384,7 +397,9 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     angleSentence: angleSentence(angleById(spec.camera.angle)),
     backgroundPerspective: backgroundPerspectiveSentence(angleById(spec.camera.angle)),
     viewSentence: cornerViewSentence(spec, bp),
-    framingSentence: seated
+    framingSentence: isOverShoulder(bp)
+      ? "The camera looks over PERSON_1's shoulder across the table, low and close like the brand's meal photography: PERSON_1's back and shoulder frame the left foreground, soft; the food and the Coca-Cola products sit sharp in the middle of the frame; PERSON_2 sits across the table on the right, the top edge of the frame cutting across them between the chin and the nose, so we see their shoulders, arms and hands but never their eyes."
+      : seated
       ? "The camera looks across the table toward one of its corners, low and close like the brand's meal photography: the food and the Coca-Cola products sit sharp in the front of the frame, and the corner of the table sits near the center. PERSON_1 sits along one side and PERSON_2 at the end, perpendicular to each other, just behind the food; the top edge of the frame cuts across both of them between the chin and the nose, so we see their shoulders, arms and hands but never their eyes."
       : isCornerLayout(bp)
       ? "The camera looks diagonally across the table toward one of its far corners. The two place settings meet at a right angle around that corner, one on the long side and one at the end; what they share sits between them in front of the corner, and the Coca-Cola product sits in the vertical center third of the frame."

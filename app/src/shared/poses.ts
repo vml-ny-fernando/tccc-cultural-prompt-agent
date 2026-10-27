@@ -176,15 +176,17 @@ export function toWorld(self: { x: number; d: number; yawDeg: number }, v: V3, s
 }
 
 /**
- * Whose part of the pose a seated person plays. Over the shoulder (Fernando, 2026-10-27) the two
- * swap: PERSON_2 faces the camera, so they take the part that holds the drink and its label reads,
- * and PERSON_1, seen from behind, takes the other.
+ * Whose part of the pose a seated person plays. Over the shoulder (Fernando, 2026-10-27) PERSON_2
+ * faces the camera, so when only one person holds a drink, PERSON_2 takes that part and its label
+ * reads; PERSON_1, seen from behind, takes the other.
  */
-export function poseRole(id: string, seating: "across" | "corner" | undefined): PersonId {
-  if (seating !== "across") return id as PersonId;
+export function poseRole(id: string, seating: "across" | "corner" | undefined, pose: Pose): PersonId {
+  const swap = seating === "across" && pose.people.PERSON_1.holds && !pose.people.PERSON_2.holds;
+  if (!swap) return id as PersonId;
   return id === "PERSON_1" ? "PERSON_2" : "PERSON_1";
 }
 
 export function poseOf(bp: Blueprint, p: Primitive): PersonPose {
-  return poseById(bp.layout_meta.pose).people[poseRole(p.id, bp.layout_meta.seating)] ?? poseById(undefined).people.PERSON_1;
+  const pose = poseById(bp.layout_meta.pose);
+  return pose.people[poseRole(p.id, bp.layout_meta.seating, pose)] ?? poseById(undefined).people.PERSON_1;
 }

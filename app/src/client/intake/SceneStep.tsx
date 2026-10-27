@@ -34,6 +34,12 @@ const SETTING_OPTIONS: Array<{ value: Scene['setting']; label: string }> = [
   { value: 'outdoor', label: 'Outdoor' },
 ];
 
+// Where the two seated people sit (Fernando, 2026-10-27): the corner, or facing each other over a shoulder.
+const SEATING_OPTIONS: Array<{ value: 'corner' | 'across'; label: string }> = [
+  { value: 'corner', label: 'Around a corner' },
+  { value: 'across', label: 'Over the shoulder' },
+];
+
 const PARTY_OPTIONS: Array<{ value: Scene['party']; label: string }> = [
   { value: '1', label: '1 person' },
   { value: '2', label: '2 people' },
@@ -205,9 +211,22 @@ export function SceneStep({
           </Switch>
           <div className={styles.hint}>
             {scene.seated
-              ? 'They sit at a corner of the table, at a right angle to each other. Pick their pose below; you describe who they are and what they wear on Review the Sketch.'
+              ? scene.seating === 'across'
+                ? 'They face each other across the table, seen over the first person\'s shoulder. Pick their pose below; you describe who they are and what they wear on Review the Sketch.'
+                : 'They sit at a corner of the table, at a right angle to each other. Pick their pose below; you describe who they are and what they wear on Review the Sketch.'
               : 'The place settings show who the meal is for; nobody appears at the table.'}
           </div>
+        </div>
+      )}
+
+      {scene.seated && (
+        <div className={styles.field}>
+          <SegmentedControl
+            label="Seating"
+            value={scene.seating ?? 'corner'}
+            onChange={(v) => update({ seating: v === 'across' ? 'across' : undefined })}
+            options={SEATING_OPTIONS}
+          />
         </div>
       )}
 
@@ -220,7 +239,7 @@ export function SceneStep({
             options={POSES.map((p) => ({ id: p.id, label: p.label }))}
           />
           <figure className={styles.pose}>
-            <img src={`/poses/${poseById(scene.pose ?? DEFAULT_POSE).id}.png`} alt={`Layout preview: ${poseById(scene.pose).label}`} width={480} height={270} />
+            <img src={`/poses/${scene.seating === 'across' ? 'across/' : ''}${poseById(scene.pose ?? DEFAULT_POSE).id}.png`} alt={`Layout preview: ${poseById(scene.pose).label}`} width={480} height={270} />
             <figcaption className={styles.hint}>{poseById(scene.pose).detail} At least one person always holds their Coca-Cola: a glass for a large bottle, the bottle or can itself for a small one.</figcaption>
           </figure>
         </div>

@@ -35,7 +35,8 @@ export type Archetype =
   | "across-offset"
   | "corner"
   | "seated-corner"
-  | "seated-across";
+  | "seated-across"
+  | "seated-solo";
 
 export const ARCHETYPE_INFO: Record<Archetype, { name: string; idea: string }> = {
   "triangle-loop": { name: "Triangle Loop", idea: "a depth triangle from the entree to the drink and back to a far-left accent" },
@@ -49,6 +50,7 @@ export const ARCHETYPE_INFO: Record<Archetype, { name: string; idea: string }> =
   corner: { name: "Corner Seating", idea: "two place settings at a right angle around a far corner of the table, seen from the opposite corner" },
   "seated-corner": { name: "Seated Corner", idea: "two people sit at a right angle around a far corner of the table, seen from the opposite corner" },
   "seated-across": { name: "Over the Shoulder", idea: "two people face each other across the table, seen over the near person's shoulder" },
+  "seated-solo": { name: "One at the Table", idea: "one person at the table, mid-meal: across from the camera, or only their hands" },
 };
 
 export interface LayoutOption {
@@ -225,6 +227,7 @@ const VARIANTS: Record<Archetype, Variant[]> = {
   "seated-corner": [{ condAngle: 180, accentAngle: 150 }],
   // Placed by solveSeatedAcross, not by variants.
   "seated-across": [{ condAngle: 180, accentAngle: 150 }],
+  "seated-solo": [{ condAngle: 180, accentAngle: 150 }],
 };
 
 function preferredPositions(items: ItemSpec[], spec: SceneSpec, archetype: Archetype, v: Variant): Map<string, Anchor> {
@@ -1043,7 +1046,7 @@ export function signature(spec: SceneSpec): string {
     spec.camera.look,
     spec.camera.angle,
     `surface:${spec.scene.surface}`,
-    `settings:${spec.scene.party === "2" ? 2 : 1}${spec.scene.seated ? `+seated:${spec.scene.pose ?? ""}` : ""}`,
+    `settings:${spec.scene.party === "2" ? 2 : 1}${spec.scene.seated ? `+seated:${spec.scene.solo ?? spec.scene.pose ?? ""}` : ""}`,
     `sku:${spec.sku.id}`,
     `glass:${spec.sku.glass ? "Y" : "N"}`,
     `main:${spec.entree.plating.vessel}(${spec.entree.prep.massClass})${spec.entree.plating.service === "shared" ? "+shared" : ""}`,
@@ -1226,6 +1229,8 @@ export function describe(archetype: Archetype, placed: Placed[]): string {
       return "a second place setting sits directly opposite the hero, across the table";
     case "across-offset":
       return "a second place setting sits across the table, shifted aside so the hero's drink doesn't hide it";
+    case "seated-solo":
+      return "one person at the table mid-meal, their plate in front of them, the Coca-Cola beside it";
     case "seated-across":
       return "two people face each other across the table, the near one seen from behind over their shoulder at the left, the other across the table at the right";
     case "corner":
@@ -1276,6 +1281,11 @@ export function solve(spec: SceneSpec, maxOptions = 3): SolveResult {
 function solveSpec(spec: SceneSpec, maxOptions: number): Pick<SolveResult, "options" | "infeasible"> {
   const items = sceneItems(spec);
   const infeasible: SolveResult["infeasible"] = [];
+  if (spec.scene.party === "1" && spec.scene.solo) {
+    // One person at the table (Fernando, 2026-10-27).
+    const r = solveSolo(spec, items, spec.scene.solo);
+    return typeof r === "string" ? { options: [], infeasible: [{ archetype: "seated-solo", reason: r }] } : { options: [r], infeasible };
+  }
   if (spec.scene.party === "2" && spec.scene.seated && spec.scene.seating === "across") {
     // The one exception to the corner rule (Fernando, 2026-10-27): two people face each other,
     // seen over the near person's shoulder.
@@ -1986,6 +1996,181 @@ function solveSeatedAcross(spec: SceneSpec, items: ItemSpec[]): LayoutOption | s
     });
   }
   bp.layout_meta.rationale = `Over the shoulder: ${describe(archetype, placed)}. The camera stands behind the near person's right shoulder and looks across the table.`;
+  if (dropped.length) bp.layout_meta.rationale += ` The table was full, so the napkin and cutlery (${dropped.join(", ")}) were left out.`;
+  return { archetype, blueprint: bp };
+}
+
+// ---------------------------------------------------------------------------
+// One person at the table (Fernando, 2026-10-27)
+// ---------------------------------------------------------------------------
+
+/**
+ * One person at the table, mid-meal, in two versions (Fernando picked these two, 2026-10-27):
+ * - "facing": across the table facing the camera, the top edge cropping the face between the chin
+ *   and the nose; their plate in front of them, the Coca-Cola at their left (the camera's right) in hand.
+ * - "hands": seated on the near side beside the camera, just out of frame, so only their hand and
+ *   forearm reach in from the right for the Coca-Cola.
+ */
+function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "hands"): LayoutOption | string {
+  const archetype: Archetype = "seated-solo";
+  const surf = SURFACES[spec.scene.surface];
+  const W = surf.width,
+    D = surf.depth;
+  const main = items.find((i) => i.kind === "main");
+  if (!main) return "no entree to seat around";
+  const r1 = footprintRadius(main.def);
+  // Hands: seated at the near-right, beside the camera, so only their arm reaches into the frame.
+  const behind = mode === "hands";
+  const seat: Seat = behind
+    ? { id: "PERSON_1", name: "the diner, seated on the near side just out of frame, only their hand and forearm in the picture", x: 0.5, d: -SEAT_BACK, yaw: 0 }
+    : { id: "PERSON_1", name: "the diner, seated across the table facing the camera", x: 0, d: D + SEAT_BACK, yaw: 180 };
+  const facing = (behind ? [0, 1] : [0, -1]) as readonly [number, number];
+  const m = behind ? { x: -0.1, d: r1 + 0.1 } : { x: 0, d: D - r1 - 0.07 };
+  const clock = (plate: Anchor, hours: number, dist: number): Anchor => {
+    const t = (hours * Math.PI) / 6;
+    const right = [facing[1], -facing[0]];
+    return { x: plate.x + dist * (Math.cos(t) * facing[0] + Math.sin(t) * right[0]!), d: plate.d + dist * (Math.cos(t) * facing[1] + Math.sin(t) * right[1]!) };
+  };
+  const want = new Map<string, Anchor>();
+  want.set("MAIN", m);
+  // Shared dishes and sides fan out between the plate and the camera (facing) or past the plate (behind).
+  const fanD = behind ? m.d + r1 + 0.15 : m.d - r1 - 0.15;
+  let k = 0;
+  for (const it of items) {
+    if (want.has(it.label)) continue;
+    const reach = r1 + 0.03 + footprintRadius(it.def);
+    const half = (it.def.width ?? 2 * (it.def.radius ?? 0.05)) / 2;
+    switch (it.kind) {
+      case "sku":
+        // Facing: at their left, the camera's right, in their hand. Hands: toward the camera at 4 o'clock.
+        want.set(it.label, behind ? clock(m, 4, reach + 0.08) : clock(m, 9, reach));
+        break;
+      case "glass":
+        want.set(it.label, behind ? clock(m, 3, reach + 0.02) : clock(m, 10, reach + 0.04));
+        break;
+      case "napkin-set":
+        want.set(it.label, clock(m, behind ? 9 : 3, r1 + 0.03 + half));
+        break;
+      default: {
+        const i = k++;
+        want.set(it.label, { x: m.x + (i % 2 ? -1 : 1) * (0.18 + 0.12 * Math.floor(i / 2)) + (behind ? 0.2 : 0), d: fanD });
+      }
+    }
+  }
+  const multi = isMultiServe(spec) ? { sku: "SKU", clearance: bottleClearance(spec.sku) } : null;
+  const napkin = (i: ItemSpec) => i.kind === "napkin-set";
+  const rank = (i: ItemSpec) => (napkin(i) ? 100 : ["main", "sku", "glass", "side", "bread", "shared-side"].indexOf(i.kind));
+  const order = [...items].sort((a, b) => (rank(a) < 0 ? 99 : rank(a)) - (rank(b) < 0 ? 99 : rank(b)));
+  const placed: Placed[] = [];
+  const dropped: string[] = [];
+  for (const it of order) {
+    const p: Placed = { item: it, x: 0, d: 0, yaw: behind ? 0 : 180 };
+    if (!settle(p, want.get(it.label) ?? { x: m.x, d: fanD }, placed, W, D, multi)) {
+      if (napkin(it)) {
+        dropped.push(it.label);
+        continue;
+      }
+      return `no room for ${it.label} on ${spec.scene.surface}`;
+    }
+    placed.push(p);
+  }
+  const P1 = placed.find((p) => p.item.label === "MAIN")!;
+
+  const pose = poseById(behind ? "solo-hands" : "solo-enjoying");
+  const pp = pose.people.PERSON_1;
+  if (pp.holds) {
+    const label = heldLabel(spec, placed.map((p) => p.item.label), "PERSON_1");
+    const drink = placed.find((p) => p.item.label === label);
+    if (drink) {
+      const grip = holdingHand(pp);
+      const hand = toWorld({ x: seat.x, d: seat.d, yawDeg: seat.yaw }, [grip.hand[0], grip.hand[1], grip.hand[2] - 0.03], grip.side);
+      const h = drink.item.def.height + drink.item.extraHeight;
+      const base = hand.y - SEAT_DROP - 0.4 * h;
+      drink.x = hand.x;
+      drink.d = hand.d;
+      drink.elev = base < 0.05 ? 0 : base;
+      drink.heldBy = "PERSON_1";
+    }
+  }
+
+  const look = lookById(spec.camera.look);
+  const pitch = angleById(spec.camera.angle).hidden.pitch_deg;
+  const focal = look.hidden.focal_length_mm;
+  const heroIdx = placed.flatMap((p, i) => (["main", "sku", "glass"].includes(p.item.kind) ? [i] : []));
+  const at = (proj: Projector, v: readonly [number, number, number]) => {
+    const w = toWorld({ x: seat.x, d: seat.d, yawDeg: seat.yaw }, v, 1);
+    return proj.project(w.x, w.y - SEAT_DROP, w.d);
+  };
+  const handAt = (proj: Projector, v: readonly [number, number, number], sx: 1 | -1) => {
+    const w = toWorld({ x: seat.x, d: seat.d, yawDeg: seat.yaw }, v, sx);
+    return proj.project(w.x, w.y - SEAT_DROP, w.d);
+  };
+  let best: { cam: CameraParams; score: number } | null = null;
+  const yaws = behind ? [30, -30, 25, -25, 20, -20, 15, -15, 10, -10, 0] : [20, -20, 15, -15, 10, -10, 0];
+  for (const yaw of yaws) {
+    if (best) break;
+    for (let tx = -0.4; tx <= 0.4 + 1e-9; tx += 0.05) {
+      for (let ty = -0.2; ty <= 0.4 + 1e-9; ty += 0.05) {
+        for (let dist = 0.6; dist <= 4; dist *= 1.03) {
+          const cam = yawedCamera(focal, pitch, yaw, tx, ty, D / 2, dist);
+          const [cx, , cz] = cam.position;
+          if (behind && cx > seat.x - 0.25) continue;
+          if (-cz > -0.05) continue; // in front of the table
+          const proj = new Projector(cam);
+          const boxes = placed.map((p) => screenBox(proj, p.item.def, p.x, p.d, p.yaw, p.elev ?? 0, p.item.extraHeight));
+          const u = unionBox(heroIdx.map((i) => boxes[i]!));
+          if (u.x0 < 0.05 || u.x1 > 0.95 || u.y0 < 0.03 || u.y1 > 0.97) continue;
+          const nose = at(proj, NOSE),
+            shoulder = at(proj, SHOULDER);
+          if (mode === "facing") {
+            // Face cropped between the chin and the nose, shoulders in frame, near the middle.
+            if (nose.y < 1.01 || shoulder.y > 0.99 || shoulder.x < 0.3 || shoulder.x > 0.7) continue;
+          } else {
+            // The body off the frame's right edge (or behind the camera); the reaching hand well inside it.
+            const reach = handAt(proj, pp.far.hand, -1);
+            // A body point is out of the picture when it is behind the camera or off the right edge.
+            const fwd = [cam.target[0] - cx, cam.target[1] - cam.position[1], cam.target[2] - cz];
+            const out = (v: readonly [number, number, number]) => {
+              const w = toWorld({ x: seat.x, d: seat.d, yawDeg: seat.yaw }, v, 1);
+              const ahead = (w.x - cx) * fwd[0]! + (w.y - SEAT_DROP - cam.position[1]) * fwd[1]! + (-w.d - cz) * fwd[2]! > 0;
+              return !ahead || proj.project(w.x, w.y - SEAT_DROP, w.d).x > 1.05;
+            };
+            if (!out(SHOULDER) || !out(NOSE) || reach.x > 0.85 || reach.x < 0.3 || reach.y < 0.1 || reach.y > 0.9) continue;
+          }
+          if (Math.min(...boxes.map((b) => b.y0)) > 0.35 || u.y0 > 0.25) continue;
+          const score = -dist - (mode === "facing" ? 0.5 * Math.abs(nose.y - 1.05) : 0);
+          if (!best || score > best.score) best = { cam, score };
+          break;
+        }
+      }
+    }
+  }
+  if (!best) return `no camera frames one person ${behind ? "with only their hands in the frame" : "across the table with the face cropped at the top"}`;
+  const cam = best.cam;
+  const { boxes, proj } = project(placed, cam);
+  const sils = new Map<string, Poly[]>();
+  for (const p of placed) sils.set(p.item.label, silhouette(proj, p.item.def, p.x, p.d, p.yaw, p.item.extraHeight));
+  const fit: Fit = { cam, boxes, sils, rearY: proj.project(0, 0, D).y };
+  const rules: RuleResult[] = [{ id: "S3", name: "One at the table", pass: true, soft: true, detail: "One person at the table; the empty-chair framing rules (H1-H14) aren't checked on this layout yet." }];
+  const bp = toBlueprint(spec, placed, fit, archetype, 0, {}, rules, D, W, P1);
+  bp.layout_meta.pose = pose.id;
+  bp.layout_meta.solo = mode;
+  const b = screenBox(proj, SEATED_PERSON, seat.x, seat.d, seat.yaw, -SEAT_DROP);
+  const c = proj.project(seat.x, 0.2, seat.d);
+  bp.primitives.push({
+    id: seat.id,
+    component_name: seat.name,
+    layer: "Layer_2_Secondary_Side",
+    shape_type: "bounding_box",
+    center_coordinates: { x: +(2 * c.x - 1).toFixed(4), y: +c.y.toFixed(4), z: +((seat.d / D) * 0.5).toFixed(4) },
+    dimensions: { width: SEATED_PERSON.width!, height: SEATED_PERSON.height, depth: SEATED_PERSON.depth! },
+    rotation_euler_deg: { pitch: 0, yaw: seat.yaw, roll: 0 },
+    role: "person",
+    proxy: "seated-person",
+    world: { x: +seat.x.toFixed(4), d: +seat.d.toFixed(4), yawDeg: seat.yaw, elevation: -SEAT_DROP },
+    screen_bbox: { x0: +b.x0.toFixed(4), y0: +b.y0.toFixed(4), x1: +b.x1.toFixed(4), y1: +b.y1.toFixed(4) },
+  });
+  bp.layout_meta.rationale = `One at the table (${mode}): ${describe(archetype, placed)}.`;
   if (dropped.length) bp.layout_meta.rationale += ` The table was full, so the napkin and cutlery (${dropped.join(", ")}) were left out.`;
   return { archetype, blueprint: bp };
 }

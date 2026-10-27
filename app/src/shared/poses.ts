@@ -176,8 +176,39 @@ export const POSES: Pose[] = [
 
 export const DEFAULT_POSE = POSES[0]!.id;
 
+/**
+ * Moments for one person at the table (Fernando, 2026-10-27): still candid and mid-action. Only
+ * PERSON_1 is used; PERSON_2 mirrors it so a Pose stays one shape.
+ */
+/** A hand around a drink standing beside the plate, out to the side so the plate stays clear. */
+const DRINK_BESIDE: Arm = { elbow: [0.3, T, -0.32], hand: [0.34, T + 0.05, -0.5] };
+/** Reaching in toward the middle of the table, holding a drink (the hands-only version). */
+const DRINK_REACH_IN: Arm = { elbow: [0.2, T + 0.02, -0.42], hand: [0.28, T + 0.08, -0.64] };
+
+const SOLO_ENJOYING: PersonPose = {
+  lean: IN,
+  near: REACH_PLATE,
+  far: DRINK_BESIDE,
+  holds: true,
+  holdWith: "far",
+  text: "mid-meal, leaning in and reaching into their plate for the next bite with one hand, the other hand wrapped loosely around {drink} on the table, smiling, caught in the moment",
+};
+/** Only hands in the frame: one hand brings their drink in toward the plate; the body stays out of frame. */
+const SOLO_HANDS: PersonPose = {
+  lean: IN,
+  near: REST,
+  far: DRINK_REACH_IN,
+  holds: true,
+  holdWith: "far",
+  text: "only their hand and forearm come into the frame from the side, holding {drink} as they set it down beside their plate mid-meal; the rest of them stays out of frame",
+};
+export const SOLO_POSES: Pose[] = [
+  { id: "solo-hands", label: "Hands in frame", detail: "A hand brings their drink in beside the plate.", people: { PERSON_1: SOLO_HANDS, PERSON_2: SOLO_HANDS } },
+  { id: "solo-enjoying", label: "Enjoying the meal", detail: "Reaching into their food, a hand around their drink.", people: { PERSON_1: SOLO_ENJOYING, PERSON_2: SOLO_ENJOYING } },
+];
+
 export function poseById(id: string | undefined): Pose {
-  return POSES.find((p) => p.id === id) ?? POSES[0]!;
+  return POSES.find((p) => p.id === id) ?? SOLO_POSES.find((p) => p.id === id) ?? POSES[0]!;
 }
 
 /** The label of the drink this person holds: a glass for a large SKU, the bottle or can for a small one. */

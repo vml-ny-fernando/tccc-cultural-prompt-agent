@@ -6,7 +6,7 @@
 
 import { onTheGoSurfaceRule } from "./registry";
 import { NO_HANDS_RULE, foodStylingRules, withoutHands } from "./rules";
-import { seatedPeopleRule, hasSeatedPeople } from "./people";
+import { seatedPeopleRule, hasSeatedPeople, soloMode } from "./people";
 import { countsSentence, storyFacts } from "./story";
 import type { Blueprint, SceneSpec } from "./types";
 import { environmentBrief } from "./venues";
@@ -43,7 +43,7 @@ export function sketchPrompt(spec: SceneSpec, bp: Blueprint, changes: string[] =
   });
   // A seated scene draws its two people (their pose fixed by the figures in image 1); every other scene is a still life.
   const people = seated
-    ? `Two people sit at the table, drawn as real people in the same pencil style: ${seatedPeopleRule(bp)} Keep each person exactly in the pose of their figure in image 1; their looks and clothes come from their description below.`
+    ? `${soloMode(bp) ? "One person sits at the table, drawn as a real person" : "Two people sit at the table, drawn as real people"} in the same pencil style: ${seatedPeopleRule(bp)} Keep ${soloMode(bp) ? "them" : "each person"} exactly in the pose of their figure in image 1; their looks and clothes come from ${soloMode(bp) ? "the" : "their"} description below.`
     : `A still life with no one in it. ${NO_HANDS_RULE}`;
   const dishes = foodStylingRules([spec.heroDish, JSON.stringify({ entree: spec.entree, accompaniments: spec.accompaniments })]);
   const place = environmentBrief(spec.scene);

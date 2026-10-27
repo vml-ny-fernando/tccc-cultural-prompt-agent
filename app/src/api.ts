@@ -121,6 +121,7 @@ const SelectionsInput = z.object({
       seated: z.boolean().optional(),
       pose: z.string().max(40).optional(),
       seating: z.enum(["corner", "across"]).optional(),
+      solo: z.enum(["facing", "hands"]).optional(),
     })
     .optional(),
   glass: z.boolean().optional(),

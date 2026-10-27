@@ -8,7 +8,7 @@
 import * as THREE from 'three';
 import { Projector, toThreeCamera } from '../../shared/camera.ts';
 import { primitiveDef } from '../../shared/layoutEdit.ts';
-import { poseById, sideToward, toLocal, type PersonId, type PersonPose } from '../../shared/poses.ts';
+import { poseById, poseOf, sideToward, toLocal, type PersonId, type PersonPose } from '../../shared/poses.ts';
 import type { LightingPreset } from '../../shared/rules.ts';
 import type { Blueprint, Primitive } from '../../shared/types.ts';
 
@@ -205,7 +205,7 @@ function mesh(geo: THREE.BufferGeometry, color: string, opts: { opacity?: number
 function buildItem(p: Primitive, bp?: Blueprint): THREE.Object3D {
   if (p.role === 'person') {
     const other = bp?.primitives.find((q) => q.role === 'person' && q.id !== p.id);
-    return buildPerson(p, other, poseById(bp?.layout_meta.pose).people[p.id as PersonId]);
+    return buildPerson(p, other, bp ? poseOf(bp, p) : poseById(undefined).people[p.id as PersonId]);
   }
   const g = new THREE.Group();
   const def = primitiveDef(p);

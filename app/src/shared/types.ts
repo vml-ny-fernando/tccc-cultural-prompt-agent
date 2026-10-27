@@ -219,6 +219,11 @@ export interface SceneSpec {
     seated?: boolean;
     /** How the seated people sit (see shared/poses.ts); at least one holds their Coca-Cola. */
     pose?: string;
+    /**
+     * Where the two seated people sit: "corner" (default) at a right angle around a far corner, or
+     * "across" facing each other, PERSON_1 in the near-left foreground seen over the shoulder.
+     */
+    seating?: "corner" | "across";
   };
   /** depth: a depth_of_field preset id (camera-options.json); unset means the default. */
   camera: { look: string; angle: string; depth?: string };
@@ -313,5 +318,7 @@ export interface Blueprint {
     moved?: string[];
     /** Seated layouts: the pose the people were placed in. */
     pose?: string;
+    /** Seated layouts: "across" when the two face each other (over the shoulder); unset at the corner. */
+    seating?: "across";
   };
 }

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import type { Decision, SidesChoice } from '../../shared/types.ts';
 import type { Selections } from '../../shared/spec.ts';
 import { useAgentTask } from '../lib/useAgentTask.ts';
@@ -73,7 +72,6 @@ export function SidesStep({
       timing={task.timing}
       agentError={task.agentError}
       trpcError={task.trpcError}
-      workingTips={STYLING_TIPS.sides}
       workingLabel="Pulling together some side dishes, condiments and accompaniments to go with your main dish."
       decision={decision}
       selected={selected}

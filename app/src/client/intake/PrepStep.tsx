@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import type { Selections } from '../../shared/spec.ts';
 import type { Decision, PrepChoice } from '../../shared/types.ts';
 import { useAgentTask } from '../lib/useAgentTask.ts';
@@ -78,7 +77,6 @@ export function PrepStep({
       timing={task.timing}
       agentError={task.agentError}
       trpcError={task.trpcError}
-      workingTips={STYLING_TIPS.prep}
       workingLabel={`Gathering options to show how to best prepare your meal in ${placeName(brief.countryLabel, regionLabel)}.`}
       decision={decision}
       selected={selected}

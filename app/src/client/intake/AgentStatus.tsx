@@ -31,7 +31,6 @@ export function AgentStatus({
   skeletonCards = 0,
   skeletonLayout = 'grid',
   overlay = false,
-  workingTips,
 }: {
   status: AgentTaskStatus;
   timing: TaskTiming;
@@ -48,15 +47,13 @@ export function AgentStatus({
   skeletonLayout?: 'grid' | 'list';
   /** The whole step is waiting on this: show the loading modal over the page instead of an inline progress bar. */
   overlay?: boolean;
-  /** Food styling lines for the loading modal's "Did you know?" panel (overlay only). */
-  workingTips?: readonly string[] | undefined;
 }) {
   const busy = status === 'starting' || status === 'polling';
   const progress = useProgress(timing.key, busy ? timing.startedAt : null, timing.reported);
   return (
     <>
       {/* Always mounted (in the same place) so it can top up to 100% when the task finishes. */}
-      {overlay && <LoadingOverlay open={busy} title={workingTitle} label={workingLabel} percent={progress?.percent ?? null} failed={status === 'error'} tips={workingTips} />}
+      {overlay && <LoadingOverlay open={busy} title={workingTitle} label={workingLabel} percent={progress?.percent ?? null} failed={status === 'error'} />}
       <StatusBody
         status={status}
         agentError={agentError}

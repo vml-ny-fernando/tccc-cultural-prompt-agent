@@ -4,18 +4,14 @@ import { useEffect } from 'react';
 import type { RuleEffects } from '../../api.ts';
 import { SCENE_LIMITS, limitScene, type Selections } from '../../shared/spec.ts';
 import type { Decision, SceneSpec, SurfaceChoice } from '../../shared/types.ts';
-import { useAgentTask } from '../lib/useAgentTask.ts';
-import { useOnSignedIn } from '../lib/useOnSignedIn.ts';
 import { Alert } from '../ui/Alert.tsx';
 import { Button } from '../ui/Button.tsx';
-import { ChoiceCardGroup, splitSources } from '../ui/ChoiceCard.tsx';
 import { SegmentedControl } from '../ui/SegmentedControl.tsx';
 import { Select } from '../ui/Select.tsx';
 import { Switch } from '../ui/Switch.tsx';
 import { TextArea } from '../ui/TextArea.tsx';
 import { DEFAULT_POSE, POSES, poseById } from '../../shared/poses.ts';
 import { VENUE_TYPES, venueType } from '../../shared/venues.ts';
-import { AgentStatus } from './AgentStatus.tsx';
 import { TIME_LABELS, type Brief } from './types.ts';
 import noteStyles from './DecisionStep.module.css';
 import styles from './SceneStep.module.css';
@@ -54,6 +50,14 @@ const PARTY_OPTIONS: Array<{ value: Scene['party']; label: string }> = [
 ];
 
 const ANY_PLACE = 'any';
+
+const ON_THE_GO_SURFACES: Array<{ id: string; label: string }> = [
+  { id: 'picnic-table', label: 'Picnic table' },
+  { id: 'park-table', label: 'Small outdoor table' },
+  { id: 'counter-top', label: 'Counter or high table' },
+  { id: 'food-truck-counter', label: 'Food-truck counter' },
+  { id: 'street-ledge', label: 'Wide street ledge' },
+];
 
 const ENVIRONMENT_EXAMPLES: Record<Scene['venue'], string> = {
   home: 'e.g. Sunlit tiled kitchen, plants on the windowsill, open shelves with mismatched mugs',
@@ -96,11 +100,6 @@ export function SceneStep({
   );
   const time: SceneSpec['scene']['time'] | undefined = scene.time ?? rules?.timeFromOccasion ?? undefined;
   const venueRule = rules?.venues.find((v) => v.venue === scene.venue);
-  const surfaceTask = useAgentTask('surface');
-  const onSignedIn = useOnSignedIn();
-
-  const loadSurface = () => surfaceTask.run({ brief, selections: sel });
-
   const update = (patch: Partial<Scene>) => {
     const next: Scene = { ...scene, ...patch };
     if (next.venue === 'on-the-go') next.setting = 'outdoor';
@@ -119,26 +118,6 @@ export function SceneStep({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (scene.venue === 'on-the-go' && !surfaceDecision) loadSurface();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scene.venue]);
-
-  useEffect(() => {
-    if (surfaceTask.result?.kind === 'surface') onSurfaceDecision(surfaceTask.result.decision);
-    // Apply each answer once: the parent passes a new callback on every render.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [surfaceTask.result]);
-
-  useEffect(() => {
-    if (surfaceDecision?.status === 'resolved' && !scene.surface) {
-      const v = surfaceDecision.options[0]!.value;
-      update({ surface: v.surface, surfaceText: v.promptText });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [surfaceDecision]);
-
-  const needSurface = scene.venue === 'on-the-go' && !scene.surface;
   const solo = scene.party === '1';
 
   return (
@@ -308,51 +287,16 @@ export function SceneStep({
       </div>
 
       {scene.venue === 'on-the-go' && (
+        // A fixed list, set from the kind of place: picking On the go no longer waits on the
+        // cultural agent, the same as home and restaurant (Fernando, 2026-11-11).
         <div className={styles.field}>
-          <label className={styles.fieldLabel}>Dining surface</label>
-          <AgentStatus
-            status={surfaceTask.status}
-            timing={surfaceTask.timing}
-            agentError={surfaceTask.agentError}
-            trpcError={surfaceTask.trpcError}
-            workingLabel="The cultural agent is picking a surface"
-            overlay
-            onSignedIn={() => onSignedIn(loadSurface)}
-            onRetry={loadSurface}
-            skeletonCards={3}
-            skeletonLayout="list"
+          <Select
+            label="Dining surface"
+            value={scene.surface ?? venueType('on-the-go', scene.venueType)?.surface ?? 'picnic-table'}
+            onChange={(surface) => update({ surface: surface as Scene['surface'], surfaceText: undefined })}
+            options={ON_THE_GO_SURFACES}
           />
-          {surfaceDecision && (
-            <ChoiceCardGroup
-              layout="list"
-              aria-label="Dining surface"
-              // Keyed by option id: several suggestions can share one surface type (a stool and a ledge are both "ledge").
-              value={
-                surfaceDecision.options.find((x) => x.value.surface === scene.surface && x.value.promptText === scene.surfaceText)?.id ??
-                surfaceDecision.options.find((x) => x.value.surface === scene.surface)?.id ??
-                null
-              }
-              onChange={(id) => {
-                const o = surfaceDecision.options.find((x) => x.id === id);
-                if (o)
-                  update({
-                    surface: o.value.surface,
-                    surfaceText: o.value.promptText,
-                  });
-              }}
-              options={surfaceDecision.options.map((o) => ({
-                id: o.id,
-                value: o.id,
-                label: o.value.label,
-                summary: o.value.detail,
-                details: {
-                  facts: [{ label: 'In the image', value: o.value.promptText }],
-                  ...splitSources(o.rationale),
-                },
-                badge: surfaceDecision.options.length > 1 && o.suggested ? 'Suggested' : undefined,
-              }))}
-            />
-          )}
+          <div className={styles.hint}>The food always sits on a table-like surface, never in a hand.</div>
         </div>
       )}
 
@@ -378,7 +322,7 @@ export function SceneStep({
       </div>
 
       <StepActions>
-        <Button variant="primary" iconEnd={<ArrowRight size={16} aria-hidden />} disabled={!sel.scene || needSurface} onPress={onNext}>
+        <Button variant="primary" iconEnd={<ArrowRight size={16} aria-hidden />} disabled={!sel.scene} onPress={onNext}>
           Continue
         </Button>
       </StepActions>

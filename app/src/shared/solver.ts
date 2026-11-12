@@ -1271,7 +1271,7 @@ export const MIN_OPTION_DISTANCE = 0.08;
 
 const FALLBACK_BUDGET_MS = 20_000;
 
-/** Larger tables of the same kind, nearest first. */
+/** Larger tables of the same kind, nearest first. The real tables of a kind of place (café, bistro, …) have none: a café never turns into a dining table, it leaves out a side instead. */
 const LARGER_SURFACE: Partial<Record<Surface, Surface[]>> = {
   "table-2top": ["table-4top", "long-table"],
   "table-4top": ["long-table"],

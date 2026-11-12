@@ -252,7 +252,18 @@ export const SURFACES: Record<Surface, SurfaceDef> = {
   "table-2top": { width: 1.4, depth: 0.75, narrow: false, promptText: "a small dining table" },
   "table-4top": { width: 1.8, depth: 0.85, narrow: false, promptText: "a dining table" },
   "long-table": { width: 2.4, depth: 0.95, narrow: false, promptText: "a long family dining table" },
-  "picnic-table": { width: 2.0, depth: 0.75, narrow: false, promptText: "a wooden park picnic table" },
+  // One real table per kind of place (Fernando, 2026-11-11). These are true sizes, not frame-filling
+  // ones: a café table shows its edges in the frame, as a real one would. Café and bistro tables are
+  // 100 cm wide, not the 70-75 cm square of many cafés: at 70-80 cm a 28 cm plate, its napkin set,
+  // the drink and one side don't fit side by side, and two place settings need 100 cm (solver sweep).
+  "cafe-table": { width: 1.0, depth: 0.7, narrow: false, promptText: "a small café table, about 100 by 70 cm" },
+  "bistro-table": { width: 1.0, depth: 0.75, narrow: false, promptText: "a bistro table, about 100 by 75 cm" },
+  "restaurant-table": { width: 1.2, depth: 0.8, narrow: false, promptText: "a restaurant table for four, about 120 by 80 cm" },
+  "counter-service-table": { width: 1.2, depth: 0.7, narrow: false, promptText: "a counter-service restaurant table, about 120 by 70 cm" },
+  "dining-table": { width: 1.8, depth: 0.9, narrow: false, promptText: "a dining-room table, about 180 by 90 cm" },
+  "kitchen-island": { width: 2.0, depth: 0.95, narrow: false, promptText: "a kitchen island countertop, about 200 by 95 cm" },
+  "apartment-table": { width: 1.0, depth: 0.75, narrow: false, promptText: "a small apartment dining table, about 100 by 75 cm" },
+  "picnic-table": { width: 1.8, depth: 0.75, narrow: false, promptText: "a wooden park picnic table" },
   "park-table": { width: 1.4, depth: 0.7, narrow: false, promptText: "a small outdoor park table" },
   "counter-top": { width: 1.8, depth: 0.55, narrow: true, promptText: "an outdoor counter top" },
   bench: { width: 1.6, depth: 0.42, narrow: true, promptText: "a park bench" },

@@ -75,6 +75,7 @@ import {
   AccentChoice,
   IntakeInput,
   Occasion,
+  PICKER_OCCASIONS,
   Party,
   PlatingChoice,
   PrepChoice,
@@ -333,7 +334,7 @@ export const AppRouter = router({
         markets: s.markets ?? null,
         image: s.gtin ? `/sku/${s.gtin}.jpg` : null,
       })),
-      occasions: Occasion.options,
+      occasions: PICKER_OCCASIONS,
       looks: LOOKS.map((l) => ({
         id: l.id,
         label: l.label,

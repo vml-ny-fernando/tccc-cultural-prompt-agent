@@ -75,7 +75,10 @@ export function StoryStep({
   const sku = compose.spec.sku;
   const turnaround = useTurnarounds(onTurnaroundView, { ...(sku.gtin ? { skuId: sku.id } : {}), glass: sku.glass, high: false });
 
+  // A rewrite (notes from the accuracy check) gets its own wording in the loading modal.
+  const [rewriting, setRewriting] = useState(false);
   const generateStory = (notes?: string[]) => {
+    setRewriting(!!notes?.length);
     storyTask.run({
       brief,
       spec: compose.spec,
@@ -268,12 +271,16 @@ export function StoryStep({
           timing={storyTask.timing}
           agentError={storyTask.agentError}
           trpcError={storyTask.trpcError}
-          workingLabel="We are writing up a detailed summary of your scene. This will help us validate what is and what isn’t working in your composition."
-          workingTitle="Scene Story"
-          workingTips={STYLING_TIPS.story}
+          workingLabel={
+            rewriting
+              ? 'We are rewriting your scene story to fix the notes from the accuracy check. Your layout and choices stay the same.'
+              : 'We are writing up a detailed summary of your scene. This will help us validate what is and what isn’t working in your composition.'
+          }
+          workingTitle={rewriting ? 'Rewriting the Story' : 'Scene Story'}
+          workingTips={rewriting ? STYLING_TIPS.storyRewrite : STYLING_TIPS.story}
           overlay
           onSignedIn={() => onSignedIn(() => generateStory())}
-          onRetry={() => generateStory()}
+          onRetry={() => generateStory(rewriting && validation ? validation.notes : undefined)}
         />
 
         <section className={styles.brief} aria-labelledby="brief-summary">

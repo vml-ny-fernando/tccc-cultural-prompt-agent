@@ -28,6 +28,9 @@ export const STYLING_TIPS = {
   story: [
     'Stylists brief the shot before they shoot it. The scene story lists every item and why it is there, so you can spot what is off before any image is made.',
   ],
+  storyRewrite: [
+    'On set, stylists shoot, check the frame against the brief, then adjust. The accuracy check and rewrite do the same before any new image is made.',
+  ],
   sketch: [
     'A sketch is the stylist’s rough before the shoot. Moving a bowl here costs seconds, moving it in a finished photo means making the photo again.',
   ],

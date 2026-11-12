@@ -304,6 +304,13 @@ export interface CameraParams {
   aspect: number;
   position: [number, number, number];
   target: [number, number, number];
+  /**
+   * Lens shift, in frame widths (x, + is right) and heights (y, + is up): the frame slides across
+   * the picture without turning the camera, so the angle and perspective stay the same (the
+   * art director slides the viewfinder, 2026-11-12). Unset: centred.
+   */
+  shiftX?: number;
+  shiftY?: number;
 }
 
 export interface RuleResult {

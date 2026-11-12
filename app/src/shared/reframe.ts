@@ -90,7 +90,10 @@ function orbit(bp: Blueprint, pitchDeg: number, sameAngle: boolean): Reframe {
   const yaw = Math.atan2(px - tx, pz - tz);
   const at = (dist: number): CameraParams => {
     const p = (pitchDeg * Math.PI) / 180;
-    return { ...cam0, pitchDeg, position: [tx + dist * Math.cos(p) * Math.sin(yaw), ty + dist * Math.sin(p), tz + dist * Math.cos(p) * Math.cos(yaw)], target: [tx, ty, tz] };
+    const { shiftX: _sx, shiftY: _sy, ...centred } = cam0;
+    void _sx;
+    void _sy;
+    return { ...centred, pitchDeg, position: [tx + dist * Math.cos(p) * Math.sin(yaw), ty + dist * Math.sin(p), tz + dist * Math.cos(p) * Math.cos(yaw)], target: [tx, ty, tz] };
   };
   const spanOf = (boxes: Map<string, ScreenBox>) => {
     const all = [...boxes.values()];
@@ -204,7 +207,8 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
               ? `From here, the Coca-Cola logo is partly covered by the ${who.map(lower).join(" and ") || "items in front of it"}.`
               : `From here, the ${who.map(lower).join(" and ") || "items"} overlap other items in the shot.`,
         });
-      } else if (["H1", "H2", "H12", "H14", "H15"].includes(r.id)) {
+      } else if (!sameAngle && ["H1", "H2", "H12", "H14", "H15"].includes(r.id)) {
+        // At its own angle the layout keeps the framing the person set (a slid frame may break these on purpose).
         fatal ??= "From this angle the back of the table rises too high, or the dish and the drink can't both sit in the middle of the frame.";
       }
     }

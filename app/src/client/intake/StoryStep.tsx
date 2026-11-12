@@ -1,4 +1,5 @@
 import { ChevronDown, ChevronRight, CircleCheck, CircleDashed, Download, Pencil, RotateCcw, TriangleAlert, Workflow, X } from 'lucide-react';
+import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 
 import { MODEL_FRAMING_WIDEN } from '../../shared/rules.ts';
@@ -269,6 +270,7 @@ export function StoryStep({
           trpcError={storyTask.trpcError}
           workingLabel="We are writing up a detailed summary of your scene. This will help us validate what is and what isn’t working in your composition."
           workingTitle="Scene Story"
+          workingTips={STYLING_TIPS.story}
           overlay
           onSignedIn={() => onSignedIn(() => generateStory())}
           onRetry={() => generateStory()}

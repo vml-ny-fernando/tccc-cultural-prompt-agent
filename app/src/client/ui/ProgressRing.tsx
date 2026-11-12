@@ -7,6 +7,7 @@
 import type { CSSProperties } from 'react';
 
 import type { Progress } from '../lib/progress.ts';
+import { DidYouKnow } from './DidYouKnow.tsx';
 import { timeLeftText } from './ProgressBar.tsx';
 import styles from './ProgressRing.module.css';
 
@@ -15,6 +16,7 @@ export function ProgressRing({
   progress,
   status,
   hint,
+  tips,
 }: {
   label: string;
   /** null before the job reports or has an estimate: an empty ring with no number. */
@@ -23,13 +25,15 @@ export function ProgressRing({
   status?: string;
   /** One plain sentence under the time left, e.g. what you can do while it waits. */
   hint?: string;
+  /** Food styling lines for a "Did you know?" panel under the ring, one at a time. */
+  tips?: readonly string[];
 }) {
   const left = progress ? timeLeftText(progress) : (status ?? 'Starting…');
   return (
     <div className={styles.overlay}>
       <div
         className={styles.card}
-        data-hint={hint ? true : undefined}
+        data-hint={hint || tips?.length ? true : undefined}
         role="progressbar"
         aria-label={label}
         aria-valuemin={0}
@@ -47,6 +51,7 @@ export function ProgressRing({
           {left}
         </p>
         {hint && <p className={styles.hint}>{hint}</p>}
+        {tips && <DidYouKnow tips={tips} />}
       </div>
     </div>
   );

@@ -8,6 +8,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 
+import { DidYouKnow } from './DidYouKnow.tsx';
 import styles from './LoadingOverlay.module.css';
 
 /** How long the modal holds at 100% after the work finishes. */
@@ -88,6 +89,7 @@ export function LoadingOverlay({
   label,
   percent,
   failed = false,
+  tips,
 }: {
   /** The work is running. Keep the overlay mounted after it stops so it can finish at 100%. */
   open: boolean;
@@ -98,6 +100,8 @@ export function LoadingOverlay({
   percent: number | null;
   /** The work ended in an error: close without topping up to 100%. */
   failed?: boolean;
+  /** Food styling lines for a "Did you know?" panel, one at a time. */
+  tips?: readonly string[] | undefined;
 }) {
   const [finishing, setFinishing] = useState(false);
   const wasOpen = useRef(open);
@@ -140,6 +144,7 @@ export function LoadingOverlay({
         <p className={styles.percent} aria-label={`${shown} percent`}>
           {shown}%
         </p>
+        {tips && <DidYouKnow tips={tips} className={styles.tip} />}
       </div>
     </div>,
     document.body

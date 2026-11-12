@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import type { Decision, PlatingChoice } from '../../shared/types.ts';
 import { useAgentTask } from '../lib/useAgentTask.ts';
 import { useOnSignedIn } from '../lib/useOnSignedIn.ts';
@@ -68,6 +69,7 @@ export function PlatingStep({
       timing={task.timing}
       agentError={task.agentError}
       trpcError={task.trpcError}
+      workingTips={STYLING_TIPS.plating}
       workingLabel="We are pulling options to best serve this dish."
       decision={decision}
       selected={selected}

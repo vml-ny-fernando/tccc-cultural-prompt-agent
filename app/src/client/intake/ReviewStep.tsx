@@ -8,6 +8,7 @@
 // else is generated, and a redraw shows the changes. The traced line drawing is
 // only shown while the detailed sketch can't be (failed, plan-gated or expired).
 
+import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import { SignInPrompt, signInRequiredFrom } from '../lib/signIn.tsx';
 import { ArrowRight, Check, CheckCheck, Download, Move, Pencil, PencilLine, RotateCw, Sparkles, Trash2, X } from 'lucide-react';
 import { Dialog, Heading, Modal } from 'react-aria-components';
@@ -535,6 +536,7 @@ export function ReviewStep({
               label={showDetail ? 'Redrawing the sketch' : 'Drawing the sketch'}
               progress={progress ?? null}
               hint={showDetail ? 'The current sketch stays until the new one is ready.' : 'You can start marking items while the sketch draws.'}
+              tips={STYLING_TIPS.sketch}
             />
           )}
           {sketch && (

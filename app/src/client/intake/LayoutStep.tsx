@@ -4,6 +4,7 @@
 // over. The other arrangements and the accent are changed from the sketch
 // (ArrangementBar). Only a failure or a table nothing fits stops here.
 
+import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import { ArrowLeft, RotateCw } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -184,7 +185,7 @@ export function PrepareLayout({
                 timing={accentTask.timing}
                 agentError={accentTask.agentError}
                 trpcError={accentTask.trpcError}
-                workingLabel="The table has an even number of items, so the cultural agent is picking a small accent"
+                workingLabel="Picking a small accent to make the item count odd"
                 onSignedIn={() => onSignedIn(askAccent)}
                 onRetry={askAccent}
                 skeletonCards={0}
@@ -206,10 +207,10 @@ export function PrepareLayout({
           <ProgressRing label="Checking what the table needs" progress={null} />
         ) : !accentAnswered ? (
           accentBusy || accentTask.status === 'idle' ? (
-            <ProgressRing label="Picking a small accent: the table has an even number of items" progress={accentProgress ?? null} />
+            <ProgressRing label="Picking a small accent to make the item count odd" progress={accentProgress ?? null} tips={STYLING_TIPS.oddCount} />
           ) : null
         ) : (
-          <ProgressRing label="Composing the layout" progress={composeProgress ?? { percent: 0, secondsLeft: null, estimated: true }} />
+          <ProgressRing label="Composing the layout" progress={composeProgress ?? { percent: 0, secondsLeft: null, estimated: true }} tips={STYLING_TIPS.layout} />
         )}
       </div>
     </section>

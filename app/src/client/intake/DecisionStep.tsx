@@ -27,6 +27,8 @@ export interface DecisionStepProps<T> {
   agentError: string | null;
   trpcError: unknown;
   workingLabel: string;
+  /** "Did you know?" lines shown in the loading modal. */
+  workingTips?: readonly string[] | undefined;
   decision: Decision<T> | null;
   selected: T | undefined;
   isSame: (a: T, b: T) => boolean;
@@ -59,6 +61,7 @@ export function DecisionStep<T>({
   agentError,
   trpcError,
   workingLabel,
+  workingTips,
   decision,
   selected,
   isSame,
@@ -90,6 +93,7 @@ export function DecisionStep<T>({
         trpcError={trpcError}
         workingLabel={workingLabel}
         workingTitle={typeof title === 'string' ? title : undefined}
+        workingTips={workingTips}
         overlay
         onSignedIn={onSignedIn}
         onRetry={onAskAgain}

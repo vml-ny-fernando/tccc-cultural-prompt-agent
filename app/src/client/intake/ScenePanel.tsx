@@ -7,6 +7,7 @@
 // Download / Re-generate buttons, SceneImageCheck the check against the story
 // (shown with the other checks further down the page).
 
+import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import { CircleCheck, Download, ImageOff, MessageSquareWarning, SlidersHorizontal, TriangleAlert, Wand2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -289,6 +290,7 @@ export function SceneHero({ gen, slug }: { gen: SceneGenerator; slug: string }) 
               label={`Generating ${count > 1 ? `${count} images` : 'the scene'} with ${WORKSPACE_MODEL_LABEL}`}
               progress={progress}
               status={preparing ? 'Uploading the layout image…' : 'Starting…'}
+              tips={STYLING_TIPS.scene}
             />
           </div>
         ) : latest ? (

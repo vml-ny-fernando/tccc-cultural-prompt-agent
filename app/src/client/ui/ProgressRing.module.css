@@ -15,6 +15,10 @@
   align-items: center;
   gap: 6px;
   max-width: min(320px, 100%);
+}
+
+.card:has(aside) {
+  max-width: min(500px, 100%);
   text-align: center;
 }
 

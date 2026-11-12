@@ -302,3 +302,9 @@
     opacity: 1;
   }
 }
+
+/* The "Did you know?" panel under the percent. */
+.tip {
+  margin-top: 0;
+  max-width: 520px;
+}

@@ -90,7 +90,10 @@ function orbit(bp: Blueprint, pitchDeg: number, sameAngle: boolean): Reframe {
   const yaw = Math.atan2(px - tx, pz - tz);
   const at = (dist: number): CameraParams => {
     const p = (pitchDeg * Math.PI) / 180;
-    return { ...cam0, pitchDeg, position: [tx + dist * Math.cos(p) * Math.sin(yaw), ty + dist * Math.sin(p), tz + dist * Math.cos(p) * Math.cos(yaw)], target: [tx, ty, tz] };
+    const { shiftX: _sx, shiftY: _sy, ...centred } = cam0;
+    void _sx;
+    void _sy;
+    return { ...centred, pitchDeg, position: [tx + dist * Math.cos(p) * Math.sin(yaw), ty + dist * Math.sin(p), tz + dist * Math.cos(p) * Math.cos(yaw)], target: [tx, ty, tz] };
   };
   const spanOf = (boxes: Map<string, ScreenBox>) => {
     const all = [...boxes.values()];
@@ -204,7 +207,8 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
               ? `From here, the Coca-Cola logo is partly covered by the ${who.map(lower).join(" and ") || "items in front of it"}.`
               : `From here, the ${who.map(lower).join(" and ") || "items"} overlap other items in the shot.`,
         });
-      } else if (["H1", "H2", "H12", "H14", "H15"].includes(r.id)) {
+      } else if (!sameAngle && ["H1", "H2", "H12", "H14", "H15"].includes(r.id)) {
+        // At its own angle the layout keeps the framing the person set (a slid frame may break these on purpose).
         fatal ??= "From this angle the back of the table rises too high, or the dish and the drink can't both sit in the middle of the frame.";
       }
     }
@@ -212,9 +216,11 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
     return { fit, rules, problems, placed };
   };
 
-  // The items exactly where they are first; then, if that can't be framed or has problems, the whole
-  // setting slid toward the back (or, for an angle that shows the front edge, toward the diner),
-  // which is how the solver sits a setting on the table for each angle. Nothing moves relative to anything else.
+  // At a new angle the whole setting first slides to where the solver sits it for that angle: toward
+  // the back, or, for an angle that shows the front edge, toward the diner. Left at the back of the
+  // table, Looking down has to back away to fit the front edge, and the meal ends up small and far
+  // off (Fernando, 2026-11-12). Then, if that can't be framed or has problems, the items exactly where
+  // they are. Nothing moves relative to anything else.
   const base = placedOf(bp);
   const tries: number[] = [0];
   if (!sameAngle) {
@@ -223,7 +229,7 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
     const toBack = D - REAR_MARGIN - rear;
     const toFront = 0.04 - front;
     const shift = angle.hidden.front_edge_min_y !== undefined ? toFront : toBack;
-    if (Math.abs(shift) > 0.01) tries.push(shift);
+    if (Math.abs(shift) > 0.01) tries.unshift(shift);
   }
   let best: NonNullable<ReturnType<typeof evaluate>> | null = null;
   for (const shift of tries) {

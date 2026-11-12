@@ -13,8 +13,8 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointer
 import { Dialog, Heading, Modal } from 'react-aria-components';
 import * as THREE from 'three';
 
-import { Projector } from '../../shared/camera.ts';
-import { EditRules, editedBlueprint, isEdited, movable, placementOf, removable, type Placement, type Spot } from '../../shared/layoutEdit.ts';
+import { Projector, screenBox } from '../../shared/camera.ts';
+import { EditRules, editedBlueprint, extraHeight, isEdited, movable, placementOf, primitiveDef, removable, type Placement, type Spot } from '../../shared/layoutEdit.ts';
 import type { LightingPreset } from '../../shared/rules.ts';
 import type { Blueprint, CameraParams, Primitive, SceneSpec } from '../../shared/types.ts';
 import { renderSketch, type Sketch } from '../lib/renderProxy.ts';
@@ -24,10 +24,38 @@ import styles from './SketchEditor.module.css';
 
 const WIDTH = 1280;
 
-/** The same camera with a wider lens, so the frame fills `k` of the picture's width and height and the table around it shows too. */
+/** The same camera, centred, with a wider lens, so the frame fills `k` of the picture's width and height and the table around it shows too. */
 function widened(cam: CameraParams, k: number): CameraParams {
   const half = (cam.fovDeg * Math.PI) / 360;
-  return { ...cam, fovDeg: (Math.atan(Math.tan(half) / k) * 360) / Math.PI };
+  const { shiftX: _x, shiftY: _y, ...centred } = cam;
+  void _x;
+  void _y;
+  return { ...centred, fovDeg: (Math.atan(Math.tan(half) / k) * 360) / Math.PI };
+}
+
+/** The drink(s) and the main dish must stay whole in the frame wherever it slides. */
+const HEROES = new Set(['main', 'sku', 'glass', 'shared-hero']);
+
+/** Every item's screen box and centre through `cam` (after the frame slid). */
+function throughCamera(bp: Blueprint, cam: CameraParams): Blueprint {
+  const proj = new Projector(cam);
+  const D = bp.table.depth;
+  let rear = 0;
+  for (const x of [-bp.table.width / 2, 0, bp.table.width / 2]) rear = Math.max(rear, proj.project(x, 0, D).y);
+  return {
+    ...bp,
+    camera: cam,
+    horizon_clamp: { max_table_rear_y_normalized: +rear.toFixed(4) },
+    primitives: bp.primitives.map((p) => {
+      const b = screenBox(proj, primitiveDef(p), p.world.x, p.world.d, p.world.yawDeg, p.world.elevation ?? 0, extraHeight(p));
+      const c = proj.project(p.world.x, (p.world.elevation ?? 0) + p.dimensions.height / 2, p.world.d);
+      return {
+        ...p,
+        center_coordinates: { ...p.center_coordinates, x: +(2 * c.x - 1).toFixed(4), y: +c.y.toFixed(4) },
+        screen_bbox: { x0: +b.x0.toFixed(4), y0: +b.y0.toFixed(4), x1: +b.x1.toFixed(4), y1: +b.y1.toFixed(4) },
+      };
+    }),
+  };
 }
 
 /** The name on an item's chip: short enough to sit on the drawing. */
@@ -92,7 +120,17 @@ export function SketchEditor({
   /** Select this item when the editor opens (the one an angle cuts off). */
   focus?: string | undefined;
 }) {
-  const rules = useMemo(() => new EditRules(blueprint, spec), [blueprint, spec]);
+  /** Where the frame sits (Fernando, 2026-11-12): slid up, down or sideways across the table without turning the camera. */
+  const [shift, setShift] = useState({ x: blueprint.camera.shiftX ?? 0, y: blueprint.camera.shiftY ?? 0 });
+  const cam = useMemo(() => {
+    const { shiftX: _x, shiftY: _y, ...centred } = blueprint.camera;
+    void _x;
+    void _y;
+    return Math.abs(shift.x) < 1e-4 && Math.abs(shift.y) < 1e-4 ? centred : { ...centred, shiftX: +shift.x.toFixed(4), shiftY: +shift.y.toFixed(4) };
+  }, [blueprint.camera, shift]);
+  const framed = useMemo(() => (cam === blueprint.camera ? blueprint : { ...blueprint, camera: cam }), [blueprint, cam]);
+  const rules = useMemo(() => new EditRules(framed, spec), [framed, spec]);
+  const [pan, setPan] = useState<{ startX: number; startY: number; from: { x: number; y: number } } | null>(null);
   const [place, setPlace] = useState<Placement>(() => placementOf(blueprint));
   const [history, setHistory] = useState<Placement[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
@@ -105,13 +143,16 @@ export function SketchEditor({
   const k = overscan && overscan < 1 ? overscan : 1;
   /** The camera the drawing is made through: the layout's own, or wider with overscan. */
   const view = useMemo(() => new Projector(k < 1 ? widened(blueprint.camera, k) : blueprint.camera), [blueprint.camera, k]);
-  /** From the layout's frame (0..1) to the drawing (0..1). */
-  const toView = (v: number) => 0.5 + (v - 0.5) * k;
+  /** From the (slid) frame (0..1, y up) to the drawing (0..1, y up). */
+  const toViewX = (v: number) => 0.5 + (v - 0.5 + (k < 1 ? shift.x : 0)) * k;
+  const toViewY = (v: number) => 0.5 + (v - 0.5 + (k < 1 ? shift.y : 0)) * k;
 
   // Every open starts from the layout on screen.
   useEffect(() => {
     if (!isOpen) return;
     setPlace(placementOf(blueprint));
+    setShift({ x: blueprint.camera.shiftX ?? 0, y: blueprint.camera.shiftY ?? 0 });
+    setPan(null);
     setHistory([]);
     setSelected(focus ?? null);
     setMessage(null);
@@ -119,8 +160,33 @@ export function SketchEditor({
     setDrawn(null);
   }, [isOpen, blueprint, focus]);
 
-  const edited = useMemo(() => editedBlueprint(blueprint, place, sourceName), [blueprint, place, sourceName]);
-  const changed = isEdited(blueprint, place);
+  const slid = Math.abs((blueprint.camera.shiftX ?? 0) - shift.x) > 1e-4 || Math.abs((blueprint.camera.shiftY ?? 0) - shift.y) > 1e-4;
+  const edited = useMemo(() => {
+    const e = editedBlueprint(framed, place, sourceName);
+    return cam === blueprint.camera ? e : throughCamera(e, cam);
+  }, [framed, place, sourceName, cam, blueprint.camera]);
+  const changed = isEdited(blueprint, place) || slid;
+
+  /** Slides the frame by a pointer move, as far as the drawing reaches and while the dish and drinks stay whole in it. */
+  const slideTo = (want: { x: number; y: number }) => {
+    const lim = (1 - k) / (2 * k);
+    const clamp = (v: number) => Math.max(-lim, Math.min(lim, v));
+    const next = { x: clamp(want.x), y: clamp(want.y) };
+    const fits = (sh: { x: number; y: number }) => {
+      const proj = new Projector({ ...cam, shiftX: sh.x, shiftY: sh.y });
+      return edited.primitives
+        .filter((p) => HEROES.has(p.role))
+        .every((p) => {
+          const b = screenBox(proj, primitiveDef(p), p.world.x, p.world.d, p.world.yawDeg, p.world.elevation ?? 0, extraHeight(p));
+          return b.x0 >= -1e-3 && b.x1 <= 1.001 && b.y0 >= -1e-3 && b.y1 <= 1.001;
+        });
+    };
+    if (fits(next)) return setShift(next);
+    // Slide each way on its own, so the frame can still run along an edge it can't cross.
+    if (fits({ x: next.x, y: shift.y })) return setShift({ x: next.x, y: shift.y });
+    if (fits({ x: shift.x, y: next.y })) return setShift({ x: shift.x, y: next.y });
+    setMessage({ text: 'The frame stops here: the dish and the Coca-Cola product stay whole in the shot.', tone: 'warn' });
+  };
 
   // The line drawing of the edited layout, redrawn after each move (after a paint, so the old one stays meanwhile).
   useEffect(() => {
@@ -165,6 +231,12 @@ export function SketchEditor({
     if (e.button !== 0) return;
     setSelected(id);
     setMessage(null);
+    if (!id && k < 1) {
+      // Empty table or the dimmed area: slide the frame.
+      frameRef.current?.setPointerCapture(e.pointerId);
+      setPan({ startX: e.clientX, startY: e.clientY, from: shift });
+      return;
+    }
     if (!id || !place[id]) return;
     const p = rules.item(id);
     if (!movable(p)) return;
@@ -189,9 +261,15 @@ export function SketchEditor({
 
   const pendingMove = useRef<number | null>(null);
   const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (pan) {
+      const r = frameRef.current?.getBoundingClientRect();
+      if (!r) return;
+      slideTo({ x: pan.from.x + (e.clientX - pan.startX) / r.width / k, y: pan.from.y - (e.clientY - pan.startY) / r.height / k });
+      return;
+    }
     if (!drag) {
       const el = frameRef.current;
-      if (el) el.dataset.pointer = itemAt(e) ? 'true' : '';
+      if (el) el.dataset.pointer = itemAt(e) || k < 1 ? 'true' : '';
       return;
     }
     const { clientX, clientY } = e;
@@ -212,6 +290,10 @@ export function SketchEditor({
   };
 
   const onPointerUp = () => {
+    if (pan) {
+      setPan(null);
+      return;
+    }
     if (pendingMove.current !== null) cancelAnimationFrame(pendingMove.current);
     pendingMove.current = null;
     const d = drag;
@@ -250,6 +332,7 @@ export function SketchEditor({
   const startOver = () => {
     setHistory((h) => [...h, place]);
     setPlace(placementOf(blueprint));
+    setShift({ x: blueprint.camera.shiftX ?? 0, y: blueprint.camera.shiftY ?? 0 });
     setSelected(null);
     setMessage(null);
   };
@@ -298,8 +381,8 @@ export function SketchEditor({
     }
     if (k < 1) {
       // Everything outside the camera's frame is dimmed; the frame itself is outlined and named.
-      const fx = ((1 - k) / 2) * w,
-        fy = ((1 - k) / 2) * h,
+      const fx = ((1 - k) / 2 + shift.x * k) * w,
+        fy = ((1 - k) / 2 - shift.y * k) * h,
         fw = k * w,
         fh = k * h;
       ctx.save();
@@ -313,7 +396,7 @@ export function SketchEditor({
       ctx.strokeRect(fx, fy, fw, fh);
       ctx.font = '600 22px ui-monospace, monospace';
       ctx.fillStyle = 'rgba(231, 34, 58, 1)';
-      ctx.fillText('CAMERA FRAME', fx + 10, fy - 10);
+      ctx.fillText('CAMERA FRAME', fx + 10, fy > 34 ? fy - 10 : fy + 28);
       ctx.restore();
     }
     if (!drag?.moved) return;
@@ -351,8 +434,8 @@ export function SketchEditor({
     for (const poly of polys) {
       ctx.beginPath();
       poly.forEach(([sx, sy], i) => {
-        const cx = toView(sx) * w,
-          cy = (1 - toView(sy)) * h;
+        const cx = toViewX(sx) * w,
+          cy = (1 - toViewY(sy)) * h;
         if (i) ctx.lineTo(cx, cy);
         else ctx.moveTo(cx, cy);
       });
@@ -372,7 +455,7 @@ export function SketchEditor({
       ctx.fill();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- toCanvas reads rules, listed
-  }, [sketch, selected, drag, rules, shown, view, k]);
+  }, [sketch, selected, drag, rules, shown, view, k, shift]);
 
   const sel = selected && place[selected] ? rules.item(selected) : null;
   const removedCount = blueprint.primitives.length - Object.keys(place).length;
@@ -380,7 +463,7 @@ export function SketchEditor({
     const at = place[p.id];
     return at && (Math.abs(at.x - p.world.x) > 1e-6 || Math.abs(at.d - p.world.d) > 1e-6);
   }).length;
-  const summary = [movedCount ? `${movedCount} moved` : '', removedCount ? `${removedCount} removed` : ''].filter(Boolean).join(' · ');
+  const summary = [movedCount ? `${movedCount} moved` : '', removedCount ? `${removedCount} removed` : '', slid ? 'frame moved' : ''].filter(Boolean).join(' · ').replace(/^./, (c) => c.toUpperCase());
 
   return (
     <Modal isOpen={isOpen} onOpenChange={(open) => !open && onClose()} isDismissable={!changed} isKeyboardDismissDisabled={changed} className={styles.overlay}>
@@ -400,7 +483,7 @@ export function SketchEditor({
           <div
             ref={frameRef}
             className={styles.frame}
-            data-dragging={drag?.moved || undefined}
+            data-dragging={drag?.moved || pan ? true : undefined}
             onPointerDown={(e) => startDrag(e)}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
@@ -455,7 +538,7 @@ export function SketchEditor({
                   {!movable(sel) ? (sel.held_by ? ' stays in the hand that holds it.' : ' holds the pose you picked.') : removable(sel) ? '' : ' stays in every scene. You can move it.'}
                 </span>
               ) : (
-                <span className={styles.muted}>Select or drag an item.</span>
+                <span className={styles.muted}>{k < 1 ? 'Select or drag an item. Drag the empty table to slide the camera frame.' : 'Select or drag an item.'}</span>
               )}
             </div>
             <div className={styles.tools}>

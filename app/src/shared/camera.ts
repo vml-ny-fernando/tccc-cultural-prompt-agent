@@ -32,6 +32,8 @@ export function toThreeCamera(c: CameraParams): THREE.PerspectiveCamera {
   const cam = new THREE.PerspectiveCamera(c.fovDeg, c.aspect, 0.01, 100);
   cam.position.set(...c.position);
   cam.lookAt(new THREE.Vector3(...c.target));
+  // A lens shift slides the frame across the picture (see CameraParams.shiftX).
+  if (c.shiftX || c.shiftY) cam.setViewOffset(1, 1, c.shiftX ?? 0, -(c.shiftY ?? 0), 1, 1);
   cam.updateMatrixWorld(true);
   cam.updateProjectionMatrix();
   return cam;

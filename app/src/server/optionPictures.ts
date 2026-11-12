@@ -32,7 +32,8 @@ const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
 export function prepPhotoPath(i: Pick<PrepPhotoInput, 'kind' | 'country' | 'heroDish' | 'label' | 'prep'>): string {
   const parts = [i.country, i.heroDish, ...(i.kind === 'plating' ? [i.prep?.label ?? ''] : []), i.label].map(norm).join('|');
   const key = createHash('sha256').update(parts).digest('hex').slice(0, 32);
-  return `thumbnails/${i.kind}/${key}`;
+  // v2 (2026-11-12): every plating drawing on the same plain white paper, no table (Fernando); new folder so older drawings with tabletops aren't reused.
+  return `thumbnails/${i.kind === 'plating' ? 'plating-v2' : i.kind}/${key}`;
 }
 
 function prompt(i: PrepPhotoInput): string {
@@ -41,9 +42,10 @@ function prompt(i: PrepPhotoInput): string {
       `A detailed black-and-white pen-and-ink drawing of one serving of ${i.heroDish} as served in ${i.countryLabel}: ${i.label}.`,
       `How it is served: ${i.promptText}`,
       i.prep ? `The food on it: ${i.prep.label}. ${i.prep.promptText}` : '',
-      'The serving vessel and the food on it fill most of the frame, seen from about 35 degrees above on a plain tabletop, so the vessel\'s shape, size and material and how the food sits on it are easy to read.',
+      'The serving vessel and the food on it sit in the middle of the picture and fill most of it, seen from about 35 degrees above, so the vessel\'s shape, size and material and how the food sits on it are easy to read.',
+      'Background: the vessel stands alone on plain white paper. No table, no tabletop, no wood grain, no cloth, no backdrop, no room and no other objects; only a soft pencil shadow directly under the vessel.',
       'Style: graphite pencil and fine ink line on plain white paper, confident contour lines with light hatching and cross-hatching for shadow and volume, like a storyboard or food-styling concept drawing.',
-      'Strictly monochrome: black and grey on pure white, no color anywhere. No people, no hands, no text, no labels, no logos, no drinks.',
+      'Strictly monochrome: black and grey on pure white. No color anywhere, not even on sauces, garnishes or glazes: draw them in grey tones. No people, no hands, no text, no labels, no logos, no drinks.',
     ]
       .filter(Boolean)
       .join(' ');

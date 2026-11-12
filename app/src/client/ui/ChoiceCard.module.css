@@ -237,7 +237,8 @@
 .rowMedia {
   grid-column: 3;
   grid-row: 1 / span 3;
-  align-self: start;
+  /* Centred top to bottom in the card (Fernando, 2026-11-12). */
+  align-self: center;
   width: 208px;
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -256,6 +257,11 @@
 /* Room for the "More details" link under the description. */
 .row[data-more] {
   padding-bottom: calc(var(--row-pad-y) + 32px);
+}
+
+/* The picture centres on the whole card, so it reaches into the link's room below. */
+.row[data-more] .rowMedia {
+  margin-bottom: -32px;
 }
 
 .row[data-hovered]:not([data-disabled]) {
@@ -321,13 +327,14 @@
   grid-row: 1;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  /* The SUGGESTED pill sits right after the title, not across the card (Fernando, 2026-11-12). */
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 8px 16px;
 }
 
 .rowTitle {
-  flex: 1 1 280px;
+  flex: 0 1 auto;
   min-width: 0;
   max-width: 640px;
   font-size: 18px;

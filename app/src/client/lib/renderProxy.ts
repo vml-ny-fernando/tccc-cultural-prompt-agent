@@ -513,7 +513,9 @@ export function renderProxy(bp: Blueprint, lighting: LightingPreset, opts: Rende
   if (opts.widen && opts.widen !== 1) {
     const half = (bp.camera.fovDeg * Math.PI) / 360;
     const fovDeg = (Math.atan(Math.tan(half) * opts.widen) * 360) / Math.PI;
-    bp = { ...bp, camera: { ...bp.camera, fovDeg } };
+    // A lens shift is measured in frame sizes, so a wider frame needs a smaller one for the same slide.
+    const c = bp.camera;
+    bp = { ...bp, camera: { ...c, fovDeg, ...(c.shiftX ? { shiftX: c.shiftX / opts.widen } : {}), ...(c.shiftY ? { shiftY: c.shiftY / opts.widen } : {}) } };
   }
   renderer.setPixelRatio(1);
   renderer.setSize(width, height, false);

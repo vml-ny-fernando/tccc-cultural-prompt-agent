@@ -1269,6 +1269,8 @@ export const MIN_OPTION_DISTANCE = 0.08;
 // the camera angle, then a larger table of the same kind, and only then the extra condiments
 // and sides, one at a time from the least important.
 
+const FALLBACK_BUDGET_MS = 20_000;
+
 /** Larger tables of the same kind, nearest first. */
 const LARGER_SURFACE: Partial<Record<Surface, Surface[]>> = {
   "table-2top": ["table-4top", "long-table"],
@@ -1330,12 +1332,16 @@ export function solve(spec: SceneSpec, maxOptions = 3): SolveResult {
     if (r.options.length) return done(r, base, baseNotes);
   }
 
+  // Each try costs up to about a second, so the search stops after FALLBACK_BUDGET_MS and the
+  // operator gets the "too full" screen rather than a long wait.
+  const deadline = Date.now() + FALLBACK_BUDGET_MS;
   const levels = [{ spec: base, left: [] as string[] }, ...lighterTables(base)];
   const surfaces = [base.scene.surface, ...(LARGER_SURFACE[base.scene.surface] ?? [])];
   const angles = [angleById(base.camera.angle), ...nearestAngles(base.camera.angle)];
   for (const level of levels) {
     for (const surface of surfaces) {
       for (const angle of angles) {
+        if (Date.now() > deadline) return { ...first, spec, notes: [] };
         // The base itself was tried above.
         if (level.left.length === 0 && surface === base.scene.surface && angle.id === base.camera.angle) continue;
         const tried: SceneSpec = {

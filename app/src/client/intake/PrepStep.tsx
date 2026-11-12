@@ -6,7 +6,7 @@ import { useAgentTask } from '../lib/useAgentTask.ts';
 import { trpc } from '../trpc.ts';
 import { useOnSignedIn } from '../lib/useOnSignedIn.ts';
 import { DecisionStep } from './DecisionStep.tsx';
-import { PrepPhoto } from './OptionPictures.tsx';
+import { OptionPicture } from './OptionPictures.tsx';
 import { keepCustom, useCustomOption } from './useCustomOption.ts';
 import { countryPhrase, isOrAre, placeName } from './optionText.ts';
 import type { Brief } from './types.ts';
@@ -85,7 +85,7 @@ export function PrepStep({
         label: v.label,
         summary: v.detail,
         media: brief.country && brief.heroDish ? (
-          <PrepPhoto country={brief.country} countryLabel={brief.countryLabel} heroDish={brief.heroDish} label={v.label} promptText={v.promptText} />
+          <OptionPicture kind="prep" country={brief.country} countryLabel={brief.countryLabel} heroDish={brief.heroDish} label={v.label} promptText={v.promptText} />
         ) : undefined,
         facts: [
           { label: 'Silhouette', value: v.massClass },

@@ -1,7 +1,10 @@
-// Preparation photos (Fernando, 2026-11-11): one realistic photo per country, dish and
-// preparation, made once with the higher-quality image model and saved for everyone. Later
-// sessions reuse the saved file; nothing is generated twice. These don't count toward a
-// user's monthly image limit, since they are shared reference pictures, not their scenes.
+// Pictures beside the options on Preparation and Plating (Fernando, 2026-11-11). Each is made
+// once and saved for everyone; later sessions reuse the saved file, nothing is generated twice.
+// They don't count toward a user's monthly image limit: they are shared reference pictures.
+// - Preparation: a realistic photo of the dish as prepared, per country + dish + option, made
+//   with the higher-quality image model.
+// - Plating: a pen-and-ink drawing in Review the Sketch's style of that preparation on the
+//   serving vessel, per country + dish + preparation + plating option.
 
 import { createHash } from 'node:crypto';
 
@@ -9,11 +12,15 @@ import { generateImages } from './gemini.ts';
 import { mediaUrl, putFile, signedFileUrl } from './store.ts';
 
 export interface PrepPhotoInput {
+  kind: 'prep' | 'plating';
   country: string;
   countryLabel: string;
   heroDish: string;
+  /** The option's name: the preparation, or the plating. */
   label: string;
   promptText: string;
+  /** Plating only: the preparation already chosen, so the drawing shows that food on the vessel. */
+  prep?: { label: string; promptText: string } | undefined;
 }
 
 const known = new Set<string>();
@@ -22,12 +29,24 @@ const inflight = new Map<string, Promise<string>>();
 const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
 
 /** The storage path for this country, dish and preparation (the option's name, not its wording). */
-export function prepPhotoPath(i: Pick<PrepPhotoInput, 'country' | 'heroDish' | 'label'>): string {
-  const key = createHash('sha256').update(`${norm(i.country)}|${norm(i.heroDish)}|${norm(i.label)}`).digest('hex').slice(0, 32);
-  return `thumbnails/prep/${key}`;
+export function prepPhotoPath(i: Pick<PrepPhotoInput, 'kind' | 'country' | 'heroDish' | 'label' | 'prep'>): string {
+  const parts = [i.country, i.heroDish, ...(i.kind === 'plating' ? [i.prep?.label ?? ''] : []), i.label].map(norm).join('|');
+  const key = createHash('sha256').update(parts).digest('hex').slice(0, 32);
+  return `thumbnails/${i.kind}/${key}`;
 }
 
 function prompt(i: PrepPhotoInput): string {
+  if (i.kind === 'plating')
+    return [
+      `A detailed black-and-white pen-and-ink drawing of one serving of ${i.heroDish} as served in ${i.countryLabel}: ${i.label}.`,
+      `How it is served: ${i.promptText}`,
+      i.prep ? `The food on it: ${i.prep.label}. ${i.prep.promptText}` : '',
+      'The serving vessel and the food on it fill most of the frame, seen from about 35 degrees above on a plain tabletop, so the vessel\'s shape, size and material and how the food sits on it are easy to read.',
+      'Style: graphite pencil and fine ink line on plain white paper, confident contour lines with light hatching and cross-hatching for shadow and volume, like a storyboard or food-styling concept drawing.',
+      'Strictly monochrome: black and grey on pure white, no color anywhere. No people, no hands, no text, no labels, no logos, no drinks.',
+    ]
+      .filter(Boolean)
+      .join(' ');
   return [
     `A realistic, appetizing food photograph of ${i.heroDish}, prepared as "${i.label}" the way it is made and served in ${i.countryLabel}.`,
     `The dish: ${i.promptText}`,
@@ -62,7 +81,7 @@ export async function prepPhoto(i: PrepPhotoInput): Promise<{ url: string } | { 
   const fail = failed.get(path);
   if (fail && Date.now() - fail.at < RETRY_AFTER_MS) return { error: fail.message };
   const job = (async () => {
-    const [image] = await generateImages({ model: 'pro', prompt: prompt(i), aspectRatio: '4:3', imageSize: '1K', numImages: 1, references: [] });
+    const [image] = await generateImages({ model: i.kind === 'prep' ? 'pro' : 'fast', prompt: prompt(i), aspectRatio: '4:3', imageSize: '1K', numImages: 1, references: [] });
     await putFile(path, image!.bytes, image!.mimeType);
     known.add(path);
     failed.delete(path);

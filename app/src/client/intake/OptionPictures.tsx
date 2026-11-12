@@ -1,30 +1,39 @@
-// Pictures beside the options on Preparation and Plating (Fernando, 2026-11-11). Preparation
-// shows a realistic photo, made once per country, dish and option and shared by everyone;
-// Plating shows a light pencil drawing of the vessel, drawn in the browser.
+// Pictures beside the options on Preparation and Plating (Fernando, 2026-11-11), each made once
+// and shared by everyone (server/optionPictures.ts). Preparation shows a realistic photo;
+// Plating shows a pen-and-ink drawing in Review the Sketch's style.
 
-import { useEffect, useState } from 'react';
-
-import type { MassClass, Vessel } from '../../shared/types.ts';
-import { platingSketch } from '../lib/platingSketch.ts';
 import { trpc } from '../trpc.ts';
 import { SkeletonBlock } from '../ui/Skeleton.tsx';
 import styles from './OptionPictures.module.css';
 
-export function PrepPhoto({
+export function OptionPicture({
+  kind,
   country,
   countryLabel,
   heroDish,
   label,
   promptText,
+  prep,
 }: {
+  kind: 'prep' | 'plating';
   country: string;
   countryLabel: string;
   heroDish: string;
   label: string;
   promptText: string;
+  prep?: { label: string; promptText: string } | undefined;
 }) {
+  const what = kind === 'prep' ? 'reference photo' : 'sketch';
   const q = trpc.prepPhoto.useQuery(
-    { country, countryLabel, heroDish, label, promptText: promptText.slice(0, 1200) },
+    {
+      kind,
+      country,
+      countryLabel,
+      heroDish,
+      label,
+      promptText: promptText.slice(0, 1200),
+      ...(prep ? { prep: { label: prep.label, promptText: prep.promptText.slice(0, 1200) } } : {}),
+    },
     {
       staleTime: Infinity,
       refetchOnWindowFocus: false,
@@ -36,8 +45,8 @@ export function PrepPhoto({
   if (data && 'url' in data) {
     return (
       <figure className={styles.figure}>
-        <img src={data.url} alt={`${label}: reference photo`} loading="lazy" />
-        <figcaption className={styles.tag}>Reference</figcaption>
+        <img src={data.url} alt={`${label}: ${what}`} loading="lazy" />
+        {kind === 'prep' && <figcaption className={styles.tag}>Reference</figcaption>}
       </figure>
     );
   }
@@ -45,20 +54,9 @@ export function PrepPhoto({
     return <div className={styles.empty}>No picture yet</div>;
   }
   return (
-    <div className={styles.waiting} aria-label="Making a reference photo">
+    <div className={styles.waiting} aria-label={`Making a ${what}`}>
       <SkeletonBlock height="100%" />
-      <span className={styles.waitText}>Making a reference photo…</span>
+      <span className={styles.waitText}>Making a {what}…</span>
     </div>
   );
-}
-
-export function PlatingSketch({ vessel, massClass, label }: { vessel: Vessel; massClass: MassClass | undefined; label: string }) {
-  const [url, setUrl] = useState<string | null>(null);
-  // After the first paint, so the step shows before the drawing is traced.
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => setUrl(platingSketch(vessel, massClass)));
-    return () => cancelAnimationFrame(frame);
-  }, [vessel, massClass]);
-  if (!url) return <SkeletonBlock height="100%" />;
-  return <img className={styles.sketch} src={url} alt={`${label}: pencil sketch of the serving vessel`} />;
 }

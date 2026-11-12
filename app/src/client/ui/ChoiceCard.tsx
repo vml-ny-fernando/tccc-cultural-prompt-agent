@@ -85,7 +85,7 @@ export function ChoiceCardGroup({
           if (layout === 'list') {
             return (
               <div key={o.id} className={styles.cell}>
-                <Radio value={o.value} isDisabled={o.disabled} className={styles.row} data-more={more || undefined}>
+                <Radio value={o.value} isDisabled={o.disabled} className={styles.row} data-more={more || undefined} data-media={o.media ? true : undefined}>
                   {({ isSelected }) => (
                     <>
                       <span className={styles.box} aria-hidden>
@@ -96,6 +96,7 @@ export function ChoiceCardGroup({
                         {o.badge && <span className={styles.pill}>{o.badge}</span>}
                       </div>
                       {o.summary && <div className={styles.rowSummary}>{o.summary}</div>}
+                      {o.media && <div className={styles.rowMedia}>{o.media}</div>}
                       {inline && expandedId === o.id && o.details && (
                         <div className={styles.rowDetails} id={`details-${o.id}`}>
                           <DetailsBody details={o.details} />

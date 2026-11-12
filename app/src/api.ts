@@ -20,6 +20,7 @@ import {
 } from './server/generations.ts';
 import { doneJob, getJob, startJob } from './server/jobs.ts';
 import { documentStore } from './server/store.ts';
+import { prepPhoto } from './server/optionPictures.ts';
 import { db } from './server/supabase.ts';
 import { buildTask, parseAnswer, repairTask, type AgentResult } from './server/agent.ts';
 import {
@@ -315,6 +316,24 @@ export const AppRouter = router({
   }),
 
   /** Everything the brief and the scene/camera steps need to render. */
+  /**
+   * The saved picture for one Preparation option (a photo) or Plating option (a pen-and-ink
+   * drawing), made once and reused by everyone after (server/optionPictures.ts).
+   */
+  prepPhoto: signedInProcedure
+    .input(
+      z.object({
+        kind: z.enum(['prep', 'plating']).default('prep'),
+        prep: z.object({ label: z.string().max(200), promptText: z.string().max(1200) }).optional(),
+        country: z.string().min(1).max(120),
+        countryLabel: z.string().max(120),
+        heroDish: z.string().min(1).max(200),
+        label: z.string().min(1).max(200),
+        promptText: z.string().max(1200),
+      }),
+    )
+    .query(({ input }) => prepPhoto(input)),
+
   config: signedInProcedure.query(() => {
     const kb = loadKnowledge();
     return {

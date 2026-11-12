@@ -78,7 +78,7 @@ export interface SolveResult {
 // Geometry helpers
 // ---------------------------------------------------------------------------
 
-function radiusOf(p: Placed): number {
+export function radiusOf(p: Placed): number {
   return footprintRadius(p.item.def);
 }
 
@@ -138,7 +138,7 @@ export function kindGap(ka: string, kb: string): number {
 const MAIN_BOTTOM_MARGIN = 0.02;
 
 /** Table left visible behind the rearmost item. */
-const REAR_MARGIN = 0.08;
+export const REAR_MARGIN = 0.08;
 
 function onTable(p: Placed, W: number, D: number): boolean {
   const r = radiusOf(p);
@@ -630,7 +630,7 @@ function settle(p: Placed, want: Anchor, placed: Placed[], W: number, D: number,
 // Camera fit
 // ---------------------------------------------------------------------------
 
-interface Fit {
+export interface Fit {
   cam: CameraParams;
   boxes: Map<string, ScreenBox>;
   sils: Map<string, Poly[]>;
@@ -691,7 +691,7 @@ interface Framing {
 
 const rearLimit = (f: Framing) => f.rear_edge_max_y ?? 0.5;
 
-function fitCamera(placed: Placed[], D: number, focal: number, pitch: number, targetSpan: number, framing: Framing = {}): Fit | null {
+export function fitCamera(placed: Placed[], D: number, focal: number, pitch: number, targetSpan: number, framing: Framing = {}): Fit | null {
   const heroes = heroLabels(placed);
   const heroPlaced = placed.filter((p) => heroes.includes(p.item.label));
   const xs = heroPlaced.flatMap((p) => [p.x - radiusOf(p), p.x + radiusOf(p)]);
@@ -824,11 +824,11 @@ const MOVE_PRIORITY: Record<string, number> = {
 };
 
 /** Rule failures that reject a layout (preferences don't). */
-function blocking(rules: RuleResult[]): RuleResult[] {
+export function blocking(rules: RuleResult[]): RuleResult[] {
   return rules.filter((r) => !r.pass && !r.soft);
 }
 
-function checkRules(placed: Placed[], fit: Fit, spec: SceneSpec): RuleResult[] {
+export function checkRules(placed: Placed[], fit: Fit, spec: SceneSpec): RuleResult[] {
   const out: RuleResult[] = [];
   const kindOf = new Map(placed.map((p) => [p.item.label, p.item.kind]));
   const movable = (labels: string[]) =>
@@ -985,7 +985,7 @@ function area(b: ScreenBox): number {
   return Math.max(0, b.x1 - b.x0) * Math.max(0, b.y1 - b.y0);
 }
 
-function score(placed: Placed[], fit: Fit, archetype: Archetype, targetSpan: number): { total: number; terms: Record<string, number> } {
+export function score(placed: Placed[], fit: Fit, archetype: Archetype, targetSpan: number): { total: number; terms: Record<string, number> } {
   const B = fit.boxes;
   const heroes = heroLabels(placed);
   const u = unionBox(heroes.map((l) => B.get(l)!));
@@ -1129,7 +1129,7 @@ function solveVariant(spec: SceneSpec, items: ItemSpec[], archetype: Archetype, 
   return { archetype, blueprint };
 }
 
-function toBlueprint(
+export function toBlueprint(
   spec: SceneSpec,
   placed: Placed[],
   fit: Fit,

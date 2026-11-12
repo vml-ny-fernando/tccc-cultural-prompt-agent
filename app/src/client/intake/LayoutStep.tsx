@@ -4,6 +4,7 @@
 // over. The other arrangements and the accent are changed from the sketch
 // (ArrangementBar). Only a failure or a table nothing fits stops here.
 
+import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import { ArrowLeft, RotateCw } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -41,6 +42,8 @@ export function PrepareLayout({
   onPick,
   onBack,
   onBackToSides,
+  title = 'Review the Sketch',
+  lede = "Picking the best layout for this table. The sketch starts drawing as soon as it's ready, and you can try other arrangements from there.",
 }: {
   brief: Brief;
   sel: Selections;
@@ -52,10 +55,12 @@ export function PrepareLayout({
   compose: ComposeResult | null;
   onCompose: (c: ComposeResult) => void;
   onPick: (i: number) => void;
-  /** Back to the Camera Angle step. */
-  onBack: () => void;
+  /** Back to the Camera Angle step (older drafts that reach this from Sketch Review). */
+  onBack?: (() => void) | undefined;
   /** Back to Sides, to pick a smaller set when nothing fits. */
   onBackToSides: () => void;
+  title?: string;
+  lede?: string;
 }) {
   const needsAccent = rules?.needsAccent;
   const onTheGo = sel.scene?.venue === 'on-the-go';
@@ -117,8 +122,8 @@ export function PrepareLayout({
 
   const intro = (
     <>
-      <h1>Review the Sketch</h1>
-      <p>Picking the best layout for this table. The sketch starts drawing as soon as it's ready, and you can try other arrangements from there.</p>
+      <h1>{title}</h1>
+      <p>{lede}</p>
     </>
   );
 
@@ -152,9 +157,11 @@ export function PrepareLayout({
               <Button variant="primary" icon={<ArrowLeft size={16} aria-hidden />} onPress={onBackToSides}>
                 Back to Sides
               </Button>
-              <Button icon={<ArrowLeft size={16} aria-hidden />} onPress={onBack}>
-                Back to Camera Angle
-              </Button>
+              {onBack && (
+                <Button icon={<ArrowLeft size={16} aria-hidden />} onPress={onBack}>
+                  Back to Camera Angle
+                </Button>
+              )}
             </div>
           }
         />
@@ -184,7 +191,7 @@ export function PrepareLayout({
                 timing={accentTask.timing}
                 agentError={accentTask.agentError}
                 trpcError={accentTask.trpcError}
-                workingLabel="The table has an even number of items, so the cultural agent is picking a small accent"
+                workingLabel="Picking a small accent to make the item count odd"
                 onSignedIn={() => onSignedIn(askAccent)}
                 onRetry={askAccent}
                 skeletonCards={0}
@@ -206,10 +213,10 @@ export function PrepareLayout({
           <ProgressRing label="Checking what the table needs" progress={null} />
         ) : !accentAnswered ? (
           accentBusy || accentTask.status === 'idle' ? (
-            <ProgressRing label="Picking a small accent: the table has an even number of items" progress={accentProgress ?? null} />
+            <ProgressRing label="Picking a small accent to make the item count odd" progress={accentProgress ?? null} tips={STYLING_TIPS.oddCount} />
           ) : null
         ) : (
-          <ProgressRing label="Composing the layout" progress={composeProgress ?? { percent: 0, secondsLeft: null, estimated: true }} />
+          <ProgressRing label="Composing the layout" progress={composeProgress ?? { percent: 0, secondsLeft: null, estimated: true }} tips={STYLING_TIPS.layout} />
         )}
       </div>
     </section>

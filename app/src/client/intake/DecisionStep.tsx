@@ -36,6 +36,8 @@ export interface DecisionStepProps<T> {
     summary: ReactNode;
     body?: ReactNode | undefined;
     facts?: ChoiceCardDetails['facts'];
+    /** A picture beside the option (Preparation: a cached photo; Plating: a pencil drawing). */
+    media?: ReactNode | undefined;
   };
   onPick: (v: T) => void;
   onAskAgain: () => void;
@@ -117,6 +119,7 @@ export function DecisionStep<T>({
                 value: o.id,
                 label: r.label,
                 summary: r.summary,
+                media: r.media,
                 details: {
                   body: r.body,
                   facts: r.facts,

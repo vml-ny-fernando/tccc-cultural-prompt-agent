@@ -8,6 +8,7 @@
 // else is generated, and a redraw shows the changes. The traced line drawing is
 // only shown while the detailed sketch can't be (failed, plan-gated or expired).
 
+import { STYLING_TIPS } from '../lib/stylingTips.ts';
 import { SignInPrompt, signInRequiredFrom } from '../lib/signIn.tsx';
 import { ArrowRight, Check, CheckCheck, Download, Move, Pencil, PencilLine, RotateCw, Sparkles, Trash2, X } from 'lucide-react';
 import { Dialog, Heading, Modal } from 'react-aria-components';
@@ -33,6 +34,7 @@ import { SkeletonBlock } from '../ui/Skeleton.tsx';
 import { TextArea } from '../ui/TextArea.tsx';
 import { TextInput } from '../ui/TextInput.tsx';
 import { SketchEditor } from './SketchEditor.tsx';
+import { TABLE_OVERSCAN } from './TableStep.tsx';
 import { StepActions } from './StepActions.tsx';
 import type { ComposeResult } from './types.ts';
 import type { Draft } from './useIntake.ts';
@@ -535,6 +537,7 @@ export function ReviewStep({
               label={showDetail ? 'Redrawing the sketch' : 'Drawing the sketch'}
               progress={progress ?? null}
               hint={showDetail ? 'The current sketch stays until the new one is ready.' : 'You can start marking items while the sketch draws.'}
+              tips={STYLING_TIPS.sketch}
             />
           )}
           {sketch && (
@@ -879,6 +882,8 @@ export function ReviewStep({
         lighting={compose.lighting}
         sourceName={sourceName}
         onSave={saveEdit}
+        overscan={TABLE_OVERSCAN}
+        lede="Your layout in outline. The red box is the photo's frame; anything in the dimmed area is outside the shot. Drag an item to move it: it lands on the nearest spot with room for it. Select an item and press Delete to take it off the table. The Coca-Cola product and the main dish stay in every scene."
       />
 
       <Modal isOpen={confirmRedraw} onOpenChange={setConfirmRedraw} isDismissable className={styles.modalOverlay}>

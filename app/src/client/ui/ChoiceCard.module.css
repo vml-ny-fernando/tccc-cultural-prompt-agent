@@ -229,6 +229,30 @@
   transition: transform var(--bay-dur) var(--bay-ease), box-shadow var(--bay-dur) var(--bay-ease), background var(--bay-dur) var(--bay-ease);
 }
 
+/* A picture on the right of the row (Preparation photos, Plating sketches). */
+.row[data-media] {
+  grid-template-columns: var(--row-box) minmax(0, 1fr) 208px;
+}
+
+.rowMedia {
+  grid-column: 3;
+  grid-row: 1 / span 3;
+  align-self: start;
+  width: 208px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: var(--neo-border-thin);
+  border-radius: var(--bay-r-sm);
+  background: var(--neo-card);
+}
+
+.rowMedia img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Room for the "More details" link under the description. */
 .row[data-more] {
   padding-bottom: calc(var(--row-pad-y) + 32px);

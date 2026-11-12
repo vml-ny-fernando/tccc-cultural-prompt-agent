@@ -2,6 +2,7 @@ import { Check, RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { specForLayout } from '../shared/layoutEdit.ts';
+import { defaultCamera } from '../shared/rules.ts';
 import { layoutKey, reviewFacts, sketchKey } from '../shared/review.ts';
 import type { LayoutOption } from '../shared/solver.ts';
 import type { AccentChoice, Decision, PlatingChoice, PrepChoice, SidesChoice, SurfaceChoice } from '../shared/types.ts';
@@ -15,7 +16,7 @@ import { ErrorBoundary } from './ui/ErrorBoundary.tsx';
 import { BriefStep } from './intake/BriefStep.tsx';
 import { CameraStep } from './intake/CameraStep.tsx';
 import { ArrangementBar, OPTION_LETTERS } from './intake/ArrangementBar.tsx';
-import { PrepareLayout } from './intake/LayoutStep.tsx';
+import { TableStep } from './intake/TableStep.tsx';
 import { PlatingStep } from './intake/PlatingStep.tsx';
 import { PrepStep } from './intake/PrepStep.tsx';
 import { ReviewStep } from './intake/ReviewStep.tsx';
@@ -83,7 +84,7 @@ const STEP_META: Record<StepId, { label: string }> = {
   plating: { label: 'Plating' },
   sides: { label: 'Sides' },
   camera: { label: 'Camera Angle' },
-  layout: { label: 'Layout' },
+  layout: { label: 'Tablescape' },
   review: { label: 'Sketch Review' },
   story: { label: 'Story & Scene' },
   workspace: { label: 'Node workspace' },
@@ -121,6 +122,8 @@ export function App() {
     setReview,
     setPerson,
     addEditedLayout,
+    ensureCamera,
+    setWorkingLayout,
     setSketch,
     setValidation,
     setTurnaroundView,
@@ -202,14 +205,13 @@ export function App() {
         return !!draft.sel.prep && !!draft.sel.scene;
       case 'sides':
         return !!draft.sel.plating;
-      case 'camera':
-        return !!draft.sel.sides && !!draft.sel.scene;
       case 'layout':
-        // Removed: Sketch review composes and picks the layout itself.
-        return false;
+        // Tablescape: the table is laid out before the camera (2026-11-12).
+        return !!draft.sel.sides && !!draft.sel.scene;
+      case 'camera':
+        return !!draft.sel.sides && !!draft.sel.scene && !!draft.compose && draft.picked !== null;
       case 'review':
-        // Sketch review composes and picks the layout itself, so the camera is all it needs.
-        return !!draft.sel.camera && !!draft.sel.scene;
+        return !!draft.sel.camera && !!draft.sel.scene && !!draft.compose && draft.picked !== null;
       case 'story':
         return draft.picked !== null;
       case 'workspace':
@@ -240,6 +242,12 @@ export function App() {
     const sketch = draft.sketches[sketchKey(pickedOption.blueprint)] ?? draft.sketch;
     return { ...draft.story, facts: { ...draft.story.facts, ...reviewFacts(review, pickedOption.blueprint, sketch) } };
   }, [draft.story, draft.review, draft.sketches, draft.sketch, pickedOption]);
+
+  // The table is laid out before the Camera Angle step, through the angle recommended for the dish
+  // until one is picked (the solver and the rules need a camera).
+  useEffect(() => {
+    if (draft.step === 'layout' && !draft.sel.camera) ensureCamera(defaultCamera({ dish: draft.brief.heroDish, prep: draft.sel.prep, plating: draft.sel.plating }));
+  }, [draft.step, draft.sel.camera, draft.brief.heroDish, draft.sel.prep, draft.sel.plating, ensureCamera]);
 
   const renderStep = (step: typeof draft.step) => {
     switch (step) {
@@ -290,7 +298,7 @@ export function App() {
             clearsNote={draft.sel.sides ? describeClears('sides') : null}
             onDecision={(d) => setDecision('sides', d)}
             onPick={(v) => choose('sides', v)}
-            onNext={() => setStep('camera')}
+            onNext={() => setStep('layout')}
           />
         );
 
@@ -311,9 +319,18 @@ export function App() {
         );
 
       case 'camera':
-        return <CameraStep dish={draft.brief.heroDish} sel={draft.sel} onCamera={(c) => choose('camera', c)} onNext={() => setStep('review')} />;
+        return (
+          <CameraStep
+            dish={draft.brief.heroDish}
+            sel={draft.sel}
+            onCamera={(c) => choose('camera', c)}
+            compose={draft.compose}
+            option={pickedOption}
+            onLayout={(bp, camera) => setWorkingLayout(bp, camera)}
+            onNext={() => setStep('review')}
+          />
+        );
 
-      // Older drafts saved on the removed Layout step.
       case 'layout':
       case 'review': {
         const accentDecision = (draft.decisions.accent as Decision<AccentChoice> | undefined) ?? null;
@@ -326,9 +343,9 @@ export function App() {
         };
         const compose = draft.compose;
         const option = compose && draft.picked !== null ? compose.options[draft.picked] : undefined;
-        if (!compose || !option) {
+        if (step === 'layout') {
           return (
-            <PrepareLayout
+            <TableStep
               brief={draft.brief}
               sel={draft.sel}
               rules={rules}
@@ -337,10 +354,21 @@ export function App() {
               onAccent={onAccent}
               onNapkin={onNapkin}
               compose={compose}
+              picked={draft.picked}
               onCompose={setCompose}
               onPick={setPicked}
-              onBack={() => setStep('camera')}
               onBackToSides={() => setStep('sides')}
+              onWorkingLayout={(bp) => setWorkingLayout(bp)}
+              onNext={() => setStep('camera')}
+            />
+          );
+        }
+        if (!compose || !option) {
+          return (
+            <EmptyState
+              title="Lay out the table first"
+              hint="The sketch is drawn from your tablescape and the camera angle you pick for it."
+              action={<Button onPress={() => setStep('layout')}>Go to Tablescape</Button>}
             />
           );
         }
@@ -375,6 +403,7 @@ export function App() {
                 onAccent={onAccent}
                 onNapkin={onNapkin}
                 drawing={drawing}
+                stage="review"
               />
             )}
             onNext={() => setStep('story')}

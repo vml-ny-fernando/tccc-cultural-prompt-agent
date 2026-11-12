@@ -8,7 +8,7 @@ import { ArrowLeft, RotateCw } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import type { RuleEffects } from '../../api.ts';
-import { limitScene, type Selections } from '../../shared/spec.ts';
+import { type Selections } from '../../shared/spec.ts';
 import type { AccentChoice, Decision } from '../../shared/types.ts';
 import { recordDuration, useProgress } from '../lib/progress.ts';
 import { useAgentTask } from '../lib/useAgentTask.ts';
@@ -40,6 +40,7 @@ export function PrepareLayout({
   onCompose,
   onPick,
   onBack,
+  onBackToSides,
 }: {
   brief: Brief;
   sel: Selections;
@@ -51,8 +52,10 @@ export function PrepareLayout({
   compose: ComposeResult | null;
   onCompose: (c: ComposeResult) => void;
   onPick: (i: number) => void;
-  /** Back to the Camera step, where a wider look usually makes room. */
+  /** Back to the Camera Angle step. */
   onBack: () => void;
+  /** Back to Sides, to pick a smaller set when nothing fits. */
+  onBackToSides: () => void;
 }) {
   const needsAccent = rules?.needsAccent;
   const onTheGo = sel.scene?.venue === 'on-the-go';
@@ -120,20 +123,22 @@ export function PrepareLayout({
   );
 
   if (compose && compose.options.length === 0) {
+    // Only reached once the solver has tried every other angle, a larger table and leaving out
+    // condiments and extra sides (solve(), 2026-11-11), so the way out is a smaller set of sides.
+    const onTable = compose.spec.accompaniments.map((a) => a.name);
     return (
       <section>
         {intro}
         <EmptyState
-          title="No layout fits these items"
+          title="This table is too full to arrange"
           hint={
             <>
-              Even after moving the supporting items around, something still overlaps. A smaller serving vessel, one fewer side or condiment, or a
-              different camera angle usually fixes it.
-              {sel.scene && limitScene(sel.scene).party === '2' && (
-                <> Two place settings need more of the table in frame, so try the Looking down angle first.</>
-              )}
+              We tried every camera angle, a larger table, and leaving out the condiments and extra sides, and the{' '}
+              {compose.spec.entree.name}
+              {onTable.length ? ` with ${onTable.join(', ')}` : ''} still doesn't fit together. Go back to Sides and pick a set with fewer or
+              smaller dishes, or describe a lighter one in "Describe what you would like to see".
               <details className={styles.why}>
-                <summary>What didn't fit</summary>
+                <summary>Technical detail</summary>
                 {compose.infeasible.map((f) => (
                   <div key={f.archetype}>
                     {f.archetype}: {f.reason}
@@ -143,9 +148,14 @@ export function PrepareLayout({
             </>
           }
           action={
-            <Button icon={<ArrowLeft size={16} aria-hidden />} onPress={onBack}>
-              Back to Camera
-            </Button>
+            <div className={styles.emptyActions}>
+              <Button variant="primary" icon={<ArrowLeft size={16} aria-hidden />} onPress={onBackToSides}>
+                Back to Sides
+              </Button>
+              <Button icon={<ArrowLeft size={16} aria-hidden />} onPress={onBack}>
+                Back to Camera Angle
+              </Button>
+            </div>
           }
         />
       </section>

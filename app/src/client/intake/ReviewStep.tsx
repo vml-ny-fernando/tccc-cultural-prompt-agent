@@ -25,6 +25,7 @@ import { MODEL_PROXY_WIDTH, renderProxy, renderSketch, type Sketch } from '../li
 import { uploadImage } from '../lib/uploadImage.ts';
 import { isForbidden } from '../lib/useTurnarounds.ts';
 import { trpc } from '../trpc.ts';
+import { friendlyError } from '../lib/errors.ts';
 import { Alert } from '../ui/Alert.tsx';
 import { Button } from '../ui/Button.tsx';
 import { ProgressRing } from '../ui/ProgressRing.tsx';
@@ -80,10 +81,11 @@ async function greyscalePng(url: string): Promise<Blob> {
   return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Could not encode the sketch'))), 'image/png'));
 }
 
+const SKETCH_FALLBACK =
+  "Something in this request didn't go through. Press Try again. If it happens again, remove an item with Edit sketch, or go back to Sides and pick a smaller set.";
+
 function errorText(err: unknown): string {
-  const code = typeof err === 'object' && err && 'data' in err ? (err as { data?: { code?: string } }).data?.code : undefined;
-  if (code === 'TOO_MANY_REQUESTS') return 'Gemini is busy right now. Wait a moment, then draw again.';
-  return err instanceof Error ? err.message : String(err);
+  return friendlyError(err, SKETCH_FALLBACK);
 }
 
 export function ReviewStep({
@@ -204,7 +206,7 @@ export function ReviewStep({
       try {
         setSketch(renderSketch(bp, compose.lighting, { width: 1280 }));
       } catch (err) {
-        setSketchError(err instanceof Error ? err.message : String(err));
+        setSketchError(friendlyError(err, 'Reload the page to try again. If it still fails, go back to Camera Angle and pick another angle.'));
       }
     });
     return () => cancelAnimationFrame(frame);

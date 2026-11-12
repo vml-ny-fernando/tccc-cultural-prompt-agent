@@ -171,12 +171,12 @@ export function CustomOption({ custom, example }: { custom: CustomOptionState; e
       </div>
       <div className={styles.customForm}>
         <TextArea
-          aria-label="Describe your own version"
+          aria-label="Describe what you would like to see"
           value={custom.text}
           onChange={custom.setText}
           rows={2}
           disabled={busy}
-          placeholder={example ?? 'Like B, but…'}
+          placeholder={example ?? 'Describe what you would like to see'}
         />
         <AgentStatus
           status={custom.status}

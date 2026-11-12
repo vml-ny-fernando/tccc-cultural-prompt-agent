@@ -82,7 +82,7 @@ const STEP_META: Record<StepId, { label: string }> = {
   prep: { label: 'Preparation' },
   plating: { label: 'Plating' },
   sides: { label: 'Sides' },
-  camera: { label: 'Camera' },
+  camera: { label: 'Camera Angle' },
   layout: { label: 'Layout' },
   review: { label: 'Sketch Review' },
   story: { label: 'Story & Scene' },
@@ -340,6 +340,7 @@ export function App() {
               onCompose={setCompose}
               onPick={setPicked}
               onBack={() => setStep('camera')}
+              onBackToSides={() => setStep('sides')}
             />
           );
         }

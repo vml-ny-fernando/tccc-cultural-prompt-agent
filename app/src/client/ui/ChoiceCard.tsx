@@ -191,21 +191,25 @@ export function ChoiceCardGroup({
                 {open.summary && <p className={styles.dialogSummary}>{open.summary}</p>}
                 {open.details && <DetailsBody details={open.details} />}
               </div>
+              {/* One way out: the X above (UX review, 2026-11-11). The chosen option shows a tag, not a dead button. */}
               <div className={styles.dialogActions}>
-                <Button variant="default" onPress={() => setOpenId(null)}>
-                  Close
-                </Button>
-                <Button
-                  variant="primary"
-                  icon={<Check size={16} aria-hidden />}
-                  disabled={open.disabled || value === open.value}
-                  onPress={() => {
-                    onChange(open.value);
-                    setOpenId(null);
-                  }}
-                >
-                  {value === open.value ? 'Selected' : 'Choose this option'}
-                </Button>
+                {value === open.value ? (
+                  <span className={styles.selectedTag}>
+                    <Check size={16} aria-hidden /> Selected
+                  </span>
+                ) : (
+                  <Button
+                    variant="primary"
+                    icon={<Check size={16} aria-hidden />}
+                    disabled={open.disabled}
+                    onPress={() => {
+                      onChange(open.value);
+                      setOpenId(null);
+                    }}
+                  >
+                    Choose this option
+                  </Button>
+                )}
               </div>
             </>
           )}

@@ -28,7 +28,7 @@ export function CameraStep({
   if (config.isPending) {
     return (
       <section>
-        <h1>Camera</h1>
+        <h1>Camera Angle</h1>
         <SkeletonText rows={5} />
       </section>
     );
@@ -36,7 +36,7 @@ export function CameraStep({
   if (config.isError) {
     return (
       <section>
-        <h1>Camera</h1>
+        <h1>Camera Angle</h1>
         <Alert tone="error" title="Couldn't load the camera options">
           {config.error.message}
         </Alert>
@@ -53,10 +53,10 @@ export function CameraStep({
 
   return (
     <section>
-      <h1>Camera</h1>
-      <p>Pick an angle. The lens and focus are handled for you.</p>
+      <h1>Camera Angle</h1>
+      <p>Pick a camera angle. The lens and focus are handled for you.</p>
       <div className={sceneStyles.field}>
-        <label className={sceneStyles.fieldLabel}>Angle</label>
+        <label className={sceneStyles.fieldLabel}>Camera angle</label>
         {rec && recAngle && (
           <p className={styles.recommendation}>
             <Lightbulb size={16} aria-hidden className={styles.recommendationIcon} />
@@ -74,7 +74,7 @@ export function CameraStep({
           </p>
         )}
         <AnglePicker
-          aria-label="Angle"
+          aria-label="Camera angle"
           lookId={cam.look}
           lookLabel={selectedLook?.label ?? ''}
           focalMm={selectedLook?.focalMm}

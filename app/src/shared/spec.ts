@@ -43,7 +43,7 @@ export interface Selections {
  * and brought people back on 2026-10-27, up to two. Set either to false to hide it again; saved
  * projects that picked it then open as one diner with nobody seated.
  */
-export const SCENE_LIMITS = { twoDiners: true, seatedPeople: true };
+export const SCENE_LIMITS = { twoDiners: true, seatedPeople: false };
 
 /** A scene answer held to SCENE_LIMITS: a party of two becomes one, and nobody sits at the table. */
 export function limitScene<S extends { party: SceneSpec["scene"]["party"]; seated?: boolean; pose?: string; seating?: string; solo?: string }>(scene: S): S {
@@ -64,6 +64,43 @@ export function defaultSurface(venue: SceneSpec["scene"]["venue"], party: SceneS
   if (venue === "on-the-go") return "picnic-table";
   if (shared || party === "group" || party === "family") return "long-table";
   return "table-4top";
+}
+
+/**
+ * How much a table holds besides the dish, the drink and the napkin set (UX review, 2026-11-11:
+ * a 2-top was offered as many sides as a long family table, and the layout then didn't fit).
+ * The sides step suggests within this budget; the solver leaves out what still doesn't fit.
+ */
+export interface TableBudget {
+  sides: number;
+  condiments: number;
+}
+
+export function tableBudget(surface: Surface, party: SceneSpec["scene"]["party"]): TableBudget {
+  const two = party === "2";
+  switch (surface) {
+    case "long-table":
+    case "table-4top":
+    case "picnic-table":
+      return { sides: 2, condiments: 3 };
+    case "table-2top":
+    case "park-table":
+      return two ? { sides: 1, condiments: 1 } : { sides: 1, condiments: 2 };
+    case "counter-top":
+      return { sides: 1, condiments: two ? 1 : 2 };
+    default:
+      // Ledges, food-truck counters and benches: a narrow strip.
+      return { sides: 1, condiments: 1 };
+  }
+}
+
+/** The surface the scene will use, as buildSpec resolves it, from the picks made so far. */
+export function selectionSurface(sel: Pick<Selections, "scene" | "plating">): Surface | undefined {
+  if (!sel.scene) return undefined;
+  const scene = limitScene(sel.scene);
+  const shared = sel.plating?.service === "shared";
+  const place = venueType(scene.venue, scene.venueType);
+  return scene.surface ?? (shared ? undefined : place?.surface) ?? defaultSurface(scene.venue, scene.party, shared);
 }
 
 /** Resolve the glass answer against the SKU/venue rules. */

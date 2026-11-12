@@ -10,6 +10,7 @@ import { SignInPrompt, signInRequiredFrom } from '../lib/signIn.tsx';
 import { Check, ChevronDown, Download, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Dialog, Heading, Modal } from 'react-aria-components';
+import { Button } from '../ui/Button.tsx';
 
 import {
   ELEMENT_ISSUE_TAGS,
@@ -535,12 +536,10 @@ export function FeedbackDialog({
 
             <footer className={styles.actions}>
               <span className={styles.status}>{verdict ? `${VERDICT_LABELS[verdict]} · ${rated} of ${allElements.length} items rated` : 'Choose an overall rating to submit'}</span>
-              <button type="button" className={styles.btn} onClick={onClose}>
-                Cancel
-              </button>
-              <button type="button" className={styles.btn} data-primary disabled={!verdict || submit.isPending} onClick={handleSubmit}>
+              <Button onPress={onClose}>Cancel</Button>
+              <Button variant="primary" disabled={!verdict} loading={submit.isPending} onPress={handleSubmit}>
                 {submit.isPending ? 'Saving…' : 'Submit rating'}
-              </button>
+              </Button>
             </footer>
           </>
         )}

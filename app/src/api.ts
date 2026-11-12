@@ -524,7 +524,7 @@ export const AppRouter = router({
    */
   sketchStart: signedInProcedure
     // styleUrl: the earlier sketch, after an edit in the sketch editor (image 2: copy its drawing style).
-    .input(z.object({ prompt: z.string().min(1).max(12_000), proxyUrl: RefUrl, styleUrl: RefUrl.optional() }))
+    .input(z.object({ prompt: z.string().min(1).max(20_000), proxyUrl: RefUrl, styleUrl: RefUrl.optional() }))
     .mutation(async ({ ctx, input }) => {
       try {
         const taskId = await startImageJob(ctx.user, ctx.brief, 'sketch', 'layout-sketch', {

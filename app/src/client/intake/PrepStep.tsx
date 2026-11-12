@@ -93,7 +93,7 @@ export function PrepStep({
       onSignedIn={() => onSignedIn(load)}
       onNext={onNext}
       custom={custom}
-      customExample={'Like B, but grilled instead of fried'}
+      customExample={'Describe what you would like to see, e.g. grilled instead of fried'}
     />
   );
 }

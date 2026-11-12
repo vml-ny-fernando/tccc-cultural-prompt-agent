@@ -18,6 +18,13 @@ export const Occasion = z.enum([
 ]);
 export type Occasion = z.infer<typeof Occasion>;
 
+/**
+ * The occasions offered on Getting Started (Fernando, 2026-11-11): Brunch, Lunch, Sunday Lunch,
+ * Afternoon, Dinner, Late Night. Breakfast, celebrations and game night stay in the enum so saved
+ * scenes and the knowledge base still read, but are no longer offered.
+ */
+export const PICKER_OCCASIONS: Occasion[] = ["brunch", "weekday-lunch", "weekend-lunch", "afternoon-snack", "dinner", "late-night"];
+
 export const Vessel = z.enum([
   "plate",
   "lunch-plate",
@@ -66,6 +73,14 @@ export const Surface = z.enum([
   "table-2top",
   "table-4top",
   "long-table",
+  // Real tables per kind of place (Fernando, 2026-11-11): fixed sizes, never swapped for a bigger one.
+  "cafe-table",
+  "bistro-table",
+  "restaurant-table",
+  "counter-service-table",
+  "dining-table",
+  "kitchen-island",
+  "apartment-table",
   "picnic-table",
   "park-table",
   "counter-top",

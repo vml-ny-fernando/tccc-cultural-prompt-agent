@@ -81,13 +81,22 @@ export function tableBudget(surface: Surface, party: SceneSpec["scene"]["party"]
   switch (surface) {
     case "long-table":
     case "table-4top":
+    case "dining-table":
+    case "kitchen-island":
     case "picnic-table":
       return { sides: 2, condiments: 3 };
+    case "restaurant-table":
+      return two ? { sides: 1, condiments: 2 } : { sides: 2, condiments: 2 };
     case "table-2top":
     case "park-table":
-      return two ? { sides: 1, condiments: 1 } : { sides: 1, condiments: 2 };
+    case "apartment-table":
+    case "counter-service-table":
     case "counter-top":
-      return { sides: 1, condiments: two ? 1 : 2 };
+      return two ? { sides: 1, condiments: 1 } : { sides: 1, condiments: 2 };
+    case "cafe-table":
+    case "bistro-table":
+      // About 70 cm square: the dish, the drink and one small extra each.
+      return { sides: 1, condiments: 1 };
     default:
       // Ledges, food-truck counters and benches: a narrow strip.
       return { sides: 1, condiments: 1 };

@@ -50,11 +50,11 @@ export const STEP_ORDER: StepId[] = ['brief', 'scene', 'prep', 'plating', 'sides
 export const OCCASION_LABELS: Record<string, string> = {
   breakfast: 'Breakfast',
   brunch: 'Brunch',
-  'weekday-lunch': 'Weekday lunch',
-  'weekend-lunch': 'Weekend / Sunday lunch',
-  'afternoon-snack': 'Afternoon snack',
+  'weekday-lunch': 'Lunch',
+  'weekend-lunch': 'Sunday Lunch',
+  'afternoon-snack': 'Afternoon',
   dinner: 'Dinner',
-  'late-night': 'Late night',
+  'late-night': 'Late Night',
   celebration: 'Celebration or holiday',
   'game-night': 'Game night',
 };

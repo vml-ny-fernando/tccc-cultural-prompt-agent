@@ -197,7 +197,7 @@ export function App() {
       case 'scene':
         return briefOk(draft.brief);
       case 'prep':
-        return briefOk(draft.brief) && !!draft.sel.scene && (draft.sel.scene.venue !== 'on-the-go' || !!draft.sel.scene.surface);
+        return briefOk(draft.brief) && !!draft.sel.scene;
       case 'plating':
         return !!draft.sel.prep && !!draft.sel.scene;
       case 'sides':

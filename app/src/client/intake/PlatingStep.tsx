@@ -5,6 +5,7 @@ import { useAgentTask } from '../lib/useAgentTask.ts';
 import { useOnSignedIn } from '../lib/useOnSignedIn.ts';
 import type { Selections } from '../../shared/spec.ts';
 import { DecisionStep } from './DecisionStep.tsx';
+import { PlatingSketch } from './OptionPictures.tsx';
 import { keepCustom, useCustomOption } from './useCustomOption.ts';
 import { vesselName } from './optionText.ts';
 import type { Brief } from './types.ts';
@@ -74,6 +75,7 @@ export function PlatingStep({
       renderOption={(v) => ({
         label: v.label,
         summary: v.detail,
+        media: <PlatingSketch vessel={v.vessel} massClass={sel.prep?.massClass} label={v.label} />,
         facts: [
           { label: 'Vessel', value: vesselName(v.vessel) },
           ...(v.vesselStyle ? [{ label: 'Material', value: v.vesselStyle }] : []),

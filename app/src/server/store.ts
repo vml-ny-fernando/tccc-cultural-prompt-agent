@@ -112,7 +112,7 @@ export function mediaUrl(path: string): string {
   return `/media/${path}`;
 }
 
-const MEDIA_PATH = /^(generations|uploads|feedback-images)\/[A-Za-z0-9._\/-]+$/;
+const MEDIA_PATH = /^(generations|uploads|feedback-images|thumbnails)\/[A-Za-z0-9._\/-]+$/;
 
 /** The storage path behind a `/media/...` URL (absolute or relative), or null for anything else. */
 export function mediaPath(url: string): string | null {

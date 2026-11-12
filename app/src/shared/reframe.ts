@@ -216,9 +216,11 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
     return { fit, rules, problems, placed };
   };
 
-  // The items exactly where they are first; then, if that can't be framed or has problems, the whole
-  // setting slid toward the back (or, for an angle that shows the front edge, toward the diner),
-  // which is how the solver sits a setting on the table for each angle. Nothing moves relative to anything else.
+  // At a new angle the whole setting first slides to where the solver sits it for that angle: toward
+  // the back, or, for an angle that shows the front edge, toward the diner. Left at the back of the
+  // table, Looking down has to back away to fit the front edge, and the meal ends up small and far
+  // off (Fernando, 2026-11-12). Then, if that can't be framed or has problems, the items exactly where
+  // they are. Nothing moves relative to anything else.
   const base = placedOf(bp);
   const tries: number[] = [0];
   if (!sameAngle) {
@@ -227,7 +229,7 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
     const toBack = D - REAR_MARGIN - rear;
     const toFront = 0.04 - front;
     const shift = angle.hidden.front_edge_min_y !== undefined ? toFront : toBack;
-    if (Math.abs(shift) > 0.01) tries.push(shift);
+    if (Math.abs(shift) > 0.01) tries.unshift(shift);
   }
   let best: NonNullable<ReturnType<typeof evaluate>> | null = null;
   for (const shift of tries) {

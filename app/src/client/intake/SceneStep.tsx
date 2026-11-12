@@ -46,11 +46,11 @@ const SOLO_OPTIONS: Array<{ value: 'facing' | 'hands'; label: string }> = [
   { value: 'hands', label: 'Hands only' },
 ];
 
+// Place settings, not people: nobody sits at the table unless People at the table is on.
+// Group and family layouts aren't built yet, so they stay hidden (UX review, 2026-11-11).
 const PARTY_OPTIONS: Array<{ value: Scene['party']; label: string }> = [
-  { value: '1', label: '1 person' },
-  { value: '2', label: '2 people' },
-  { value: 'group', label: 'Group' },
-  { value: 'family', label: 'Family' },
+  { value: '1', label: 'For one' },
+  { value: '2', label: 'For two' },
 ];
 
 const ANY_PLACE = 'any';
@@ -236,20 +236,15 @@ export function SceneStep({
 
       <div className={styles.field}>
         <SegmentedControl
-          label="People"
-          value={scene.party}
+          label="Place settings"
+          value={scene.party === '2' ? '2' : '1'}
           onChange={(v) => update({ party: v as Scene['party'] })}
           options={PARTY_OPTIONS.map((o) => ({
             ...o,
-            // Group and family layouts aren't built yet; two people are off on main (SCENE_LIMITS).
-            disabled: o.value === 'group' || o.value === 'family' || (o.value === '2' && !SCENE_LIMITS.twoDiners),
+            disabled: o.value === '2' && !SCENE_LIMITS.twoDiners,
           }))}
         />
-        <div className={styles.hint}>
-          {SCENE_LIMITS.twoDiners
-            ? 'Group and family layouts come in a future build.'
-            : 'Every scene is set for one person for now; two people, groups and families come in a future build.'}
-        </div>
+        <div className={styles.hint}>How many places are set at the table. Nobody sits at it; the place settings show who the meal is for.</div>
       </div>
 
       {scene.seated && solo && (

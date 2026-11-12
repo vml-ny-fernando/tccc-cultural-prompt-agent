@@ -89,7 +89,7 @@ export function SidesStep({
       onSignedIn={() => onSignedIn(load)}
       onNext={onNext}
       custom={custom}
-      customExample={'Like A, but swap one side for a simple green salad'}
+      customExample={'Describe what you would like to see, e.g. swap one side for a simple green salad'}
     />
   );
 }

@@ -8,10 +8,10 @@
 import { heldLabel, holdingHand, poseById, poseRole, sideToward, toWorld, type PersonId } from "./poses";
 import { ASPECT, clipConvex, fovFromFocal, makeCameraParams, overlapArea, polyArea, Projector, rectPoly, screenBox, silhouette, type Poly, type ScreenBox } from "./camera";
 import { bottleClearance, footprintRadius, SURFACES, type ProxyDef } from "./registry";
-import { angleById, depthById, lookById } from "./rules";
+import { ANGLES, angleById, depthById, lookById, type AngleOption } from "./rules";
 import layoutPreferences from "../../rules/layout-preferences.json";
 import { isMultiServe, sceneItems, type ItemSpec } from "./scene";
-import type { Blueprint, CameraParams, Primitive, RuleResult, SceneSpec } from "./types";
+import type { Blueprint, CameraParams, Primitive, RuleResult, SceneSpec, Surface } from "./types";
 
 export interface Placed {
   item: ItemSpec;
@@ -1263,19 +1263,104 @@ export function layoutDistance(a: Blueprint, b: Blueprint): number {
 /** Mean screen displacement (fraction of frame) the movable items need between two options. */
 export const MIN_OPTION_DISTANCE = 0.08;
 
+// Table first, camera second (Fernando, 2026-11-11): the tablescape matters more than the
+// angle. When nothing fits, the solver changes the least important thing it can and says
+// what it did, instead of stopping on "No layout fits": the accent (a preference only), then
+// the camera angle, then a larger table of the same kind, and only then the extra condiments
+// and sides, one at a time from the least important.
+
+const FALLBACK_BUDGET_MS = 20_000;
+
+/** Larger tables of the same kind, nearest first. */
+const LARGER_SURFACE: Partial<Record<Surface, Surface[]>> = {
+  "table-2top": ["table-4top", "long-table"],
+  "table-4top": ["long-table"],
+  "park-table": ["picnic-table"],
+  "street-ledge": ["counter-top"],
+  "food-truck-counter": ["counter-top"],
+  bench: ["picnic-table"],
+};
+
+/** The other camera angles, nearest pitch first. */
+function nearestAngles(id: string): AngleOption[] {
+  const pitch = angleById(id).hidden.pitch_deg;
+  return ANGLES.filter((a) => a.id !== id).sort((a, b) => Math.abs(a.hidden.pitch_deg - pitch) - Math.abs(b.hidden.pitch_deg - pitch));
+}
+
+function angleName(a: AngleOption): string {
+  return a.label.replace(/\s*\(default\)$/, "").replace(/,.*$/, "");
+}
+
+const CONDIMENT_ROLES = new Set(["condiment", "sauce", "garnish"]);
+
+/** Specs with one more accompaniment left out each time: condiments last to first, then sides down to one. */
+function lighterTables(spec: SceneSpec): Array<{ spec: SceneSpec; left: string[] }> {
+  const out: Array<{ spec: SceneSpec; left: string[] }> = [];
+  let acc = [...spec.accompaniments];
+  const left: string[] = [];
+  const dropLast = (pick: (a: SceneSpec["accompaniments"][number]) => boolean): boolean => {
+    for (let i = acc.length - 1; i >= 0; i--) {
+      if (pick(acc[i]!)) {
+        left.push(acc[i]!.name);
+        acc = acc.filter((_, j) => j !== i);
+        return true;
+      }
+    }
+    return false;
+  };
+  while (dropLast((a) => CONDIMENT_ROLES.has(a.role))) out.push({ spec: { ...spec, accompaniments: acc }, left: [...left] });
+  while (acc.length > 1 && dropLast(() => true)) out.push({ spec: { ...spec, accompaniments: acc }, left: [...left] });
+  return out;
+}
+
+function listOf(names: string[]): string {
+  return names.length <= 1 ? (names[0] ?? "") : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+}
+
 export function solve(spec: SceneSpec, maxOptions = 3): SolveResult {
   const first = solveSpec(spec, maxOptions);
-  if (first.options.length || !spec.accent) return { ...first, spec, notes: [] };
-  // The accent only exists to make the count odd, which is a preference: when
-  // no layout has room for it, leave it out rather than offer nothing.
-  const without = { ...spec, accent: null };
-  const second = solveSpec(without, maxOptions);
-  if (!second.options.length) return { ...first, spec, notes: [] };
-  return {
-    ...second,
-    spec: without,
-    notes: [`No layout had room for the accent (${spec.accent.name}), so it was left out. The table has an even number of items, which is fine.`],
-  };
+  if (first.options.length) return { ...first, spec, notes: [] };
+  const done = (r: Pick<SolveResult, "options" | "infeasible">, used: SceneSpec, notes: string[]): SolveResult => ({ ...r, spec: used, notes });
+
+  // The accent only exists to make the count odd, which is a preference: leave it out first.
+  let base = spec;
+  const baseNotes: string[] = [];
+  if (spec.accent) {
+    base = { ...spec, accent: null };
+    baseNotes.push(`Left out the ${spec.accent.name} so everything fits. The table has an even number of items, which is fine.`);
+    const r = solveSpec(base, maxOptions);
+    if (r.options.length) return done(r, base, baseNotes);
+  }
+
+  // Each try costs up to about a second, so the search stops after FALLBACK_BUDGET_MS and the
+  // operator gets the "too full" screen rather than a long wait.
+  const deadline = Date.now() + FALLBACK_BUDGET_MS;
+  const levels = [{ spec: base, left: [] as string[] }, ...lighterTables(base)];
+  const surfaces = [base.scene.surface, ...(LARGER_SURFACE[base.scene.surface] ?? [])];
+  const angles = [angleById(base.camera.angle), ...nearestAngles(base.camera.angle)];
+  for (const level of levels) {
+    for (const surface of surfaces) {
+      for (const angle of angles) {
+        if (Date.now() > deadline) return { ...first, spec, notes: [] };
+        // The base itself was tried above.
+        if (level.left.length === 0 && surface === base.scene.surface && angle.id === base.camera.angle) continue;
+        const tried: SceneSpec = {
+          ...level.spec,
+          // A larger table drops the place's own small-table wording, so the prompt and proxy agree.
+          scene: surface === base.scene.surface ? level.spec.scene : { ...level.spec.scene, surface, surfaceText: undefined },
+          camera: angle.id === base.camera.angle ? level.spec.camera : { ...level.spec.camera, angle: angle.id },
+        };
+        const r = solveSpec(tried, maxOptions);
+        if (!r.options.length) continue;
+        const notes = [...baseNotes];
+        if (level.left.length) notes.push(`Left out the ${listOf(level.left)} so everything fits on the table. Go back to Sides to choose a different set.`);
+        if (surface !== base.scene.surface) notes.push(`Used a larger table (${SURFACES[surface].promptText.replace(/^an? /, "")}) so everything fits.`);
+        if (angle.id !== base.camera.angle) notes.push(`Switched the camera to ${angleName(angle)} so the whole table fits.`);
+        return done(r, tried, notes);
+      }
+    }
+  }
+  return { ...first, spec, notes: [] };
 }
 
 function solveSpec(spec: SceneSpec, maxOptions: number): Pick<SolveResult, "options" | "infeasible"> {

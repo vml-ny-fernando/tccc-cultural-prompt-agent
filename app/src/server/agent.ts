@@ -7,12 +7,12 @@
 
 import { z } from 'zod';
 import tablewareStyle from '../../rules/tableware-style.json';
-import { ON_THE_GO_SURFACE_RULE, benchSurface, onTheGoSurfaceRule, seatLikeSurface, withoutRoundTable } from '../shared/registry.ts';
+import { ON_THE_GO_SURFACE_RULE, SURFACES, benchSurface, onTheGoSurfaceRule, seatLikeSurface, withoutRoundTable } from '../shared/registry.ts';
 import { angleById, backgroundView, foodStylingRules } from '../shared/rules.ts';
 import { environmentBrief, venueType } from '../shared/venues.ts';
 import type { TextTask } from './gemini.ts';
 import { keywords, knowledgeBlock, loadKnowledge, type ContextFocus } from './knowledge.ts';
-import { limitScene, type Selections } from '../shared/spec.ts';
+import { limitScene, selectionSurface, tableBudget, type Selections } from '../shared/spec.ts';
 import type { PromptLesson } from '../shared/feedback.ts';
 import { ImageCheck, Story, Validation, foodLabels, storyFacts } from '../shared/story.ts';
 import {
@@ -114,6 +114,15 @@ function venueFit(sel: Selections, step: 'prep' | 'plating' | 'sides'): string {
   return fit + shared;
 }
 
+/** The sides budget for the table picked on Time & Place (tableBudget), as prompt text. */
+function sidesBudget(sel: Selections): string {
+  const surface = selectionSurface(sel);
+  const b = surface ? tableBudget(surface, limitScene(sel.scene!).party) : { sides: 2, condiments: 3 };
+  const n = (k: number, one: string, many: string) => `${k === 1 ? 'one' : k === 2 ? 'two' : k === 3 ? 'three' : k} ${k === 1 ? one : many}`;
+  const table = surface ? ` on ${SURFACES[surface].promptText}` : '';
+  return `${table}: at most ${n(b.sides, 'side dish', 'side dishes')} and at most ${n(b.condiments, 'condiment', 'condiments')}. Every option stays within this; a fuller spread does not fit the table and the camera`;
+}
+
 const STEP_TASKS: Record<StepName, (sel: Selections) => string> = {
   prep: (sel) =>
     `Identify the hero dish and how it is prepared and enjoyed in this region. If it has regional variants or preparation styles, offer them.${venueFit(sel, 'prep')}`,
@@ -124,7 +133,7 @@ const STEP_TASKS: Record<StepName, (sel: Selections) => string> = {
         : ' Use service "shared" only when the dish is typically served family-style from one large vessel on the table (a whole roast, a pizza, a paella pan); the scene then shows that vessel plus one plated portion.'
     }`,
   sides: (sel) =>
-    `Identify the side dishes and accompaniments this dish is commonly served with here: grain, vegetable, side dish, bread, condiment, and the container each is served in. Each option is a complete set. Keep it to what a real table would show: at most two side dishes, at most two or three condiments, bread only if customary (tableware reference §4). ${sel.plating?.service === 'shared' ? 'The meal is family-style, so side dishes are shared (service shared) in serving bowls; condiments stay individual. ' : ''}If the operator requested a side dish, include it in option A when it is culturally plausible; if it isn't, still include it in one option and say why it's unusual. pairsWith is "MAIN" unless a condiment belongs to a specific side. Set cutlery for each option by walking every item on the table (tableware reference §3): leave it empty when the main and sides are eaten by hand or with bread here (falafel, wraps, sandwiches, burgers), use the local utensils where they differ from fork and knife, and add a utensil only for an item that needs one. Never add fork and knife by default; name the cutlery in the detail.${venueFit(sel, 'sides')}`,
+    `Identify the side dishes and accompaniments this dish is commonly served with here: grain, vegetable, side dish, bread, condiment, and the container each is served in. Each option is a complete set. Keep it to what a real table would show${sidesBudget(sel)}, bread only if customary (tableware reference §4). ${sel.plating?.service === 'shared' ? 'The meal is family-style, so side dishes are shared (service shared) in serving bowls; condiments stay individual. ' : ''}If the operator requested a side dish, include it in option A when it is culturally plausible; if it isn't, still include it in one option and say why it's unusual. pairsWith is "MAIN" unless a condiment belongs to a specific side. Set cutlery for each option by walking every item on the table (tableware reference §3): leave it empty when the main and sides are eaten by hand or with bread here (falafel, wraps, sandwiches, burgers), use the local utensils where they differ from fork and knife, and add a utensil only for an item that needs one. Never add fork and knife by default; name the cutlery in the detail.${venueFit(sel, 'sides')}`,
   surface: () =>
     `This is a meal on the go. The food always sits on a surface, never in a hand. ${ON_THE_GO_SURFACE_RULE} This overrides the knowledge base where it mentions eating on steps or a railing. Suggest the surfaces that fit this dish and country: surface "picnic-table" (a picnic table, benches attached is fine), "park-table" (a small park or café-style outdoor table), "counter-top" (a counter top, window bar or high table), "food-truck-counter" or "street-ledge" (a wide ledge, deep enough to hold the meal). A bench (surface "bench") may be one of the options only when the knowledge base shows people here commonly eat this on a bench; it is never option A and never the only option, so always answer "choose" with at least one table-like option first.`,
   accent: () =>

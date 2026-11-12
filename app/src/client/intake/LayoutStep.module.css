@@ -104,3 +104,10 @@
   max-width: var(--app-frame-max-w);
   margin-inline: auto;
 }
+
+.emptyActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}

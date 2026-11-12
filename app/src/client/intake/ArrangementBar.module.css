@@ -174,7 +174,6 @@
   border: var(--neo-border);
   border-radius: 50%;
   background: var(--neo-card);
-  box-shadow: var(--neo-shadow-sm);
   color: var(--neo-ink);
   cursor: pointer;
 }

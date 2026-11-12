@@ -89,7 +89,7 @@ export function PlatingStep({
       onSignedIn={() => onSignedIn(load)}
       onNext={onNext}
       custom={custom}
-      customExample={'Like A, but on a wooden board'}
+      customExample={'Describe what you would like to see, e.g. served on a wooden board'}
     />
   );
 }

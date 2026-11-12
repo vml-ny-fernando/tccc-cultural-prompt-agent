@@ -537,6 +537,19 @@
   border-top: var(--neo-border-thin);
 }
 
+.selectedTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  font-family: var(--app-font-head);
+  font-weight: var(--app-weight-headline);
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--bay-text);
+}
+
 @media (max-width: 520px) {
   .fact {
     grid-template-columns: minmax(0, 1fr);

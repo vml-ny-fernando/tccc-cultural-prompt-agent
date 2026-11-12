@@ -164,7 +164,7 @@ export function normalizeDraft(rawParsed: Record<string, unknown>): Draft {
   // Old drafts saved on the since-removed 'accent' or 'layout' steps land on Sketch review, which now composes and picks the layout itself;
   // one left on the removed Express step restarts at the brief.
   const rawStep = typeof rawParsed.step === 'string' ? rawParsed.step : undefined;
-  const step = (rawStep === 'accent' || rawStep === 'layout' ? 'review' : rawStep === 'express' ? 'brief' : rawStep) as StepId | undefined;
+  const step = (rawStep === 'accent' ? 'review' : rawStep === 'camera' ? 'layout' : rawStep === 'express' ? 'brief' : rawStep) as StepId | undefined;
   const { mode: _mode, ...saved } = parsed as Partial<Draft> & { mode?: unknown };
   return {
     ...EMPTY_DRAFT,
@@ -358,6 +358,26 @@ export function useIntake() {
   }, []);
 
   /**
+   * Back to the recommended table: picks arrangement `picked` and sets the camera, without the
+   * downstream clearing a camera answer normally brings (the table is what the camera looks at).
+   */
+  const resetTable = useCallback((picked: number, camera: NonNullable<Selections['camera']>) => {
+    setDraft((d) => {
+      if (!d.compose) return d;
+      return {
+        ...d,
+        sel: { ...d.sel, camera },
+        compose: { ...d.compose, spec: { ...d.compose.spec, camera: { ...d.compose.spec.camera, ...camera } } },
+        picked,
+        review: d.compose.options[picked] ? emptyReview(d.compose.options[picked]!.blueprint) : d.review,
+        story: null,
+        validation: null,
+        workspace: { ...freshSegments(d.workspace), proxy: null },
+      };
+    });
+  }, []);
+
+  /**
    * The table laid out first, then the camera (2026-11-12): `blueprint` is the picked layout as
    * the person left it, seen from `camera` (moved items, a new angle, or both). It replaces the
    * picked edit, or joins the arrangements as an edit of the solver's one, so "Reset to
@@ -475,6 +495,7 @@ export function useIntake() {
     setPerson,
     addEditedLayout,
     ensureCamera,
+    resetTable,
     setWorkingLayout,
     setSketch,
     setValidation,

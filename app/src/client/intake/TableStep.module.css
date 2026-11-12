@@ -1,0 +1,36 @@
+/* Re-arrange, as a labelled button over the drawing's top-right corner (Fernando, 2026-11-12).
+   Doubled class beats the frame's `.frame > *` fill rule. */
+.rearrange.rearrange {
+  inset: 12px 12px auto auto;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: var(--neo-border);
+  border-radius: var(--bay-r-sm);
+  background: var(--neo-card);
+  box-shadow: var(--neo-shadow-sm);
+  color: var(--neo-ink);
+  font-family: var(--bay-font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+.rearrange:hover {
+  background: var(--neo-hover);
+}
+
+.rearrange:focus-visible {
+  outline: 3px solid var(--neo-selected);
+  outline-offset: 2px;
+}
+
+/* The angle cards under the drawing. */
+.angles {
+  margin-top: 20px;
+}

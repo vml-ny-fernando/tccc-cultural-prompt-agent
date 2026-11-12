@@ -130,3 +130,27 @@
   white-space: nowrap;
   color: var(--bay-text-on-accent);
 }
+
+.card[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Under the label: an angle this table can't use, or one that cuts something off. */
+.viewNote {
+  align-self: center;
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bay-text-3);
+}
+
+.viewNote[data-tone='warn'] {
+  color: var(--neo-selected);
+}
+
+.card[data-selected] .viewNote {
+  color: var(--neo-on-selected);
+}

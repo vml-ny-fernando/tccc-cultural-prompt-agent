@@ -40,6 +40,7 @@ export function ArrangementBar({
   onAccent,
   onNapkin,
   drawing,
+  stage,
 }: {
   brief: Brief;
   sel: Selections;
@@ -56,7 +57,14 @@ export function ArrangementBar({
   onNapkin: () => void;
   /** A sketch is drawing: switching now would leave that draw behind. */
   drawing: boolean;
+  /**
+   * The table is laid out before the camera (2026-11-12): only the picked layout shows, with no
+   * switching between arrangements. The accent changes on the Tablescape step ("table"), not on
+   * Sketch Review ("review"). Unset: the older flow with arrangements to switch between.
+   */
+  stage?: "table" | "review" | undefined;
 }) {
+  const fixed = stage !== undefined;
   const [big, setBig] = useState<string | null>(null);
   // The arrangement shown in the layout guide before switching to it; null shows the picked one.
   const [preview, setPreview] = useState<number | null>(null);
@@ -130,7 +138,7 @@ export function ArrangementBar({
     const next = (shown + by + options.length) % options.length;
     setPreview(next === picked ? null : next);
   };
-  const many = options.length > 1;
+  const many = options.length > 1 && !fixed;
 
   return (
     <aside className={styles.bar} aria-label="Layouts">
@@ -242,16 +250,18 @@ export function ArrangementBar({
         <div className={styles.accentRow}>
           <span className={styles.label}>Accent</span>
           <span className={styles.value}>{accentLine}</span>
-          <Button
-            size="sm"
-            variant="ghost"
-            icon={<Pencil size={14} aria-hidden />}
-            aria-label="Change the accent"
-            disabled={drawing}
-            onPress={openAccent}
-          >
-            Change
-          </Button>
+          {stage !== "review" && (
+            <Button
+              size="sm"
+              variant="ghost"
+              icon={<Pencil size={14} aria-hidden />}
+              aria-label="Change the accent"
+              disabled={drawing}
+              onPress={openAccent}
+            >
+              Change
+            </Button>
+          )}
         </div>
       )}
 
@@ -273,9 +283,9 @@ export function ArrangementBar({
               Change the Accent
             </Heading>
             <p className={dialog.dialogText}>
-              A different accent re-arranges the table and draws a new sketch,
-              which counts toward your monthly limit ({SKETCH_MODEL_LABEL}). Your marks
-              on this sketch don't carry over.
+              {stage === "table"
+                ? "A different accent lays the table out again, so items you moved go back to the recommended spots."
+                : `A different accent re-arranges the table and draws a new sketch, which counts toward your monthly limit (${SKETCH_MODEL_LABEL}). Your marks on this sketch don't carry over.`}
             </p>
           </div>
           <div className={styles.accentBody}>
@@ -300,7 +310,7 @@ export function ArrangementBar({
               disabled={!accentChanged}
               onPress={applyAccent}
             >
-              Apply and redraw
+              {stage === "table" ? "Apply" : "Apply and redraw"}
             </Button>
           </div>
         </Dialog>

@@ -23,7 +23,7 @@ const MAIN_FRONT_MAX = 0.15;
 /** Most of the Coca-Cola product (or its glass) that items in front of it may hide. */
 const SKU_HIDDEN_MAX = 0.05;
 /** Share of an item's on-screen box that must stay inside the frame. */
-const IN_FRAME_MIN = 0.8;
+export const IN_FRAME_MIN = 0.8;
 /** Room kept clear around a seated person's hand or elbow resting on the table, in metres. */
 const HAND_CLEAR = 0.03;
 /** Height above the seat of a hand or elbow resting on the tabletop (the pose's table height, T in poses.ts). */
@@ -264,7 +264,7 @@ export class EditRules {
   }
 }
 
-function extraHeight(p: Primitive): number {
+export function extraHeight(p: Primitive): number {
   return Math.max(0, p.dimensions.height - primitiveDef(p).height);
 }
 

@@ -6,8 +6,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { Selections } from '../../shared/spec.ts';
-import type { Decision, Primitive, StepName } from '../../shared/types.ts';
-import type { LayoutReview } from '../../shared/review.ts';
+import type { Blueprint, Decision, Primitive, StepName } from '../../shared/types.ts';
+import { emptyReview, type LayoutReview } from '../../shared/review.ts';
 import type { LayoutOption } from '../../shared/solver.ts';
 import type { Validation } from '../../shared/story.ts';
 import { EMPTY_WORKSPACE, type WorkspaceState } from '../../shared/workspace.ts';
@@ -352,6 +352,48 @@ export function useIntake() {
     });
   }, []);
 
+  /** Gives the draft a camera before the Camera Angle step, so the table can be laid out first. Never replaces one already chosen. */
+  const ensureCamera = useCallback((camera: NonNullable<Selections['camera']>) => {
+    setDraft((d) => (d.sel.camera ? d : { ...d, sel: { ...d.sel, camera } }));
+  }, []);
+
+  /**
+   * The table laid out first, then the camera (2026-11-12): `blueprint` is the picked layout as
+   * the person left it, seen from `camera` (moved items, a new angle, or both). It replaces the
+   * picked edit, or joins the arrangements as an edit of the solver's one, so "Reset to
+   * recommended" can always go back. The spec follows the camera, so the sketch and the
+   * story describe the angle that was picked.
+   */
+  const setWorkingLayout = useCallback((blueprint: Blueprint, camera?: NonNullable<Selections['camera']>) => {
+    setDraft((d) => {
+      if (!d.compose || d.picked === null) return d;
+      const cur = d.compose.options[d.picked];
+      if (!cur) return d;
+      const options = [...d.compose.options];
+      const from = cur.edit?.from ?? d.picked;
+      const option: LayoutOption = { archetype: cur.archetype, blueprint, edit: { from } };
+      let picked = d.picked;
+      if (cur.edit) options[picked] = option;
+      else {
+        const prior = options.findIndex((o) => o.edit?.from === from);
+        if (prior >= 0) options[prior] = option;
+        else options.push(option);
+        picked = prior >= 0 ? prior : options.length - 1;
+      }
+      const spec = camera ? { ...d.compose.spec, camera: { ...d.compose.spec.camera, ...camera } } : d.compose.spec;
+      return {
+        ...d,
+        sel: camera ? { ...d.sel, camera } : d.sel,
+        compose: { ...d.compose, spec, options },
+        picked,
+        review: emptyReview(blueprint),
+        story: null,
+        validation: null,
+        workspace: { ...freshSegments(d.workspace), proxy: null },
+      };
+    });
+  }, []);
+
   /** The review feeds the story, so changing it drops a story written before the change. */
   const setReview = useCallback((review: LayoutReview) => {
     setDraft((d) => {
@@ -432,6 +474,8 @@ export function useIntake() {
     setReview,
     setPerson,
     addEditedLayout,
+    ensureCamera,
+    setWorkingLayout,
     setSketch,
     setValidation,
     setTurnaroundView,

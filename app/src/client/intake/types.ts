@@ -45,7 +45,7 @@ export interface StoryState {
  * The steps shown in the rail. The node workspace is not a step: it opens
  * from Story & scene as an optional advanced view.
  */
-export const STEP_ORDER: StepId[] = ['brief', 'scene', 'prep', 'plating', 'sides', 'camera', 'review', 'story'];
+export const STEP_ORDER: StepId[] = ['brief', 'scene', 'prep', 'plating', 'sides', 'layout', 'camera', 'review', 'story'];
 
 export const OCCASION_LABELS: Record<string, string> = {
   breakfast: 'Breakfast',

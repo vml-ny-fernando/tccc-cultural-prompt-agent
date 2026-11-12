@@ -42,6 +42,8 @@ export function PrepareLayout({
   onPick,
   onBack,
   onBackToSides,
+  title = 'Review the Sketch',
+  lede = "Picking the best layout for this table. The sketch starts drawing as soon as it's ready, and you can try other arrangements from there.",
 }: {
   brief: Brief;
   sel: Selections;
@@ -53,10 +55,12 @@ export function PrepareLayout({
   compose: ComposeResult | null;
   onCompose: (c: ComposeResult) => void;
   onPick: (i: number) => void;
-  /** Back to the Camera Angle step. */
-  onBack: () => void;
+  /** Back to the Camera Angle step (older drafts that reach this from Sketch Review). */
+  onBack?: (() => void) | undefined;
   /** Back to Sides, to pick a smaller set when nothing fits. */
   onBackToSides: () => void;
+  title?: string;
+  lede?: string;
 }) {
   const needsAccent = rules?.needsAccent;
   const onTheGo = sel.scene?.venue === 'on-the-go';
@@ -118,8 +122,8 @@ export function PrepareLayout({
 
   const intro = (
     <>
-      <h1>Review the Sketch</h1>
-      <p>Picking the best layout for this table. The sketch starts drawing as soon as it's ready, and you can try other arrangements from there.</p>
+      <h1>{title}</h1>
+      <p>{lede}</p>
     </>
   );
 
@@ -153,9 +157,11 @@ export function PrepareLayout({
               <Button variant="primary" icon={<ArrowLeft size={16} aria-hidden />} onPress={onBackToSides}>
                 Back to Sides
               </Button>
-              <Button icon={<ArrowLeft size={16} aria-hidden />} onPress={onBack}>
-                Back to Camera Angle
-              </Button>
+              {onBack && (
+                <Button icon={<ArrowLeft size={16} aria-hidden />} onPress={onBack}>
+                  Back to Camera Angle
+                </Button>
+              )}
             </div>
           }
         />

@@ -13,15 +13,22 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointer
 import { Dialog, Heading, Modal } from 'react-aria-components';
 import * as THREE from 'three';
 
+import { Projector } from '../../shared/camera.ts';
 import { EditRules, editedBlueprint, isEdited, movable, placementOf, removable, type Placement, type Spot } from '../../shared/layoutEdit.ts';
 import type { LightingPreset } from '../../shared/rules.ts';
-import type { Blueprint, Primitive, SceneSpec } from '../../shared/types.ts';
+import type { Blueprint, CameraParams, Primitive, SceneSpec } from '../../shared/types.ts';
 import { renderSketch, type Sketch } from '../lib/renderProxy.ts';
 import { Button } from '../ui/Button.tsx';
 import { SkeletonBlock } from '../ui/Skeleton.tsx';
 import styles from './SketchEditor.module.css';
 
 const WIDTH = 1280;
+
+/** The same camera with a wider lens, so the frame fills `k` of the picture's width and height and the table around it shows too. */
+function widened(cam: CameraParams, k: number): CameraParams {
+  const half = (cam.fovDeg * Math.PI) / 360;
+  return { ...cam, fovDeg: (Math.atan(Math.tan(half) / k) * 360) / Math.PI };
+}
 
 /** The name on an item's chip: short enough to sit on the drawing. */
 function chipName(p: Primitive): string {
@@ -56,6 +63,12 @@ export function SketchEditor({
   lighting,
   sourceName,
   onSave,
+  overscan,
+  title = 'Edit Sketch',
+  lede,
+  saveLabel = 'Save and redraw',
+  note = 'Saving keeps this as a new arrangement and redraws the sketch from it. A redraw counts toward your monthly limit.',
+  focus,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -66,6 +79,18 @@ export function SketchEditor({
   /** How the step names this arrangement, e.g. "arrangement A". */
   sourceName: string;
   onSave: (edited: Blueprint) => void;
+  /**
+   * Show the table beyond the camera's frame (Fernando, 2026-11-12): the frame takes this share of
+   * the picture and the rest is dimmed, so an item the camera cuts off shows whole and can be
+   * dragged back in. Unset: the drawing is the frame.
+   */
+  overscan?: number | undefined;
+  title?: string;
+  lede?: string;
+  saveLabel?: string;
+  note?: string;
+  /** Select this item when the editor opens (the one an angle cuts off). */
+  focus?: string | undefined;
 }) {
   const rules = useMemo(() => new EditRules(blueprint, spec), [blueprint, spec]);
   const [place, setPlace] = useState<Placement>(() => placementOf(blueprint));
@@ -77,17 +102,22 @@ export function SketchEditor({
   const [drawn, setDrawn] = useState<{ sketch: Sketch; bp: Blueprint } | null>(null);
   const overlayRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
+  const k = overscan && overscan < 1 ? overscan : 1;
+  /** The camera the drawing is made through: the layout's own, or wider with overscan. */
+  const view = useMemo(() => new Projector(k < 1 ? widened(blueprint.camera, k) : blueprint.camera), [blueprint.camera, k]);
+  /** From the layout's frame (0..1) to the drawing (0..1). */
+  const toView = (v: number) => 0.5 + (v - 0.5) * k;
 
   // Every open starts from the layout on screen.
   useEffect(() => {
     if (!isOpen) return;
     setPlace(placementOf(blueprint));
     setHistory([]);
-    setSelected(null);
+    setSelected(focus ?? null);
     setMessage(null);
     setDrag(null);
     setDrawn(null);
-  }, [isOpen, blueprint]);
+  }, [isOpen, blueprint, focus]);
 
   const edited = useMemo(() => editedBlueprint(blueprint, place, sourceName), [blueprint, place, sourceName]);
   const changed = isEdited(blueprint, place);
@@ -95,14 +125,16 @@ export function SketchEditor({
   // The line drawing of the edited layout, redrawn after each move (after a paint, so the old one stays meanwhile).
   useEffect(() => {
     if (!isOpen) return;
-    const frame = requestAnimationFrame(() => setDrawn({ sketch: renderSketch(edited, lighting, { width: WIDTH }), bp: edited }));
+    const frame = requestAnimationFrame(() =>
+      setDrawn({ sketch: renderSketch(k < 1 ? { ...edited, camera: view.params } : edited, lighting, { width: WIDTH }), bp: edited }),
+    );
     return () => cancelAnimationFrame(frame);
-  }, [isOpen, edited, lighting]);
+  }, [isOpen, edited, lighting, k, view]);
   const sketch = drawn?.sketch ?? null;
   const shown = drawn?.bp ?? edited;
 
   const toCanvas = (x: number, y: number, d: number, w: number, h: number): [number, number] => {
-    const s = rules.proj.project(x, y, d);
+    const s = view.project(x, y, d);
     return [s.x * w, (1 - s.y) * h];
   };
 
@@ -113,7 +145,7 @@ export function SketchEditor({
     const r = el.getBoundingClientRect();
     const ndc = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -(((e.clientY - r.top) / r.height) * 2 - 1));
     const ray = new THREE.Raycaster();
-    ray.setFromCamera(ndc, rules.proj.cam);
+    ray.setFromCamera(ndc, view.cam);
     const hit = ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), -y), new THREE.Vector3());
     return hit ? { x: hit.x, d: -hit.z } : null;
   };
@@ -264,6 +296,26 @@ export function SketchEditor({
       }
       ctx.putImageData(img, 0, 0);
     }
+    if (k < 1) {
+      // Everything outside the camera's frame is dimmed; the frame itself is outlined and named.
+      const fx = ((1 - k) / 2) * w,
+        fy = ((1 - k) / 2) * h,
+        fw = k * w,
+        fh = k * h;
+      ctx.save();
+      ctx.fillStyle = 'rgba(40, 36, 30, 0.32)';
+      ctx.beginPath();
+      ctx.rect(0, 0, w, h);
+      ctx.rect(fx, fy, fw, fh);
+      ctx.fill('evenodd');
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(231, 34, 58, 0.95)';
+      ctx.strokeRect(fx, fy, fw, fh);
+      ctx.font = '600 22px ui-monospace, monospace';
+      ctx.fillStyle = 'rgba(231, 34, 58, 1)';
+      ctx.fillText('CAMERA FRAME', fx + 10, fy - 10);
+      ctx.restore();
+    }
     if (!drag?.moved) return;
     const p = rules.item(drag.id);
     // Keep-out rings, dashed.
@@ -299,8 +351,8 @@ export function SketchEditor({
     for (const poly of polys) {
       ctx.beginPath();
       poly.forEach(([sx, sy], i) => {
-        const cx = sx * w,
-          cy = (1 - sy) * h;
+        const cx = toView(sx) * w,
+          cy = (1 - toView(sy)) * h;
         if (i) ctx.lineTo(cx, cy);
         else ctx.moveTo(cx, cy);
       });
@@ -320,7 +372,7 @@ export function SketchEditor({
       ctx.fill();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- toCanvas reads rules, listed
-  }, [sketch, selected, drag, rules, shown]);
+  }, [sketch, selected, drag, rules, shown, view, k]);
 
   const sel = selected && place[selected] ? rules.item(selected) : null;
   const removedCount = blueprint.primitives.length - Object.keys(place).length;
@@ -335,11 +387,11 @@ export function SketchEditor({
       <Dialog className={styles.dialog} aria-label="Edit the sketch">
         <div className={styles.head}>
           <Heading slot="title" className={styles.title}>
-            Edit Sketch
+            {title}
           </Heading>
           <p className={styles.lede}>
-            Your layout in outline, through the photo's camera. Drag an item to move it; it lands on the nearest spot with room for it. Select an item and
-            press Delete to take it off the table. The Coca-Cola product and the main dish stay in every scene.
+            {lede ??
+              "Your layout in outline, through the photo's camera. Drag an item to move it; it lands on the nearest spot with room for it. Select an item and press Delete to take it off the table. The Coca-Cola product and the main dish stay in every scene."}
             {blueprint.primitives.some((p) => p.role === 'person') && ' The people keep their pose and the drink in their hand; everything else moves around them, clear of their hands.'}
           </p>
         </div>
@@ -422,13 +474,13 @@ export function SketchEditor({
 
         <div className={styles.foot}>
           <p className={styles.note}>
-            {changed ? `${summary}. ` : ''}Saving keeps this as a new arrangement and redraws the sketch from it. A redraw counts toward your
-            monthly limit.
+            {changed ? `${summary}. ` : ''}
+            {note}
           </p>
           <div className={styles.actions}>
             <Button onPress={onClose}>Cancel</Button>
             <Button variant="primary" disabled={!changed} onPress={() => onSave(edited)}>
-              Save and redraw
+              {saveLabel}
             </Button>
           </div>
         </div>

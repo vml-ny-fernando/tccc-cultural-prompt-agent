@@ -280,3 +280,8 @@ export function foodStylingRules(texts: Array<string | undefined>): Array<{ labe
     .filter((d) => d.match.some((m) => haystack.includes(stylingMatchText(m))))
     .map((d) => ({ label: d.label, rules: d.rules }));
 }
+
+/** The camera a draft starts with before the Camera Angle step: the default look and the angle recommended for the dish. */
+export function defaultCamera(entree: Parameters<typeof recommendAngle>[0]): { look: string; angle: string } {
+  return { look: DEFAULT_LOOK, angle: recommendAngle(entree)?.angle ?? DEFAULT_ANGLE };
+}

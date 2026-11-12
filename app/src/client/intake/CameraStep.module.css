@@ -32,3 +32,12 @@
   outline: 2px solid var(--bay-border-focus);
   outline-offset: 2px;
 }
+
+.problems {
+  margin: 4px 0 8px;
+  padding-left: 18px;
+}
+
+.problemsHint {
+  margin: 0 0 10px;
+}

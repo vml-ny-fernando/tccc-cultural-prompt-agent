@@ -167,7 +167,14 @@ export function TableStep({
           <div className={tableStyles.angles}>
             <RadioGroup aria-label="Camera angle" value={cam.angle} onChange={pick} orientation="horizontal" className={tableStyles.angleGroup}>
               <span className={tableStyles.angleLabel}>Camera angle</span>
-              <div className={tableStyles.segments}>
+              {/* A three-notch slider: the knob sits on the picked angle, the names and tags under the notches. */}
+              <div className={tableStyles.slider} style={{ ['--n' as string]: cfg.angles.length }}>
+                <span className={tableStyles.track} aria-hidden />
+                <span
+                  className={tableStyles.knob}
+                  aria-hidden
+                  style={{ ['--i' as string]: Math.max(0, cfg.angles.findIndex((a) => a.id === cam.angle)) }}
+                />
                 {cfg.angles.map((a) => {
                   const f = frames?.[a.id];
                   const fixes = f?.ok ? f.problems.length : 0;
@@ -179,11 +186,11 @@ export function TableStep({
                       key={a.id}
                       value={a.id}
                       isDisabled={!!f && !f.ok}
-                      className={tableStyles.segment}
+                      className={tableStyles.stop}
                       aria-label={[label, isRec ? 'recommended' : '', note].filter(Boolean).join(', ')}
                     >
-                      <span title={note || undefined} className={tableStyles.segmentInner}>
-                        {isRec && <Lightbulb size={13} aria-hidden className={tableStyles.recIcon} />}
+                      <span className={tableStyles.notch} aria-hidden />
+                      <span title={note || undefined} className={tableStyles.stopLabel}>
                         {label}
                         {fixes > 0 && (
                           <span className={tableStyles.fix} aria-hidden>
@@ -192,6 +199,7 @@ export function TableStep({
                           </span>
                         )}
                       </span>
+                      {isRec && <span className={tableStyles.recommended}>Recommended</span>}
                     </Radio>
                   );
                 })}
@@ -213,9 +221,7 @@ export function TableStep({
               <p className={`${cameraStyles.recommendation} ${tableStyles.recommendation}`}>
                 <Lightbulb size={16} aria-hidden className={cameraStyles.recommendationIcon} />
                 <span>
-                  <strong>
-                    Recommended for {brief.heroDish || 'this dish'}: {recAngle.label.replace(/\s*\(default\)$/, '')}.
-                  </strong>{' '}
+                  <strong>Recommended for {brief.heroDish || 'this dish'}:</strong> {recAngle.label.replace(/\s*\(default\)$/, '')}.{' '}
                   {rec.reason}
                 </span>
               </p>

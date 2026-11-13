@@ -87,12 +87,11 @@
   margin: 12px 0 0;
 }
 
-/* The camera angle as one compact segmented control (Fernando, 2026-11-13). */
+/* The camera angle as a three-notch slider (Fernando, 2026-11-13). */
 .angleGroup {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 14px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .angleLabel {
@@ -104,58 +103,106 @@
   color: var(--bay-text);
 }
 
-.segments {
-  display: inline-flex;
+.slider {
+  --knob: 22px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  width: min(100%, 480px);
+}
+
+/* The rail runs from the first notch to the last (the middle of the first and last columns). */
+.track {
+  position: absolute;
+  top: calc(var(--knob) / 2 - 2px);
+  left: calc(50% / var(--n));
+  right: calc(50% / var(--n));
+  height: 4px;
+  border-radius: 2px;
+  background: var(--neo-ink);
+}
+
+.knob {
+  position: absolute;
+  top: 0;
+  left: calc((var(--i) * 2 + 1) * 50% / var(--n) - var(--knob) / 2);
+  width: var(--knob);
+  height: var(--knob);
   border: var(--neo-border-thin);
-  border-radius: var(--bay-r-sm);
-  background: var(--neo-card);
-  overflow: hidden;
+  border-radius: 50%;
+  background: var(--neo-selected);
+  box-shadow: var(--neo-shadow-sm);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 180ms var(--bay-ease);
 }
 
-.segment {
+.stop {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  height: 34px;
-  padding: 0 14px;
-  font-size: 12.5px;
-  font-weight: var(--app-weight-subhead);
-  color: var(--bay-text);
+  gap: 8px;
   cursor: pointer;
-  white-space: nowrap;
 }
 
-.segment + .segment {
-  border-left: var(--neo-border-thin);
+.notch {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  margin-top: calc(var(--knob) / 2 - 7px);
+  margin-bottom: calc(var(--knob) / 2 - 7px);
+  border: var(--neo-border-thin);
+  border-radius: 50%;
+  background: var(--neo-card);
 }
 
-.segment[data-hovered]:not([data-selected]):not([data-disabled]) {
+.stop[data-hovered]:not([data-disabled]) .notch {
   background: var(--neo-hover);
 }
 
-.segment[data-focus-visible] {
+.stop[data-focus-visible] .notch {
   outline: 2px solid var(--bay-border-focus);
-  outline-offset: -4px;
+  outline-offset: 6px;
 }
 
-.segment[data-selected] {
-  background: var(--neo-ink);
-  color: var(--neo-on-selected);
+.stopLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: var(--app-weight-subhead);
+  color: var(--bay-text-2);
+  text-align: center;
+  white-space: nowrap;
 }
 
-.segment[data-disabled] {
+.stop[data-selected] .stopLabel {
+  color: var(--bay-text);
+  font-weight: 700;
+}
+
+.stop[data-disabled] {
   cursor: not-allowed;
+}
+
+.stop[data-disabled] .stopLabel {
   color: var(--bay-text-3);
   text-decoration: line-through;
 }
 
-.segmentInner {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.recIcon {
-  color: currentColor;
+/* Black pill, white Space Mono text, like the option cards' Suggested slug. */
+.recommended {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--neo-ink);
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--bay-text-on-accent);
 }
 
 /* Items the angle cuts off: a small red count, explained in the note above when picked. */

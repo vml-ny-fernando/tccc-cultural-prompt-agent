@@ -154,3 +154,10 @@
 .card[data-selected] .viewNote {
   color: var(--neo-on-selected);
 }
+
+/* Text-only cards: the angle's name, its tags and notes, centred. */
+.card[data-text-only] {
+  justify-content: center;
+  min-height: 72px;
+  padding: 14px 10px;
+}

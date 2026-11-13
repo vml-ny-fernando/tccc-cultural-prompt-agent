@@ -1,10 +1,11 @@
 // Tablescape & Camera (Fernando, 2026-11-12): the table is laid out first and the camera is
 // picked on the same page. The recommended arrangement is taken for the operator and drawn
-// large from the selected angle; the angle cards under it show the same table from every
-// angle (only the camera moves), and Re-arrange opens the editor to move or remove items.
+// large from the selected angle, beside the Layouts panel and as tall as it. The angle cards
+// under it carry no picture (2026-11-13): tapping one shows the table from there in the large
+// drawing, so every angle is seen there before Continue. Re-arrange opens the editor.
 // Sketch Review then draws it.
 
-import { ArrowRight, Lightbulb, Move, RotateCcw } from 'lucide-react';
+import { ArrowRight, Lightbulb, Move } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 import type { RuleEffects } from '../../api.ts';
@@ -46,7 +47,6 @@ export function TableStep({
   onPick,
   onBackToSides,
   onWorkingLayout,
-  onReset,
   onNext,
 }: {
   brief: Brief;
@@ -63,8 +63,6 @@ export function TableStep({
   onBackToSides: () => void;
   /** The table as the operator left it, seen from `camera` (moved items, a new angle, or both). */
   onWorkingLayout: (bp: Blueprint, camera: Camera) => void;
-  /** Back to the recommended arrangement, seen from `camera`. */
-  onReset: (picked: number, camera: Camera) => void;
   onNext: () => void;
 }) {
   const config = trpc.config.useQuery();
@@ -90,23 +88,12 @@ export function TableStep({
   const shown = current?.ok ? current.blueprint : bp;
 
   const [big, setBig] = useState<string | null>(null);
-  const [cards, setCards] = useState<Record<string, string>>({});
   useEffect(() => {
     setBig(null);
     if (!shown || !lighting) return;
     const raf = requestAnimationFrame(() => setBig(renderSketch(shown, lighting, { width: 1280 }).url));
     return () => cancelAnimationFrame(raf);
   }, [shown, lighting]);
-  useEffect(() => {
-    setCards({});
-    if (!frames || !lighting) return;
-    const raf = requestAnimationFrame(() => {
-      const out: Record<string, string> = {};
-      for (const [id, f] of Object.entries(frames)) if (f.ok) out[id] = renderSketch(f.blueprint, lighting, { width: 640 }).url;
-      setCards(out);
-    });
-    return () => cancelAnimationFrame(raf);
-  }, [frames, lighting]);
 
   if (!compose || !option || !bp || !lighting) {
     return (
@@ -132,7 +119,7 @@ export function TableStep({
   const selectedLook = cfg && cam ? cfg.looks.find((l) => l.id === cam.look) : undefined;
   const views: Record<string, AngleView> | undefined = frames
     ? Object.fromEntries(
-        Object.entries(frames).map(([id, f]) => [id, f.ok ? { url: cards[id] ?? null, problems: f.problems.map((p) => p.text) } : { url: null, unavailable: f.reason }]),
+        Object.entries(frames).map(([id, f]) => [id, f.ok ? { url: null, problems: f.problems.map((p) => p.text) } : { url: null, unavailable: f.reason }]),
       )
     : undefined;
 
@@ -145,100 +132,86 @@ export function TableStep({
     if (cam && current?.ok && current.blueprint !== bp && current.blueprint.camera.pitchDeg !== bp.camera.pitchDeg) onWorkingLayout(current.blueprint, cam);
   };
 
-  const from = option.edit?.from ?? picked!;
-  const moved = shown?.layout_meta.moved?.length ?? 0;
-  const removed = compose.options[from]!.blueprint.primitives.length - bp.primitives.length;
-  const slid = !!(shown?.camera.shiftX || shown?.camera.shiftY);
-  const canReset = !!option.edit || (!!recAngle && cam?.angle !== recAngle.id);
-  const reset = () => {
-    if (cam) onReset(from, { ...cam, angle: recAngle ? recAngle.id : cam.angle });
-  };
-  const changes = [moved ? `${moved} moved` : '', removed > 0 ? `${removed} removed` : '', slid ? 'frame moved' : ''].filter(Boolean).join(' · ');
-
   return (
     <section>
       <h1>Tablescape &amp; Camera</h1>
       <p className={styles.lede}>
-        The recommended arrangement for your dish, sides and drink, drawn from the selected camera angle. Pick another angle below to see the same
-        table from there: only the camera moves. Use Re-arrange to move anything or take it off the table.
+        The recommended arrangement for your dish, sides and drink, drawn from the selected camera angle. Tap an angle below to see the same table
+        from there: only the camera moves. Use Re-arrange to move anything or take it off the table.
       </p>
 
-      <div className={styles.compare}>
-        <div className={styles.frameCol}>
-          <div className={styles.frame}>
-            {big ? <img className={styles.sketch} src={big} alt="Line drawing of the table from the selected camera angle" /> : <SkeletonBlock height="100%" />}
-            <button type="button" className={tableStyles.rearrange} onClick={() => setEditOpen(true)}>
-              <Move size={14} aria-hidden />
-              Re-arrange
-            </button>
-          </div>
-          {canReset && (
-            <div className={styles.toolbar}>
-              <Button size="sm" variant="ghost" icon={<RotateCcw size={14} aria-hidden />} onPress={reset}>
-                Reset to recommended
-              </Button>
-              {changes && <span className={styles.detailText}>{changes.replace(/^./, (c) => c.toUpperCase())}.</span>}
-            </div>
-          )}
-
-          {current?.ok && current.problems.length > 0 && (
-            <Alert tone="warning" title="Something needs fixing from this angle">
-              <ul className={cameraStyles.problems}>
-                {current.problems.map((p, i) => (
-                  <li key={i}>{p.text}</li>
-                ))}
-              </ul>
-              <p className={cameraStyles.problemsHint}>Re-arrange it, take it off the table, or pick another angle.</p>
-            </Alert>
-          )}
-
-          {cfg && cam && (
-            <div className={tableStyles.angles}>
-              {rec && recAngle && (
-                <p className={cameraStyles.recommendation}>
-                  <Lightbulb size={16} aria-hidden className={cameraStyles.recommendationIcon} />
-                  <span>
-                    <strong>
-                      Recommended for {brief.heroDish || 'this dish'}: {recAngle.label.replace(/\s*\(default\)$/, '')}.
-                    </strong>{' '}
-                    {rec.reason}
-                  </span>
-                </p>
-              )}
-              <AnglePicker
-                aria-label="Camera angle"
-                lookId={cam.look}
-                lookLabel={selectedLook?.label ?? ''}
-                focalMm={selectedLook?.focalMm}
-                value={cam.angle}
-                onChange={pick}
-                options={cfg.angles.map((a) => ({ id: a.id, label: a.label, pitchDeg: a.pitchDeg }))}
-                recommendedId={recAngle?.id}
-                views={views}
-              />
-            </div>
-          )}
-          {sel.scene?.seated && sel.scene.seating === 'across' && cam?.angle === 'low' && (
-            <p className={styles.detailText}>
-              Over the shoulder doesn't fit from Low: the food ends up mid-frame above the table's legs. Pick Diner's eye or Looking down.
-            </p>
-          )}
+      <div className={tableStyles.top}>
+        <div className={`${styles.frame} ${tableStyles.frame}`}>
+          {big ? <img className={styles.sketch} src={big} alt="Line drawing of the table from the selected camera angle" /> : <SkeletonBlock height="100%" />}
+          <button type="button" className={tableStyles.rearrange} onClick={() => setEditOpen(true)}>
+            <Move size={14} aria-hidden />
+            Re-arrange
+          </button>
         </div>
-        <ArrangementBar
-          brief={brief}
-          sel={sel}
-          rules={rules}
-          accentDecision={accentDecision}
-          onAccentDecision={onAccentDecision}
-          compose={compose}
-          picked={picked!}
-          onPick={onPick}
-          hasSketch={() => false}
-          onAccent={onAccent}
-          onNapkin={onNapkin}
-          drawing={false}
-          stage="table"
-        />
+        {/* As tall as the drawing: the panel scrolls inside rather than stretching the row. */}
+        <div className={tableStyles.barCell}>
+          <ArrangementBar
+            brief={brief}
+            sel={sel}
+            rules={rules}
+            accentDecision={accentDecision}
+            onAccentDecision={onAccentDecision}
+            compose={compose}
+            picked={picked!}
+            onPick={onPick}
+            hasSketch={() => false}
+            onAccent={onAccent}
+            onNapkin={onNapkin}
+            drawing={false}
+            stage="table"
+          />
+        </div>
+      </div>
+
+      <div className={tableStyles.below}>
+        {current?.ok && current.problems.length > 0 && (
+          <Alert tone="warning" title="Something needs fixing from this angle">
+            <ul className={cameraStyles.problems}>
+              {current.problems.map((p, i) => (
+                <li key={i}>{p.text}</li>
+              ))}
+            </ul>
+            <p className={cameraStyles.problemsHint}>Re-arrange it, take it off the table, or pick another angle.</p>
+          </Alert>
+        )}
+
+        {cfg && cam && (
+          <div className={tableStyles.angles}>
+            <AnglePicker
+              aria-label="Camera angle"
+              lookId={cam.look}
+              lookLabel={selectedLook?.label ?? ''}
+              focalMm={selectedLook?.focalMm}
+              value={cam.angle}
+              onChange={pick}
+              options={cfg.angles.map((a) => ({ id: a.id, label: a.label, pitchDeg: a.pitchDeg }))}
+              recommendedId={recAngle?.id}
+              views={views}
+              media={false}
+            />
+            {rec && recAngle && (
+              <p className={`${cameraStyles.recommendation} ${tableStyles.recommendation}`}>
+                <Lightbulb size={16} aria-hidden className={cameraStyles.recommendationIcon} />
+                <span>
+                  <strong>
+                    Recommended for {brief.heroDish || 'this dish'}: {recAngle.label.replace(/\s*\(default\)$/, '')}.
+                  </strong>{' '}
+                  {rec.reason}
+                </span>
+              </p>
+            )}
+          </div>
+        )}
+        {sel.scene?.seated && sel.scene.seating === 'across' && cam?.angle === 'low' && (
+          <p className={styles.detailText}>
+            Over the shoulder doesn't fit from Low: the food ends up mid-frame above the table's legs. Pick Diner's eye or Looking down.
+          </p>
+        )}
       </div>
 
       {shown && cam && (

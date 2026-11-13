@@ -122,7 +122,6 @@ export function App() {
     setPerson,
     addEditedLayout,
     ensureCamera,
-    resetTable,
     setWorkingLayout,
     setSketch,
     setValidation,
@@ -347,7 +346,6 @@ export function App() {
               onPick={setPicked}
               onBackToSides={() => setStep('sides')}
               onWorkingLayout={(bp, camera) => setWorkingLayout(bp, camera)}
-              onReset={resetTable}
               onNext={() => setStep('review')}
             />
           );

@@ -358,26 +358,6 @@ export function useIntake() {
   }, []);
 
   /**
-   * Back to the recommended table: picks arrangement `picked` and sets the camera, without the
-   * downstream clearing a camera answer normally brings (the table is what the camera looks at).
-   */
-  const resetTable = useCallback((picked: number, camera: NonNullable<Selections['camera']>) => {
-    setDraft((d) => {
-      if (!d.compose) return d;
-      return {
-        ...d,
-        sel: { ...d.sel, camera },
-        compose: { ...d.compose, spec: { ...d.compose.spec, camera: { ...d.compose.spec.camera, ...camera } } },
-        picked,
-        review: d.compose.options[picked] ? emptyReview(d.compose.options[picked]!.blueprint) : d.review,
-        story: null,
-        validation: null,
-        workspace: { ...freshSegments(d.workspace), proxy: null },
-      };
-    });
-  }, []);
-
-  /**
    * The table laid out first, then the camera (2026-11-12): `blueprint` is the picked layout as
    * the person left it, seen from `camera` (moved items, a new angle, or both). It replaces the
    * picked edit, or joins the arrangements as an edit of the solver's one, so "Reset to
@@ -495,7 +475,6 @@ export function useIntake() {
     setPerson,
     addEditedLayout,
     ensureCamera,
-    resetTable,
     setWorkingLayout,
     setSketch,
     setValidation,

@@ -32,5 +32,57 @@
 
 /* The angle cards under the drawing. */
 .angles {
-  margin-top: 20px;
+  margin: 0;
+}
+
+/* The drawing and the Layouts panel side by side, the same height: the drawing's 16:9 sets it. */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.top > .frame {
+  margin-top: 0;
+}
+
+.barCell {
+  position: relative;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .top {
+    grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
+    align-items: stretch;
+  }
+
+  .barCell > * {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+  }
+}
+
+/* Notes, the angle cards and the recommendation, under the drawing only. */
+.below {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 20px 0 32px;
+}
+
+@media (min-width: 900px) {
+  .below {
+    grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
+  }
+
+  .below > * {
+    grid-column: 1;
+  }
+}
+
+.recommendation {
+  margin: 12px 0 0;
 }

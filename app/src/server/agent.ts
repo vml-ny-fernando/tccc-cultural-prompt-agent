@@ -78,6 +78,14 @@ Examples of vesselStyle: ${tablewareStyle.examples.join('; ')}.
 The knowledge base below is an excerpt: the sections of each file most relevant to this step. If something you need isn't in it, treat it as not covered.`;
 
 /** Knowledge-base search words for where the meal is eaten. */
+/** Words that pull in a country file's sections for the brief's occasion (the occasion map, brunch, Kaffee und Kuchen, late-night food). */
+const OCCASION_WORDS: Partial<Record<string, string>> = {
+  brunch: 'brunch',
+  'weekend-lunch': 'sunday weekend',
+  'afternoon-snack': 'afternoon',
+  'late-night': 'late night',
+};
+
 function sceneWords(scene: { venue: Venue; venueType?: string | undefined } | undefined): string[] {
   if (!scene) return [];
   const place = venueType(scene.venue, scene.venueType);
@@ -413,12 +421,17 @@ export function buildTask(req: AgentRequest): TextTask {
   // the prompt, with headroom for the wrapper tags.
   // The image check carries the whole generation prompt, so its excerpt may shrink further.
   const budget = Math.max(req.kind === 'imageCheck' ? 2_000 : 8_000, PROMPT_CAP - INSTRUCTIONS.length - prompt.length - 1_500);
+  const scene = sceneLevel ? req.spec?.scene : sel.scene;
   const kb = knowledgeBlock({
     country: brief.country,
     region: brief.region || undefined,
     focus,
-    words,
+    words: [...words, ...keywords(OCCASION_WORDS[brief.occasion])],
     budget: Math.min(budget, 34_000),
+    pins: {
+      dish: keywords(brief.heroDish),
+      venue: scene ? venueType(scene.venue, scene.venueType)?.label : undefined,
+    },
   });
   const big = sceneLevel;
   return {

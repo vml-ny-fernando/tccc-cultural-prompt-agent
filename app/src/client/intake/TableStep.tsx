@@ -6,7 +6,7 @@
 // Sketch Review then draws it.
 
 import { AlertTriangle, ArrowRight, Lightbulb, Move } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Radio, RadioGroup } from 'react-aria-components';
 
 import type { RuleEffects } from '../../api.ts';
@@ -31,6 +31,33 @@ import type { Brief, ComposeResult } from './types.ts';
 export const TABLE_OVERSCAN = 0.6;
 
 type Camera = NonNullable<Selections['camera']>;
+
+/**
+ * Where each notch's centre sits across the slider, in px. The end labels line up with the
+ * frame's edges and each notch is centred over its label, so the rail and the knob follow
+ * the labels' measured widths.
+ */
+function useNotchCenters(): [(el: HTMLDivElement | null) => void, number[]] {
+  const [centers, setCenters] = useState<number[]>([]);
+  const ro = useRef<ResizeObserver | null>(null);
+  const ref = useCallback((el: HTMLDivElement | null) => {
+    ro.current?.disconnect();
+    if (!el) return;
+    const measure = () => {
+      const box = el.getBoundingClientRect();
+      const next = [...el.querySelectorAll<HTMLElement>('[data-notch]')].map((n) => {
+        const r = n.getBoundingClientRect();
+        return r.left + r.width / 2 - box.left;
+      });
+      setCenters((prev) => (prev.length === next.length && prev.every((v, i) => Math.abs(v - next[i]!) < 0.5) ? prev : next));
+    };
+    ro.current = new ResizeObserver(measure);
+    ro.current.observe(el);
+    for (const child of el.children) ro.current.observe(child);
+    measure();
+  }, []);
+  return [ref, centers];
+}
 
 export function TableStep({
   brief,
@@ -87,6 +114,7 @@ export function TableStep({
   const shown = current?.ok ? current.blueprint : bp;
 
   const [big, setBig] = useState<string | null>(null);
+  const [sliderRef, centers] = useNotchCenters();
   useEffect(() => {
     setBig(null);
     if (!shown || !lighting) return;
@@ -168,13 +196,13 @@ export function TableStep({
             <RadioGroup aria-label="Camera angle" value={cam.angle} onChange={pick} orientation="horizontal" className={tableStyles.angleGroup}>
               <span className={tableStyles.angleLabel}>Camera angle</span>
               {/* A three-notch slider: the knob sits on the picked angle, the names and tags under the notches. */}
-              <div className={tableStyles.slider} style={{ ['--n' as string]: cfg.angles.length }}>
-                <span className={tableStyles.track} aria-hidden />
+              <div ref={sliderRef} className={tableStyles.slider} data-measured={centers.length > 1 || undefined}>
                 <span
-                  className={tableStyles.knob}
+                  className={tableStyles.track}
                   aria-hidden
-                  style={{ ['--i' as string]: Math.max(0, cfg.angles.findIndex((a) => a.id === cam.angle)) }}
+                  style={{ left: centers[0] ?? 0, width: centers.length > 1 ? centers[centers.length - 1]! - centers[0]! : 0 }}
                 />
+                <span className={tableStyles.knob} aria-hidden style={{ ['--x' as string]: `${centers[Math.max(0, cfg.angles.findIndex((a) => a.id === cam.angle))] ?? 0}px` }} />
                 {cfg.angles.map((a) => {
                   const f = frames?.[a.id];
                   const fixes = f?.ok ? f.problems.length : 0;
@@ -189,7 +217,7 @@ export function TableStep({
                       className={tableStyles.stop}
                       aria-label={[label, isRec ? 'recommended' : '', note].filter(Boolean).join(', ')}
                     >
-                      <span className={tableStyles.notch} aria-hidden />
+                      <span className={tableStyles.notch} data-notch aria-hidden />
                       <span title={note || undefined} className={tableStyles.stopLabel}>
                         {label}
                         {fixes > 0 && (

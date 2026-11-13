@@ -92,6 +92,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 5px;
 }
 
 .angleLabel {
@@ -106,17 +107,15 @@
 .slider {
   --knob: 22px;
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
-  width: min(100%, 480px);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-/* The rail runs from the first notch to the last (the middle of the first and last columns). */
+/* The rail runs from the first notch's centre to the last; both are measured (useNotchCenters). */
 .track {
   position: absolute;
   top: calc(var(--knob) / 2 - 2px);
-  left: calc(50% / var(--n));
-  right: calc(50% / var(--n));
   height: 4px;
   border-radius: 2px;
   background: var(--neo-ink);
@@ -125,7 +124,7 @@
 .knob {
   position: absolute;
   top: 0;
-  left: calc((var(--i) * 2 + 1) * 50% / var(--n) - var(--knob) / 2);
+  left: calc(var(--x) - var(--knob) / 2);
   width: var(--knob);
   height: var(--knob);
   border: var(--neo-border-thin);
@@ -135,6 +134,12 @@
   pointer-events: none;
   z-index: 1;
   transition: left 180ms var(--bay-ease);
+}
+
+/* Until the notches are measured, the rail and knob stay hidden rather than jump into place. */
+.slider:not([data-measured]) .track,
+.slider:not([data-measured]) .knob {
+  visibility: hidden;
 }
 
 .stop {
@@ -169,8 +174,10 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: var(--app-weight-subhead);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--bay-text-2);
   text-align: center;
   white-space: nowrap;

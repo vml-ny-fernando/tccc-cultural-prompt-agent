@@ -1,0 +1,240 @@
+/* Re-arrange, as a labelled button over the drawing's top-right corner (Fernando, 2026-11-12).
+   Doubled class beats the frame's `.frame > *` fill rule. */
+.rearrange.rearrange {
+  inset: 12px 12px auto auto;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: var(--neo-border);
+  border-radius: var(--bay-r-sm);
+  background: var(--neo-card);
+  box-shadow: var(--neo-shadow-sm);
+  color: var(--neo-ink);
+  font-family: var(--bay-font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+.rearrange:hover {
+  background: var(--neo-hover);
+}
+
+.rearrange:focus-visible {
+  outline: 3px solid var(--neo-selected);
+  outline-offset: 2px;
+}
+
+/* The angle cards under the drawing. */
+.angles {
+  margin: 0;
+}
+
+/* The drawing and the Layouts panel side by side, the same height: the drawing's 16:9 sets it. */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.top > .frame {
+  margin-top: 0;
+}
+
+.barCell {
+  position: relative;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .top {
+    grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
+    align-items: stretch;
+  }
+
+  .barCell > * {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+  }
+}
+
+/* Notes, the angle cards and the recommendation, under the drawing only. */
+.below {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 20px 0 32px;
+}
+
+@media (min-width: 900px) {
+  .below {
+    grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
+  }
+
+  .below > * {
+    grid-column: 1;
+  }
+}
+
+.recommendation {
+  margin: 12px 0 0;
+}
+
+/* The camera angle as a three-notch slider (Fernando, 2026-11-13). */
+.angleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.angleLabel {
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bay-text);
+}
+
+.slider {
+  --knob: 22px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* The rail runs from the first notch's centre to the last; both are measured (useNotchCenters). */
+.track {
+  position: absolute;
+  top: calc(var(--knob) / 2 - 2px);
+  height: 4px;
+  border-radius: 2px;
+  background: var(--neo-ink);
+}
+
+.knob {
+  position: absolute;
+  top: 0;
+  left: calc(var(--x) - var(--knob) / 2);
+  width: var(--knob);
+  height: var(--knob);
+  border: var(--neo-border-thin);
+  border-radius: 50%;
+  background: var(--neo-selected);
+  box-shadow: var(--neo-shadow-sm);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 180ms var(--bay-ease);
+}
+
+/* Until the notches are measured, the rail and knob stay hidden rather than jump into place. */
+.slider:not([data-measured]) .track,
+.slider:not([data-measured]) .knob {
+  visibility: hidden;
+}
+
+.stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.notch {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  margin-top: calc(var(--knob) / 2 - 7px);
+  margin-bottom: calc(var(--knob) / 2 - 7px);
+  border: var(--neo-border-thin);
+  border-radius: 50%;
+  background: var(--neo-card);
+}
+
+.stop[data-hovered]:not([data-disabled]) .notch {
+  background: var(--neo-hover);
+}
+
+.stop[data-focus-visible] .notch {
+  outline: 2px solid var(--bay-border-focus);
+  outline-offset: 6px;
+}
+
+.stopLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: var(--app-weight-subhead);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bay-text-2);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.stop[data-selected] .stopLabel {
+  color: var(--bay-text);
+  font-weight: 700;
+}
+
+.stop[data-disabled] {
+  cursor: not-allowed;
+}
+
+.stop[data-disabled] .stopLabel {
+  color: var(--bay-text-3);
+  text-decoration: line-through;
+}
+
+/* Black pill, white Space Mono text, like the option cards' Suggested slug. */
+.recommended {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--neo-ink);
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--bay-text-on-accent);
+}
+
+/* Items the angle cuts off: a small red count, explained in the note above when picked. */
+.fix {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  color: var(--neo-selected);
+}
+
+/* What the picked angle cuts off: one quiet line, not a banner. */
+.fixNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: var(--bay-text-2);
+}
+
+.fixNoteIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--neo-selected);
+}

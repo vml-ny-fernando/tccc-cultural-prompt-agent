@@ -86,3 +86,101 @@
 .recommendation {
   margin: 12px 0 0;
 }
+
+/* The camera angle as one compact segmented control (Fernando, 2026-11-13). */
+.angleGroup {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.angleLabel {
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bay-text);
+}
+
+.segments {
+  display: inline-flex;
+  border: var(--neo-border-thin);
+  border-radius: var(--bay-r-sm);
+  background: var(--neo-card);
+  overflow: hidden;
+}
+
+.segment {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 14px;
+  font-size: 12.5px;
+  font-weight: var(--app-weight-subhead);
+  color: var(--bay-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.segment + .segment {
+  border-left: var(--neo-border-thin);
+}
+
+.segment[data-hovered]:not([data-selected]):not([data-disabled]) {
+  background: var(--neo-hover);
+}
+
+.segment[data-focus-visible] {
+  outline: 2px solid var(--bay-border-focus);
+  outline-offset: -4px;
+}
+
+.segment[data-selected] {
+  background: var(--neo-ink);
+  color: var(--neo-on-selected);
+}
+
+.segment[data-disabled] {
+  cursor: not-allowed;
+  color: var(--bay-text-3);
+  text-decoration: line-through;
+}
+
+.segmentInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.recIcon {
+  color: currentColor;
+}
+
+/* Items the angle cuts off: a small red count, explained in the note above when picked. */
+.fix {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  color: var(--neo-selected);
+}
+
+/* What the picked angle cuts off: one quiet line, not a banner. */
+.fixNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: var(--bay-text-2);
+}
+
+.fixNoteIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--neo-selected);
+}

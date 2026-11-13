@@ -5,8 +5,9 @@
 // drawing, so every angle is seen there before Continue. Re-arrange opens the editor.
 // Sketch Review then draws it.
 
-import { ArrowRight, Lightbulb, Move } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Lightbulb, Move } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { Radio, RadioGroup } from 'react-aria-components';
 
 import type { RuleEffects } from '../../api.ts';
 import { reframe, type Reframe } from '../../shared/reframe.ts';
@@ -15,10 +16,8 @@ import type { Selections } from '../../shared/spec.ts';
 import type { AccentChoice, Blueprint, Decision } from '../../shared/types.ts';
 import { renderSketch } from '../lib/renderProxy.ts';
 import { trpc } from '../trpc.ts';
-import { Alert } from '../ui/Alert.tsx';
 import { Button } from '../ui/Button.tsx';
 import { SkeletonBlock } from '../ui/Skeleton.tsx';
-import { AnglePicker, type AngleView } from './AnglePicker.tsx';
 import { ArrangementBar } from './ArrangementBar.tsx';
 import cameraStyles from './CameraStep.module.css';
 import { PrepareLayout } from './LayoutStep.tsx';
@@ -116,12 +115,6 @@ export function TableStep({
   }
 
   const cfg = config.data;
-  const selectedLook = cfg && cam ? cfg.looks.find((l) => l.id === cam.look) : undefined;
-  const views: Record<string, AngleView> | undefined = frames
-    ? Object.fromEntries(
-        Object.entries(frames).map(([id, f]) => [id, f.ok ? { url: null, problems: f.problems.map((p) => p.text) } : { url: null, unavailable: f.reason }]),
-      )
-    : undefined;
 
   const pick = (angle: string) => {
     const f = frames?.[angle];
@@ -169,31 +162,53 @@ export function TableStep({
       </div>
 
       <div className={tableStyles.below}>
-        {current?.ok && current.problems.length > 0 && (
-          <Alert tone="warning" title="Something needs fixing from this angle">
-            <ul className={cameraStyles.problems}>
-              {current.problems.map((p, i) => (
-                <li key={i}>{p.text}</li>
-              ))}
-            </ul>
-            <p className={cameraStyles.problemsHint}>Re-arrange it, take it off the table, or pick another angle.</p>
-          </Alert>
-        )}
 
         {cfg && cam && (
           <div className={tableStyles.angles}>
-            <AnglePicker
-              aria-label="Camera angle"
-              lookId={cam.look}
-              lookLabel={selectedLook?.label ?? ''}
-              focalMm={selectedLook?.focalMm}
-              value={cam.angle}
-              onChange={pick}
-              options={cfg.angles.map((a) => ({ id: a.id, label: a.label, pitchDeg: a.pitchDeg }))}
-              recommendedId={recAngle?.id}
-              views={views}
-              media={false}
-            />
+            <RadioGroup aria-label="Camera angle" value={cam.angle} onChange={pick} orientation="horizontal" className={tableStyles.angleGroup}>
+              <span className={tableStyles.angleLabel}>Camera angle</span>
+              <div className={tableStyles.segments}>
+                {cfg.angles.map((a) => {
+                  const f = frames?.[a.id];
+                  const fixes = f?.ok ? f.problems.length : 0;
+                  const label = a.label.replace(/\s*\(default\)$/, '');
+                  const isRec = a.id === recAngle?.id;
+                  const note = !f ? '' : !f.ok ? f.reason : fixes ? `${fixes} ${fixes === 1 ? 'item' : 'items'} to fix from this angle` : '';
+                  return (
+                    <Radio
+                      key={a.id}
+                      value={a.id}
+                      isDisabled={!!f && !f.ok}
+                      className={tableStyles.segment}
+                      aria-label={[label, isRec ? 'recommended' : '', note].filter(Boolean).join(', ')}
+                    >
+                      <span title={note || undefined} className={tableStyles.segmentInner}>
+                        {isRec && <Lightbulb size={13} aria-hidden className={tableStyles.recIcon} />}
+                        {label}
+                        {fixes > 0 && (
+                          <span className={tableStyles.fix} aria-hidden>
+                            <AlertTriangle size={12} />
+                            {fixes}
+                          </span>
+                        )}
+                      </span>
+                    </Radio>
+                  );
+                })}
+              </div>
+            </RadioGroup>
+            {current?.ok && current.problems.length > 0 && (
+              <div className={tableStyles.fixNote} role="status">
+                <AlertTriangle size={14} aria-hidden className={tableStyles.fixNoteIcon} />
+                <span>
+                  {current.problems.map((p) => p.text).join(' ')}{' '}
+                  <button type="button" className={cameraStyles.recommendationLink} onClick={() => setEditOpen(true)}>
+                    Re-arrange
+                  </button>{' '}
+                  or pick another angle.
+                </span>
+              </div>
+            )}
             {rec && recAngle && (
               <p className={`${cameraStyles.recommendation} ${tableStyles.recommendation}`}>
                 <Lightbulb size={16} aria-hidden className={cameraStyles.recommendationIcon} />

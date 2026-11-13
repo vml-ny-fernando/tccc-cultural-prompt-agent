@@ -28,20 +28,15 @@ export type AnglePickerProps = {
    * it the cards show the stand-in illustrations.
    */
   views?: Record<string, AngleView> | undefined;
-  /**
-   * False: cards name the angle without a picture (Fernando, 2026-11-13), so the table is only
-   * seen from an angle in the large drawing it switches.
-   */
-  media?: boolean | undefined;
 };
 
 export type AngleView = { url: string | null; unavailable?: string | undefined; problems?: string[] | undefined };
 
 /** Three cards, one per camera angle, each showing the same scene from that angle, framed like the currently selected look. */
-export function AnglePicker({ 'aria-label': ariaLabel, value, onChange, options, lookId, lookLabel, focalMm, recommendedId, views, media = true }: AnglePickerProps) {
+export function AnglePicker({ 'aria-label': ariaLabel, value, onChange, options, lookId, lookLabel, focalMm, recommendedId, views }: AnglePickerProps) {
   return (
     <RadioGroup aria-label={ariaLabel} value={value ?? ''} onChange={onChange} className={styles.group}>
-      {lookLabel && !views && media && <p className={styles.framingNote}>Shown with the {lookLabel} framing.</p>}
+      {lookLabel && !views && <p className={styles.framingNote}>Shown with the {lookLabel} framing.</p>}
       <div className={styles.grid}>
         {options.map((o) => (
           <Radio
@@ -50,30 +45,27 @@ export function AnglePicker({ 'aria-label': ariaLabel, value, onChange, options,
             isDisabled={!!views?.[o.id]?.unavailable}
             aria-label={o.id === recommendedId ? `${o.label} (recommended)` : o.label}
             className={styles.card}
-            data-text-only={media ? undefined : true}
           >
             {({ isSelected }) => {
               const view = views?.[o.id];
               return (
                 <>
-                  {media && (
-                    <div className={styles.media}>
-                      {view ? (
-                        view.url ? (
-                          <img src={view.url} alt={`Your table from ${o.label}`} className={styles.image} />
-                        ) : view.unavailable ? (
-                          <div className={styles.fallback}>
-                            <div className={styles.fallbackNote}>{view.unavailable}</div>
-                          </div>
-                        ) : (
-                          <SkeletonBlock height="100%" />
-                        )
+                  <div className={styles.media}>
+                    {view ? (
+                      view.url ? (
+                        <img src={view.url} alt={`Your table from ${o.label}`} className={styles.image} />
+                      ) : view.unavailable ? (
+                        <div className={styles.fallback}>
+                          <div className={styles.fallbackNote}>{view.unavailable}</div>
+                        </div>
                       ) : (
-                        <AngleIllustration lookId={lookId} angleId={o.id} focalMm={focalMm} pitchDeg={o.pitchDeg} label={o.label} />
-                      )}
-                      {isSelected && <Check size={16} className={styles.check} aria-hidden />}
-                    </div>
-                  )}
+                        <SkeletonBlock height="100%" />
+                      )
+                    ) : (
+                      <AngleIllustration lookId={lookId} angleId={o.id} focalMm={focalMm} pitchDeg={o.pitchDeg} label={o.label} />
+                    )}
+                    {isSelected && <Check size={16} className={styles.check} aria-hidden />}
+                  </div>
                   <div className={styles.label}>{o.label}</div>
                   {o.id === recommendedId && <span className={styles.recommended}>Recommended</span>}
                   {view?.unavailable && <span className={styles.viewNote}>Not available for this table</span>}

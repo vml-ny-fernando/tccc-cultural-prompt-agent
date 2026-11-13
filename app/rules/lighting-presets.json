@@ -147,6 +147,13 @@
         "ambient": "A soft glow passes through {drinks} from the light behind, with gentle highlights tracing the glass. The label itself is never washed out: it is evenly lit from the front, opaque, clean and a solid, saturated Coca-Cola red, with the white script crisp and fully legible; the glow shows only in the cola above and below the label."
       }
     },
+    "paper_cup": {
+      "$comment": "The fountain cup (Fernando, 2026-11-13): an opaque paper cup with no logo.",
+      "packages": [
+        "fountain-cup"
+      ],
+      "prompt": "The light rims the paper cup and its lid with a soft, clean highlight, keeping the red and white stripes crisp and true."
+    },
     "opaque": {
       "packages": [
         "can"

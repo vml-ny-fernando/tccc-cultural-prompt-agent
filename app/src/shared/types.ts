@@ -200,8 +200,10 @@ export interface Decision<T> {
 export interface SkuInfo {
   id: string;
   displayName: string;
-  package: "contour-glass-bottle" | "can" | "pet-bottle";
+  package: "contour-glass-bottle" | "can" | "pet-bottle" | "fountain-cup";
   volumeMl: number;
+  /** A plain package with no Coca-Cola logo (the generic striped fountain cup): the prompts never put a logo or brand name on it. */
+  unbranded?: boolean;
   /** GTIN-14 from the TCCC product data; names the reference photos in references/sku/<gtin>/. */
   gtin?: string;
   /** Measured package size, when known; otherwise skuProxy() estimates it from package + volume. */

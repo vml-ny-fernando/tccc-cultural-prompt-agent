@@ -7,7 +7,7 @@ export interface CarouselSku {
   id: string;
   displayName: string;
   shortName: string;
-  package: 'contour-glass-bottle' | 'can' | 'pet-bottle';
+  package: 'contour-glass-bottle' | 'can' | 'pet-bottle' | 'fountain-cup';
   /** Product photo shown in the window; a line drawing of the package stands in when there is none. */
   image: string | null;
 }
@@ -95,6 +95,13 @@ function Silhouette({ kind }: { kind: CarouselSku['package'] }) {
         <>
           <path d="M25.5 6 h9 v8 h-9 Z" />
           <path d="M27 14 L27 34 C27 44 20 50 19 62 C18 74 22 80 22 90 C22 100 17 108 17 122 L17 148 Q17 152 21 152 L39 152 Q43 152 43 148 L43 122 C43 108 38 100 38 90 C38 80 42 74 41 62 C40 50 33 44 33 34 L33 14 Z" />
+        </>
+      )}
+      {kind === 'fountain-cup' && (
+        <>
+          <path d="M33 4 L33 34" />
+          <path d="M9 34 h42 v6 h-42 Z" />
+          <path d="M11 40 L49 40 L44 152 L16 152 Z" />
         </>
       )}
       {kind === 'pet-bottle' && (

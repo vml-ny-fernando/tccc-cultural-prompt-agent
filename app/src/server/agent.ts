@@ -278,7 +278,7 @@ Write:
 - sceneSummary: a few paragraphs of prose as a food stylist would brief it: what's on the table, where, the setting, the mood, and the cultural framing.
 - briefSummary: the sceneSummary abbreviated to about half its length, for a quick read: the same scene in the same order (setting and occasion, then the hero dish, then the sides, drink and napkin), keeping every item on the table but dropping the extra description. Same voice; paragraphs separated by a blank line.
 - culturalNotes: the do's and don'ts from the knowledge base that matter for this scene. Start each one with "Do" or "Don't".
-- segments: entreeDish, traditionalSideDishes (one per side or condiment), productDetail (the exact Coca-Cola product and its size, with a real-world scale anchor), environmentalOverview (the table and the background; see below), platingAndTableware, productServingDetails (use the product serving fact), brandVisId (camera, lens, angle and framing from the fixed facts).
+- segments: entreeDish, traditionalSideDishes (one per side or condiment), productDetail (the exact Coca-Cola product and its size, with a real-world scale anchor; when sku.unbranded is true it is a plain cup with no logo: describe its stripes, lid and straw and never give it a Coca-Cola logo or name on the cup), environmentalOverview (the table and the background; see below), platingAndTableware, productServingDetails (use the product serving fact), brandVisId (camera, lens, angle and framing from the fixed facts).
 - labelSegments: one entry for each food label below, in this order. The image model draws each labeled shape from this text alone, so each text must make the component unmistakable:
   - When the dish has countable pieces, start with the exact count ("Exactly three tacos side by side", "Two slices") and say none is hidden behind another.
   - Name the food by its local name, then what it visibly looks like: colors, textures, how it is cut, filled, sauced and garnished, as it is actually served in this region.
@@ -315,7 +315,7 @@ function imageCheckTask(spec: SceneSpec, story: Story, prompt: string, count: nu
 Check, element by element:
 - The food is the right dish, prepared and cut the way the story and the knowledge base describe for this region: how it is cut, split, butterflied, sliced, rolled, filled or stacked; the bread, wrapper or base and its size and shape; the exact count of pieces; the proportions (what makes up most of the dish and what is only an accent). A look-alike dish counts as wrong (a whole sausage on a long hot-dog bun is not a butterflied sausage on a short crusty roll).
 - Each side, condiment and garnish is present, recognizable, in the right container (material and color), and nothing was added that the story doesn't list. Missing or duplicated items count.
-- The Coca-Cola product matches the product detail: the right package, size and color, the logo correct and not garbled, upright and fully visible.
+- The Coca-Cola product matches the product detail: the right package, size and color, the logo correct and not garbled (an unbranded cup shows no logo at all), upright and fully visible.
 - The table, background and setting read as the place described, with no writing, signs, menus or garbled text, and no people beyond what the story allows.
 - The objects sit roughly where the layout puts them and nothing hides another item it shouldn't.
 Ignore photographic taste (light, color grade, depth of field) unless it hides something the story asks for.

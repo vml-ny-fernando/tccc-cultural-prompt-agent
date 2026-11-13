@@ -84,7 +84,10 @@ export function personText(spec: SceneSpec, bp: Blueprint, p: Primitive): string
 /** The rule for people in a seated scene: the sketch and the photograph both use it. */
 export function seatedPeopleRule(bp: Blueprint): string {
   const holders = bp.primitives.filter((q) => q.held_by).map((q) => `${q.held_by} holds ${q.id}`);
-  const hold = holders.length
+  const cup = bp.primitives.some((q) => q.role === "sku" && q.proxy.includes("fountain-cup"));
+  const hold = holders.length && cup
+    ? `${holders.join(" and ")} in a relaxed, natural grip around the cup below the lid, upright, never touching the straw; nobody drinks from it, and nobody else touches the drink cup.`
+    : holders.length
     ? `${holders.join(" and ")} in a relaxed, natural grip, label turned toward the camera so the logo reads, never covered by the fingers; nobody drinks from it, and nobody else touches a Coca-Cola product.`
     : "Nobody touches the Coca-Cola product.";
   const solo = soloMode(bp);

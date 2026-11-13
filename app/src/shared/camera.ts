@@ -7,7 +7,7 @@
 
 import * as THREE from "three";
 import type { CameraParams } from "./types";
-import type { ProxyDef } from "./registry";
+import { CUP_BASE_RATIO, type ProxyDef } from "./registry";
 
 export const ASPECT = 16 / 9;
 
@@ -252,7 +252,8 @@ export function silhouette(
   const polys: Poly[] = [];
   if (def.radius !== undefined) {
     const topR = def.kind === "lathe-bottle" || def.kind === "lathe-condiment" ? def.radius * 0.45 : def.radius;
-    const pts = [...ring(def.radius, 0), ...ring(def.radius, def.tall ? def.height * 0.6 : def.height), ...ring(topR, def.height)];
+    const baseR = def.kind === "lathe-cup" ? def.radius * CUP_BASE_RATIO : def.radius;
+    const pts = [...ring(baseR, 0), ...ring(def.radius, def.tall ? def.height * 0.6 : def.height), ...ring(topR, def.height)];
     polys.push(convexHull(pts));
     if (extraHeight > 0.006) polys.push(convexHull([...ring(def.radius * 0.7, def.height), ...ring(def.radius * 0.35, def.height + extraHeight)]));
   } else {

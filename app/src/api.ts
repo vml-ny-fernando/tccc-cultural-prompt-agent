@@ -245,7 +245,7 @@ function addProductReferences(
     const got = skuShots(product.skuId, shots).slice(0, WORKSPACE_MAX_REFERENCES - references.length);
     const start = references.length + 1;
     references.push(...got.map((g) => ({ tag: `sku_${g.shot}`, url: g.url })));
-    lines.push(skuReferenceLines(got.map((g, i) => ({ shot: g.shot, n: start + i }))));
+    lines.push(skuReferenceLines(got.map((g, i) => ({ shot: g.shot, n: start + i })), product.skuId));
   }
   if ((el === 'scene' || el === 'glass') && product.glass && references.length < WORKSPACE_MAX_REFERENCES) {
     const url = pouredGlass();

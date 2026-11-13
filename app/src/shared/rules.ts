@@ -241,6 +241,7 @@ export function selectLighting(scene: SceneSpec["scene"]): LightingPreset {
 }
 
 export function skuLightSentence(sku: SkuInfo, glass: boolean, warmth: LightingPreset["warmth"]): string {
+  if (lightingPresets.sku_light.paper_cup.packages.includes(sku.package)) return lightingPresets.sku_light.paper_cup.prompt;
   const transparent = lightingPresets.sku_light.transparent.packages.includes(sku.package);
   if (!transparent) return lightingPresets.sku_light.opaque.prompt;
   const drinks = glass ? "the Coca-Cola bottle and the bell-shaped Coca-Cola glass" : "the Coca-Cola bottle";
@@ -260,7 +261,7 @@ export function isLargeSku(sku: SkuInfo): boolean {
 export type GlassRule = "never" | "required" | "optional";
 
 export function glassRule(sku: SkuInfo, venue: SceneSpec["scene"]["venue"]): GlassRule {
-  if (venue === "on-the-go") return "never";
+  if (venue === "on-the-go" || sku.package === "fountain-cup") return "never";
   if (isLargeSku(sku)) return "required";
   return "optional";
 }

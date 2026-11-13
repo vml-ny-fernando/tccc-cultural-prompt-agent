@@ -6,6 +6,7 @@
 // hand, the proxy draws the arms, and the sketch and photo prompts describe the same moment in words.
 
 import { isLargeSku } from "./rules";
+import { skuNoun } from "./registry";
 import type { Blueprint, Primitive, SceneSpec } from "./types";
 
 export type PersonId = "PERSON_1" | "PERSON_2";
@@ -221,7 +222,7 @@ export function heldLabel(spec: SceneSpec, labels: string[], id: PersonId): stri
 /** The drink in words, for the pose text. */
 export function drinkWord(spec: SceneSpec): string {
   if (isLargeSku(spec.sku)) return "their branded Coca-Cola glass";
-  return spec.sku.package === "can" ? "their Coca-Cola can" : "their Coca-Cola bottle";
+  return spec.sku.unbranded ? `their drink ${skuNoun(spec.sku)}` : `their Coca-Cola ${skuNoun(spec.sku)}`;
 }
 
 /** A world offset (dx, dd) from a person, in their own frame (x to their right, z backward; forward is -z). */

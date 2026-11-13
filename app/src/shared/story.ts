@@ -4,7 +4,7 @@
 // in the proxy PNG to its text.
 
 import { z } from "zod";
-import { BELL_GLASS, NAPKIN_SIZES, SURFACES, VESSELS, RECTANGULAR_TABLE_RULE, VESSEL_SHORT, napkinFoldedCm, skuProxy, vesselPhrase, withoutRoundTable } from "./registry";
+import { BELL_GLASS, NAPKIN_SIZES, SURFACES, VESSELS, RECTANGULAR_TABLE_RULE, VESSEL_SHORT, napkinFoldedCm, CUP_BASE_RATIO, skuNoun, skuProxy, skuThe, CUP_STRAW_ABOVE_M, vesselPhrase, withoutRoundTable } from "./registry";
 import { Projector } from "./camera";
 import { seatedPeopleRule, hasSeatedPeople, isOverShoulder, personText, soloMode } from "./people";
 import { BACKGROUND_PEOPLE_RULE, type LightingPreset, angleById, angleSentence, backgroundPerspectiveSentence, farEdgeSentence, depthById, glassRules, isLargeSku, lookById, lookSentence, selectLighting, skuLightSentence, withoutHands } from "./rules";
@@ -129,6 +129,9 @@ function cm(m: number): number {
  * shared bottle or one served with a glass stays closed.
  */
 function openingText(spec: SceneSpec): string {
+  if (spec.sku.package === "fountain-cup") {
+    return `Its flat white lid is snapped on, and one straight white straw stands upright through the lid, unbent, rising about ${cm(CUP_STRAW_ABOVE_M)} cm above it (the straw is part of the cup, not another object); nobody's mouth is on the straw.`;
+  }
   const open = !spec.sku.glass && !isLargeSku(spec.sku);
   if (spec.sku.package === "can") return open ? "Opened, its tab pulled up, no straw." : "Unopened, no straw.";
   if (!open) return "Capped, no straw.";
@@ -140,18 +143,24 @@ function labelVessel(spec: SceneSpec, proxy: string, role: string, style?: strin
   const isPartnerDrink = role === "partner-sku" || role === "partner-glass";
   if (proxy.startsWith("sku:")) {
     const h = cm(skuProxy(spec.sku).height);
-    const cold = `cold, with fine condensation on the ${spec.sku.package === "can" ? "can" : spec.sku.package === "pet-bottle" ? "bottle" : "glass"}`;
+    const cup = spec.sku.package === "fountain-cup";
+    const cold = cup
+      ? "cold, with a light mist of condensation on the paper"
+      : `cold, with fine condensation on the ${spec.sku.package === "can" ? "can" : spec.sku.package === "pet-bottle" ? "bottle" : "glass"}`;
     // Describe the shape, not the catalog name: package words in the prompt get printed on the label.
-    const shape =
-      spec.sku.package === "can"
+    const shape = cup
+      ? "paper fountain-drink cup with a lid and straw"
+      : spec.sku.package === "can"
         ? "Coca-Cola can"
         : spec.sku.package === "contour-glass-bottle"
           ? "glass Coca-Cola bottle in the classic contour shape, filled to the neck with cola"
           : "clear plastic Coca-Cola bottle, filled to the neck with cola";
-    const label = spec.sku.appearance
+    const label = spec.sku.unbranded
+      ? `It is a ${spec.sku.appearance ?? "plain paper cup"}; it carries no logo, brand name or text of any kind, never a Coca-Cola script or ribbon, only its printed pattern`
+      : spec.sku.appearance
       ? `It is a ${spec.sku.appearance}; print nothing on it beyond that real label`
       : `${spec.sku.package === "can" ? "The can shows the white Coca-Cola script logo on red" : "A solid red label band wraps the middle of the bottle, with the white Coca-Cola script logo"}; print no other words, sizes or descriptions on it`;
-    const text = `exactly one ${shape}, about ${h} cm tall, standing upright and facing the camera straight on so the full logo reads, ${cold}. ${openingText(spec)} ${label}.${isPartnerDrink ? " This is the second diner's own, a duplicate of the other one." : ""}`;
+    const text = `exactly one ${shape}, about ${h} cm tall, standing upright and facing the camera straight on${spec.sku.unbranded ? "" : " so the full logo reads"}, ${cold}. ${openingText(spec)} ${label}.${isPartnerDrink ? " This is the second diner's own, a duplicate of the other one." : ""}`;
     return { vessel: `the ${spec.sku.displayName}, about ${h} cm tall${isPartnerDrink ? " (the second diner's)" : ""}`, fixedText: text[0].toUpperCase() + text.slice(1) };
   }
   if (proxy === "bell-glass") {
@@ -333,13 +342,15 @@ export function countsSentence(bp: Blueprint): string {
   const serving = bp.primitives.filter((p) => p.role === "shared-hero");
   const glasses = n(["glass", "partner-glass"]);
   const products = n(["sku", "partner-sku"]);
-  const pkg = bp.primitives.find((p) => p.role === "sku")?.proxy.includes("can") ? "can" : "bottle";
+  const skuProxyKey = bp.primitives.find((p) => p.role === "sku")?.proxy ?? "";
+  const cup = skuProxyKey.includes("fountain-cup");
+  const pkg = cup ? "cup" : skuProxyKey.includes("can") ? "can" : "bottle";
   const parts = [
     // A test split each burger and its onion rings onto two plates (Fernando, 2026-10-17): one serving is one vessel.
     `exactly ${w(portions)} ${portions === 1 ? "serving" : "servings"} of the main dish (${portions === 2 ? "one at each diner's place, MAIN and MAIN_2" : "MAIN"}), ${portions === 1 ? "all of it together on its one vessel" : "each all together on its one vessel"}, never split across a second plate`,
     ...serving.map((p) => `one ${p.proxy in VESSEL_SHORT ? VESSEL_SHORT[p.proxy as Vessel] : "serving dish"} of it to share (${p.id}), which gets no glass and no place setting`),
     `${w(glasses)} Coca-Cola ${glasses === 1 ? "glass" : "glasses"}${glasses === 2 ? ", one beside each diner's plate" : glasses === 1 ? ", beside the diner's plate" : ""}`,
-    `${w(products)} Coca-Cola ${products === 1 ? pkg : `${pkg}s`}`,
+    `${w(products)} ${cup ? "drink" : "Coca-Cola"} ${products === 1 ? pkg : `${pkg}s`}`,
   ];
   // Every side, sauce, bread and accent dish once (Fernando, 2026-10-17): a test doubled the amba ramekin.
   const big = ["main", "partner-main", "shared-hero", "glass", "partner-glass", "sku", "partner-sku", "person"];
@@ -358,10 +369,27 @@ function heldText(text: string, p: Primitive): string {
   return out === text ? `${text} It is ${how}, the logo facing the camera and no fingers covering it.` : out;
 }
 
+/**
+ * The unbranded fountain cup (Fernando, 2026-11-13): the shared framing and exclusion lines call the hero "the
+ * Coca-Cola product" and allow its label; for a cup with no logo they name the cup and forbid any logo instead.
+ */
+function debrand(spec: SceneSpec, f: StoryFacts): StoryFacts {
+  if (!spec.sku.unbranded) return f;
+  const name = skuThe(spec.sku);
+  return {
+    ...f,
+    framingSentence: f.framingSentence.replace(/the Coca-Cola products?/g, name),
+    exclusions: f.exclusions.replace(
+      "No text anywhere except the Coca-Cola product's own label:",
+      `No logo, brand name or text anywhere, not even on ${name}, which shows only its printed pattern:`,
+    ),
+  };
+}
+
 export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
   const styles = new Map(sceneItems(spec).map((i) => [i.label, i.style]));
   const lighting = selectLighting(spec.scene);
-  const drinks = spec.sku.glass ? "the Coca-Cola bottle and glass" : spec.sku.package === "can" ? "the Coca-Cola can" : "the Coca-Cola bottle";
+  const drinks = spec.sku.glass ? "the Coca-Cola bottle and glass" : skuThe(spec.sku);
   const venueWord = spec.scene.venue === "on-the-go" ? "street food" : spec.scene.venue === "restaurant" ? "restaurant food" : "home-cooked food";
   const shared = bp.primitives.some((p) => p.id === "SHARED_HERO");
   const hasPartner = bp.primitives.some((p) => p.role === "partner-main");
@@ -392,7 +420,7 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     : hasPartner
       ? `A ${spec.sku.displayName} at the top right of the plate, served as is, no glass; the second diner has their own ${spec.sku.displayName} at their place.`
       : `A ${spec.sku.displayName} at the top right of the plate, served as is, no glass.`;
-  return {
+  return debrand(spec, {
     genreLine: `Photorealistic ${venueWord} photography, 16:9.`,
     lightingId: lighting.id,
     lightingSentence: lighting.prompt,
@@ -437,7 +465,7 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     scaleSentence: scaleSentence(bp),
     productScale: productScaleSentence(spec, bp),
     exclusions: `Only the ${tableItems} objects described above are on the table${seated ? " or in hand" : ""}, and no other drinks or glasses (no beer, wine, water or juice). ${countsSentence(bp)} No text anywhere except the Coca-Cola product's own label: no menus, signs, posters or writing in the background either.${spec.napkinSet && !spec.napkinSet.cutlery.length ? " No fork, knife, spoon or chopsticks anywhere on the table." : ""} ${seated ? seatedPeopleRule(bp) : BACKGROUND_PEOPLE_RULE}`,
-  };
+  });
 }
 
 /**
@@ -525,10 +553,14 @@ function share(r: number): string {
  */
 export function productScaleSentence(spec: SceneSpec, bp: Blueprint): string {
   const sku = skuProxy(spec.sku);
-  const pkg = spec.sku.package === "can" ? "can" : "bottle";
+  const pkg = skuNoun(spec.sku);
   const main = bp.primitives.find((p) => p.id === "MAIN");
   const glass = bp.primitives.some((p) => p.role === "glass" || p.role === "partner-glass");
-  const parts = [`the Coca-Cola ${pkg} is ${cm(sku.height)} cm tall and ${cm(2 * sku.radius!)} cm wide`];
+  const parts = [
+    spec.sku.package === "fountain-cup"
+      ? `${skuThe(spec.sku)} is ${cm(sku.height)} cm tall with its lid and ${cm(2 * sku.radius!)} cm across the top, narrowing to ${cm(2 * sku.radius! * CUP_BASE_RATIO)} cm at the base, its straw rising another ${cm(CUP_STRAW_ABOVE_M)} cm above the lid`
+      : `the Coca-Cola ${pkg} is ${cm(sku.height)} cm tall and ${cm(2 * sku.radius!)} cm wide`,
+  ];
   if (main) {
     const noun = main.proxy in VESSEL_SHORT ? VESSEL_SHORT[main.proxy as Vessel] : "dish";
     const r = sku.height / main.dimensions.width;
@@ -542,7 +574,7 @@ export function productScaleSentence(spec: SceneSpec, bp: Blueprint): string {
   }
   const frame = frameShareSentence(bp, pkg);
   const hand = bp.primitives.some((p) => p.role === "person") ? " An adult hand is about 19 cm from wrist to fingertip; keep the product in that proportion where it is held." : "";
-  return `Real sizes, which the photograph keeps (the product photos show how the package looks, not how big it is here): ${parts.join("; ")}. Never enlarge the Coca-Cola product or the glass to make them stand out: one nearer the camera looks bigger only through perspective, by the same amount as the food beside it.${frame}${hand}`;
+  return `Real sizes, which the photograph keeps (the product photos show how the package looks, not how big it is here): ${parts.join("; ")}. Never enlarge ${spec.sku.unbranded ? skuThe(spec.sku) : "the Coca-Cola product"} or the glass to make them stand out: one nearer the camera looks bigger only through perspective, by the same amount as the food beside it.${frame}${hand}`;
 }
 
 /**
@@ -705,9 +737,8 @@ export function assemblePrompt(story: Story, facts: StoryFacts): string {
 
 /** The product swap prompt (Seedream): image 1 = the composed photo, image 2 = the product reference. */
 export function productSwapPrompt(spec: SceneSpec, facts: StoryFacts): string {
-  const noun = spec.sku.package === "can" ? "can" : "bottle";
   return [
-    `Replace the Coca-Cola ${noun} in image 1 with the ${spec.sku.displayName} from image 2. Keep its exact position, size and straight-on angle, and keep its base resting on the table.`,
+    `Replace ${skuThe(spec.sku)} in image 1 with the ${spec.sku.displayName} from image 2. Keep its exact position, size and straight-on angle, and keep its base resting on the table.`,
     `Match the lighting of image 1: ${facts.lightingSentence}`,
     facts.skuLightSentence,
     spec.sku.glass ? "Keep the bell-shaped Coca-Cola glass as it is." : "",

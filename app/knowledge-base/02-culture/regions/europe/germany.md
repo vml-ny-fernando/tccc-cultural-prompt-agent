@@ -26,9 +26,17 @@ date_drafted: 2026-09-24
   taps, bar backs or beer crates. Coca-Cola is never shown as a mixer. In
   beer gardens, inns, festivals and Christmas markets, frame on the food,
   the hero SKU and non-drinking details; other tables show no drinks.
-- **One hero SKU, chosen by the brief.** No other drinks are staged:
-  coffee, tea and juice cups stay out of the hero zone (Kaffee und Kuchen
-  shows cake only). No competitor colas or cola-orange mixes.
+- **One hero SKU, chosen by the brief.** On an everyday scene no other
+  drinks are staged. Two exceptions (Fernando, 13 Nov 2026):
+  - *Coffee* may sit in the soft background on a special occasion only
+    (Easter, Christmas, a birthday or celebration Kaffeetafel,
+    Konfirmation, Erstkommunion, Jugendweihe, a wedding): a plain china
+    pot or cups, blurred, behind the hero zone, never beside the Coke
+    and never in focus. Everyday Kaffee und Kuchen shows cake only.
+  - *Water or Apfelschorle* may sit in a plain glass away from the Coke
+    on a special occasion, or when the brief asks for it. Never beside
+    or in front of the hero SKU, no bottle or label.
+  No competitor colas or cola-orange mixes.
 - **EU caps are tethered.** Since July 2024 every EU single-use PET bottle
   has its cap tethered to the neck. An open bottle keeps its cap hanging
   from the neck, never set beside it. Multi-serve packs (1.25 L) go with
@@ -42,9 +50,10 @@ date_drafted: 2026-09-24
   prices; no brand marks except the hero SKU; the deposit (Pfand) logo
   generic or absent. No named landmarks.
 - **People.** At most two adults in a standard scene, faces cropped or
-  soft; never a full flag. Children: none identifiable. A client brief
-  may allow children aged 6–12 with faces hidden (Easter brunch brief,
-  approved by Fernando, 13 Nov 2026).
+  soft; never a full flag. Children: none identifiable. Easter scenes
+  (Easter brunch, Easter Sunday lunch, the egg hunt) may show children
+  aged 6–12 with faces hidden (Fernando, 13 Nov 2026). Other scenes show
+  children only when the brief allows it.
 - **No religious symbols as subjects** (crucifix, church blessing), even
   at Easter and Christmas. This is brand policy, not a claim that German
   homes are secular: Catholic homes in Bavaria often have a corner
@@ -54,6 +63,9 @@ date_drafted: 2026-09-24
   "paprika sauce"; "Zigeuner" is a slur against Sinti and Roma),
   *Mohrenkopf* and *Negerkuss* (say *Schokokuss*, chocolate marshmallow
   kiss; both old names are racist).
+- **Beer gardens use the defined profile.** Stage a beer garden only
+  from VENUE PROFILES › Beer garden (*Biergarten*): never a generic
+  "outdoor German pub", never beer in any form.
 - **Bavarian dishes only on a Bavarian brief.** When the app suggests
   sides, accents or a second dish, use national dishes; Weißwurst,
   Haxe, Obatzda, Leberkäse and Knödel only when the brief names Bavaria
@@ -66,7 +78,7 @@ date_drafted: 2026-09-24
 | Brunch | Weekend or holiday late breakfast at home: rolls, eggs, cold cuts, cheese, jam; Easter brunch (Osterfrühstück) | CELEBRATIONS › Easter brunch; DISH CATALOG › Brötchen |
 | Lunch | Weekday warm lunch (Mittagessen): canteen, Imbiss, bakery roll, Döner | ENVIRONMENT & STAGING SCENES; Street food & Imbiss |
 | Sunday Lunch | The Sunday roast family table: Schnitzel, Rouladen, Sauerbraten, Schweinsbraten, Knödel, red cabbage | Schnitzel & pan-German classics; Traditional inn |
-| Afternoon | Kaffee und Kuchen (15:00–16:30): cake slices, cake forks, whipped cream, no coffee cups in frame | Kaffee und Kuchen & sweets |
+| Afternoon | Kaffee und Kuchen (15:00–16:30): cake slices, cake forks, whipped cream; coffee only soft in the background on a special occasion (birthday, Easter, Christmas) | Kaffee und Kuchen & sweets |
 | Dinner | Abendbrot (cold bread board, 18:00–19:00) or a warm dinner; offer both | Abendbrot spread; Rented-apartment kitchen-dining corner |
 | Late Night | Imbiss after 22:00, Döner shop, Späti stoop: paper trays, foil, neon | Imbiss stand; Döner shop; Currywurst |
 
@@ -408,6 +420,68 @@ profile. Coverage:
   racks, brewery signs or umbrellas; schnapps; legible menus or the
   Stammtisch sign; a crucifix as subject.
 - Confidence and sources: MEDIUM; two searches (retail tier); LOW for the northern and eastern variants; S50, S51, S52, S53
+
+#### Venue: Beer garden (*Biergarten*) (restaurant, outdoor) · app: Sit-down, outdoor
+- Prompt-ready line: "A German city beer garden on a warm late afternoon:
+  the meal sharp on a pale wooden folding table, behind it softly blurred
+  rows of matching tables and benches on pale gravel, the thick trunks of
+  old horse-chestnut trees with a dense green canopy and white blossom
+  candles, dappled sunlight in coins on the gravel, a wooden self-service
+  food hut with a striped awning far back, strings of round bulbs between
+  the trees not yet lit."
+- Use for: restaurant, outdoor; summer and early autumn (May to
+  September) lunch, Sunday afternoon, an early evening meal; 2 to a small
+  group; families. The alcohol-exclusion rule applies to every part of
+  the frame.
+- Soft background (the core): old horse-chestnut trees planted in rows,
+  trunks 60–100 cm across, a closed canopy overhead (traditionally
+  planted to shade the beer cellars below); pale grey or ochre gravel
+  (*Kies*) underfoot; long rows of matching folding table-and-bench sets
+  (*Bierzeltgarnitur*), natural pine or painted green, about 2.2 m long
+  and 50–70 cm wide; a wooden self-service hut or kiosk for food with a
+  striped or plain awning and a long counter (all signs illegible);
+  tray racks; round-bulb festoon lights between trunks; a low hedge or
+  wooden fence at the edge; in a park beer garden, lawn and a path beyond
+  the fence, sometimes a pond. Light: green-filtered daylight with bright
+  dapples, golden late sun low between the trunks, or warm bulb light at
+  dusk. Palette: chestnut green, pale gravel, honey pine, white blossom in
+  May, gold light. Signature shapes: the trunk columns, the canopy
+  ceiling, the long table rows receding, the hut. Density: busy but
+  orderly; other guests soft and small, their tables showing food only
+  (plates, paper trays, a bread basket), never glasses or mugs.
+  [MEDIUM — the file's existing beer-garden register and regional map;
+  EDITORIAL for measurements]
+- The table as set here: a bare pale-wood or green-painted folding table,
+  no cloth (a checked cloth only on a served Bavarian table); food on
+  thick white plates or oval platters from the kitchen, or on paper
+  trays and a wooden board from the self-service hut; cutlery loose or
+  rolled in a paper napkin; mustard in a small pot; a wooden tray with
+  the meal. The hero SKU sits on the table in the front third.
+- What's eaten (national default): Bratwurst with potato salad,
+  Schnitzel with fries, Flammkuchen in the south-west, a Brezel, half a
+  roast chicken (*Hendl*/*Broiler*), Steckerlfisch only in Bavaria;
+  Obatzda, Weißwurst, Leberkäse and Haxe only on a Bavarian brief. In
+  Bavaria, guests may bring their own food to a traditional beer garden,
+  so a home-packed spread (bread, radish, cheese, cold cuts on a board) is
+  authentic there. [MEDIUM — Bavarian beer-garden custom]
+- Regional variants and the national default: Bavaria (blue-and-white or
+  green benches, white-blue check cloth, a maypole possible far back only
+  on a Bavarian brief); Berlin (a courtyard or park garden, mixed
+  furniture, string lights, a younger crowd); Rhineland and Hamburg (a
+  riverside or harbour garden, deck chairs at the edge, water beyond the
+  fence). National default: a city-park beer garden in a mid-sized
+  western German city, chestnut canopy, gravel, natural pine sets.
+- Hallucination traps: an Oktoberfest tent; Lederhosen and Dirndl on
+  everyone; giant pretzels hanging as decor; a generic patio with parasols
+  and plastic chairs; an American "beer garden" with picnic tables on
+  concrete and TV screens; Alpine peaks behind a northern city.
+- Never stage: beer, steins, wheat-beer glasses, Radler, beer mats,
+  taps, crates, brewery umbrellas or signs, a blurred glass on another
+  table; a maypole outside Bavaria; legible menus or prices; a named
+  beer garden or landmark.
+- Confidence and sources: MEDIUM for the register; EDITORIAL for
+  measurements and staging; drawn from this file's regional map and
+  Generic scene types.
 
 #### Venue: Imbiss stand (*Imbissbude*, *Pommesbude*) (street, on the go) · app: Counter service, Food truck
 - Prompt-ready line: "A German Imbiss stand at lunchtime: a paper tray of
@@ -1161,7 +1235,7 @@ both are alcohol-dominant registers in reality and should be used only for
 strict food-only framing, or avoided, per the alcohol-exclusion rule.
 
 **Home**: the Abendbrot table; a Sunday-lunch table; the Kaffee-und-Kuchen
-table (cake on a stand, a cream bowl, patterned china, no coffee cups in
+table (cake on a stand, a cream bowl, patterned china, coffee only soft in
 frame); the New Year's Eve raclette table; returnable-crate storage as a
 realism cue.
 
@@ -1241,8 +1315,9 @@ section is the staging layer for each celebration, per schema §5.7. The
 alcohol-exclusion rule and the children and schools caution (both in FILE
 ROLE & METHOD) apply to every entry: German celebrations very often carry
 beer, wine or Sekt on the table in reality, and none may appear in frame.
-The beverage-scope rule also keeps coffee cups and pots out of every
-Kaffeetafel scene.
+Coffee may sit soft in the background at a celebration Kaffeetafel, and a
+glass of water or Apfelschorle may sit away from the Coke (see HARD STAGING
+RULES).
 
 ### How large gatherings work here
 
@@ -1482,7 +1557,8 @@ Kaffeetafel scene.
   [MEDIUM — familie.de and lecker.de party-food articles; catalog block]
 - Snapshot staging: **1 setting**: one cake plate with a slice of Black
   Forest cake and a cake fork, the whole Torte on a stand partly cropped
-  behind, a bowl of whipped cream; no coffee cup (beverage scope).
+  behind, a bowl of whipped cream; a coffee pot and cups may sit soft
+  in the background, never beside the Coke.
   **2 settings**: two identical cake plates (same cake), a second cake
   (plum cake squares) on a platter between them. **Small group**: three
   or four settings, two or three cakes down the middle, the birthday
@@ -1491,7 +1567,7 @@ Kaffeetafel scene.
   flowers in a vase; a gift table soft at the edge. [EDITORIAL]
 - Decor and cues: patterned or lace tablecloth, the good cake service,
   a garland. Avoid: legible name banners.
-- Never stage: coffee cups or pots (beverage scope); Sekt for the
+- Never stage: coffee in focus or beside the Coke; Sekt for the
   toast; a child under about 13 as the drinker.
 - Confidence and sources: MEDIUM ; EDITORIAL for staging; S83, S84
 
@@ -3818,8 +3894,10 @@ in origin and common in southern Germany, especially Bavaria; say so when a
 brief asks for "German" sweets.
 
 **Serving norm**: cake plates 19–20cm, cake forks, a whipped-cream bowl,
-often a lace or patterned tablecloth. **No coffee cups or pots in frame**
-(beverage scope, per the standing rule).
+often a lace or patterned tablecloth. **No coffee in frame on an everyday
+afternoon**; on a special occasion (birthday, Easter, Christmas, a family
+celebration) a coffee pot and cups may sit soft in the background, never
+beside the Coke.
 
 | Item | Look & texture | Scale anchor | Confidence |
 |---|---|---|---|
@@ -4030,8 +4108,8 @@ not a sourced consumer-preference finding.
 15. **Visible branded condiments or props**: the specific brown seasoning-
     sauce bottle, named mustard/curry-ketchup brands, chain logos — see
     the trademark-genericization table.
-16. **Coffee cups at Kaffee und Kuchen** — out of this file's beverage
-    scope.
+16. **Coffee in focus, or coffee on an everyday afternoon** — coffee is
+    allowed only soft in the background on a special occasion.
 17. **Conflating Haxe and Eisbein** — one is roasted and crisp, the other
     boiled and soft; see the dedicated variant note.
 18. **A silent single default for a genuinely coexisting variant**

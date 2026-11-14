@@ -1,8 +1,6 @@
 ---
 country: germany
-ou: NOT CONFIRMED — TCCC's internal OU code for this market was not found via
-  WebSearch in this session; flag for correction from TCCC's own market
-  documentation, do not guess (same disclosed gap as `uk.md`).
+ou: EOU (from the TCCC ProdX Easter brunch brief, 12 Nov 2026)
 status: DRAFT — NEEDS SME/HUMAN REVIEW, PENDING NATIVE-REVIEWER SIGN-OFF —
   third country file built with full WebSearch verification (after the
   Uruguay pilot and the UK build)
@@ -16,6 +14,73 @@ research_method: Claude web research (WebSearch only — WebFetch/direct page
   LOG for what was confirmed, corrected, or left flagged.
 date_drafted: 2026-09-24
 ---
+
+# Germany
+
+## HARD STAGING RULES — GERMANY (read before any scene)
+
+- **No alcohol, ever.** No beer, wine, Apfelwein, schnapps or Glühwein in any
+  part of the frame, and no alcohol-coded vessel even when empty: litre
+  steins, wheat-beer or Kölsch glasses, wine glasses, stoneware jugs,
+  Christmas-market mugs, shot glasses. No brewery signs, beer umbrellas,
+  taps, bar backs or beer crates. Coca-Cola is never shown as a mixer. In
+  beer gardens, inns, festivals and Christmas markets, frame on the food,
+  the hero SKU and non-drinking details; other tables show no drinks.
+- **One hero SKU, chosen by the brief.** On an everyday scene no other
+  drinks are staged. Two exceptions (Fernando, 13 Nov 2026):
+  - *Coffee* may sit in the soft background on a special occasion only
+    (Easter, Christmas, a birthday or celebration Kaffeetafel,
+    Konfirmation, Erstkommunion, Jugendweihe, a wedding): a plain china
+    pot or cups, blurred, behind the hero zone, never beside the Coke
+    and never in focus. Everyday Kaffee und Kuchen shows cake only.
+  - *Water or Apfelschorle* may sit in a plain glass away from the Coke
+    on a special occasion, or when the brief asks for it. Never beside
+    or in front of the hero SKU, no bottle or label.
+  No competitor colas or cola-orange mixes.
+- **EU caps are tethered.** Since July 2024 every EU single-use PET bottle
+  has its cap tethered to the neck. An open bottle keeps its cap hanging
+  from the neck, never set beside it. Multi-serve packs (1.25 L) go with
+  several glasses (clear tumblers, ice and a lemon slice) and a meal for
+  several people. Single-serve packs (330 mL can or glass) go with one
+  portion.
+- **Not Bavaria by default.** No Lederhosen, Dirndl, Alpine chalet,
+  cuckoo clocks or Oktoberfest look unless the brief names Bavaria. The
+  default home is a rented city flat in a mid-sized western German city.
+- **Nothing legible, no marks.** No readable signs, menus, labels or
+  prices; no brand marks except the hero SKU; the deposit (Pfand) logo
+  generic or absent. No named landmarks.
+- **People.** At most two adults in a standard scene, faces cropped or
+  soft; never a full flag. Children: none identifiable. Easter scenes
+  (Easter brunch, Easter Sunday lunch, the egg hunt) may show children
+  aged 6–12 with faces hidden (Fernando, 13 Nov 2026). Other scenes show
+  children only when the brief allows it.
+- **No religious symbols as subjects** (crucifix, church blessing), even
+  at Easter and Christmas. This is brand policy, not a claim that German
+  homes are secular: Catholic homes in Bavaria often have a corner
+  crucifix (*Herrgottswinkel*); keep it out of frame or soft.
+- **Banned names.** Never use these in captions, menus or labels:
+  *Zigeunerschnitzel* / *Zigeunersauce* (say "paprika schnitzel" or
+  "paprika sauce"; "Zigeuner" is a slur against Sinti and Roma),
+  *Mohrenkopf* and *Negerkuss* (say *Schokokuss*, chocolate marshmallow
+  kiss; both old names are racist).
+- **Beer gardens use the defined profile.** Stage a beer garden only
+  from VENUE PROFILES › Beer garden (*Biergarten*): never a generic
+  "outdoor German pub", never beer in any form.
+- **Bavarian dishes only on a Bavarian brief.** When the app suggests
+  sides, accents or a second dish, use national dishes; Weißwurst,
+  Haxe, Obatzda, Leberkäse and Knödel only when the brief names Bavaria
+  or the hero dish is Bavarian.
+
+### Occasion map (app occasion → what to stage)
+
+| App occasion | German register | Where in this file |
+|---|---|---|
+| Brunch | Weekend or holiday late breakfast at home: rolls, eggs, cold cuts, cheese, jam; Easter brunch (Osterfrühstück) | CELEBRATIONS › Easter brunch; DISH CATALOG › Brötchen |
+| Lunch | Weekday warm lunch (Mittagessen): canteen, Imbiss, bakery roll, Döner | ENVIRONMENT & STAGING SCENES; Street food & Imbiss |
+| Sunday Lunch | The Sunday roast family table: Schnitzel, Rouladen, Sauerbraten, Schweinsbraten, Knödel, red cabbage | Schnitzel & pan-German classics; Traditional inn |
+| Afternoon | Kaffee und Kuchen (15:00–16:30): cake slices, cake forks, whipped cream; coffee only soft in the background on a special occasion (birthday, Easter, Christmas) | Kaffee und Kuchen & sweets |
+| Dinner | Abendbrot (cold bread board, 18:00–19:00) or a warm dinner; offer both | Abendbrot spread; Rented-apartment kitchen-dining corner |
+| Late Night | Imbiss after 22:00, Döner shop, Späti stoop: paper trays, foil, neon | Imbiss stand; Döner shop; Currywurst |
 
 ## FILE ROLE & METHOD
 
@@ -49,7 +114,7 @@ anticipates.
 
 ### Scope (inherited from the task brief, not re-litigated)
 
-Lunch, dinner, and snacks. **Breakfast is out of scope.** No beverages other
+Brunch, lunch, afternoon, dinner, late night and snacks (the app's occasions; see the OCCASION MAP at the top). **A plain weekday breakfast is out of scope**; weekend and holiday brunch is in (added 2026-11-13). No beverages other
 than Coca-Cola are documented as prompt subjects — coffee, beer, wine,
 Apfelwein, and Glühwein are all real and constantly present in German food
 scenes (see the alcohol-exclusion rule below and the Kaffee-und-Kuchen entry)
@@ -87,9 +152,7 @@ schools, and its separate Responsible Alcohol Marketing Policy (RAMP)
 commits to marketing only to those above the legal purchase age and never
 implying Coca-Cola is consumed as or with alcohol in a way that normalizes
 underage or irresponsible drinking. [CONFIDENCE: HIGH — the policies are
-published directly by The Coca-Cola Company] [SOURCE: [The Coca-Cola
-Company — Responsible Marketing Policy](https://www.coca-colacompany.com/policies-and-practices/responsible-marketing-policy);
-[The Coca-Cola Company — Responsible Alcohol Marketing Policy](https://www.coca-colacompany.com/policies-and-practices/responsible-alcohol-marketing-policy)]
+published directly by The Coca-Cola Company] [S1, S2]
 This file's own alcohol-exclusion rule and children/schools caution (below)
 are **consistent with and independently corroborated by** that real policy
 — this pass did not have to invent a rationale, it found one. **Flagged as
@@ -120,8 +183,7 @@ pass found real, sourced confirmation that the East German "Jägerschnitzel"
 (breaded Jagdwurst sausage with tomato sauce and noodles) was a specific,
 lower-cost wartime/GDR-era substitution, commonly served in school and work
 canteens, genuinely distinct from and not merely a regional variant on the
-West's mushroom-sauce dish. [CONFIDENCE: HIGH] [SOURCE: [DDR Museum — Hunter's
-Schnitzel with Tomato Sauce](https://www.ddr-museum.de/en/blog/2016/hunters-schnitzel-with-tomato-sauce)]
+West's mushroom-sauce dish. [CONFIDENCE: HIGH] [S3]
 
 ---
 
@@ -134,7 +196,7 @@ Schnitzel with Tomato Sauce](https://www.ddr-museum.de/en/blog/2016/hunters-schn
 | **Beer garden / traditional inn (*Wirtshaus*, *Gasthaus*, *Brauhaus*)** | Gravel ground and horse-chestnut canopy (beer garden) or dark wood panelling, tiled stoves, and heavy tables (inn/Brauhaus). **Alcohol-excluded framing applies** — see COCA-COLA MARKET INTEGRATION. |
 | **Bakery counter (*Bäckerei*)** | A glass case of rolls and cakes, a high standing ledge, paper bags, a basket of mixed Brötchen. |
 | **Christmas market** | Wooden huts with fir garlands, warm string lights, steam off giant pans, early winter dusk. **Alcohol-excluded framing applies** (mulled-wine mugs are the dominant real-world vessel and may never appear). |
-| **Späti (Berlin late-night corner shop)** | A narrow, cluttered, owner-operated shopfront (Berlin has roughly 1,000 of them), glass-door drink coolers, a sweets rack, people sitting on the kerb, a bench, or old-building stone steps at dusk. A genuinely Berlin-specific register, not a generic "corner shop." [CONFIDENCE: HIGH] [SOURCE: [Berlin.de — Späti: Meeting Point, Supermarket and Regional Treasure](https://www.berlin.de/en/shopping/4971123-2947095-spaeti-meeting-point-and-supermarket.en.html); [Lonely Planet — You'll see this everywhere: Spätis in Berlin](https://www.lonelyplanet.com/articles/spatis-in-berlin)] |
+| **Späti (Berlin late-night corner shop)** | A narrow, cluttered, owner-operated shopfront (Berlin has roughly 1,000 of them), glass-door drink coolers, a sweets rack, people sitting on the kerb, a bench, or old-building stone steps at dusk. A genuinely Berlin-specific register, not a generic "corner shop." [HIGH] [S4, S5] |
 | **Weekly market (*Wochenmarkt*)** | A square with striped awnings, produce crates, a grill truck, a cheese van. |
 | **Canteen / Mensa** | A tray line, plastic trays, white ceramic, a cutlery bin, a daily menu board — the everyday warm-lunch register for students and office workers. |
 | **Harbour kiosk (North)** | A fish-roll counter with a glass display case, gulls, container cranes in haze. |
@@ -181,6 +243,11 @@ profile. Coverage:
 | Stadium or event | Public Viewing fan mile (no stadium-forecourt profile yet; the Bundesliga stadium sausage stand is a candidate) |
 
 #### Venue: Rented-apartment kitchen-dining corner (*Wohnküche* / *Essecke*) (home, indoor) · app: Dining room
+- Prompt-ready line: "A German rented-apartment kitchen at Abendbrot: the
+  wooden table sharp under a low warm pendant, behind it a softly blurred
+  white fitted kitchen with a tiled splashback strip, a white radiator
+  under a tilt-and-turn window and the pale façade of the building
+  opposite in blue dusk."
 - Use for: home indoor; casual lunch (1, 2, 3), Abendbrot or warm dinner,
   Kaffee und Kuchen, Christmas Eve, Silvester raclette, Spieleabend; the
   national default home interior. Apartments in multi-family buildings
@@ -241,18 +308,13 @@ profile. Coverage:
   layout (in Germany the washing machine more often sits in the bathroom).
 - Never stage: beer, wine or schnapps in any form; the DPG deposit symbol
   legible; legible calendar or labels; a crucifix as a subject.
-- Prompt-ready line: "A German rented-apartment kitchen at Abendbrot: the
-  wooden table sharp under a low warm pendant, behind it a softly blurred
-  white fitted kitchen with a tiled splashback strip, a white radiator
-  under a tilt-and-turn window and the pale façade of the building
-  opposite in blue dusk."
-- Confidence and sources: MEDIUM; one search ([Küchen-Forum — kitchen in
-  an Altbau rental](https://www.kuechen-forum.de/forum/themen/kuechenplanung-in-mietwohnung-altbau.50220/);
-  [Küchen-Forum — L-kitchen with low window and radiator](https://www.kuechen-forum.de/forum/themen/l-kueche-mit-niedrigem-fenster-und-heizkoerper.5525/),
-  practitioner forums) plus GENERAL NORMS (Destatis); LOW for the Eckbank
-  prevalence and the washing-machine location (model knowledge).
+- Confidence and sources: MEDIUM; one search (practitioner forums) plus GENERAL NORMS (Destatis); LOW for the Eckbank prevalence and the washing-machine location (model knowledge); S45, S46
 
 #### Venue: Apartment balcony (*Balkonien*), with the allotment variant (home, outdoor) · app: Dining room, outdoor
+- Prompt-ready line: "A German apartment balcony on a summer evening:
+  the small folding table sharp in front, behind it red geraniums in
+  railing boxes, a bamboo privacy screen and the softly blurred grid of
+  balconies on the pale block opposite."
 - Use for: home outdoor; summer lunch or evening meal, a small Grillfest
   (electric grill on a balcony where the lease allows; charcoal more often
   in a garden or allotment), tournament game outdoors; 1, 2 or small
@@ -292,16 +354,14 @@ profile. Coverage:
 - Never stage: beer, wine, a beer crate; legible screens or labels;
   a full flag on the railing (a cropped black-red-gold pattern at most in
   tournament summers).
-- Prompt-ready line: "A German apartment balcony on a summer evening:
-  the small folding table sharp in front, behind it red geraniums in
-  railing boxes, a bamboo privacy screen and the softly blurred grid of
-  balconies on the pale block opposite."
-- Confidence and sources: MEDIUM; one search ([Mieterverein München —
-  Balkonien and garden](https://www.mieterverein-muenchen.de/balkonien-und-garten-das-ist-erlaubt/);
-  [Deutscher Mieterbund — balconies](https://mieterbund.de/aktuelles/meldungen/balkone-und-terrassen/);
-  [OBI — balcony](https://www.obi.de/magazin/garten/balkon), retail tier).
+- Confidence and sources: MEDIUM; one search (retail tier); S47, S48, S49
 
 #### Venue: Traditional inn (*Wirtshaus*, *Gasthaus*, *Gasthof*) · app: Sit-down
+- Prompt-ready line: "A traditional German Gasthaus at Sunday lunch: a
+  heavy wooden table with a white cloth sharp in front, behind it
+  honey-oak panelling with a row of softly glowing brass wall lamps, a
+  built-in corner bench, net-curtained windows and a green tiled stove
+  blurred in the far corner."
 - Use for: restaurant, indoor; weekend and Sunday lunch, a family
   celebration in the side room (confirmation, communion, round birthday),
   group dinner; 1 to small group. With the beer garden, the default German
@@ -359,19 +419,76 @@ profile. Coverage:
 - Never stage: beer, steins, glasses, taps, beer mats, the bar's glass
   racks, brewery signs or umbrellas; schnapps; legible menus or the
   Stammtisch sign; a crucifix as subject.
-- Prompt-ready line: "A traditional German Gasthaus at Sunday lunch: a
-  heavy wooden table with a white cloth sharp in front, behind it
-  honey-oak panelling with a row of softly glowing brass wall lamps, a
-  built-in corner bench, net-curtained windows and a green tiled stove
-  blurred in the far corner."
-- Confidence and sources: MEDIUM; two searches ([Falstaff — what makes a
-  real Wirtshaus](https://www.falstaff.com/at/news/alles-wirt-gut-was-das-echte-wirtshaus-ausmacht-und-wo-man-es-heute-noch-findet);
-  [erlebe.bayern — historic Bavarian inns](https://erlebe.bayern/listicles/historische-wirtshaeuser-in-bayern/);
-  [Alps Magazine — Tiroler Stube](https://www.alps-magazine.com/tiroler-stube-heimeliges-unterm-hergottswinkel/);
-  [Servus Heimat — blue-check tablecloth](https://www.servusheimat.com/biergarten-tischdecke-blaukariert-klein.html),
-  retail tier); LOW for the northern and eastern variants.
+- Confidence and sources: MEDIUM; two searches (retail tier); LOW for the northern and eastern variants; S50, S51, S52, S53
+
+#### Venue: Beer garden (*Biergarten*) (restaurant, outdoor) · app: Sit-down, outdoor
+- Prompt-ready line: "A German city beer garden on a warm late afternoon:
+  the meal sharp on a pale wooden folding table, behind it softly blurred
+  rows of matching tables and benches on pale gravel, the thick trunks of
+  old horse-chestnut trees with a dense green canopy and white blossom
+  candles, dappled sunlight in coins on the gravel, a wooden self-service
+  food hut with a striped awning far back, strings of round bulbs between
+  the trees not yet lit."
+- Use for: restaurant, outdoor; summer and early autumn (May to
+  September) lunch, Sunday afternoon, an early evening meal; 2 to a small
+  group; families. The alcohol-exclusion rule applies to every part of
+  the frame.
+- Soft background (the core): old horse-chestnut trees planted in rows,
+  trunks 60–100 cm across, a closed canopy overhead (traditionally
+  planted to shade the beer cellars below); pale grey or ochre gravel
+  (*Kies*) underfoot; long rows of matching folding table-and-bench sets
+  (*Bierzeltgarnitur*), natural pine or painted green, about 2.2 m long
+  and 50–70 cm wide; a wooden self-service hut or kiosk for food with a
+  striped or plain awning and a long counter (all signs illegible);
+  tray racks; round-bulb festoon lights between trunks; a low hedge or
+  wooden fence at the edge; in a park beer garden, lawn and a path beyond
+  the fence, sometimes a pond. Light: green-filtered daylight with bright
+  dapples, golden late sun low between the trunks, or warm bulb light at
+  dusk. Palette: chestnut green, pale gravel, honey pine, white blossom in
+  May, gold light. Signature shapes: the trunk columns, the canopy
+  ceiling, the long table rows receding, the hut. Density: busy but
+  orderly; other guests soft and small, their tables showing food only
+  (plates, paper trays, a bread basket), never glasses or mugs.
+  [MEDIUM — the file's existing beer-garden register and regional map;
+  EDITORIAL for measurements]
+- The table as set here: a bare pale-wood or green-painted folding table,
+  no cloth (a checked cloth only on a served Bavarian table); food on
+  thick white plates or oval platters from the kitchen, or on paper
+  trays and a wooden board from the self-service hut; cutlery loose or
+  rolled in a paper napkin; mustard in a small pot; a wooden tray with
+  the meal. The hero SKU sits on the table in the front third.
+- What's eaten (national default): Bratwurst with potato salad,
+  Schnitzel with fries, Flammkuchen in the south-west, a Brezel, half a
+  roast chicken (*Hendl*/*Broiler*), Steckerlfisch only in Bavaria;
+  Obatzda, Weißwurst, Leberkäse and Haxe only on a Bavarian brief. In
+  Bavaria, guests may bring their own food to a traditional beer garden,
+  so a home-packed spread (bread, radish, cheese, cold cuts on a board) is
+  authentic there. [MEDIUM — Bavarian beer-garden custom]
+- Regional variants and the national default: Bavaria (blue-and-white or
+  green benches, white-blue check cloth, a maypole possible far back only
+  on a Bavarian brief); Berlin (a courtyard or park garden, mixed
+  furniture, string lights, a younger crowd); Rhineland and Hamburg (a
+  riverside or harbour garden, deck chairs at the edge, water beyond the
+  fence). National default: a city-park beer garden in a mid-sized
+  western German city, chestnut canopy, gravel, natural pine sets.
+- Hallucination traps: an Oktoberfest tent; Lederhosen and Dirndl on
+  everyone; giant pretzels hanging as decor; a generic patio with parasols
+  and plastic chairs; an American "beer garden" with picnic tables on
+  concrete and TV screens; Alpine peaks behind a northern city.
+- Never stage: beer, steins, wheat-beer glasses, Radler, beer mats,
+  taps, crates, brewery umbrellas or signs, a blurred glass on another
+  table; a maypole outside Bavaria; legible menus or prices; a named
+  beer garden or landmark.
+- Confidence and sources: MEDIUM for the register; EDITORIAL for
+  measurements and staging; drawn from this file's regional map and
+  Generic scene types.
 
 #### Venue: Imbiss stand (*Imbissbude*, *Pommesbude*) (street, on the go) · app: Counter service, Food truck
+- Prompt-ready line: "A German Imbiss stand at lunchtime: a paper tray of
+  sliced Currywurst and fries with a small wooden fork sharp on a round
+  high table, behind it a softly blurred stainless-steel service hatch
+  with sausages on the grill, a glowing illegible menu board and a plain
+  awning."
 - Use for: meal on the go and standing meal; Currywurst, Bratwurst im
   Brötchen, Pommes; lunch, late night; 1 or 2. The default German street
   venue [MEDIUM-HIGH, scenario above].
@@ -404,7 +521,7 @@ profile. Coverage:
   (*Pommesgabel*), a paper napkin [HIGH — catalog: Currywurst, Pommes].
 - Subregional variants and the national default: Ruhr and Rhineland
   (*Pommesbude*, the *Büdchen* kiosk, Pommes "rot-weiß" with mayo and
-  ketchup); Berlin (Currywurst without casing, an S-Bahn arch stand);
+  ketchup); Berlin (Currywurst with or without casing; skinless is the classic East Berlin style; an S-Bahn arch stand);
   Bavaria (Leberkäse in a roll at a butcher's counter is the stronger
   on-the-go register); North (Fischbrötchen at a harbour kiosk, see the
   register). National default: a city Imbiss stand at lunchtime, steel
@@ -415,18 +532,13 @@ profile. Coverage:
   Ruhr stand.
 - Never stage: beer bottles, beer cups or beer signs; legible menu boards,
   prices or stand names; branded sauce bottles or fridges.
-- Prompt-ready line: "A German Imbiss stand at lunchtime: a paper tray of
-  sliced Currywurst and fries with a small wooden fork sharp on a round
-  high table, behind it a softly blurred stainless-steel service hatch
-  with sausages on the grill, a glowing illegible menu board and a plain
-  awning."
-- Confidence and sources: MEDIUM; one search ([coolibri — Imbissbuden im
-  Pott](https://coolibri.de/magazin/imbissbuden-im-pott/);
-  [ruhr-guide — Kultimbisse](https://www.ruhr-guide.de/category/ausgehen/ausgehen-im-ruhrgebiet/kultimbisse/);
-  [Hähnchen Finke — top Currywurst stands](https://hahnfinke.de/top-currywurstbuden-ruhrgebiet-2025-haehnchen-finke-mehr/),
-  a business's own page) plus the catalog entries.
+- Confidence and sources: MEDIUM; one search (a business's own page) plus the catalog entries; S54, S55, S56
 
 #### Venue: Döner shop (*Dönerladen*, *Kebabladen*) · app: Counter service
+- Prompt-ready line: "A German Döner shop at night: a paper-wrapped Döner
+  sharp on a small counter, behind it the glowing browned meat cone on its
+  vertical spit, a softly blurred glass counter of salad trays and a
+  bright illegible backlit menu panel."
 - Use for: meal on the go (a Döner in flatbread half-wrapped in paper) or
   a quick sit-in; lunch, late night; 1 to small group; the strongest
   young and urban street register [MEDIUM-HIGH, scenario above; catalog:
@@ -443,8 +555,9 @@ profile. Coverage:
   [MEDIUM for the equipment — business-setup and catering-supplier
   sources; LOW for the decor palette, not described in sources found].
   The sit-in area: a few small tables with laminate tops, chairs in
-  plastic or bentwood style, a mirror wall or framed photos of Turkish
-  landscapes, sometimes an evil-eye ornament (*nazar*) by the till.
+  plastic or bentwood style, plain tiled or painted walls. (Turkish
+  landscape photos and an evil-eye ornament are LOW-confidence clichés:
+  use them only when a brief asks for them.)
   Light: bright cool LED panels or fluorescent tubes; the warm glow of
   the spit's heating element; at night, the shop window glowing onto the
   street. Palette: steel, glass, white tile, the browned spit, the
@@ -466,16 +579,13 @@ profile. Coverage:
   German-Turkish fast-food register, not a Turkish restaurant.
 - Never stage: beer (some shops sell it); legible menu, prices or shop
   name; branded drinks in the cooler; a full flag of any country.
-- Prompt-ready line: "A German Döner shop at night: a paper-wrapped Döner
-  sharp on a small counter, behind it the glowing browned meat cone on its
-  vertical spit, a softly blurred glass counter of salad trays and a
-  bright illegible backlit menu panel."
-- Confidence and sources: MEDIUM-LOW; one search, business and supplier
-  sources only ([myPOS — opening a Döner shop](https://www.mypos.com/de-de/blog/geschaftsratgeber/donerladen-eroeffnen-schritte-kosten-und-tipps);
-  [CPGASTRO — Döner salad counters](https://cpgastro.de/collections/salattische-saladetten),
-  commercial tier). Mirror walls, nazar and landscape photos are LOW.
+- Confidence and sources: MEDIUM-LOW; one search, business and supplier sources only (commercial tier). Mirror walls, nazar and landscape photos are LOW; S57, S58
 
 #### Venue: Public Viewing fan mile (other) · app: Stadium or event
+- Prompt-ready line: "A German Public Viewing fan zone at night: a paper
+  tray with a Bratwurst roll sharp on a round high table, behind it a sea
+  of blurred heads, warm-lit food stalls under string lights and a giant
+  screen glowing as a soft green rectangle far away."
 - Use for: other (fan zone); tournament summers (Euro, World Cup); 1 to 4
   at a high table as a snapshot of tens of thousands (see GAME NIGHT:
   Public Viewing fan mile). The signature German watch-party venue.
@@ -507,14 +617,13 @@ profile. Coverage:
 - Never stage: beer cups, beer stands, stacked deposit cups; kits with
   crests or sponsor marks; a legible screen or banner; flares; face paint
   on children; a full flag; identifiable children.
-- Prompt-ready line: "A German Public Viewing fan zone at night: a paper
-  tray with a Bratwurst roll sharp on a round high table, behind it a sea
-  of blurred heads, warm-lit food stalls under string lights and a giant
-  screen glowing as a soft green rectangle far away."
-- Confidence and sources: HIGH for scale, EDITORIAL for the background
-  (GAME NIGHT sources); no new search this pass.
+- Confidence and sources: HIGH for scale, EDITORIAL for the background (GAME NIGHT sources); no new search this pass
 
 #### Venue: Shared flat (*WG*) or first rental, young renters (*WG-Küche*, *WG-Zimmer*) (home, indoor) · app: Gen Z apartment
+- Prompt-ready line: "A shared-flat kitchen in a German Altbau: a
+  second-hand wooden table sharp in front, behind it softly blurred white
+  walls, worn floorboards, a tall double casement window with plants on
+  the sill, a white cube shelf with books and a string of fairy lights."
 - Use for: home indoor; students and young workers in a shared flat
   (*Wohngemeinschaft*) or a first one-room flat; a small table, friends
   round for dinner or a Spieleabend; 1 to 3. Wave 2 (2026-10-18). Young
@@ -559,17 +668,13 @@ profile. Coverage:
   appear); graffiti everywhere as Berlin shorthand.
 - Never stage: beer, crates, wine or spirits, the deposit symbol; legible
   rotas, posters or book spines; brand logos.
-- Prompt-ready line: "A shared-flat kitchen in a German Altbau: a
-  second-hand wooden table sharp in front, behind it softly blurred white
-  walls, worn floorboards, a tall double casement window with plants on
-  the sill, a white cube shelf with books and a string of fairy lights."
-- Confidence and sources: MEDIUM-LOW; one search, individual listings
-  ([WG-Gesucht — Berlin Oberschöneweide](https://www.wg-gesucht.de/wg-zimmer-in-Berlin-Oberschoeneweide.13599454.html);
-  [WG-Gesucht — Berlin Friedrichsfelde](https://www.wg-gesucht.de/wg-zimmer-in-Berlin-Friedrichsfelde.13964249.html);
-  [WG-Gesucht — Leipzig Zentrum-Nord](https://www.wg-gesucht.de/wg-zimmer-in-Leipzig-Zentrum-Nord.10391567.html));
-  EDITORIAL for staging.
+- Confidence and sources: MEDIUM-LOW; one search, individual listings ; EDITORIAL for staging; S59, S60, S61
 
 #### Venue: New-build or house kitchen with island (*Kochinsel*) (home, indoor) · app: Kitchen island
+- Prompt-ready line: "A new German house kitchen: the grey quartz island
+  top sharp in front, behind it softly blurred matt white handleless
+  units, a row of pendants and tall anthracite-framed windows with roller
+  shutters half down onto a terrace and hedge."
 - Use for: home indoor; a seat at the island counter for lunch or a quick
   dinner; 1 to 3. Wave 2 (2026-10-18). Honest fit: islands belong to
   owner-built single-family houses (*Einfamilienhaus*) and some new-build
@@ -609,16 +714,13 @@ profile. Coverage:
   Bavarian rustic pine; a beer crate by the pantry.
 - Never stage: beer, wine, crates; legible appliance displays or labels;
   brand logos.
-- Prompt-ready line: "A new German house kitchen: the grey quartz island
-  top sharp in front, behind it softly blurred matt white handleless
-  units, a row of pendants and tall anthracite-framed windows with roller
-  shutters half down onto a terrace and hedge."
-- Confidence and sources: LOW-MEDIUM; one search, practitioner forums
-  only ([Hausbau-Forum — Kochinsel threads](https://www.hausbau-forum.de/category/K/kochinsel/);
-  [Hausbau-Forum — kitchen planning for a new detached house](https://www.hausbau-forum.de/posts/629519/));
-  no prevalence figure found.
+- Confidence and sources: LOW-MEDIUM; one search, practitioner forums only ; no prevalence figure found; S62, S63
 
 #### Venue: Neighbourhood café (*Kiezcafé*), with the bakery-café variant (restaurant, indoor) · app: Café
+- Prompt-ready line: "A German neighbourhood café in an old corner
+  building: a slice of cake sharp on a small wooden table, behind it a
+  softly blurred glass cake counter, a steel espresso machine, enamel
+  pendants and a tall shop window onto a tree-lined cobbled street."
 - Use for: café; a solo lunch or a Kaffee-und-Kuchen afternoon with a
   friend; 1 or 2. Wave 2 (2026-10-18). Two real versions: the city
   neighbourhood café (Berlin, Hamburg, Leipzig, Cologne) and, everywhere,
@@ -655,17 +757,13 @@ profile. Coverage:
   Bavarian rustic décor; latte art in the hero zone.
 - Never stage: alcohol (many cafés also serve beer and wine; keep it
   out); legible menus and cups; chain logos.
-- Prompt-ready line: "A German neighbourhood café in an old corner
-  building: a slice of cake sharp on a small wooden table, behind it a
-  softly blurred glass cake counter, a steel espresso machine, enamel
-  pendants and a tall shop window onto a tree-lined cobbled street."
-- Confidence and sources: MEDIUM-LOW; one search, café guides and a sale
-  listing ([top10berlin — coffee](https://www.top10berlin.de/de/tags/coffee);
-  [The Way to Coffee — specialty coffee Berlin](https://www.thewaytocoffee.com/specialtycoffeeberlin/);
-  [ohne-makler — café for sale](https://www.ohne-makler.net/immobilie/474531/));
-  EDITORIAL for staging.
+- Confidence and sources: MEDIUM-LOW; one search, café guides and a sale listing ; EDITORIAL for staging; S64, S65, S66
 
 #### Venue: Modern neighbourhood restaurant, new German cooking (restaurant, indoor) · app: Modern bistro
+- Prompt-ready line: "A modern Berlin neighbourhood restaurant: small
+  plates on a bare dark-oak table sharp in front, behind it softly
+  blurred raw brick and concrete, large glass pendants, a shelf of glowing
+  pickle jars and the lit steel pass of an open kitchen."
 - Use for: restaurant indoor; a design-led dinner or weekend lunch for a
   younger group or couple; 1 to 4. Wave 2 (2026-10-18). The real Modern
   bistro in Germany: the city restaurant with modern regional cooking in
@@ -704,17 +802,13 @@ profile. Coverage:
   Berlin graffiti and techno-club cliché.
 - Never stage: a bar, bottle walls, taps, wine glasses, carafes of wine;
   legible menus; white tablecloths.
-- Prompt-ready line: "A modern Berlin neighbourhood restaurant: small
-  plates on a bare dark-oak table sharp in front, behind it softly
-  blurred raw brick and concrete, large glass pendants, a shelf of glowing
-  pickle jars and the lit steel pass of an open kitchen."
-- Confidence and sources: MEDIUM-LOW; one search ([OpenTable — eins44
-  Kantine](https://www.opentable.hk/eins44-kantine-neukolln);
-  [I Heart Berlin — eins44](https://www.iheartberlin.de/tag/weserstrasse/);
-  [The Berliner — best restaurants in Neukölln](https://www.the-berliner.com/food/best-restaurants-in-neukolln/));
-  concrete and pickle jars are LOW (not in the sources found).
+- Confidence and sources: MEDIUM-LOW; one search ; concrete and pickle jars are LOW (not in the sources found); S67, S68, S69
 
 #### Venue: City park lawn (*Volkspark*, *Stadtpark*, *Liegewiese*) (on the go, outdoor) · app: Park
+- Prompt-ready line: "A German city park on a summer evening: a picnic
+  blanket with Brötchen and a bowl of salad sharp in front, behind it a
+  softly blurred wide lawn with small groups, old lime trees, a pale
+  gravel path and the façades of apartment blocks in low golden light."
 - Use for: meal on the go; a lunch break on a bench, a summer picnic on
   the lawn, an evening on a former airfield in Berlin; 1 to 4. Wave 2
   (2026-10-18). The *Liegewiese* (lawn for lying on) is the German park's
@@ -747,17 +841,13 @@ profile. Coverage:
   grills everywhere.
 - Never stage: beer bottles on the blanket (the strongest prior),
   Späti bottles, beer-garden mugs; legible signs; identifiable children.
-- Prompt-ready line: "A German city park on a summer evening: a picnic
-  blanket with Brötchen and a bowl of salad sharp in front, behind it a
-  softly blurred wide lawn with small groups, old lime trees, a pale
-  gravel path and the façades of apartment blocks in low golden light."
-- Confidence and sources: MEDIUM; one search ([top10berlin — Volkspark
-  Friedrichshain](https://www.top10berlin.de/de/cat/freizeit-268/parks-1375/volkspark-friedrichshain);
-  [Berlin.de — best picnic spots](https://www.berlin.de/special/2471225-208-best-picnic-spots-in-berlin.html);
-  [visitBerlin — top picnic spots](https://www.visitberlin.de/de/blog/berlins-top-11-picknickplaetze));
-  regional variants LOW.
+- Confidence and sources: MEDIUM; one search ; regional variants LOW; S70, S71, S72
 
 #### Venue: Weekly market (*Wochenmarkt*) (on the go, outdoor) · app: Street market
+- Prompt-ready line: "A German weekly market on a cobbled town square: a
+  Bratwurst roll on a paper napkin sharp on a stall ledge, behind it
+  softly blurred rows of striped awnings, crates of vegetables, a lit
+  cheese trailer and a gabled town hall under morning light."
 - Use for: meal on the go; a Saturday or weekday market lunch; 1 to 3.
   Wave 2 (2026-10-18). The real German street market: a municipal weekly
   market on the town square, mostly produce with a few hot-food vans.
@@ -791,17 +881,13 @@ profile. Coverage:
   market.
 - Never stage: beer, wine stalls, Federweißer; legible price cards and
   stall signs; brand logos.
-- Prompt-ready line: "A German weekly market on a cobbled town square: a
-  Bratwurst roll on a paper napkin sharp on a stall ledge, behind it
-  softly blurred rows of striped awnings, crates of vegetables, a lit
-  cheese trailer and a gabled town hall under morning light."
-- Confidence and sources: MEDIUM; one search ([Kurz mal weg — best weekly
-  markets](https://www.kurz-mal-weg.de/reisemagazin/freizeitaktivitaeten/wochenmarkt-ranking);
-  [Neckargemünd — market statute 2023](https://neckargemuend.de/site/Neckargemuend_2019/get/params_E702721020/3392945/Wochenmarktsatzung%202023.pdf);
-  [Germersheim — market statute 2025](https://www.germersheim.eu/kultur-tourismus/feste-maerkte/germersheimer-maerkte/wochenmarkt/wochenmarktsatzung-2025.doc.pdf?cid=ix7));
-  the regional variants are LOW.
+- Confidence and sources: MEDIUM; one search ; the regional variants are LOW; S73, S74, S75
 
 #### Venue: Baltic beach and promenade (*Strandkorb*, *Strandpromenade*) (on the go, outdoor) · app: Beach or waterfront
+- Prompt-ready line: "A German Baltic beach in summer: a Fischbrötchen on
+  paper sharp on the fold-out table of a beach chair, behind it softly
+  blurred rows of white hooded wicker Strandkörbe with striped canvas,
+  pale dunes and a long pier running into a grey-blue sea."
 - Use for: meal on the go; a summer day at the Baltic or North Sea, a
   Fischbrötchen on the promenade; 1 to 4. Wave 2 (2026-10-18). Inland,
   river and lake fronts serve the same option (see variants).
@@ -833,16 +919,7 @@ profile. Coverage:
   water; palm trees; a beach bar with cocktails; tropical sun as default.
 - Never stage: beach-bar beer, cocktails, wine; legible kiosk signs or
   beach-chair numbers; identifiable children; a full flag.
-- Prompt-ready line: "A German Baltic beach in summer: a Fischbrötchen on
-  paper sharp on the fold-out table of a beach chair, behind it softly
-  blurred rows of white hooded wicker Strandkörbe with striped canvas,
-  pale dunes and a long pier running into a grey-blue sea."
-- Confidence and sources: MEDIUM; one search ([viel-unterwegs —
-  Boltenhagen](https://viel-unterwegs.de/ostseebad-boltenhagen);
-  [ab-in-den-urlaub — Ahlbeck](https://www.ab-in-den-urlaub.de/magazin/reisetipps/ahlbeck/);
-  [Deutsche Bahn — Travemünde](https://www.bahn.de/angebot/urlaub/bahnreisen/summerrail/travemuende),
-  travel-marketing tier); the Strandkorb is HIGH (also in the regional
-  map above).
+- Confidence and sources: MEDIUM; one search (travel-marketing tier); the Strandkorb is HIGH (also in the regional map above); S76, S77, S78
 
 ---
 
@@ -885,9 +962,7 @@ decision, not just an assertion of it:
   split out — Germany's regions each clear the "would depicting the wrong
   variant look visibly wrong" test at the **dish** level repeatedly, but
   none of them clears it at the **whole-culture** level the way Scotland
-  did. [CONFIDENCE: MEDIUM-HIGH — this file's own synthesis of the pattern
-  found across dozens of individual dish/region facts checked this pass,
-  not a single source stating the comparative claim directly]
+  did. [MEDIUM-HIGH]
 
 **What this zone characterization is not claiming.** Bavaria is not
 "generic Germany," and defaulting every German scene to Lederhosen, Dirndl,
@@ -909,9 +984,8 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   at roughly 83.4–83.6 million as of the most recent official count (31
   December 2025) and mid-2026 estimates. Germany's 2025 birth count (~654,300)
   was its lowest since 1946, with immigration (net ~320,000/year) the
-  primary factor keeping the population from contracting. [CONFIDENCE: HIGH]
-  [SOURCE: [Federal Statistical Office of Germany (Destatis)](https://www.destatis.de/EN/Home/_node.html);
-  [Worldometer — Germany Population](https://www.worldometers.info/world-population/germany-population/)]
+  primary factor keeping the population from contracting. [HIGH]
+  [S6, S7]
   This corrects the draft's own unverified "~83–84M" to a sourced figure in
   the same range — nothing to correct in substance, only in confidence tier.
 - **Meal structure (in-scope slots)** — corrected and re-sourced from the
@@ -919,11 +993,11 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
 
   | Slot | Local term | Typical time | What the table looks like | Confidence |
   |---|---|---|---|---|
-  | Lunch | *Mittagessen* | 12:00–14:00 | Traditionally the day's main hot meal: meat, potatoes/dumplings/noodles, sauce, vegetable. Canteen trays on weekdays; fuller spreads on Sundays. Office workers often eat lighter (a bakery roll, Döner, or salad). | MEDIUM-HIGH — timing and traditional-main-meal status corroborated across multiple sources; the "office workers eat lighter" note is this file's own reasonable synthesis, not independently sourced |
+  | Lunch | *Mittagessen* | 12:00–14:00 | Traditionally the day's main hot meal: meat, potatoes/dumplings/noodles, sauce, vegetable. Canteen trays on weekdays; fuller spreads on Sundays. Office workers often eat lighter (a bakery roll, Döner, or salad). | MEDIUM-HIGH |
   | Afternoon snack | *Kaffee und Kuchen* | 15:00–16:30 | Cake slices on small plates, cake forks, a whipped-cream bowl, often a tablecloth. **No coffee cups/pots in frame** (beverage scope). | MEDIUM-HIGH — a well-documented national ritual |
-  | Dinner | *Abendbrot* / *Abendessen* | 18:00–19:00 | Traditionally **cold**: a bread board with cold cuts, cheese, pickles, raw vegetables. **Genuinely shifting, not a stable default — offer as a real coexisting choice, not a silent one.** A 2019 survey found 38% of Germans named dinner (not lunch) their day's main meal, up from about a third a decade earlier — a real, measured move toward a warm evening meal, especially in urban and younger households, alongside (not yet replacing) the traditional cold Abendbrot. Restaurant dinners are warm by default regardless of home habits. | MEDIUM-HIGH for the traditional cold-Abendbrot pattern and its documented decline [SOURCE: [The Local — Is Germany falling out of love with Abendbrot?](https://www.thelocal.de/20220310/is-germany-falling-out-of-love-with-abendbrot); [The Local — Abendbrot: what time do Germans eat dinner?](https://www.thelocal.de/20230329/abendbrot-what-time-do-germans-eat-dinner)] |
-  | Brotzeit / Vesper | *Brotzeit* (Bavaria), *Vesper* (Swabia) | Late morning to afternoon | A wooden board: cold meats, cheese, a pretzel, radish. | MEDIUM — carried from the draft, not independently re-verified this pass beyond the Weißwurst-specific Brotzeit entry below |
-  | Street / late night | *Imbiss* | Anytime, especially after 22:00 | Paper trays, foil, standing tables, neon. | MEDIUM — general, well-corroborated pattern across street-food sourcing |
+  | Dinner | *Abendbrot* / *Abendessen* | 18:00–19:00 | Traditionally **cold**: a bread board with cold cuts, cheese, pickles, raw vegetables. **Genuinely shifting, not a stable default — offer as a real coexisting choice, not a silent one.** A 2019 survey found 38% of Germans named dinner (not lunch) their day's main meal, up from about a third a decade earlier — a real, measured move toward a warm evening meal, especially in urban and younger households, alongside (not yet replacing) the traditional cold Abendbrot. Restaurant dinners are warm by default regardless of home habits. | MEDIUM-HIGH for the traditional cold-Abendbrot pattern and its documented decline [S8, S9] |
+  | Brotzeit / Vesper | *Brotzeit* (Bavaria), *Vesper* (Swabia) | Late morning to afternoon | A wooden board: cold meats, cheese, a pretzel, radish. | MEDIUM |
+  | Street / late night | *Imbiss* | Anytime, especially after 22:00 | Paper trays, foil, standing tables, neon. | MEDIUM |
 
   **Photorealism implication, carried from the draft and not contradicted by
   anything found this pass**: a cold Abendbrot bread-board spread reads as
@@ -934,18 +1008,13 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   Destatis's actual 2024 figures: apartments in multi-family buildings are
   the single largest category at **54.8%** of Germany's housing stock (23.5
   million units), single-family houses **31.4%** (13.5 million units), and
-  two-family houses **12.8%** (5.5 million units). [CONFIDENCE: HIGH — a
-  named, current national statistical office figure] [SOURCE: [Destatis —
-  Dwelling stock, Germany](https://www.destatis.de/EN/Themes/Society-Environment/Housing/_Graphic/_Interactive/dwelling-stock.html)]
+  two-family houses **12.8%** (5.5 million units). [HIGH — a
+  named, current national statistical office figure] [S10]
   **A genuine, sharp cross-country contrast worth stating directly per
   `country-file-schema.md` §5.2**: roughly 55% of German households rent
   rather than own — one of the highest rental rates in Europe, and a real
   contrast with both the UK and US's homeownership-leaning housing
-  narratives. [CONFIDENCE: MEDIUM-HIGH — widely corroborated across housing-
-  market and balcony-solar reporting this pass, though not traced to a
-  single named Destatis release] [SOURCE: [SpaceDaily/AFP — More than a
-  million German households have hung solar panels off their balcony
-  railings](https://spacedaily.com/b-more-than-a-million-german-households-have-hung-solar-panels-off-their-balcony-railings-and-plugged-them-into-a-wall-socket-and-the-law-caps-each-at-800-watts-a-fridge-and-a-laptop/)]
+  narratives. [MEDIUM-HIGH] [S11]
   This makes a rented apartment at least as representative a "German home"
   default as a single-family house — do not default every home scene to a
   detached house.
@@ -954,22 +1023,14 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   assumed. Roughly 67% of German households have a balcony or terrace (a
   2020 German Garden Industry Association study), noticeably more than have
   a private garden; balcony share varies by city (71% of listed Berlin
-  apartments have one, versus 47% in Essen). [CONFIDENCE: MEDIUM — a single
-  named industry-association study, corroborated by city-level rental-market
-  reporting, not a government statistical release] [SOURCE: [home24 —
-  Gardens in Germany: Who Still Has Access to a Garden?](https://www.home24.de/garden-study/)]
+  apartments have one, versus 47% in Essen). [MEDIUM] [S12]
   This directly supports the draft's own "Balkonien" (the balcony-staycation
   joke) as a genuine, representative outdoor-meal setting for an apartment-
   dwelling household, not a novelty.
-- **Young adults leave the parental home earlier than the UK or EU
-  average — a genuine, measured cross-country contrast.** Roughly 14% of
-  German 25–29-year-olds still live with their parents, well below the EU-
-  wide average (around 49% of 18–34-year-olds EU-wide, per Eurostat) and
-  below the UK's own documented ~33% of 20–34-year-old men. [CONFIDENCE:
-  MEDIUM-HIGH — Eurostat-sourced, though the exact age bands compared differ
-  slightly across the UK and Germany figures, so treat the contrast as
-  directional rather than a precise like-for-like ratio] [SOURCE: [Eurostat
-  — Young people: housing conditions](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Young_people_-_housing_conditions)]
+- **Young adults leave the parental home early.** Roughly 14% of German
+  25–29-year-olds still live with their parents (Eurostat). An EU or UK
+  comparison needs matched age bands and is left out until recomputed.
+  [MEDIUM] [S13]
   A young-adult German household scene is therefore at least as plausibly a
   shared-flat (*Wohngemeinschaft*/WG) or a solo rental as a parental home —
   do not default a Gen-Z-lens scene to a family kitchen.
@@ -986,7 +1047,7 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   | The specific brown liquid-seasoning bottle used to season currywurst sauce and other dishes | "a small brown seasoning bottle" or omit entirely |
   | Named mustard and curry-ketchup brands | "a squeeze bottle of German mustard" / "curry-spiced ketchup" |
   | Named seafood and bakery chains | "a harbour fish kiosk" / "a neighbourhood bakery" |
-  | The DPG deposit-return logo (the blue bottle-can-arrow symbol; legally sized 14×16mm, a real trademarked mark) | "a small blue recycling/deposit symbol, rendered generic and not legible" or omit [CONFIDENCE: HIGH for the logo's legal size and trademarked status] [SOURCE: [DPG Deutsche Pfandsystem — About DPG](https://dpg-pfandsystem.de/en/the-one-way-deposit-system/about-dpg.html)] |
+  | The DPG deposit-return logo (the blue bottle-can-arrow symbol; legally sized 14×16mm, a real trademarked mark) | "a small blue recycling/deposit symbol, rendered generic and not legible" or omit [HIGH for the logo's legal size and trademarked status] [S14] |
   | Hooded-beach-chair (*Strandkorb*) manufacturers | "a hooded wicker beach chair" |
   | Landmarks (Brandenburg Gate, Cologne Cathedral, Neuschwanstein Castle, the Elbphilharmonie, Munich's towers) | Per `country-file-schema.md` §7.5's standing landmark rule: **never** a named, recognizable landmark as a literal prompt subject — describe the generic category of setting instead ("a grand Baroque old-town square," "a Gothic cathedral silhouette in soft focus") the same way this project genericized Coney Island's Wonder Wheel |
 
@@ -998,7 +1059,10 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   dominated palette than the UK's chip-shop register. Color relief comes
   from burgundy-violet red cabbage, olive-green stewed kale or sauerkraut,
   and — regionally — the vivid spring-green of Grüne Soße or the magenta of
-  Labskaus's beetroot mash. [EDITORIAL, grounded in the dish entries below]
+  Labskaus's beetroot mash. Spring and summer food is light and fresh:
+  white asparagus, radishes, herb quark, Grüne Soße, strawberries and red
+  berries, so don't push every scene toward brown. [EDITORIAL, grounded in
+  the dish entries below]
 - **Texture lexicon** — this file's own visual/texture synthesis, aggregated
   across recipe, food-history, and food-photography sourcing consulted this
   pass rather than independently footnoted line by line (the same treatment
@@ -1031,8 +1095,7 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   well-documented general climate fact, not independently re-sourced this
   pass. Long, light summer evenings support outdoor/beer-garden/allotment
   scenes May–September; short, dark winter days (dusk by mid-afternoon in
-  December) suit Christmas-market and indoor-Abendbrot scenes. [CONFIDENCE:
-  HIGH — general, well-documented geography]
+  December) suit Christmas-market and indoor-Abendbrot scenes. [HIGH — general, well-documented geography]
 - **Housing and tenure — see GENERAL NORMS above for the sourced figures.**
   A rented apartment (54.8% multi-family stock, ~55% renting overall) is at
   least as representative a default as a single-family house; a balcony is
@@ -1041,9 +1104,7 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
 - **Returnable-crate storage** (stacked plastic crates of glass bottles in a
   hallway, cellar, or kitchen corner) is a genuine, checkable German
   domestic-realism cue tied to the deposit (*Pfand*) system — see COCA-COLA
-  MARKET INTEGRATION for the deposit system itself. [CONFIDENCE: MEDIUM —
-  carried from the draft as a plausible, widely-recognized cue; not
-  independently re-verified as a photographed convention this pass]
+  MARKET INTEGRATION for the deposit system itself. [MEDIUM]
 - **Caricature-avoidance guidance (editorial judgment, not a sourced
   claim).** Do not default every German home/leisure scene to Bavarian
   Alpine dressing (Lederhosen, Dirndl, chalet architecture) outside a
@@ -1174,7 +1235,7 @@ both are alcohol-dominant registers in reality and should be used only for
 strict food-only framing, or avoided, per the alcohol-exclusion rule.
 
 **Home**: the Abendbrot table; a Sunday-lunch table; the Kaffee-und-Kuchen
-table (cake on a stand, a cream bowl, patterned china, no coffee cups in
+table (cake on a stand, a cream bowl, patterned china, coffee only soft in
 frame); the New Year's Eve raclette table; returnable-crate storage as a
 realism cue.
 
@@ -1214,9 +1275,7 @@ million in 2023); the name and format have since been widely imitated by
 smaller local "Oktoberfest"-branded events elsewhere in Germany and
 internationally, but these are imitations of Munich's festival, not evidence
 that "Oktoberfest" is a generic, nationwide German autumn tradition the way
-Christmas markets are. [CONFIDENCE: HIGH] [SOURCE: [Britannica —
-Oktoberfest](https://www.britannica.com/topic/Oktoberfest); general
-Oktoberfest-history sourcing corroborating the 7M+ annual attendance figure]
+Christmas markets are. [HIGH] [S15; general Oktoberfest-history sourcing corroborating the 7M+ annual attendance figure]
 Do not use "Oktoberfest" imagery (tents, dirndl-and-lederhosen crowds,
 festival grounds) as generic shorthand for "German food culture" outside a
 Munich-specific brief — this is this file's single most important anti-
@@ -1224,13 +1283,13 @@ pattern (see ANTI-PATTERNS below).
 
 | Period | Occasion | Food cues | Visual cues | Confidence |
 |---|---|---|---|---|
-| Nov–Feb | Kale season, group kale walks (North) | Grünkohl mit Pinkel | Frost, grey light, groups in winter coats | MEDIUM — carried from the draft |
+| Nov–Feb | Kale season, group kale walks (North) | Grünkohl mit Pinkel | Frost, grey light, groups in winter coats | MEDIUM |
 | 11 Nov → Feb/Mar | Rhineland Carnival (street carnival, Thursday to Rose Monday parades) | Berliner doughnuts, Imbiss food, sausages | Elaborate costumes, floats, sweets thrown into crowds, confetti; avoid culturally appropriative costumes | MEDIUM-HIGH — a well-documented national tradition |
 | Pre-Lent | Swabian-Alemannic Fasnet (Baden-Württemberg) | Doughnuts, fried pastries | Carved wooden masks, shaggy/patchwork costumes, bells, old-town parades | MEDIUM |
-| 31 Dec | New Year's Eve (*Silvester*) | Raclette or fondue is one of the most commonly cited German NYE dinner choices — a real, widely corroborated tradition, not just plausible-sounding | Fireworks, balconies, streets | MEDIUM-HIGH — corroborated across multiple independent lifestyle/culture sources, though not a single dedicated survey with an exact popularity percentage |
-| Maundy Thursday | *Gründonnerstag* (Green Thursday) | **Grüne Soße** — confirmed this pass as a real, specific Maundy Thursday food tradition, not a loose association: the "eat something green on Green Thursday" custom is well documented, and Frankfurt's own seven-herb Grüne Soße mix has been EU-protected (a geographical-indication-style registration) since 2016 | Spring green | HIGH [SOURCE: [germanculture.com.ua — Why Germans Eat Green Food on Maundy Thursday](https://germanculture.com.ua/german-traditions/why-germans-eat-green-food-on-maundy-thursday-grundonnerstag/); [Frankfurt on Foot — Frankfurt Grüne Sosse](https://frankfurt-on-foot.com/2024/01/12/frankfurt-grune-sosse-or-green-sauce/)] |
-| Apr–24 Jun | Asparagus season (*Spargelzeit*) — **end date corrected from the draft's vague framing to a specific, sourced date** | Spargel | Farm stands, white tents. **Traditionally ends on 24 June (Johannistag, St. John's Day)**, after which fields rest for the year — a specific, real, checkable date, not a loose "spring/early summer" window. | HIGH [SOURCE: aggregated German food-culture sourcing consistently citing 24 June/Johannistag as the traditional close] |
-| ~11 Nov | St. Martin lantern processions | Weckmann bread figure, roast goose | Children carrying glowing paper lanterns at dusk, a rider on a horse, a bonfire. **Children-policy caution applies** — see below. | MEDIUM — a well-known national children's tradition, not independently re-verified beyond general awareness this pass |
+| 31 Dec | New Year's Eve (*Silvester*) | Raclette or fondue is one of the most commonly cited German NYE dinner choices — a real, widely corroborated tradition, not just plausible-sounding | Fireworks, balconies, streets | MEDIUM-HIGH |
+| Maundy Thursday | *Gründonnerstag* (Green Thursday) | **Grüne Soße** as a real, specific Maundy Thursday food tradition, not a loose association: the "eat something green on Green Thursday" custom is well documented, and Frankfurt's own seven-herb Grüne Soße mix has been EU-protected (a geographical-indication-style registration) since 2016 | Spring green | HIGH [S16, S17] |
+| Apr–24 Jun | Asparagus season (*Spargelzeit*) — **end date corrected from the draft's vague framing to a specific, sourced date** | Spargel | Farm stands, white tents. **Traditionally ends on 24 June (Johannistag, St. John's Day)**, after which fields rest for the year — a specific, real, checkable date, not a loose "spring/early summer" window. | HIGH [aggregated German food-culture sourcing consistently citing 24 June/Johannistag as the traditional close] |
+| ~11 Nov | St. Martin lantern processions | Weckmann bread figure, roast goose | Children carrying glowing paper lanterns at dusk, a rider on a horse, a bonfire. **Children-policy caution applies** — see below. | MEDIUM |
 | Late Sep–early Oct | **Munich autumn folk festival (evidence name: Oktoberfest). Munich only — never generalize nationally.** See the dedicated note above. | Haxe, Hendl, Brezel, Steckerlfisch, gingerbread hearts | Rides, stalls; tents avoided entirely per the alcohol-exclusion rule | HIGH for the Munich-only framing |
 | Sep–Oct | Wine festivals (Palatinate sausage-and-wine-market festivals, etc.) | Zwiebelkuchen, Saumagen, sausages | **Alcohol-dominant; food-only framing** | MEDIUM |
 | Late Nov–23 Dec | Christmas markets | Bratwurst, Reibekuchen, Schupfnudeln, garlic mushrooms, candied almonds, gingerbread hearts, crêpes | Wooden huts with fir garlands, warm string lights, breath vapour, early dusk (~16:30), steam off giant pans. **Mulled-wine mugs dominate reality; none may appear in frame.** | HIGH for the market format and food items as a well-documented national tradition |
@@ -1242,7 +1301,7 @@ section above for the full sourced policy citation. Applied here: do not
 place Coca-Cola in a school setting, and do not show a young child (under
 roughly 13, per TCCC's own stated threshold) as the drinker in a St.
 Martin-procession or children's-birthday scene; frame family scenes on
-adults with the product. [CONFIDENCE: HIGH — grounded in TCCC's own public
+adults with the product. [HIGH — grounded in TCCC's own public
 Responsible Marketing Policy, cited above]
 
 Full staging for each celebration: see CELEBRATIONS & LARGE GATHERINGS below.
@@ -1256,8 +1315,9 @@ section is the staging layer for each celebration, per schema §5.7. The
 alcohol-exclusion rule and the children and schools caution (both in FILE
 ROLE & METHOD) apply to every entry: German celebrations very often carry
 beer, wine or Sekt on the table in reality, and none may appear in frame.
-The beverage-scope rule also keeps coffee cups and pots out of every
-Kaffeetafel scene.
+Coffee may sit soft in the background at a celebration Kaffeetafel, and a
+glass of water or Apfelschorle may sit away from the Coke (see HARD STAGING
+RULES).
 
 ### How large gatherings work here
 
@@ -1315,7 +1375,7 @@ Kaffeetafel scene.
   Frankfurter sausages), named by about a third of Germans in Statista's
   2024 survey (36%) and in YouGov's (32%). [HIGH — Statista and YouGov
   Deutschland, both 2024] See catalog: Kartoffelsalat (match the region:
-  vinegar style in the South, mayonnaise style in the North and East).
+  vinegar style in the South, mayonnaise style further north; the East is mixed, so check with a native reviewer).
   Sausages are heated whole, pale pink, about 15 to 20cm, in a pot or a
   bowl; mustard on the table. Fish (carp, salmon) and raclette or fondue
   are real alternatives. A real table carries 2 to 4 shared vessels: a
@@ -1336,10 +1396,7 @@ Kaffeetafel scene.
 - Never stage: beer bottles or Sekt beside the potato salad (a strong
   prior); church service or nativity scenes as the subject; a child as
   the drinker.
-- Confidence and sources: HIGH for the dish ([Statista — Umfrage zum
-  Essen an den Weihnachtsfeiertagen 2024](https://de.statista.com/statistik/daten/studie/778023/umfrage/umfrage-in-deutschland-zum-essen-an-den-weihnachtsfeiertagen);
-  [YouGov Deutschland — Lieblingsgerichte der Deutschen zu Weihnachten](https://yougov.de/consumer/articles/51178-die-lieblingsgerichte-und-lieblingslebensmittel-der-deutschen-zu-weihnachten));
-  EDITORIAL for staging.
+- Confidence and sources: HIGH for the dish ; EDITORIAL for staging; S79, S80
 
 #### Celebration: Christmas feast (1. und 2. Weihnachtsfeiertag, 25–26 December)
 - Type: calendar holiday.
@@ -1370,8 +1427,7 @@ Kaffeetafel scene.
   catalog), an overly baroque banquet.
 - Never stage: red wine (the most common prior beside goose); church or
   nativity imagery as the subject.
-- Confidence and sources: MEDIUM-HIGH (calendar sources and catalog
-  entries); EDITORIAL for staging.
+- Confidence and sources: MEDIUM-HIGH (calendar sources and catalog entries); EDITORIAL for staging
 
 #### Celebration: New Year's Eve raclette (Silvester, 31 December)
 - Type: calendar holiday.
@@ -1400,14 +1456,62 @@ Kaffeetafel scene.
 - Never stage: Sekt glasses and the midnight toast; Feuerzangenbowle
   (a rum-based punch); the lead-pouring custom is fine only without
   any drink.
-- Confidence and sources: MEDIUM-HIGH (catalog entry); EDITORIAL for
-  staging and the lucky-charm cue [MEDIUM — common knowledge, not
-  searched this pass].
+- Confidence and sources: MEDIUM-HIGH (catalog entry); EDITORIAL for staging and the lucky-charm cue [MEDIUM.
+
+#### Celebration: Easter brunch (Osterfrühstück) · app: Brunch, Dining room
+- Prompt-ready line: "A German family Easter brunch for four at late
+  morning: a warm wooden dining table by a side window in a bright, lived-in
+  home, a sliced golden Hefezopf braid with flaked almonds, a bowl of four
+  naturally dyed hard-boiled eggs, a platter of sliced Easter ham, smoked
+  salmon with lemon, cold cuts and mild cheese, a bowl of herb quark with
+  chives, radishes, cucumber and tomato, small bowls of butter, berry jam and
+  honey, a small lamb-shaped sponge cake dusted with icing sugar, a glass vase
+  of daffodils and tulips, four white plates with linen napkins, clear
+  tumblers with ice and lemon, soft spring daylight."
+- Type: holiday family gathering, the most common Easter activity (40% of
+  Germans planned a shared Easter meal in 2025, per the brief citing YouGov).
+- When: Easter Sunday or Monday, late morning to early afternoon. Easter
+  falls in March or April.
+- Where: a parent's or grandparent's home, often a house; a dining room
+  open to a bright kitchen. The garden or terrace when the weather allows.
+- Gathering: 4 place settings, portions for 4 and no more.
+- The spread (savoury): sliced Osterschinken (about 8 slices), smoked
+  salmon, cold cuts and a mild spring cheese, herb quark, radishes,
+  cucumber and tomato, painted eggs (4), a few slices of Falscher Hase
+  (meatloaf baked around hard-boiled eggs). A warm lunch, if any, is roast
+  lamb (see Easter Sunday lunch).
+- The spread (sweet): Hefezopf (1 small, sweet braided yeast bread with
+  flaked almonds or pearl sugar), Osterlamm (1 small lamb-shaped sponge
+  cake with icing sugar), a few chocolate eggs or bunnies, butter, jam and
+  honey, fresh rolls.
+- Tableware: white or warm-neutral ceramic plates and platters, small
+  bowls, linen napkins, one modest glass vase, stainless-steel cutlery, a
+  bread knife; clear glass tumblers for the hero drink.
+- Mood: relaxed and unhurried, less formal than Christmas; spring shows in
+  the food and the small flowers.
+- Product: with a multi-serve bottle (1.25 L PET), the bottle stands open in
+  the front third, tethered cap hanging from the neck, water droplets on
+  it, beside several glasses with ice and lemon (see HARD STAGING RULES).
+- People (when the brief allows): a family of four, two adults aged about
+  30–45 and two children aged about 6–12, faces never recognizable (cropped
+  above the mouth or below the eyes, backs, side angles, soft focus).
+  Relaxed spring clothes in warm neutrals: cotton shirts, knitwear, simple
+  blouses, light overshirts. Simple watch or subtle jewellery. Natural
+  actions: slicing the Hefezopf, passing a platter, pouring, reaching for
+  food, tapping eggs.
+- Never stage: a tapas or Mediterranean sharing-board look, Eastern
+  European feast cues, a Christmas or dinner mood, heavy pastel styling,
+  gourmet plating, religious symbols, an empty table, raw meat. Chocolate
+  bunnies stay generic: no gold foil, no red ribbon or bell, nothing that
+  reads as a known brand.
+- Confidence and sources: MEDIUM. From the TCCC ProdX Easter brunch brief
+  (12 Nov 2026, citing YouGov 2025 and Lebensmittelverband Deutschland
+  2023) [S-BRIEF]; not image-tested.
 
 #### Celebration: Easter Sunday lunch (Ostersonntag)
 - Type: calendar holiday.
 - When: Easter Sunday, midday (intake time midday); the Easter breakfast
-  or brunch earlier in the day is out of scope.
+  or brunch earlier in the day has its own entry (Easter brunch, below).
 - Gathering: extended family, about 6 to 12; home indoor, or a
   restaurant lunch. [EDITORIAL]
 - The spread: **roast lamb** (leg or shoulder) is the traditional Easter
@@ -1430,12 +1534,11 @@ Kaffeetafel scene.
   with painted eggs (*Osterstrauch*); a bowl of dyed eggs; bright spring
   light. [EDITORIAL]
 - Decor and cues: the Easter-egg branch, pastel napkins. Avoid: US-style
-  Easter-bunny props.
+  Easter-bunny props in a cartoon or branded style. A generic chocolate
+  Easter hare (*Osterhase*) is a German motif (documented in German-speaking
+  lands since the 1600s) and is fine: no gold foil, red ribbon or bell.
 - Never stage: the church blessing of the Osterlamm cake; wine.
-- Confidence and sources: MEDIUM ([Verbraucherfenster Hessen — Das
-  Osterlamm](https://verbraucherfenster.hessen.de/ernaehrung/essen-trinken/das-osterlamm-traditionelle-leckerei-aus-der-backform);
-  [speisekarte.de — Das Osterlamm](https://www.speisekarte.de/blog/2025/04/11/das-osterlamm-bedeutung-brauch-zubereitung/));
-  EDITORIAL for staging.
+- Confidence and sources: MEDIUM ; EDITORIAL for staging; S81, S82
 
 #### Celebration: Birthday Kaffeetafel and children's party (Geburtstag)
 - Type: life event.
@@ -1454,7 +1557,8 @@ Kaffeetafel scene.
   [MEDIUM — familie.de and lecker.de party-food articles; catalog block]
 - Snapshot staging: **1 setting**: one cake plate with a slice of Black
   Forest cake and a cake fork, the whole Torte on a stand partly cropped
-  behind, a bowl of whipped cream; no coffee cup (beverage scope).
+  behind, a bowl of whipped cream; a coffee pot and cups may sit soft
+  in the background, never beside the Coke.
   **2 settings**: two identical cake plates (same cake), a second cake
   (plum cake squares) on a platter between them. **Small group**: three
   or four settings, two or three cakes down the middle, the birthday
@@ -1463,15 +1567,12 @@ Kaffeetafel scene.
   flowers in a vase; a gift table soft at the edge. [EDITORIAL]
 - Decor and cues: patterned or lace tablecloth, the good cake service,
   a garland. Avoid: legible name banners.
-- Never stage: coffee cups or pots (beverage scope); Sekt for the
+- Never stage: coffee in focus or beside the Coke; Sekt for the
   toast; a child under about 13 as the drinker.
-- Confidence and sources: MEDIUM ([deutschland-feiert.de —
-  Geburtstagstraditionen](https://www.deutschland-feiert.de/geburtstage/geburtstagstraditionen/);
-  [familie.de — Essen zum Kindergeburtstag](https://www.familie.de/diy/rezepte/essen-zum-kindergeburtstag/));
-  EDITORIAL for staging.
+- Confidence and sources: MEDIUM ; EDITORIAL for staging; S83, S84
 
 #### Celebration: Confirmation and First Communion (Konfirmation, Erstkommunion)
-- Type: life event (religious milestone; staging is the family meal only).
+- Type: life event (religious milestone; staging is the family meal only). Konfirmation is Protestant (strongest in the North and centre); Erstkommunion is Catholic (South and West). In the former East, where church membership is low, the secular **Jugendweihe** is the common coming-of-age (see the entry below).
 - When: spring, from the Sunday after Easter through mid-May; a
   restaurant lunch after the church service (intake time midday), then
   Kaffee und Kuchen in the afternoon. [MEDIUM — Känguru]
@@ -1501,9 +1602,21 @@ Kaffeetafel scene.
   or communion candle as a prop next to the product.
 - Never stage: the service, crosses, chalices or the communion wafer;
   wine at the table; the child honoree as the drinker.
-- Confidence and sources: MEDIUM ([Känguru — Kommunion und Konfirmation
-  richtig planen](https://www.kaenguru-online.de/themen/familienleben/kommunion-und-konfirmation-richtig-planen);
-  restaurant event pages, lower tier); EDITORIAL for staging.
+- Confidence and sources: MEDIUM (restaurant event pages, lower tier); EDITORIAL for staging; S85
+
+#### Celebration: Jugendweihe (secular coming-of-age, mainly the East)
+- Prompt-ready line: "A family lunch for a Jugendweihe in eastern Germany:
+  a restaurant side room with a long white-clothed table, plated roast with
+  dumplings and red cabbage, a small flower arrangement and a gift envelope
+  at one place, spring light."
+- Type: secular life event for 14-year-olds, introduced in the GDR in 1954
+  and still widely held in the former East. A ceremony in a hall, then a
+  family lunch and Kaffee und Kuchen, the same pattern as Konfirmation.
+- When: spring (March to June), midday.
+- Staging: as for Konfirmation, a family restaurant lunch or a meal at
+  home; the teenager is never identifiable.
+- Never stage: alcohol toasts, GDR symbols or flags.
+- Confidence: MEDIUM (general knowledge; needs a native reviewer).
 
 #### Celebration: Wedding (Hochzeit)
 - Type: life event.
@@ -1532,12 +1645,10 @@ Kaffeetafel scene.
   [EDITORIAL]
 - Decor and cues: white linen, greenery runners, candles. Avoid: the
   couple as identifiable subjects; legible seating plans.
-- Never stage: Sekt reception, wine, beer, the toast; the Polterabend
-  (a drinking-led eve-of-wedding party).
-- Confidence and sources: MEDIUM ([gastgewerbe-magazin — Hochzeitsreport
-  2026](https://gastgewerbe-magazin.de/hochzeitsreport-2026-kleiner-kreis-statt-grosser-show-welche-hochzeiten-die-deutschen-wirklich-moegen-72991);
-  [pureperfect-weddings — Zahlen & Fakten](https://pureperfect-weddings.de/hochzeit/zahlen-fakten-rund-um-das-thema-hochzeit/));
-  EDITORIAL for staging.
+- Never stage: Sekt reception, wine, beer, the toast; drinks at the
+  Polterabend (the eve-of-wedding party where old porcelain is smashed for
+  luck; stage the shards and the sweeping, not the drinks).
+- Confidence and sources: MEDIUM ; EDITORIAL for staging; S86, S87
 
 #### Celebration: Summer Grillfest (Grillen with friends and neighbours)
 - Type: community or family gathering (recurring, May to September).
@@ -1571,9 +1682,7 @@ Kaffeetafel scene.
 - Never stage: beer bottles or crates of beer (the strongest prior in
   this scene; prompt "no beer, no bottles other than the hero product");
   grill-master-with-beer clichés.
-- Confidence and sources: HIGH for prevalence ([YouGov Deutschland —
-  Grillsaison-Bilanz 2026](https://yougov.com/de-de/artikel/55433-grillsaison-bilanz-2026-fast-sieben-von-zehn-deutschen-haben-dieses-jahr-gegrillt));
-  MEDIUM for menu; EDITORIAL for staging.
+- Confidence and sources: HIGH for prevalence ; MEDIUM for menu; EDITORIAL for staging; S88
 
 ---
 
@@ -1642,10 +1751,7 @@ and needs no separate entry.
   other than the hero product"); national or club kits with crests or
   sponsor marks; face paint on children; a legible screen or sponsor
   banner; flares or crowd crush.
-- Confidence and sources: HIGH for fan-zone scale ([The Local — Euro
-  2024 fan zones](https://www.thelocal.de/20240612/where-are-the-fan-zones-for-euro-2024-in-germany);
-  [muenchen.de — Fan Zone Olympiapark](https://www.muenchen.de/en/events/uefaeuro2024/fan-zone-munich-olympic-park-public-viewig-concerts));
-  LOW-MEDIUM for food; LOW for kick-off times; EDITORIAL for staging.
+- Confidence and sources: HIGH for fan-zone scale ; LOW-MEDIUM for food; LOW for kick-off times; EDITORIAL for staging; S89, S90
 
 #### Watch party: tournament game at home with the garden grill
 - When: tournament summers, an 18:00 or 21:00 kick-off with the grill lit
@@ -1674,8 +1780,7 @@ and needs no separate entry.
 - Never stage: beer bottles or crates of beer (prompt "no beer, no
   bottles other than the hero product"); kits with crests; a legible
   screen.
-- Confidence and sources: LOW for the viewing-specific pairing; see the
-  Grillfest entry for the grill menu; EDITORIAL for staging.
+- Confidence and sources: LOW for the viewing-specific pairing; see the Grillfest entry for the grill menu; EDITORIAL for staging
 
 #### Watch party: Bundesliga Saturday on the sofa
 - When: August to May. The main Saturday kick-off is about 15:30, with
@@ -1702,8 +1807,7 @@ and needs no separate entry.
   bowls than needed, blurred figures on the sofa running out of frame.
 - Never stage: beer bottles or crates; club crests, kits or sponsor
   marks; a legible screen; betting apps.
-- Confidence and sources: LOW for timing and spread; EDITORIAL for
-  staging.
+- Confidence and sources: LOW for timing and spread; EDITORIAL for staging
 
 ### Social game nights
 
@@ -1740,10 +1844,7 @@ staged only as a home table.
   boxes and boards, branded decks); legible cards or score pads; money
   or stakes on the table (Skat is sometimes played for small stakes)
   [LOW]; beer or wine glasses.
-- Confidence and sources: MEDIUM for popularity ([Wikipedia — Spiel](https://en.wikipedia.org/wiki/Spiel);
-  [IMARC Germany board games](https://www.imarcgroup.com/germany-board-games-market),
-  market-research tier, flagged); LOW for the spread; EDITORIAL for
-  staging.
+- Confidence and sources: MEDIUM for popularity (market-research tier, flagged); LOW for the spread; EDITORIAL for staging; S91, S92
 
 #### Game night: holiday games (Advent, Christmas and Silvester)
 - When: Advent and Christmas afternoons (golden-hour, dark by about
@@ -1769,7 +1870,7 @@ staged only as a home table.
 - Never stage: Sekt, mulled wine or wine (strong priors at both
   occasions); fireworks as the focus; branded games; money on the table;
   identifiable children.
-- Confidence and sources: LOW for the pairings; EDITORIAL for staging.
+- Confidence and sources: LOW for the pairings; EDITORIAL for staging
 
 ---
 
@@ -1810,13 +1911,14 @@ requirements; flagged explicitly here rather than left implicit.
 
 #### Dish: Brötchen (bread rolls)
 
+- Prompt-ready line: "A cloth-lined bread basket loosely filled with six
+  crusty German bread rolls, each a little shorter than the can is tall
+  and wider than it: plain split-top rolls with a paler ridge, one
+  densely seeded, one dark rye. Crust thin, dry and crackly, flaking onto
+  the table; a few loose seeds. One roll split on a small plate beside a
+  curl of butter. No soft buns, no glaze."
+- Cuisine lineage: see RESEARCH LOG › DISH LINEAGE NOTES.
 - Category: Everyday, all in-scope meal slots.
-- Cuisine lineage: Native German; regional naming varies (*Semmel* in
-  Bavaria, *Schrippe* in Berlin, *Weckle* in Swabia, *Rundstück* in Hamburg)
-  without the roll's actual form changing — a prevalence/naming-only
-  variation per schema §4.2, not a style-map case. [CONFIDENCE: MEDIUM —
-  naming variation is widely known; not independently re-verified region by
-  region this pass]
 - Serving format: A bakery basket or paper bag of mixed rolls (plain white
   split-top, poppy-seed, sesame, pumpkin-seed, multigrain, dark rye); as a
   *belegtes Brötchen* (a filled sandwich roll — salami, cheese, or ham, plus
@@ -1828,15 +1930,12 @@ requirements; flagged explicitly here rather than left implicit.
   off-white crumb. Seeded rolls are densely coated, with seeds scattering
   onto the board. A Kaiser roll shows a five-arm pinwheel pattern.
 - Real-world scale (§4.5): Roughly 9–11cm diameter, 5–6cm tall — clearly
-  smaller than the 330mL can's 11.52cm height. [CONFIDENCE: MEDIUM — a
-  reasonable retail-bakery estimate, not independently measured this pass]
+  smaller than the 330mL can's 11.52cm height. [MEDIUM]
 - Common confusion: A soft, glossy US-style burger bun or brioche roll —
   ruled out by the crackly, flake-shattering crust and airy, irregular
   crumb, neither of which a soft enriched dough produces.
 - Confidence: MEDIUM-HIGH overall.
-- Sources: general German-bakery sourcing aggregated across multiple food-
-  culture references; not independently re-verified with a dedicated search
-  this pass beyond general confirmation of the naming variation.
+- Sources: general German-bakery sourcing aggregated across multiple food- culture references; not independently re-verified with a dedicated search this pass beyond general confirmation of the naming variation
 - **Composition & proportions (§4.7)** — a basket at the table, and one
   belegtes Brötchen.
   - What dominates: the rolls themselves — crust ~80% of what is seen in a
@@ -1854,15 +1953,15 @@ requirements; flagged explicitly here rather than left implicit.
     seeds on the board or plate; no gloss.
   - Absent on purpose: soft glossy burger buns, sesame-bun uniformity,
     overstuffed deli layers, toothpicks, sauces dripping.
-  - Prompt-ready line: "A cloth-lined bread basket loosely filled with six
-    crusty German bread rolls, each a little shorter than the can is tall
-    and wider than it: plain split-top rolls with a paler ridge, one
-    densely seeded, one dark rye. Crust thin, dry and crackly, flaking onto
-    the table; a few loose seeds. One roll split on a small plate beside a
-    curl of butter. No soft buns, no glaze."
 
 #### Dish: Rye and mixed loaves (incl. Pumpernickel)
 
+- Prompt-ready line: "Five thick slices of dark German rye bread fanned
+  in an overlapping row on a wooden board, each slice a little longer
+  than the can is tall and about a finger thick, with dense, moist,
+  fine-grained brown crumb and a thick dark cracked crust dusted with
+  flour. Two small near-black square pumpernickel slices beside them.
+  The cut loaf heel behind. A few crumbs; nothing spread on the bread."
 - Category: Everyday, Abendbrot staple.
 - Visual/plating characteristics: Thick slices fanned on a board. A dark
   rye or mixed-grain loaf (*Mischbrot*) shows a thick, dark-brown, rustic,
@@ -1870,8 +1969,7 @@ requirements; flagged explicitly here rather than left implicit.
   crumb. Pumpernickel is near-black-brown, crustless-looking, very fine and
   moist, with a slight whole-grain speckle.
 - Real-world scale (§4.5): Slices roughly 1–1.5cm thick, 12–15cm across;
-  Pumpernickel slices roughly 9×9cm, ~0.7cm thick. [CONFIDENCE: MEDIUM —
-  reasonable retail-bread estimate, not independently measured]
+  Pumpernickel slices roughly 9×9cm, ~0.7cm thick. [MEDIUM]
 - Common confusion: A white sliced sandwich loaf — ruled out by the dark
   color and dense, moist crumb.
 - Confidence: MEDIUM.
@@ -1888,15 +1986,16 @@ requirements; flagged explicitly here rather than left implicit.
     butter melt (cold bread).
   - Absent on purpose: white sandwich bread, open airy holes, seeds piled
     on top, spreads already applied unless an Abendbrot scene.
-  - Prompt-ready line: "Five thick slices of dark German rye bread fanned
-    in an overlapping row on a wooden board, each slice a little longer
-    than the can is tall and about a finger thick, with dense, moist,
-    fine-grained brown crumb and a thick dark cracked crust dusted with
-    flour. Two small near-black square pumpernickel slices beside them.
-    The cut loaf heel behind. A few crumbs; nothing spread on the bread."
 
 #### Dish: Abendbrot spread
 
+- Prompt-ready line: "A German cold-supper table: small wooden boards,
+  one per person, each with a single open slice of dark rye bread topped
+  with one layer of salami. At the centre, a plate of fanned salami, ham
+  and pale Emmental slices with round holes, a basket of sliced bread, a
+  butter dish, a small bowl of red radishes each about a third of the
+  can's width, and glossy gherkins a little shorter than the can. Cold, orderly,
+  no steam."
 - Category: Everyday, the defining cold-dinner register (see GENERAL NORMS
   for its documented, genuine decline alongside a rise in warm dinners —
   offer both as coexisting choices, not a silent default).
@@ -1912,10 +2011,8 @@ requirements; flagged explicitly here rather than left implicit.
   trail; gherkins are glossy and bumpy with dill fronds clinging.
 - Real-world scale (§4.5): Brettchen ~22×14cm; gherkins ~8–10cm; radishes
   ~2.5cm.
-- Confidence: MEDIUM — a well-corroborated general German domestic
-  convention, not independently re-verified with a dedicated dish-level
-  source this pass beyond the broader Abendbrot-prevalence sourcing above.
-- Sources: [The Local — Is Germany falling out of love with Abendbrot?](https://www.thelocal.de/20220310/is-germany-falling-out-of-love-with-abendbrot)
+- Confidence: MEDIUM.
+- Sources: S8
 - **Composition & proportions (§4.7)** — one person's Brettchen within a
   shared table.
   - What dominates: bread and the table-centre plates of cold cuts and
@@ -1943,16 +2040,15 @@ requirements; flagged explicitly here rather than left implicit.
     moisture on the vegetable cuts.
   - Absent on purpose: closed stacked sandwiches, hot dishes, garnish
     piles, candles-and-wine dinner staging, coffee cups.
-  - Prompt-ready line: "A German cold-supper table: small wooden boards,
-    one per person, each with a single open slice of dark rye bread topped
-    with one layer of salami. At the centre, a plate of fanned salami, ham
-    and pale Emmental slices with round holes, a basket of sliced bread, a
-    butter dish, a small bowl of red radishes each about a third of the
-    can's width, and glossy gherkins a little shorter than the can. Cold, orderly,
-    no steam."
 
 #### Dish: Mettbrötchen (raw seasoned pork roll)
 
+- Prompt-ready line: "Two halves of a crusty white bread roll, each a
+  little narrower than the can is tall, side by side on a small white
+  plate, each spread to the edge with a finger-thick layer of bright
+  rose-pink finely minced seasoned pork, its surface marked with fork
+  ridges. A light scatter of crisp white onion dice and black pepper
+  specks on top. Bright, clean daylight; nothing else on the plate."
 - Category: Everyday snack/party food; North and West-coded.
 - Serving format: A halved roll spread thickly with seasoned raw minced
   pork (*Mett*), topped with diced or ringed raw onion and black pepper.
@@ -1960,12 +2056,11 @@ requirements; flagged explicitly here rather than left implicit.
   glossy, often with fork-ridged or piped wavy lines on the surface; crisp,
   translucent-white onion.
 - Real-world scale (§4.5): Half roll ~10cm; Mett layer ~1–1.5cm thick.
-- **Handling note (carried from the draft)**: raw meat reads as unsafe or
+- **Handling note**: raw meat reads as unsafe or
   unappetizing to many non-German viewers; use only on explicit request,
   lit cleanly and brightly rather than moodily, to avoid an accidental
   "spoiled food" read.
-- Confidence: MEDIUM — a genuine, real dish, not independently re-verified
-  with new sourcing this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — two roll halves on a plate.
   - What dominates: the pink Mett layer — ~70% of the visible top surface;
     the roll's crust edge a thin golden ring; onion a scatter over ~20% of
@@ -1980,53 +2075,33 @@ requirements; flagged explicitly here rather than left implicit.
     onion; bright clean light.
   - Absent on purpose: any browning or cooking on the meat, lettuce, sauces,
     cheese; dim moody light.
-  - Prompt-ready line: "Two halves of a crusty white bread roll, each a
-    little narrower than the can is tall, side by side on a small white
-    plate, each spread to the edge with a finger-thick layer of bright
-    rose-pink finely minced seasoned pork, its surface marked with fork
-    ridges. A light scatter of crisp white onion dice and black pepper
-    specks on top. Bright, clean daylight; nothing else on the plate."
 
 ### Street food & Imbiss
 
 #### Dish: Currywurst
 
+- Prompt-ready line: "A white paper tray about one and a half cans long,
+  filled: on one half, sliced grilled sausage coins, each about half the
+  can's width, drenched in glossy red-brown curry-ketchup sauce pooling
+  in the tray corners, dusted with patches of dry ochre curry powder, a
+  small two-pronged wooden fork standing in one piece. On the other half,
+  golden fries with a ribbon of thick pale mayonnaise. Grease spots on
+  the paper; faint steam."
+- Cuisine lineage: see RESEARCH LOG › DISH LINEAGE NOTES.
 - Category: Everyday. Lunch, snack, and late-night register.
-- Cuisine lineage: Native German, invented dish, with a genuinely contested
-  origin — verified and corrected from the draft's own compact framing.
-  **Herta Heuwer's Berlin claim is the best-evidenced single account**: on 4
-  September 1949, at her food stand in Charlottenburg, West Berlin, she
-  mixed ketchup/Worcestershire sauce and curry powder (obtained from
-  British occupying soldiers) with other spices and poured it over a
-  grilled pork sausage; she patented her sauce under the name "Chillup" in
-  1951 (some sources say 1959). A competing claim places a similar dish in
-  Hamburg as early as 1947 (recalled by a single writer, Uwe Timm, decades
-  later, with no corroborating second source), and the Ruhr area separately
-  claims its own currywurst tradition from the 1950s onward, popular among
-  miners as an affordable, filling snack. **Disclose the Berlin claim as
-  best-evidenced, not as uncontested** — the same honest-dispute treatment
-  this project already gives the UK's fish-and-chips Malin-vs-Lees dispute.
-  [CONFIDENCE: HIGH that Heuwer's account is the best-documented and most
-  widely credited; MEDIUM that it is definitively "first," given the
-  uncorroborated Hamburg claim] [SOURCE: [Wikipedia: Currywurst](https://en.wikipedia.org/wiki/Currywurst);
-  [Herta Heuwer](https://en.wikipedia.org/wiki/Herta_Heuwer); [Hamburg
-  Travel — Berlin or Hamburg: Who invented the currywurst?](https://www.hamburg-travel.com/blog/berlin-or-hamburg-who-invented-the-currywurst/)]
 - Regional form variation (§4.2/§4.3, form-changing) — **offer as an
   explicit choice per §4.6, not a silent default**:
   - **With casing (*mit Darm*)**: a seared bratwurst-style sausage with a
     firmer, crispier exterior — the historical West Berlin and Ruhr default.
   - **Skinless (*ohne Darm*)**: a smoother, paler-surfaced sausage with no
-    casing at all — this pass found a specific, sourced origin the draft's
-    compact note only gestured at: it developed in **East Berlin**
+    casing at all: it developed in **East Berlin**
     specifically, tracing to Max Brückner (originally of
     Johanngeorgenstadt, Saxony), who began experimenting with a casing-free
     sausage from 1947 amid natural-casing shortages and brought the method
     to Berlin in the early 1950s; a well-known East Berlin Imbiss (cite as
     evidence only, genericize in any prompt) became particularly associated
-    with this skinless style. [CONFIDENCE: HIGH for the East Berlin/casing-
-    shortage origin] [SOURCE: [doeatbetterexperience.com — Currywurst in
-    Berlin](https://doeatbetterexperience.com/blog/currywurst-berlin/); [Berlin
-    Food Tour — Berlin Currywurst, More Than Just a Sausage](https://www.berlinfoodtour.de/2025/02/04/berlin-currywurst-more-than-just-a-sausage/)]
+    with this skinless style. [HIGH for the East Berlin/casing-
+    shortage origin] [S21, S22]
   - **Default when unspecified**: with casing — this reads more clearly as
     a sausage on camera and is the more widespread West German/Ruhr form.
     [EDITORIAL fallback, not a sourced claim — the skinless form should
@@ -2045,14 +2120,13 @@ requirements; flagged explicitly here rather than left implicit.
   cut edges; translucent grease spots bloom on the paper tray.
 - Real-world scale (§4.5): Tray ~17×11cm; sausage slices ~1.5–2cm thick,
   ~3cm diameter — each slice roughly half the 330mL can's diameter.
-  [CONFIDENCE: MEDIUM — a reasonable retail-portion estimate, not
-  independently measured this pass]
+  [MEDIUM]
 - Common confusion: A generic grilled hot dog (ruled out by the sliced-into-
   coins presentation and the curry-ketchup dusting); do not confuse with a
   whole, unsliced sausage on a roll (a different dish/register entirely).
 - Confidence: HIGH for the origin dispute and the casing/skinless variant
   distinction; MEDIUM for exact portion dimensions.
-- Sources: [Wikipedia: Currywurst](https://en.wikipedia.org/wiki/Currywurst); [Wikipedia: Herta Heuwer](https://en.wikipedia.org/wiki/Herta_Heuwer); [Hamburg Travel](https://www.hamburg-travel.com/blog/berlin-or-hamburg-who-invented-the-currywurst/); [doeatbetterexperience.com](https://doeatbetterexperience.com/blog/currywurst-berlin/); [Berlin Food Tour](https://www.berlinfoodtour.de/2025/02/04/berlin-currywurst-more-than-just-a-sausage/)
+- Sources: S18, S19, S20, S21, S22
 - **Composition & proportions (§4.7)** — one Imbiss portion with fries.
   - What dominates: sauce-coated sausage coins and fries share the tray
     roughly half and half by area; sauce covers ~80% of the sausage coins;
@@ -2077,25 +2151,19 @@ requirements; flagged explicitly here rather than left implicit.
     glossy, not dried.
   - Absent on purpose: a whole unsliced sausage, a hot-dog bun, onions,
     relish, sauerkraut, parsley, a plate with cutlery.
-  - Prompt-ready line: "A white paper tray about one and a half cans long,
-    filled: on one half, sliced grilled sausage coins, each about half the
-    can's width, drenched in glossy red-brown curry-ketchup sauce pooling
-    in the tray corners, dusted with patches of dry ochre curry powder, a
-    small two-pronged wooden fork standing in one piece. On the other half,
-    golden fries with a ribbon of thick pale mayonnaise. Grease spots on
-    the paper; faint steam."
 
 #### Dish: Döner Kebab (Turkish-German)
 
+- Prompt-ready line: "One Turkish-German döner kebab standing upright on
+  its paper wrapper on a small tray: a toasted quarter-wedge of dimpled
+  flatbread speckled with sesame and black seeds, a little taller
+  than the can, split open and packed with thin curled ribbons of shaved
+  meat with crisp brown edges, crowned by shredded lettuce, violet red
+  cabbage and tomato. Glossy white garlic sauce drips down one side,
+  tinted violet. Steam rising."
+- Cuisine lineage: see RESEARCH LOG › DISH LINEAGE NOTES.
 - Category: Everyday. Lunch, dinner, and late-night register — one of
   Germany's most-eaten fast foods nationwide.
-- Cuisine lineage: Turkish-German — genuinely everyday German food, not a
-  niche import; omitting it (along with pizza, Gyros, and pan-Asian Imbiss
-  food) would produce a folkloric, locally-unrecognizable Germany. This
-  project's own §4.1 spaghetti/meatballs-style honesty norm applies in
-  reverse here: Döner is correctly attributed to Turkish-German origin, and
-  that lineage should be stated plainly, not folded into "German food"
-  without context.
 - Serving format: A quarter-wedge of toasted flatbread, split and stuffed
   with shaved meat (veal, chicken, or turkey), lettuce, red cabbage,
   tomato, onion, and white garlic-yogurt sauce, sometimes a red chili
@@ -2115,17 +2183,14 @@ requirements; flagged explicitly here rather than left implicit.
 - Real-world scale (§4.5): The flatbread wedge reads roughly 20–25cm across
   the arc and 12–15cm tall — clearly larger than the 330mL can is tall, and
   clearly larger than the hand holding it. The Dürüm reads roughly 25–30cm
-  long, ~6cm diameter. [CONFIDENCE: MEDIUM — a reasonable retail-product
-  estimate, not independently measured this pass]
+  long, ~6cm diameter. [MEDIUM]
 - Common confusion: A Greek gyro in pita bread — a genuinely different,
   confusable dish; the flatbread's shape (a folded wedge, not a rolled
   pita) and the red-cabbage/white-garlic-sauce combination are the
   checkable differences that rule out gyro.
 - Confidence: MEDIUM-HIGH for the dish's everyday-German status and form;
   MEDIUM for exact dimensions.
-- Sources: general Turkish-German food-culture sourcing; not independently
-  re-verified with a dedicated new search this pass beyond confirming its
-  everyday, nationwide status is consistent with widely available reporting.
+- Sources: general Turkish-German food-culture sourcing; not independently re-verified with a dedicated new search this pass beyond confirming its everyday, nationwide status is consistent with widely available reporting
 - **Composition & proportions (§4.7)** — one flatbread-wedge Döner.
   - What dominates: bread and meat. From the side, bread ~40% of the
     silhouette, meat ~30%, salad ~20%, sauce ~10% — the meat is a thick
@@ -2148,33 +2213,27 @@ requirements; flagged explicitly here rather than left implicit.
     bread still crisp at the corners.
   - Absent on purpose: hands, a rolled pita (gyro), fries inside, cheese,
     guacamole, lettuce heaped taller than the bread.
-  - Prompt-ready line: "One Turkish-German döner kebab standing upright on
-    its paper wrapper on a small tray: a toasted quarter-wedge of dimpled
-    flatbread speckled with sesame and black seeds, a little taller
-    than the can, split open and packed with thin curled ribbons of shaved
-    meat with crisp brown edges, crowned by shredded lettuce, violet red
-    cabbage and tomato. Glossy white garlic sauce drips down one side,
-    tinted violet. Steam rising."
 
 #### Dish: Bratwurst im Brötchen
 
+- Prompt-ready line: "One grilled bratwurst laid in a split crusty white
+  bread roll on a small paper plate. The roll is about the can's height;
+  the sausage is much longer, sticking out a thumb's width or more at
+  each end, its taut casing glistening with dark charcoal grill stripes.
+  A single stripe of mustard runs along the top. Crisp, matte roll crust
+  with airy crumb at the split. Nothing else in the roll."
 - Category: Everyday snack; market-grill, stadium, and Christmas-market
   staple.
 - Regional form variation (§4.6, coexisting variants, offer as a choice):
   - **Thüringer Rostbratwurst**: long and thin, visibly flecked with herbs
     (caraway, marjoram, garlic). **EU-protected geographical indication**
     (PGI), specific and sourced dimensions: **15–20cm long**, a thin sausage
-    from Thuringia. [CONFIDENCE: HIGH] [SOURCE: [Wikipedia: Thuringian
-    sausage](https://en.wikipedia.org/wiki/Thuringian_sausage); [GOV.UK —
-    protected food name: Thüringer Rostbratwurst](https://www.gov.uk/protected-food-drink-names/thuringer-rostbratwurst)]
+    from Thuringia. [HIGH] [S23, S24]
   - **Nürnberger Rostbratwurst**: finger-sized, **EU-protected PGI**, may
     legally only be produced in the city of Nuremberg, specific and sourced
     dimensions: **7–9cm long, 20–25g**, pork-based, seasoned with fresh
     marjoram, traditionally grilled over a beechwood fire and sold **three
-    to a roll**, or 6–12 on a plate with sauerkraut. [CONFIDENCE: HIGH —
-    corrects the draft's own vaguer "~7–9cm" estimate with an exact,
-    EU-registered figure] [SOURCE: [Wikipedia: Nürnberger Rostbratwurst](https://en.wikipedia.org/wiki/N%C3%BCrnberger_Rostbratwurst);
-    [Find My Seidla — The Nürnberger Rostbratwurst: History, PGI Protection](https://findmyseidla.de/en/blog/nuremberg-bratwurst)]
+    to a roll**, or 6–12 on a plate with sauerkraut. [HIGH] [S25, S26]
   - **Generic grill Bratwurst**: thicker, pale-to-browned, no PGI
     protection or regional exclusivity.
   - **Default when unspecified**: match the named region if one is given;
@@ -2194,7 +2253,7 @@ requirements; flagged explicitly here rather than left implicit.
   out by the crusty white-roll texture and the mustard-not-relish default.
 - Confidence: HIGH for both PGI sausages' protected status and dimensions;
   MEDIUM for the generic-Bratwurst register.
-- Sources: [Wikipedia: Thuringian sausage](https://en.wikipedia.org/wiki/Thuringian_sausage); [GOV.UK](https://www.gov.uk/protected-food-drink-names/thuringer-rostbratwurst); [Wikipedia: Nürnberger Rostbratwurst](https://en.wikipedia.org/wiki/N%C3%BCrnberger_Rostbratwurst); [Find My Seidla](https://findmyseidla.de/en/blog/nuremberg-bratwurst)
+- Sources: S23, S24, S25, S26
 - **Composition & proportions (§4.7)** — one sausage in a roll (and the
   Nürnberger plate).
   - What dominates: the sausage — it is the longest element and the
@@ -2213,15 +2272,15 @@ requirements; flagged explicitly here rather than left implicit.
   - Absent on purpose: soft hot-dog bun, ketchup zigzag, relish, onions,
     cheese, sauerkraut in the roll (sauerkraut only on the Nürnberger
     plate), hands.
-  - Prompt-ready line: "One grilled bratwurst laid in a split crusty white
-    bread roll on a small paper plate. The roll is about the can's height;
-    the sausage is much longer, sticking out a thumb's width or more at
-    each end, its taut casing glistening with dark charcoal grill stripes.
-    A single stripe of mustard runs along the top. Crisp, matte roll crust
-    with airy crumb at the split. Nothing else in the roll."
 
 #### Dish: Pommes (fries)
 
+- Prompt-ready line: "A white paper tray about one and a half cans long,
+  heaped with medium-cut golden fries, each a little shorter than the
+  can, lightly blistered and salted. Across the top, one thick ribbon of
+  pale ivory German mayonnaise that holds its piped shape and one ribbon
+  of glossy red ketchup. A small wooden fork stuck in the pile. Faint
+  steam; grease spots on the paper."
 - Category: Everyday side/snack.
 - Visual/plating characteristics: Medium-cut fries in a paper tray or cone,
   golden with a lightly blistered surface and a fluffy pale interior where
@@ -2231,8 +2290,7 @@ requirements; flagged explicitly here rather than left implicit.
 - Real-world scale (§4.5): Tray ~17×11cm; fries ~7–9cm × ~1cm.
 - Common confusion: Do not add malt vinegar — that is a UK-specific
   condiment cue and would read as a UK, not German, chip register.
-- Confidence: MEDIUM — a well-known everyday snack, not independently
-  re-verified with new sourcing this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one Imbiss portion.
   - What dominates: fries ~85% of the tray surface; the condiment ribbon
     ~10–15%, on top, not beside. [EDITORIAL]
@@ -2248,15 +2306,15 @@ requirements; flagged explicitly here rather than left implicit.
     its piped shape.
   - Absent on purpose: malt vinegar, cheese sauce, gravy, herbs, crinkle
     cut, skin-on wedges, a plate and cutlery.
-  - Prompt-ready line: "A white paper tray about one and a half cans long,
-    heaped with medium-cut golden fries, each a little shorter than the
-    can, lightly blistered and salted. Across the top, one thick ribbon of
-    pale ivory German mayonnaise that holds its piped shape and one ribbon
-    of glossy red ketchup. A small wooden fork stuck in the pile. Faint
-    steam; grease spots on the paper."
 
 #### Dish: Fischbrötchen
 
+- Prompt-ready line: "A crusty white bread roll a little longer than the
+  can is tall, split and filled with one whole pickled herring fillet,
+  silver-skinned with a blue-green sheen and firm ivory flesh, sticking
+  out past both ends of the roll. Thin translucent raw onion rings over
+  the fish, a frill of green lettuce and two pickle slices underneath.
+  On white paper at a harbour kiosk counter; cool, fresh, glistening."
 - Category: Everyday snack/lunch. Region: the North specifically (harbour
   kiosk register).
 - Regional/serving-format variation (§4.4/§4.6, offer as coexisting
@@ -2276,9 +2334,7 @@ requirements; flagged explicitly here rather than left implicit.
 - Common confusion: A butter-toasted US-style lobster-roll bun — ruled out
   by the plain crusty-roll format and the pickled-fish (not warm-buttered-
   seafood) filling.
-- Confidence: MEDIUM-HIGH — the North German regional attribution and the
-  named-variant list are both well-corroborated general food-culture facts;
-  exact dimensions are this file's own reasonable estimate.
+- Confidence: MEDIUM-HIGH.
 - **Composition & proportions (§4.7)** — one Bismarck Fischbrötchen.
   - What dominates: the roll and the silver fillet — the fillet is the
     visual hero at the opening, overhanging both ends; onion rings the main
@@ -2296,15 +2352,15 @@ requirements; flagged explicitly here rather than left implicit.
     crisp translucent onion; cool, not steaming.
   - Absent on purpose: toasted buttered bun, warm seafood, heaped salad,
     lemon wedge, hands.
-  - Prompt-ready line: "A crusty white bread roll a little longer than the
-    can is tall, split and filled with one whole pickled herring fillet,
-    silver-skinned with a blue-green sheen and firm ivory flesh, sticking
-    out past both ends of the roll. Thin translucent raw onion rings over
-    the fish, a frill of green lettuce and two pickle slices underneath.
-    On white paper at a harbour kiosk counter; cool, fresh, glistening."
 
 #### Dish: Leberkäse / Fleischkäse
 
+- Prompt-ready line: "A crusty white bread roll, a little narrower than
+  the can is tall, split around a thick warm slice of German meat loaf
+  that overhangs the bread on every side: fine, uniform rosy-pink inside
+  with a deep-brown baked crust along its edge. A dollop of sweet brown
+  mustard on the meat. Steam rising from the cut. Nothing else in the
+  roll."
 - Category: Everyday snack/lunch. Regional naming: *Leberkäs* (Bavaria),
   *Fleischkäse* (southwest) — same dish, naming-only variation.
 - Visual/plating characteristics: A thick slice of baked meat loaf, deep-
@@ -2319,8 +2375,7 @@ requirements; flagged explicitly here rather than left implicit.
   serving-format-siblings principle.
 - Real-world scale (§4.5): Slice ~1.5–2cm thick, ~10cm across; the slice
   visibly overhangs the roll's crumb.
-- Confidence: MEDIUM — a well-known everyday Bavarian/southern German food,
-  not independently re-verified with new sourcing this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — a Leberkässemmel, and the plate.
   - What dominates: the meat-loaf slice — it is larger than the roll's cut
     face and overhangs it; mustard a small accent. [EDITORIAL]
@@ -2337,15 +2392,15 @@ requirements; flagged explicitly here rather than left implicit.
     edge; faint fat gloss.
   - Absent on purpose: lettuce, cheese, ketchup, visible liver or cheese
     in the meat, burger-style stacking.
-  - Prompt-ready line: "A crusty white bread roll, a little narrower than
-    the can is tall, split around a thick warm slice of German meat loaf
-    that overhangs the bread on every side: fine, uniform rosy-pink inside
-    with a deep-brown baked crust along its edge. A dollop of sweet brown
-    mustard on the meat. Steam rising from the cut. Nothing else in the
-    roll."
 
 #### Dish: Brezel (lye pretzel)
 
+- Prompt-ready line: "One German lye pretzel lying flat on a wooden
+  board, about one and a half times the can's height across: deep
+  mahogany-brown lacquered crust with a satin sheen and fine crackle, thin crisp arms knotted over
+  a fat belly split open to show pale crumb. Coarse, opaque white salt
+  crystals scattered on the belly and knots, a few fallen on the board.
+  No dip, no sugar."
 - Category: Everyday snack, Brotzeit staple, beer-garden side.
 - Regional form variation (§4.6, coexisting, offer as a choice, confirmed
   and detailed this pass): **Swabian pretzels have thin, crisp arms and a
@@ -2353,11 +2408,7 @@ requirements; flagged explicitly here rather than left implicit.
   have more evenly thick arms and a thinner belly, left to split on its own
   during baking rather than pre-slit**. Swabian pretzels also run notably
   higher in fat content (roughly 3–10%) than Bavarian ones (roughly 3%).
-  [CONFIDENCE: HIGH — this corrects and sharpens the draft's own compact
-  note with a specific, sourced mechanism (pre-slit vs. naturally split)
-  rather than just "arms joined higher/lower"] [SOURCE: [The Daily Meal —
-  What Makes Bavarian Pretzels Different](https://www.thedailymeal.com/2062505/what-makes-bavarian-pretzels-different/);
-  [My German Table — Swabian Pretzels](https://www.mygermantable.com/swabian-pretzels-schwabische-laugenbrezeln/)]
+  [HIGH] [S27, S28]
   **KB default**: match the named region; do not mix Swabian and Bavarian
   pretzel shapes within one scene.
 - Visual/plating characteristics: Per the lye-crust texture entry (deep
@@ -2367,14 +2418,14 @@ requirements; flagged explicitly here rather than left implicit.
   optional chives.
 - Real-world scale (§4.5): A bakery pretzel reads roughly 15–20cm wide; a
   beer-garden "giant" pretzel runs 30cm or more, often hung on a hook or
-  peg stand — clearly larger than the can. [CONFIDENCE: MEDIUM — a
+  peg stand — clearly larger than the can. [MEDIUM — a
   reasonable retail estimate]
 - Common confusion: A pale, soft, US mall-style pretzel with cinnamon sugar
   or a cheese dip — ruled out by the dark lacquered lye crust and coarse
   salt (never fine table salt or cinnamon sugar).
 - Confidence: HIGH for the Swabian/Bavarian shape distinction; MEDIUM for
   exact dimensions.
-- Sources: [The Daily Meal](https://www.thedailymeal.com/2062505/what-makes-bavarian-pretzels-different/); [My German Table](https://www.mygermantable.com/swabian-pretzels-schwabische-laugenbrezeln/)
+- Sources: S27, S28
 - **Composition & proportions (§4.7)** — one bakery pretzel (and a
   Butterbrezel).
   - What dominates: the lacquered brown crust — ~85% of the visible
@@ -2391,15 +2442,15 @@ requirements; flagged explicitly here rather than left implicit.
     board.
   - Absent on purpose: cinnamon sugar, cheese dip, fine table salt, pale
     soft crust, mixed Swabian and Bavarian shapes.
-  - Prompt-ready line: "One German lye pretzel lying flat on a wooden
-    board, about one and a half times the can's height across: deep
-    mahogany-brown lacquered crust with a satin sheen and fine crackle, thin crisp arms knotted over
-    a fat belly split open to show pale crumb. Coarse, opaque white salt
-    crystals scattered on the belly and knots, a few fallen on the board.
-    No dip, no sugar."
 
 #### Dish: Reibekuchen / Kartoffelpuffer (potato pancakes)
 
+- Prompt-ready line: "Three fried grated-potato pancakes, each about the
+  can's height across and a finger thick, overlapping like shingles on a
+  small paper plate. Lacy, frizzled edges of individual potato shreds
+  browned almost dark at the tips; golden, slightly oily centres with
+  visible strands. One dollop of pale beige-gold, slightly grainy apple
+  sauce beside them. Faint steam; grease spots on the paper."
 - Category: Everyday snack. Christmas-market and fair staple; also home
   cooking.
 - Visual/plating characteristics: 2–3 fried grated-potato pancakes with
@@ -2424,15 +2475,15 @@ requirements; flagged explicitly here rather than left implicit.
     in cold air; grease spots on the paper plate.
   - Absent on purpose: uniform hash-brown patties, sour cream, chives,
     smoked salmon (restaurant variant only), ketchup.
-  - Prompt-ready line: "Three fried grated-potato pancakes, each about the
-    can's height across and a finger thick, overlapping like shingles on a
-    small paper plate. Lacy, frizzled edges of individual potato shreds
-    browned almost dark at the tips; golden, slightly oily centres with
-    visible strands. One dollop of pale beige-gold, slightly grainy apple
-    sauce beside them. Faint steam; grease spots on the paper."
 
 #### Dish: Half roast chicken (*Hendl* / *Hähnchen* / East: "Broiler")
 
+- Prompt-ready line: "One half roast chicken, skin side up, filling most
+  of a white plate and nearly twice the can's height long: lacquered,
+  burnished mahogany-gold skin, taut and crisp, tinted with paprika and
+  glistening with spiced fat, a thin fat pool around it. Leg angled out,
+  breast in the middle. One crusty white bread roll beside it. Steam
+  rising; no garnish."
 - Category: Everyday. Lunch, dinner, and fair/market food.
 - Regional naming (§4.2, prevalence/naming-only, not form-changing):
   *Hendl* (Bavaria), *Hähnchen* (general/national), *Broiler* (former East
@@ -2442,9 +2493,7 @@ requirements; flagged explicitly here rather than left implicit.
   Rotisserie trailers show rows of rotating birds behind glass under warm
   light.
 - Real-world scale (§4.5): Half chicken ~20×12cm on a 26cm plate.
-- Confidence: MEDIUM — a well-known everyday food, not independently
-  re-verified with new sourcing this pass beyond the "Broiler" East German
-  naming, which is well-attested general knowledge.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one half chicken.
   - What dominates: the chicken — it takes ~70–80% of the plate; a roll
     or fries is the only accent. [EDITORIAL]
@@ -2458,30 +2507,28 @@ requirements; flagged explicitly here rather than left implicit.
     steam from the joint.
   - Absent on purpose: carving on the plate, herb garnish, lemon, salad
     heaps, barbecue sauce; beer mugs in a fair scene.
-  - Prompt-ready line: "One half roast chicken, skin side up, filling most
-    of a white plate and nearly twice the can's height long: lacquered,
-    burnished mahogany-gold skin, taut and crisp, tinted with paprika and
-    glistening with spiced fat, a thin fat pool around it. Leg angled out,
-    breast in the middle. One crusty white bread roll beside it. Steam
-    rising; no garnish."
 
 ### Schnitzel & pan-German classics
 
 #### Dish: Schnitzel Wiener Art (breaded pork cutlet, Viennese style)
 
+- Prompt-ready line: "One thin breaded pork cutlet, about twice the
+  can's height long and thinner than a finger, laid flat and hanging to
+  the rim of a white dinner plate. Its fine golden-to-amber crumb puffs
+  up in loose waves and blisters, lifting away from the pale meat. A
+  lemon wedge on one end. A loose heap of golden fries fills the other
+  third of the plate. Dry, crisp, no sauce."
 - Category: Everyday and special-occasion. Lunch, dinner; inn, canteen,
   family-restaurant register.
-- **Naming rule — confirmed, and this is a real, legally grounded naming
-  distinction, not just a culinary convention.** "Wiener Schnitzel" is a
-  legally protected name in both Austria and Germany and may only be used
-  for the **veal** version; a pork cutlet prepared the same way must be
+- **Naming rule.** Under the food-standards guidelines of Germany
+  (*Leitsätze* of the German Food Code) and Austria, "Wiener Schnitzel"
+  means the **veal** version, and selling pork under that name counts as
+  misleading; a pork cutlet prepared the same way must be
   called **"Schnitzel Wiener Art"** ("Viennese-style schnitzel") or "Wiener
   Schnitzel vom Schwein." Germany's everyday, high-frequency version is
   overwhelmingly the pork one. [CONFIDENCE: HIGH — this corrects and
   strengthens the draft's own `[UV→X]`-tagged version of the same claim
-  with a confirmed legal basis] [SOURCE: [The Daily Meal — Wiener
-  Schnitzel's Ingredients Are Actually Defined By Law](https://www.thedailymeal.com/1105865/wiener-schnitzels-ingredients-are-actually-defined-by-law/);
-  [Wikipedia: Wiener schnitzel](https://en.wikipedia.org/wiki/Wiener_schnitzel)]
+  with a confirmed legal basis] [S29, S30]
   **KB default and required prompt language**: "a breaded pork cutlet,
   Viennese style" or "Schnitzel Wiener Art" — never call a pork schnitzel
   "Wiener Schnitzel" outright in a prompt describing the everyday pork
@@ -2497,14 +2544,13 @@ requirements; flagged explicitly here rather than left implicit.
   translucent golden onion and bacon bits.
 - Real-world scale (§4.5): The cutlet reads roughly 20–25cm long, 0.5–0.8cm
   thick — often **overhanging a 28cm plate**, or served on a 32cm oval
-  platter. [CONFIDENCE: MEDIUM — a reasonable, widely-corroborated
-  restaurant-portion estimate, not independently measured this pass]
+  platter. [MEDIUM]
 - Common confusion: US chicken-fried steak with white gravy (a thicker,
   darker-battered dish with a completely different sauce); Japanese tonkatsu
   (a thicker cutlet with a coarser panko crust, usually sliced into strips
   before serving) — neither is the same visual presentation.
 - Confidence: HIGH for the naming rule; MEDIUM for exact dimensions.
-- Sources: [The Daily Meal](https://www.thedailymeal.com/1105865/wiener-schnitzels-ingredients-are-actually-defined-by-law/); [Wikipedia: Wiener schnitzel](https://en.wikipedia.org/wiki/Wiener_schnitzel)
+- Sources: S29, S30
 - **Composition & proportions (§4.7)** — one plated inn portion.
   - What dominates: the cutlet — ~55–65% of a 28 cm plate, often reaching
     or passing the rim; the side ~30–40%; the lemon wedge a small accent.
@@ -2526,15 +2572,15 @@ requirements; flagged explicitly here rather than left implicit.
   - Absent on purpose: sauce or gravy (that is the sauced family), thick
     craggy batter, panko, parsley piles, lingonberry jam unless an Austrian
     scene, sauerkraut.
-  - Prompt-ready line: "One thin breaded pork cutlet, about twice the
-    can's height long and thinner than a finger, laid flat and hanging to
-    the rim of a white dinner plate. Its fine golden-to-amber crumb puffs
-    up in loose waves and blisters, lifting away from the pale meat. A
-    lemon wedge on one end. A loose heap of golden fries fills the other
-    third of the plate. Dry, crisp, no sauce."
 
 #### Dish: Sauced Schnitzel family (Jägerschnitzel, Rahmschnitzel, paprika schnitzel)
 
+- Prompt-ready line: "A breaded pork cutlet about twice the can's height
+  long on a white dinner plate, the middle two-thirds covered by a
+  ladleful of creamy beige mushroom sauce with thin sliced brown
+  mushrooms, pooling onto the plate; one end of the golden crust left
+  exposed and crisp. A heap of golden fries fills the other third of the
+  plate. Steam rising; glossy sauce."
 - Category: Everyday and canteen lunch staple.
 - Serving format: A cutlet (breaded or plain) with sauce ladled over part
   of it, leaving some crust exposed; sauce partly soaks the crust while the
@@ -2555,9 +2601,7 @@ requirements; flagged explicitly here rather than left implicit.
     substitution, not a loose regional-variant guess** — use only when an
     East German/GDR-heritage context is explicit, per the draft's own
     instruction, which this pass found no reason to overturn.
-    [CONFIDENCE: HIGH] [SOURCE: [DDR Museum — Hunter's Schnitzel with
-    Tomato Sauce](https://www.ddr-museum.de/en/blog/2016/hunters-schnitzel-with-tomato-sauce);
-    [Wikipedia: Jagdwurst](https://en.wikipedia.org/wiki/Jagdwurst)]
+    [HIGH] [S3, S31]
   - **Rahmschnitzel**: a pale cream sauce, no mushrooms.
   - **Paprikaschnitzel**: a red-orange sauce with bell-pepper strips.
 - **Naming sensitivity — carried from the draft, treated as a standing
@@ -2590,15 +2634,15 @@ requirements; flagged explicitly here rather than left implicit.
     at the free end.
   - Absent on purpose: the old slur name in any caption; the cutlet fully
     drowned; parsley piles; the East version outside an East context.
-  - Prompt-ready line: "A breaded pork cutlet about twice the can's height
-    long on a white dinner plate, the middle two-thirds covered by a
-    ladleful of creamy beige mushroom sauce with thin sliced brown
-    mushrooms, pooling onto the plate; one end of the golden crust left
-    exposed and crisp. A heap of golden fries fills the other third of the
-    plate. Steam rising; glossy sauce."
 
 #### Dish: Rinderrouladen
 
+- Prompt-ready line: "One braised beef roll about the can's height long,
+  tied with gravy-darkened string, cut in half to show a spiral of beef
+  around a yellow mustard smear, bacon, onion and pale-green pickle,
+  lying in glossy dark-brown gravy on a white plate. Beside it one smooth
+  pale potato dumpling about the can's width and a smaller heap of
+  glossy purple-red cabbage. Steam rising."
 - Category: Sunday lunch, festive/special-occasion register, also everyday.
 - Serving format: Beef rolls tied with kitchen string or pinned with a
   wooden skewer, braised in gravy, served with red cabbage and a potato
@@ -2610,8 +2654,7 @@ requirements; flagged explicitly here rather than left implicit.
 - Real-world scale (§4.5): Roll ~10–14cm × ~4–5cm; dumpling ~7–8cm.
 - Common confusion: Italian braciole in tomato sauce — ruled out by the
   brown-gravy (not tomato-based) sauce and the mustard/pickle/bacon filling.
-- Confidence: MEDIUM — a well-known dish, not independently re-verified
-  with new sourcing this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one Sunday plate.
   - What dominates: the beef roll and its gravy — ~40% of the plate; red
     cabbage ~25%; dumpling ~20%; gravy pool ties them together.
@@ -2627,18 +2670,18 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: glossy dark gravy; steam; cabbage glossy purple-red.
   - Absent on purpose: tomato sauce, herb garnish, more than one roll per
     person, mashed potato in place of the dumpling unless specified.
-  - Prompt-ready line: "One braised beef roll about the can's height long,
-    tied with gravy-darkened string, cut in half to show a spiral of beef
-    around a yellow mustard smear, bacon, onion and pale-green pickle,
-    lying in glossy dark-brown gravy on a white plate. Beside it one smooth
-    pale potato dumpling about the can's width and a smaller heap of
-    glossy purple-red cabbage. Steam rising."
 
 #### Dish: Sauerbraten
 
+- Prompt-ready line: "Three overlapping slices of fork-tender braised
+  beef, each about the can's height long, fanned on a white plate under
+  a thick, dark, matte-velvety sweet-sour sauce with plump dark raisins
+  suspended in it. One smooth pale potato dumpling, a little wider than
+  the can, and a small heap of glossy red cabbage beside. The meat grain
+  frays slightly. Steam rising; no garnish."
 - Category: Special-occasion/Sunday lunch, also served in everyday inns.
 - Regional form variation (§4.6, genuinely coexisting variants — confirmed
-  and detailed this pass beyond the draft's compact note):
+  and detailed this pass):
   - **Rhenish (Rhineland)**: marinated in vinegar and red wine; the sauce
     is sweetened with raisins and often beet syrup as well. **KB default.**
   - **Franconian**: prepared **without** raisins; the sauce is thickened
@@ -2647,12 +2690,8 @@ requirements; flagged explicitly here rather than left implicit.
   - **Swabian**: less sweet, a little spicier (garlic, a very dry wine),
     traditionally served with Spätzle and red cabbage rather than potato
     dumplings.
-  [CONFIDENCE: HIGH for all three variants existing and being genuinely
-  distinct in preparation, not just regional flavor preference] [SOURCE:
-  [germany-shop.info — Secrets of sauerbraten: a chef reveals the regional
-  differences](https://www.germany-shop.info/en/why-does-sauerbraten-taste-so-different-in-the-rhineland-compared-to-franconia-or-saxony/);
-  general Sauerbraten regional sourcing corroborating the same three-way
-  split]
+  [HIGH for all three variants existing and being genuinely
+  distinct in preparation, not just regional flavor preference] [S32; general Sauerbraten regional sourcing corroborating the same three-way split]
 - Visual/plating characteristics: Fork-tender slices with a visible grain
   that frays slightly. Gravy is darker, thicker, and more matte-velvety
   than a standard Bratensoße. The Rhenish version shows plump, dark raisins
@@ -2660,7 +2699,7 @@ requirements; flagged explicitly here rather than left implicit.
 - Real-world scale (§4.5): Slices ~1cm × ~10–12cm on a 28cm plate.
 - Confidence: HIGH for the three regional variants; MEDIUM for exact
   dimensions.
-- Sources: [germany-shop.info](https://www.germany-shop.info/en/why-does-sauerbraten-taste-so-different-in-the-rhineland-compared-to-franconia-or-saxony/)
+- Sources: S32
 - **Composition & proportions (§4.7)** — one plate, Rhenish default.
   - What dominates: meat slices under sauce ~45% of the plate; dumplings
     ~25%; red cabbage ~20%; raisins small dark accents in the sauce.
@@ -2675,15 +2714,15 @@ requirements; flagged explicitly here rather than left implicit.
     steam.
   - Absent on purpose: raisins in the Franconian version; pink medium-rare
     meat; herb garnish.
-  - Prompt-ready line: "Three overlapping slices of fork-tender braised
-    beef, each about the can's height long, fanned on a white plate under
-    a thick, dark, matte-velvety sweet-sour sauce with plump dark raisins
-    suspended in it. One smooth pale potato dumpling, a little wider than
-    the can, and a small heap of glossy red cabbage beside. The meat grain
-    frays slightly. Steam rising; no garnish."
 
 #### Dish: Frikadelle / Bulette / Fleischpflanzerl / Fleischküchle
 
+- Prompt-ready line: "Two pan-fried meat patties, each a little wider
+  than the can and about a third of its width thick, at one side of a
+  white plate: craggy, uneven browning with darker crisp high points and
+  irregular edges; one cut open to show a coarse grey-brown interior
+  with onion bits. A mound of potato salad fills the rest of the plate;
+  a dab of mustard. No bun."
 - Category: Everyday. Warm with potato salad, or cold in a roll with
   mustard.
 - Regional naming (§4.2, prevalence/naming-only — same dish, different
@@ -2698,8 +2737,7 @@ requirements; flagged explicitly here rather than left implicit.
 - Common confusion: A uniform, flat, machine-formed US burger patty — ruled
   out by the craggy, irregular browning and the visible onion/breadcrumb
   interior.
-- Confidence: MEDIUM — the naming variation is well-known general knowledge,
-  not independently re-verified region by region this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — warm plate with potato salad, and
   cold in a roll.
   - What dominates: the patty on the plate ~35%, potato salad ~50%; mustard
@@ -2714,16 +2752,16 @@ requirements; flagged explicitly here rather than left implicit.
     version matte, no steam.
   - Absent on purpose: a burger bun, cheese, lettuce, flat uniform
     machine-formed discs, ketchup.
-  - Prompt-ready line: "Two pan-fried meat patties, each a little wider
-    than the can and about a third of its width thick, at one side of a
-    white plate: craggy, uneven browning with darker crisp high points and
-    irregular edges; one cut open to show a coarse grey-brown interior
-    with onion bits. A mound of potato salad fills the rest of the plate;
-    a dab of mustard. No bun."
 
 #### Dish: Königsberger Klopse
 
-- Category: Everyday/home-cooking classic.
+- Prompt-ready line: "Three pale, soft, matte grey-beige poached
+  meatballs, each a little narrower than the can, sitting half-sunk in
+  a velvety ivory cream sauce dotted with small olive-green capers, on a
+  white plate. Three boiled potatoes beside them and a few glossy
+  magenta beetroot slices. The meatballs are not browned at all. Steam
+  rising."
+- Category: Everyday/home-cooking classic. Origin: East Prussia (Königsberg, now Kaliningrad); it came west with postwar expellee families and is now national, strongest in Berlin and the East. Don't present it as a Berlin dish.
 - Visual/plating characteristics: 3–4 poached meatballs in a white caper
   sauce, with boiled potatoes and sometimes beetroot. Pale, soft, matte
   grey-beige meatballs — **not browned**, a genuinely distinctive,
@@ -2734,8 +2772,7 @@ requirements; flagged explicitly here rather than left implicit.
 - Common confusion: Browned Swedish meatballs with lingonberry sauce —
   ruled out by the pale, unbrowned surface and the white caper sauce
   (rather than a brown cream gravy).
-- Confidence: MEDIUM — a well-known classic dish, not independently
-  re-verified with new sourcing this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one plate.
   - What dominates: pale meatballs and white sauce ~50% of the plate,
     potatoes ~35%, beetroot ~10%; capers are small dark-green dots.
@@ -2751,15 +2788,14 @@ requirements; flagged explicitly here rather than left implicit.
     surfaces.
   - Absent on purpose: any browning, brown gravy, lingonberry, herbs piled
     on top, pasta.
-  - Prompt-ready line: "Three pale, soft, matte grey-beige poached
-    meatballs, each a little narrower than the can, sitting half-sunk in
-    a velvety ivory cream sauce dotted with small olive-green capers, on a
-    white plate. Three boiled potatoes beside them and a few glossy
-    magenta beetroot slices. The meatballs are not browned at all. Steam
-    rising."
 
 #### Dish: Kassler
 
+- Prompt-ready line: "One thick smoked-cured pork chop, about the can's
+  height long, uniform deep rose-pink with a thin smoky-bronze fat rim
+  and a glossy cut face, leaning against a smooth mound of mashed potato
+  on a white plate, with a heap of pale golden sauerkraut strands beside
+  it. Steam rising from the mash and sauerkraut. No garnish."
 - Category: Everyday.
 - Visual/plating characteristics: A thick, smoked-cured pork chop with
   sauerkraut and mashed potato; uniform deep rose-pink cured meat, a thin
@@ -2775,16 +2811,16 @@ requirements; flagged explicitly here rather than left implicit.
   - Arrangement: chop leaning on the mash, sauerkraut heaped beside it.
   - State cues: glossy cut face; steam from mash and sauerkraut.
   - Absent on purpose: grill marks, gravy piles, herb garnish.
-  - Prompt-ready line: "One thick smoked-cured pork chop, about the can's
-    height long, uniform deep rose-pink with a thin smoky-bronze fat rim
-    and a glossy cut face, leaning against a smooth mound of mashed potato
-    on a white plate, with a heap of pale golden sauerkraut strands beside
-    it. Steam rising from the mash and sauerkraut. No garnish."
 
 ### Bavaria
 
 #### Dish: Schweinsbraten
 
+- Prompt-ready line: "Two thick slices of roast pork, each about the
+  can's height long, overlapping on a white plate, each crowned with a
+  rim of crisp, blistered, diamond-scored crackling kept dry above a
+  pool of glossy dark gravy. One smooth pale dumpling about the can's
+  width sits in the gravy beside them. Steam rising; no garnish."
 - Category: Sunday lunch, everyday inn fare.
 - Visual/plating characteristics: 2 slices of roast pork with crackling in
   dark gravy, a dumpling, sometimes a warm cabbage salad. Crackling per the
@@ -2802,14 +2838,15 @@ requirements; flagged explicitly here rather than left implicit.
     poured around, not over the crackling; dumpling in the gravy.
   - State cues: crackling crisp and dry; gravy glossy; steam.
   - Absent on purpose: gravy over the crackling, parsley piles, fries.
-  - Prompt-ready line: "Two thick slices of roast pork, each about the
-    can's height long, overlapping on a white plate, each crowned with a
-    rim of crisp, blistered, diamond-scored crackling kept dry above a
-    pool of glossy dark gravy. One smooth pale dumpling about the can's
-    width sits in the gravy beside them. Steam rising; no garnish."
 
 #### Dish: Schweinshaxe (roasted pork knuckle) — and its coexisting sibling, Eisbein
 
+- Prompt-ready line: "One whole roasted pork knuckle, nearly twice the
+  can's height, standing on a white oval platter with its bone jutting
+  up, the whole surface covered in glassy, blistered amber crackling
+  bubbled like popcorn. A smooth pale potato dumpling about the can's
+  width sits in a pool of glossy dark gravy beside it. A knife stands
+  upright in the meat. Steam rising."
 - Category: Special-occasion/hearty everyday inn fare.
 - **Regional/preparation variant (§4.6) — genuinely coexisting, never
   conflate**: **Haxe** (Bavarian, **roasted**, crackling-crisp) versus
@@ -2824,9 +2861,7 @@ requirements; flagged explicitly here rather than left implicit.
   in shreds. Dumpling and gravy alongside.
 - Real-world scale (§4.5): ~18–22cm long, dominating a 32cm oval platter —
   clearly larger than the 330mL can is tall.
-- Confidence: MEDIUM — a well-known dish, not independently re-verified
-  with new sourcing this pass beyond confirming the Haxe/Eisbein
-  distinction is a real, standard one in German food writing.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one knuckle on a platter.
   - What dominates: the knuckle — ~60% of a 32 cm oval platter; dumpling
     and gravy the rest. [EDITORIAL]
@@ -2840,15 +2875,14 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: glassy, bubbled crackling; gravy glossy; steam.
   - Absent on purpose: soft pale boiled skin (that is Eisbein), sauerkraut
     by default, beer steins anywhere in frame.
-  - Prompt-ready line: "One whole roasted pork knuckle, nearly twice the
-    can's height, standing on a white oval platter with its bone jutting
-    up, the whole surface covered in glassy, blistered amber crackling
-    bubbled like popcorn. A smooth pale potato dumpling about the can's
-    width sits in a pool of glossy dark gravy beside it. A knife stands
-    upright in the meat. Steam rising."
 
 #### Dish: Knödel (dumplings)
 
+- Prompt-ready line: "One smooth, round, pale ivory potato dumpling about
+  the can's width, with a soft satin sheen, sitting in a pool of glossy
+  dark gravy at the side of a white plate, its top dry and unsauced.
+  Faint steam. It is a side, clearly smaller than the slice of roast
+  meat beside it, and there is only one."
 - Category: Everyday/Sunday-lunch side, national but especially Bavarian/
   Southern.
 - Regional form variation (§4.6, coexisting choices): **Potato dumpling**
@@ -2879,17 +2913,18 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: satin sheen, faint steam; gravy glossy around the base.
   - Absent on purpose: fried or browned dumplings, dumplings piled three
     and more beside a roast, sauce poured over the whole top.
-  - Prompt-ready line: "One smooth, round, pale ivory potato dumpling about
-    the can's width, with a soft satin sheen, sitting in a pool of glossy
-    dark gravy at the side of a white plate, its top dry and unsauced.
-    Faint steam. It is a side, clearly smaller than the slice of roast
-    meat beside it, and there is only one."
 
 #### Dish: Weißwurst
 
-- Category: **Late-morning Brotzeit specifically — never depict as
-  breakfast**, a scope rule carried directly from the draft and not
-  contradicted by anything found this pass. Bavaria-specific.
+- Prompt-ready line: "Two pale grey-white sausages, each about the can's
+  height and a bit over half its width, lying in a steaming bowl of hot
+  water with its lid tilted. Beside it a small plate with a dollop of
+  sweet brown mustard and one sausage peeled open to show pale, fine
+  interior with green parsley flecks, and a dark lacquered pretzel with
+  coarse salt. Late-morning light."
+- Category: **Morning to late morning, eaten before the noon bell**: the
+  classic *Weißwurstfrühstück* (a Bavarian second breakfast or Brotzeit).
+  Use it for Brunch, never for lunch or dinner. Bavaria-specific.
 - Serving format: Two pale sausages in a lidded bowl of hot water, with
   sweet mustard and a Brezel; traditionally peeled or sucked from the
   casing rather than eaten whole, casing and all.
@@ -2898,9 +2933,7 @@ requirements; flagged explicitly here rather than left implicit.
   the water. Once peeled, the interior is pale, fine, and soft (per the
   emulsified-sausage texture entry).
 - Real-world scale (§4.5): ~12–14cm × ~3cm; bowl ~18cm.
-- Confidence: MEDIUM — a well-known Bavarian tradition; the before-noon
-  eating custom is widely and consistently reported, not independently
-  re-verified with a dedicated new source this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one pair with Brezel.
   - What dominates: the lidded bowl with two pale sausages ~50% of the
     set; Brezel ~30%; mustard a small dollop. [EDITORIAL]
@@ -2916,15 +2949,15 @@ requirements; flagged explicitly here rather than left implicit.
     flecks show through.
   - Absent on purpose: grill marks, browning, yellow mustard, sauerkraut,
     any afternoon or evening light cue, beer.
-  - Prompt-ready line: "Two pale grey-white sausages, each about the can's
-    height and a bit over half its width, lying in a steaming bowl of hot
-    water with its lid tilted. Beside it a small plate with a dollop of
-    sweet brown mustard and one sausage peeled open to show pale, fine
-    interior with green parsley flecks, and a dark lacquered pretzel with
-    coarse salt. Late-morning light."
 
 #### Dish: Obatzda & Brotzeit board
 
+- Prompt-ready line: "A long wooden board for sharing: at the centre a
+  rough-peaked mound of apricot-orange spiced cheese spread about the
+  can's width, topped with raw onion rings and chives. At one end a
+  salted white radish spiral a bit taller than the can, opened like an
+  accordion. Along one side a dark lacquered pretzel and slices of rye
+  bread, along the other fanned cold cuts. Cold, matte, rustic."
 - Category: Everyday snack, beer-garden and Brotzeit staple. Bavaria-
   specific.
 - Visual/plating characteristics: A mound of spiced cheese spread with raw
@@ -2951,15 +2984,14 @@ requirements; flagged explicitly here rather than left implicit.
     rough peaks.
   - Absent on purpose: beer steins, crackers, grapes, crostini styling,
     cheese cubes on picks.
-  - Prompt-ready line: "A long wooden board for sharing: at the centre a
-    rough-peaked mound of apricot-orange spiced cheese spread about the
-    can's width, topped with raw onion rings and chives. At one end a
-    salted white radish spiral a bit taller than the can, opened like an
-    accordion. Along one side a dark lacquered pretzel and slices of rye
-    bread, along the other fanned cold cuts. Cold, matte, rustic."
 
 #### Dish: Wurstsalat
 
+- Prompt-ready line: "A deep white plate heaped with thin pale-pink
+  sausage strips, each shorter than half the can's height, glossy and
+  wet with a clear vinegar dressing that pools at the bottom. Thin
+  translucent raw onion rings and pickle strips on top, a scatter of
+  chives. A slice of dark bread beside the plate. Cold, glistening."
 - Category: Everyday, Bavaria/Southern-coded.
 - Visual/plating characteristics: Julienned sausage (Regensburger or
   Lyoner type) with onion rings and pickle in a vinegar dressing, served
@@ -2980,25 +3012,22 @@ requirements; flagged explicitly here rather than left implicit.
   - Vessel fill: fills the plate's well, dressing pooling at the bottom.
   - State cues: wet, glossy dressing; cold.
   - Absent on purpose: lettuce base, mayonnaise, tomato, egg.
-  - Prompt-ready line: "A deep white plate heaped with thin pale-pink
-    sausage strips, each shorter than half the can's height, glossy and
-    wet with a clear vinegar dressing that pools at the bottom. Thin
-    translucent raw onion rings and pickle strips on top, a scatter of
-    chives. A slice of dark bread beside the plate. Cold, glistening."
 
 #### Dish: Steckerlfisch (fish on a stick)
 
+- Prompt-ready line: "One whole grilled mackerel, about two and a half
+  cans long, lying on white paper on a wooden beer-garden table: its
+  skin blistered, crackled and charred bronze with a speckle of spice
+  rub, torn open at the thickest part to show flaky white flesh. A
+  wooden stick still runs through it lengthwise. Light smoke haze behind;
+  no lemon, no garnish."
 - Category: Beer-garden and folk-festival grill food. Bavaria/Franconia-
   specific.
 - Cuisine/species note — **corrected and sharpened this pass**: originally
   made with trout and freshwater whitefish; refrigeration and improved
   transport made saltwater fish (mackerel) more widely available, and
   **mackerel is now the most commonly prepared Steckerlfisch fish**, though
-  trout and char are also still used. [CONFIDENCE: HIGH — corrects the
-  draft's own less specific "mackerel (or char)" framing with a clearer
-  prevalence statement] [SOURCE: [Craft Beering — Steckerlfisch aka
-  Bavarian Fish on a Stick](https://www.craftbeering.com/steckerlfisch/);
-  [Wikipedia: Steckerlfisch](https://en.wikipedia.org/wiki/Steckerlfisch)]
+  trout and char are also still used. [HIGH] [S33, S34]
   The dish is closely associated with the Munich autumn folk festival
   specifically (a local fish merchant is credited with introducing it there
   in the early 20th century), consistent with this file's Munich-only
@@ -3012,7 +3041,7 @@ requirements; flagged explicitly here rather than left implicit.
   profile, to hold position over the embers) runs roughly 50–60cm.
 - Confidence: HIGH for the fish-species prevalence claim and the Oktoberfest
   connection; MEDIUM for exact dimensions.
-- Sources: [Craft Beering](https://www.craftbeering.com/steckerlfisch/); [Wikipedia: Steckerlfisch](https://en.wikipedia.org/wiki/Steckerlfisch)
+- Sources: S33, S34
 - **Composition & proportions (§4.7)** — one fish on paper.
   - What dominates: the whole fish — ~80% of the frame's food; paper and
     stick the rest. [EDITORIAL]
@@ -3025,15 +3054,14 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: blistered charred-bronze skin; a light smoke haze in the
     grill scene; flesh flaking.
   - Absent on purpose: lemon slices, herbs, plate and cutlery, beer, hands.
-  - Prompt-ready line: "One whole grilled mackerel, about two and a half
-    cans long, lying on white paper on a wooden beer-garden table: its
-    skin blistered, crackled and charred bronze with a speckle of spice
-    rub, torn open at the thickest part to show flaky white flesh. A
-    wooden stick still runs through it lengthwise. Light smoke haze behind;
-    no lemon, no garnish."
 
 #### Dish: Schäufele (Franconia)
 
+- Prompt-ready line: "A roasted pork shoulder piece a little taller than
+  the can, with a flat blade bone sticking up out of it, its top a crisp
+  blistered crackling and its meat collapsing around the bone, sitting
+  in a pool of glossy dark gravy on a white plate, with one smooth pale
+  potato dumpling about the can's width beside it. Steam rising."
 - Category: Everyday/special-occasion, Franconia-specific.
 - Visual/plating characteristics: Roasted pork shoulder blade with the flat
   bone protruding, in gravy, with dumplings; crackling as in the texture
@@ -3050,14 +3078,15 @@ requirements; flagged explicitly here rather than left implicit.
     dumpling in the gravy; crackling dry on top.
   - State cues: crisp crackling, meat collapsing at the bone; steam.
   - Absent on purpose: sauerkraut by default, fries, garnish.
-  - Prompt-ready line: "A roasted pork shoulder piece a little taller than
-    the can, with a flat blade bone sticking up out of it, its top a crisp
-    blistered crackling and its meat collapsing around the bone, sitting
-    in a pool of glossy dark gravy on a white plate, with one smooth pale
-    potato dumpling about the can's width beside it. Steam rising."
 
 #### Dish: Dampfnudel
 
+- Prompt-ready line: "One large steamed yeast bun, about the can's height
+  across and half as tall, with a pillowy soft white top and a
+  caramelised, crisp golden-brown base, sitting in a pool of pale yellow
+  pourable vanilla sauce in a shallow white bowl, the sauce reaching a
+  third of the way up its sides. Steam rising from the top; no icing,
+  no fruit, nothing else."
 - Category: Everyday/dessert or savory-adjacent, Bavaria/Southern.
 - Visual/plating characteristics: A large steamed yeast bun in a pan,
   served with vanilla sauce (sweet) or savory accompaniments; a pillowy,
@@ -3075,31 +3104,26 @@ requirements; flagged explicitly here rather than left implicit.
     base, sitting in a pool of sauce.
   - State cues: steam from the pillowy top; sauce pourable.
   - Absent on purpose: icing, fruit piles, cream rosettes.
-  - Prompt-ready line: "One large steamed yeast bun, about the can's height
-    across and half as tall, with a pillowy soft white top and a
-    caramelised, crisp golden-brown base, sitting in a pool of pale yellow
-    pourable vanilla sauce in a shallow white bowl, the sauce reaching a
-    third of the way up its sides. Steam rising from the top; no icing,
-    no fruit, nothing else."
 
 ### Baden-Württemberg
 
 #### Dish: Käsespätzle
 
+- Prompt-ready line: "A black cast-iron pan, about three cans across,
+  filled level with irregular soft golden egg-noodle squiggles, each
+  shorter than half the can, bound in molten pale mountain cheese that
+  browns crisp at the pan edge. A loose crown of deep-brown crisp fried
+  onion strands on top. A spoon lifts a portion, trailing cheese
+  strings. Steam rising; a small green salad bowl beside."
+- Cuisine lineage: see RESEARCH LOG › DISH LINEAGE NOTES.
 - Category: Everyday, inn/home lunch and dinner staple.
-- Cuisine lineage — confirmed this pass: a traditional dish of Swabia,
-  Baden, and the Allgäu, said to have originated in Swabia specifically and
-  carried into Austria (Vorarlberg, Tyrol) by Swabian immigrants in the
-  18th century; also found in Switzerland and Liechtenstein. [CONFIDENCE:
-  HIGH] [SOURCE: [Wikipedia: Käsespätzle](https://en.wikipedia.org/wiki/K%C3%A4sesp%C3%A4tzle)]
 - Regional form variation (§4.6): **hand-scraped Spätzle** (long, irregular
   — **KB default**) versus **pressed, button-shaped Spätzle** (*Knöpfle*);
   the Allgäu style is noted as cheesier than average.
 - Serving format: Egg noodles layered with melted cheese (traditionally
   Bergkäse/mountain cheese — Gruyère, Appenzeller, or Emmentaler, alone or
   blended) and topped with fried onions, served in the cast-iron pan, with
-  a green salad. [CONFIDENCE: HIGH for the cheese type] [SOURCE:
-  [The Splendid Table — Käsespätzle](https://www.splendidtable.org/story/2024/11/08/ksesptzle-swabian-noodles-with-mountain-cheese-and-caramelized-onions)]
+  a green salad. [HIGH for the cheese type] [S36]
 - Visual/plating characteristics: Spätzle are irregular, soft, matte
   golden-yellow squiggles; the cheese is molten and stretches in strings
   when lifted, with browned crisp patches where it touches the pan; onions
@@ -3110,7 +3134,7 @@ requirements; flagged explicitly here rather than left implicit.
   mountain-cheese (not processed-cheese-sauce) melt.
 - Confidence: HIGH for lineage and cheese type; MEDIUM for exact
   dimensions.
-- Sources: [Wikipedia: Käsespätzle](https://en.wikipedia.org/wiki/K%C3%A4sesp%C3%A4tzle); [The Splendid Table](https://www.splendidtable.org/story/2024/11/08/ksesptzle-swabian-noodles-with-mountain-cheese-and-caramelized-onions)
+- Sources: S35, S36
 - **Composition & proportions (§4.7)** — the cast-iron pan, and one
   portion.
   - What dominates: Spätzle bound in cheese ~80% of the pan surface;
@@ -3128,15 +3152,15 @@ requirements; flagged explicitly here rather than left implicit.
     and crisp, not wet.
   - Absent on purpose: macaroni shapes, orange cheese sauce, breadcrumb
     crust, bacon (unless specified), herbs piled on top.
-  - Prompt-ready line: "A black cast-iron pan, about three cans across,
-    filled level with irregular soft golden egg-noodle squiggles, each
-    shorter than half the can, bound in molten pale mountain cheese that
-    browns crisp at the pan edge. A loose crown of deep-brown crisp fried
-    onion strands on top. A spoon lifts a portion, trailing cheese
-    strings. Steam rising; a small green salad bowl beside."
 
 #### Dish: Maultaschen
 
+- Prompt-ready line: "Three large rectangular pasta pockets, each a
+  little shorter than the can, lying half-submerged in clear golden-amber
+  broth in a white soup plate. The thin pale-yellow pasta shows a faint
+  green-and-pink filling through it; small golden fat droplets float on
+  the broth; a light scatter of chopped chives. Steam rising; potato
+  salad in a small bowl beside."
 - Category: Everyday, Baden-Württemberg-specific.
 - Serving format — genuinely coexisting siblings, offer as a choice (§4.4):
   **in clear broth** (soup register) versus **sliced and pan-fried with
@@ -3167,15 +3191,14 @@ requirements; flagged explicitly here rather than left implicit.
     and crisp-edged.
   - Absent on purpose: tomato sauce, grated parmesan, small crimped
     ravioli, a creamy sauce.
-  - Prompt-ready line: "Three large rectangular pasta pockets, each a
-    little shorter than the can, lying half-submerged in clear golden-amber
-    broth in a white soup plate. The thin pale-yellow pasta shows a faint
-    green-and-pink filling through it; small golden fat droplets float on
-    the broth; a light scatter of chopped chives. Steam rising; potato
-    salad in a small bowl beside."
 
 #### Dish: Linsen mit Spätzle und Saitenwürstle
 
+- Prompt-ready line: "A deep white plate half filled with glossy whole
+  brown lentils in a thick vinegary sauce, the other half with soft
+  golden egg noodles. Two thin smoked sausages, each a little longer than
+  the can and about a third its width, with taut pink-bronze skin, lie
+  across the top. Steam rising; nothing else."
 - Category: Everyday, Baden-Württemberg-specific.
 - Visual/plating characteristics: Brown lentils in a vinegary sauce,
   Spätzle, and two thin sausages, in a deep plate. Lentils are glossy,
@@ -3193,14 +3216,15 @@ requirements; flagged explicitly here rather than left implicit.
     thin sausages crossed or parallel over them.
   - State cues: glossy, thick matte sauce; steam.
   - Absent on purpose: bacon cubes, herbs piled on top, bread bowls.
-  - Prompt-ready line: "A deep white plate half filled with glossy whole
-    brown lentils in a thick vinegary sauce, the other half with soft
-    golden egg noodles. Two thin smoked sausages, each a little longer than
-    the can and about a third its width, with taut pink-bronze skin, lie
-    across the top. Steam rising; nothing else."
 
 #### Dish: Schupfnudeln
 
+- Prompt-ready line: "A loose heap of finger-shaped potato noodles, each
+  about half the can's height with pointed ends, pale and dense with
+  golden pan-crisped patches, tangled with glossy pale sauerkraut
+  strands and small browned bacon cubes, in a paper bowl at a winter
+  market stall. The noodles dominate; the sauerkraut and bacon are
+  accents. Steam rising; nothing else."
 - Category: Everyday, also a Christmas-market pan dish.
 - Visual/plating characteristics: Finger-shaped potato noodles, pan-fried,
   often with sauerkraut and bacon; pointed ends, golden pan-crisped
@@ -3216,26 +3240,17 @@ requirements; flagged explicitly here rather than left implicit.
   - Arrangement: tossed together in a loose heap on a plate or paper bowl.
   - State cues: golden pan-crisped patches; glossy sauerkraut; steam.
   - Absent on purpose: cream sauce, cheese, herbs.
-  - Prompt-ready line: "A loose heap of finger-shaped potato noodles, each
-    about half the can's height with pointed ends, pale and dense with
-    golden pan-crisped patches, tangled with glossy pale sauerkraut
-    strands and small browned bacon cubes, in a paper bowl at a winter
-    market stall. The noodles dominate; the sauerkraut and bacon are
-    accents. Steam rising; nothing else."
 
 #### Dish: Flammkuchen
 
+- Prompt-ready line: "A cracker-thin rectangular flatbread about four
+  cans long on a wooden board, spread edge to edge with matte white
+  crème fraîche browned in spots, scattered evenly with small pink-bronze
+  bacon strips and translucent to caramelised onion half-rings. The bare
+  edge is thin with charred black-brown blistered bubbles. Cut into
+  squares; no tomato, no cheese pull."
+- Cuisine lineage: see RESEARCH LOG › DISH LINEAGE NOTES.
 - Category: Everyday, Baden/Palatinate-specific (also Alsace, France).
-- Cuisine lineage — confirmed this pass: originates from the Alsace region
-  of France, with the same tradition carried into the neighboring German
-  regions of Baden-Württemberg and the Palatinate. The dish's name in both
-  languages ("tarte flambée"/"Flammkuchen," both meaning "tart/cake baked
-  in flame") derives from its origin as a thin test-dough used to check a
-  wood-fired bread oven's temperature, before crème fraîche, onion, and
-  bacon toppings became standard. [CONFIDENCE: HIGH] [SOURCE: [Wikipedia:
-  Flammekueche](https://en.wikipedia.org/wiki/Flammekueche); general
-  Flammkuchen-history sourcing corroborating the shared Alsace/Baden/
-  Palatinate origin]
 - Regional form variation (§4.6): classic (crème fraîche, bacon, onion —
   **KB default**), gratinée with cheese, sweet apple-cinnamon.
 - Visual/plating characteristics: A very thin (cracker-thin) crust with
@@ -3250,7 +3265,7 @@ requirements; flagged explicitly here rather than left implicit.
   pull — explicitly ruled out: no tomato sauce, no mozzarella stretch, no
   raised crust rim — the crust is uniformly cracker-thin edge to edge.
 - Confidence: HIGH for origin and form; MEDIUM for exact dimensions.
-- Sources: [Wikipedia: Flammekueche](https://en.wikipedia.org/wiki/Flammekueche)
+- Sources: S37
 - **Composition & proportions (§4.7)** — one classic Flammkuchen on a
   board.
   - What dominates: the cream-covered base ~70% of the surface; bacon
@@ -3266,23 +3281,21 @@ requirements; flagged explicitly here rather than left implicit.
     spots; faint steam.
   - Absent on purpose: tomato sauce, mozzarella strings, raised rim,
     herbs piled on top, pineapple.
-  - Prompt-ready line: "A cracker-thin rectangular flatbread about four
-    cans long on a wooden board, spread edge to edge with matte white
-    crème fraîche browned in spots, scattered evenly with small pink-bronze
-    bacon strips and translucent to caramelised onion half-rings. The bare
-    edge is thin with charred black-brown blistered bubbles. Cut into
-    squares; no tomato, no cheese pull."
 
 #### Dish: Zwiebelkuchen (onion tart)
 
+- Prompt-ready line: "One square slice of German onion tart, a little
+  shorter than the can is tall across and about a third its height deep,
+  on a small plate: golden, set, slightly jiggly custard packed with soft
+  layered onions, speckled with caraway and small browned bacon bits,
+  over a thin base. Cut edge facing out; faint steam."
 - Category: Autumn seasonal, Baden/Palatinate-specific.
 - Visual/plating characteristics: A sheet or round tart of onion custard on
   a yeast or shortcrust base, with bacon, served warm; a golden, set,
   slightly jiggly custard speckled with caramelized onion and caraway and
   browned bacon bits; the cut edge shows soft, layered onion.
 - Real-world scale (§4.5): Slice ~10×10cm, ~3–4cm tall.
-- **Alcohol note (carried from the draft, consistent with the file's
-  standing alcohol-exclusion rule)**: traditionally paired with new wine
+- **Alcohol note**: traditionally paired with new wine
   (*Federweißer*) in real life — never show it; Coca-Cola replaces it in
   frame per the standing rule.
 - Confidence: MEDIUM.
@@ -3296,32 +3309,19 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: warm; custard set but slightly jiggly; faint steam.
   - Absent on purpose: new wine (Federweißer) or any glass of it, salad
     garnish, cream.
-  - Prompt-ready line: "One square slice of German onion tart, a little
-    shorter than the can is tall across and about a third its height deep,
-    on a small plate: golden, set, slightly jiggly custard packed with soft
-    layered onions, speckled with caraway and small browned bacon bits,
-    over a thin base. Cut edge facing out; faint steam."
 
 ### North Germany
 
 #### Dish: Labskaus
 
+- Prompt-ready line: "A coarse mound of speckled magenta-pink corned-beef
+  and potato mash, a little wider than the can is tall, in the centre of
+  a white plate, crowned by one fried egg with a glossy domed yolk and
+  crisp, lacy browned edges. Beside it a silver rolled pickled herring
+  about the can's height, pinned with a wooden pick, and one gherkin.
+  Natural daylight; tight framing."
+- Cuisine lineage: see RESEARCH LOG › DISH LINEAGE NOTES.
 - Category: Everyday, Hamburg/Bremen-specific.
-- Cuisine lineage — confirmed and one detail corrected this pass: a
-  nautical dish from major North German port cities (Hamburg, Bremen,
-  Lübeck), made from ingredients with a long shelf life for sea voyages —
-  salted meat/corned beef, potatoes, and onion. **A real, genuinely
-  coexisting regional-presentation variant, not previously disclosed as a
-  choice in the draft**: some sources describe the mash itself as mixed
-  with beetroot (giving the coarse magenta-pink color the draft's texture
-  note describes), while a specifically **Bremen-style** presentation keeps
-  the beetroot and rollmops (rolled pickled herring) as separate side
-  garnishes rather than mixed into the mash itself. **Offer both as a
-  choice per §4.6** rather than assuming the beetroot is always mixed in.
-  [CONFIDENCE: MEDIUM-HIGH — corroborated across independent recipe/food-
-  history sourcing this pass, though not traced to a single named
-  Hamburg-vs-Bremen comparative source] [SOURCE: [Wikipedia: Labskaus](https://en.wikipedia.org/wiki/Labskaus);
-  [My Dinner — Hamburger Labskaus](https://mydinner.co.uk/labskaus/)]
 - Serving format: A mash topped with a fried egg, with a rolled pickled
   herring and a gherkin beside it (or, per the Bremen variant, beetroot and
   rollmops served as distinct sides rather than mixed in).
@@ -3336,7 +3336,7 @@ requirements; flagged explicitly here rather than left implicit.
   ~8–10cm.
 - Confidence: MEDIUM-HIGH for origin and the genuine Hamburg/Bremen
   presentation variant; MEDIUM for exact dimensions.
-- Sources: [Wikipedia: Labskaus](https://en.wikipedia.org/wiki/Labskaus); [My Dinner](https://mydinner.co.uk/labskaus/)
+- Sources: S38, S39
 - **Composition & proportions (§4.7)** — one plate, beetroot-mixed.
   - What dominates: the mash mound ~50% of the plate; fried egg on top
     ~20%; rollmops and gherkin ~20%; beetroot (Bremen side version) ~10%.
@@ -3348,15 +3348,14 @@ requirements; flagged explicitly here rather than left implicit.
     side.
   - State cues: glossy domed yolk; crisp lacy egg edges; mash coarse.
   - Absent on purpose: smooth purée, herbs, a second egg, dim light.
-  - Prompt-ready line: "A coarse mound of speckled magenta-pink corned-beef
-    and potato mash, a little wider than the can is tall, in the centre of
-    a white plate, crowned by one fried egg with a glossy domed yolk and
-    crisp, lacy browned edges. Beside it a silver rolled pickled herring
-    about the can's height, pinned with a wooden pick, and one gherkin.
-    Natural daylight; tight framing."
 
 #### Dish: Grünkohl mit Pinkel
 
+- Prompt-ready line: "A heap of finely chopped dark olive-green stewed
+  kale with a fatty gloss filling half a white plate, one long smoked
+  grain sausage a little longer than the can laid over it, cut to show a
+  crumbly grey-brown oat-textured face. A slice of rose-pink cured pork
+  beside, and a cluster of small golden sugar-glazed potatoes. Steam."
 - Category: Winter seasonal (roughly November–February, after first frost),
   North-specific.
 - Visual/plating characteristics: Stewed kale with a smoked grain sausage
@@ -3376,14 +3375,14 @@ requirements; flagged explicitly here rather than left implicit.
     it, potatoes clustered at the side.
   - State cues: fatty gloss on the kale; steam; potatoes lacquered.
   - Absent on purpose: crisp kale leaves, kale salad, cream.
-  - Prompt-ready line: "A heap of finely chopped dark olive-green stewed
-    kale with a fatty gloss filling half a white plate, one long smoked
-    grain sausage a little longer than the can laid over it, cut to show a
-    crumbly grey-brown oat-textured face. A slice of rose-pink cured pork
-    beside, and a cluster of small golden sugar-glazed potatoes. Steam."
 
 #### Dish: Eisbein (Berlin/North Germany)
 
+- Prompt-ready line: "One boiled pork knuckle, about one and a half cans
+  long, on a white oval platter: soft, pale-pink, wobbly skin and fat,
+  not crisp at all, the moist meat flaking at one side. A thick mound of
+  matte ochre-yellow pea purée holding spoon marks on one side, a heap of
+  pale sauerkraut on the other. Steam rising."
 - Category: Everyday/hearty inn fare, Berlin/North-specific. **The boiled
   sibling of Bavaria's roasted Haxe — see that entry above; never
   conflate the two.**
@@ -3392,9 +3391,7 @@ requirements; flagged explicitly here rather than left implicit.
   crisp**, the defining visual difference from Haxe; the meat is moist and
   flaking. Pea purée is matte ochre-yellow and thick, holding spoon marks.
 - Real-world scale (§4.5): ~15–20cm on a 32cm platter.
-- Confidence: MEDIUM — the Haxe/Eisbein distinction itself is well-attested
-  general food-culture knowledge; not independently re-verified with a
-  dedicated new source this pass beyond that general confirmation.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one knuckle on a platter.
   - What dominates: the knuckle ~50% of the 32 cm platter; sauerkraut
     ~25%; pea purée ~25%. [EDITORIAL]
@@ -3404,14 +3401,15 @@ requirements; flagged explicitly here rather than left implicit.
   - Arrangement: knuckle centre, purée and sauerkraut at either side.
   - State cues: soft pale-pink wobbly skin, moist; steam.
   - Absent on purpose: any crisp crackling, gravy, dumplings.
-  - Prompt-ready line: "One boiled pork knuckle, about one and a half cans
-    long, on a white oval platter: soft, pale-pink, wobbly skin and fat,
-    not crisp at all, the moist meat flaking at one side. A thick mound of
-    matte ochre-yellow pea purée holding spoon marks on one side, a heap of
-    pale sauerkraut on the other. Steam rising."
 
 #### Dish: Rote Grütze
 
+- Prompt-ready line: "A small glass bowl about the can's height across,
+  two-thirds filled with glossy jewel-red, jelly-thick berry compote with
+  whole cherries and currants, pale vanilla sauce poured in the centre
+  and swirling into the red, a pale pool spreading toward the glass
+  edge. Faint condensation on the cold glass; a small spoon beside the
+  bowl. Cold and glossy; no mint, no cream tower, no garnish."
 - Category: Dessert/snack, North-specific.
 - Visual/plating characteristics: Red berry compote with vanilla sauce or
   cream in a glass bowl; glossy, jewel-red, jelly-thick compote with whole
@@ -3427,17 +3425,17 @@ requirements; flagged explicitly here rather than left implicit.
   - Arrangement: sauce poured in the centre, spreading and swirling.
   - State cues: cold, glossy; faint condensation on the glass.
   - Absent on purpose: mint leaves, whipped-cream towers, cake.
-  - Prompt-ready line: "A small glass bowl about the can's height across,
-    two-thirds filled with glossy jewel-red, jelly-thick berry compote with
-    whole cherries and currants, pale vanilla sauce poured in the centre
-    and swirling into the red, a pale pool spreading toward the glass
-    edge. Faint condensation on the cold glass; a small spoon beside the
-    bowl. Cold and glossy; no mint, no cream tower, no garnish."
 
 ### Rhineland, Hesse, Palatinate
 
 #### Dish: Himmel un Ääd
 
+- Prompt-ready line: "A mound of creamy potato-and-apple mash with soft
+  apple chunks on a white plate, topped with three overlapping fried
+  slices of near-black-burgundy blood sausage, each about the can's
+  width, crisp and browned, showing white fat specks, and a loose tangle
+  of golden fried onions over the slices. The mash is the base; the
+  sausage sits on top. Steam; nothing else."
 - Category: Everyday, Rhineland-specific.
 - Visual/plating characteristics: Potato-and-apple mash with fried blood
   sausage and fried onions. Blood-sausage slices are near-black-burgundy
@@ -3454,15 +3452,14 @@ requirements; flagged explicitly here rather than left implicit.
     onions scattered on the slices.
   - State cues: crisp browned slice crusts; steam.
   - Absent on purpose: gravy, herbs, apple slices as garnish.
-  - Prompt-ready line: "A mound of creamy potato-and-apple mash with soft
-    apple chunks on a white plate, topped with three overlapping fried
-    slices of near-black-burgundy blood sausage, each about the can's
-    width, crisp and browned, showing white fat specks, and a loose tangle
-    of golden fried onions over the slices. The mash is the base; the
-    sausage sits on top. Steam; nothing else."
 
 #### Dish: Halve Hahn (Cologne)
 
+- Prompt-ready line: "One buttered half of a floury rye roll, a little
+  narrower than the can is tall, with a thick slab of pale-yellow aged
+  Gouda with a crumbly cut edge on it, topped with raw onion rings, on a
+  small plate with a dab of mustard and a small gherkin. Cold, plain,
+  simple; no chicken, no meat, no lettuce."
 - Category: Everyday, Cologne-specific.
 - Visual/plating characteristics: A buttered rye roll with a thick slice of
   aged Gouda, mustard, and raw onion rings. **It contains no chicken,
@@ -3470,9 +3467,7 @@ requirements; flagged explicitly here rather than left implicit.
   anti-patterns list (below) flags directly. A thick, pale-yellow Gouda
   block with a slightly crumbly cut edge; a rye roll with a floury crust.
 - Real-world scale (§4.5): Half roll ~10cm; cheese ~1.5cm thick.
-- Confidence: MEDIUM — the no-chicken naming fact is well-known, widely
-  corroborated general knowledge, not independently re-verified with a
-  dedicated new source this pass.
+- Confidence: MEDIUM.
 - **Composition & proportions (§4.7)** — one serving.
   - What dominates: the Gouda slab ~45% of the plate's food; rye roll
     halves ~40%; onion and mustard accents. [EDITORIAL]
@@ -3483,14 +3478,15 @@ requirements; flagged explicitly here rather than left implicit.
     onion rings on top, mustard on the plate edge.
   - State cues: cold; crumbly cheese edge.
   - Absent on purpose: any chicken, lettuce, tomato, grilling.
-  - Prompt-ready line: "One buttered half of a floury rye roll, a little
-    narrower than the can is tall, with a thick slab of pale-yellow aged
-    Gouda with a crumbly cut edge on it, topped with raw onion rings, on a
-    small plate with a dab of mustard and a small gherkin. Cold, plain,
-    simple; no chicken, no meat, no lettuce."
 
 #### Dish: Grüne Soße (Frankfurt)
 
+- Prompt-ready line: "A deep white plate with a thick pool of vivid
+  spring-green cold herb sauce, matte and finely speckled, with four
+  halved boiled eggs yolk-up in it, each a little smaller than the can's
+  width, and four small boiled potatoes, each about two-thirds of the can's
+  width, at the side. The green sauce dominates the plate. No herb
+  sprigs, no meat, no garnish."
 - Category: Everyday, also a specific Maundy Thursday tradition — see
   FESTIVAL & OCCASION CALENDAR for the confirmed Gründonnerstag link and
   the 2016 EU protection of Frankfurt's specific seven-herb mix.
@@ -3510,35 +3506,23 @@ requirements; flagged explicitly here rather than left implicit.
     potatoes at the side.
   - State cues: cold sauce, thick, matte; warm potatoes may steam faintly.
   - Absent on purpose: herb sprigs on top, meat, bread.
-  - Prompt-ready line: "A deep white plate with a thick pool of vivid
-    spring-green cold herb sauce, matte and finely speckled, with four
-    halved boiled eggs yolk-up in it, each a little smaller than the can's
-    width, and four small boiled potatoes, each about two-thirds of the can's
-    width, at the side. The green sauce dominates the plate. No herb
-    sprigs, no meat, no garnish."
 
 #### Dish: Handkäs mit Musik (Hesse)
 
+- Prompt-ready line: "One small round sour-milk cheese about the can's
+  width on a plate, its amber, glassy, jelly-like surface glistening
+  under a spoonful of raw onion dice in a clear oil-and-vinegar
+  marinade that pools around it. A slice of dark rye bread and a pat of
+  butter at the plate's edge. No glass, jug or bottle anywhere."
+- Cuisine lineage: see RESEARCH LOG › DISH LINEAGE NOTES.
 - Category: Everyday, Frankfurt/Hesse-specific.
-- Cuisine lineage/detail — confirmed this pass: a small, sour-milk cheese
-  (*Handkäse*, literally "hand cheese") marinated in a raw-onion vinaigrette
-  (vinegar, oil, sometimes mustard); the "music" name is popularly
-  explained as a joke about the flatulence the raw onions supposedly
-  cause, though at least one food historian argues it more simply refers
-  to the "fun" the marinade brings. Traditionally served with rye bread,
-  butter, and — in real life — a glass of Hessian apple wine (Apfelwein);
-  per this file's alcohol-exclusion rule, the Apfelwein itself and its
-  distinctive ribbed glass/stoneware jug are never depicted. [CONFIDENCE:
-  HIGH for composition and the apple-wine pairing as real market context]
-  [SOURCE: [Atlas Obscura — Handkäse Mit Musik](https://www.atlasobscura.com/foods/handkase-mit-musik-handcheese-with-music);
-  [Culture: the word on cheese — Handkäse mit Musik](https://culturecheesemag.com/travel/wheys-less-traveled/handkase-mit-musik/)]
 - Visual/plating characteristics: Small cheese rounds show a translucent,
   amber-glassy, jelly-like rind and surface, with a chalky white core in
   younger cheese; glistening marinade and onion dice on top.
 - Real-world scale (§4.5): ~6–8cm × 2cm.
 - Confidence: HIGH for composition and cultural context; MEDIUM for exact
   dimensions.
-- Sources: [Atlas Obscura](https://www.atlasobscura.com/foods/handkase-mit-musik-handcheese-with-music); [culturecheesemag.com](https://culturecheesemag.com/travel/wheys-less-traveled/handkase-mit-musik/)
+- Sources: S40, S41
 - **Composition & proportions (§4.7)** — one plate.
   - What dominates: the cheese round(s) ~40% of the plate; onion
     marinade ~30%; rye bread and butter ~30%. [EDITORIAL]
@@ -3550,14 +3534,14 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: glistening marinade; glassy rind.
   - Absent on purpose: apple wine, its ribbed glass or stoneware jug, any
     crackers.
-  - Prompt-ready line: "One small round sour-milk cheese about the can's
-    width on a plate, its amber, glassy, jelly-like surface glistening
-    under a spoonful of raw onion dice in a clear oil-and-vinegar
-    marinade that pools around it. A slice of dark rye bread and a pat of
-    butter at the plate's edge. No glass, jug or bottle anywhere."
 
 #### Dish: Saumagen (Palatinate)
 
+- Prompt-ready line: "Two thick pan-browned slices of a stuffed pork
+  loaf, each about the can's height across, overlapping on a white plate,
+  their cut faces a mosaic of pink pork, pale potato cubes and orange
+  carrot dice, with a browned crust. A mound of mashed potato and a heap
+  of pale sauerkraut beside them. Steam rising; no gravy."
 - Category: Everyday/special-occasion, Palatinate-specific.
 - Visual/plating characteristics: Thick, pan-browned slices of a stuffed
   pork-stomach loaf, with sauerkraut and mash; a mosaic cut face of pink
@@ -3573,16 +3557,16 @@ requirements; flagged explicitly here rather than left implicit.
   - Arrangement: slices overlapping, cut face up, sides beside.
   - State cues: browned crust; steam.
   - Absent on purpose: visible stomach casing close-ups, gravy piles, wine.
-  - Prompt-ready line: "Two thick pan-browned slices of a stuffed pork
-    loaf, each about the can's height across, overlapping on a white plate,
-    their cut faces a mosaic of pink pork, pale potato cubes and orange
-    carrot dice, with a browned crust. A mound of mashed potato and a heap
-    of pale sauerkraut beside them. Steam rising; no gravy."
 
 ### East Germany
 
 #### Dish: Soljanka
 
+- Prompt-ready line: "A bowl about two and a half cans across filled
+  near the rim with brick-red-to-orange sour soup, red-tinged fat
+  droplets on the surface, chunky diced sausage, meat and pickle pieces
+  breaking the surface, one thin lemon slice and a white sour-cream
+  dollop beginning to melt and streak. Steam rising; no herb pile."
 - Category: Everyday, East-German-coded.
 - Visual/plating characteristics: A sour-spicy soup with sausage and meat
   pieces, pickles, onion, a lemon slice, and a sour-cream dollop. Brick-red-
@@ -3600,14 +3584,15 @@ requirements; flagged explicitly here rather than left implicit.
   - Vessel fill: to ~1 cm below the rim.
   - State cues: fat droplets; steam; sour cream starting to melt.
   - Absent on purpose: herbs piled, bread bowls, cream swirled in.
-  - Prompt-ready line: "A bowl about two and a half cans across filled
-    near the rim with brick-red-to-orange sour soup, red-tinged fat
-    droplets on the surface, chunky diced sausage, meat and pickle pieces
-    breaking the surface, one thin lemon slice and a white sour-cream
-    dollop beginning to melt and streak. Steam rising; no herb pile."
 
 #### Dish: Leipziger Allerlei
 
+- Prompt-ready line: "A small heap of spring vegetables in a glossy
+  butter sauce, about the can's height across: bright green peas, orange
+  carrot coins about a third of the can's width, short pale asparagus
+  pieces and a few small cauliflower florets, all glistening and tender,
+  in a small white bowl beside a main-course plate. Steam rising; no
+  cream swirl, no garnish."
 - Category: Everyday, spring/summer, Saxony-specific.
 - Visual/plating characteristics: A spring-vegetable medley in butter
   sauce — bright green peas, orange carrot coins, pale asparagus pieces in
@@ -3621,15 +3606,14 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: glossy butter sauce; steam.
   - Absent on purpose: crayfish/morels unless specified, cream swirls,
     herbs piled.
-  - Prompt-ready line: "A small heap of spring vegetables in a glossy
-    butter sauce, about the can's height across: bright green peas, orange
-    carrot coins about a third of the can's width, short pale asparagus
-    pieces and a few small cauliflower florets, all glistening and tender,
-    in a small white bowl beside a main-course plate. Steam rising; no
-    cream swirl, no garnish."
 
 #### Dish: Quarkkeulchen (Saxony)
 
+- Prompt-ready line: "Four small pan-fried quark pancakes, each a little
+  wider than the can, overlapping in a row on a small plate: golden-brown lightly
+  crisp faces, soft pale insides, dusted with sugar, with a dollop of
+  pale beige-gold, slightly grainy apple sauce beside them. Warm, homely,
+  faint steam; no syrup, no cream, no berries."
 - Category: Everyday/snack.
 - Visual/plating characteristics: Small pan-fried quark-potato pancakes
   with sugar or apple sauce; golden-brown, lightly crisp faces with a soft
@@ -3644,20 +3628,19 @@ requirements; flagged explicitly here rather than left implicit.
   - Arrangement: overlapping in a row on a small plate.
   - State cues: sugar dusting; faint steam.
   - Absent on purpose: syrup, cream, berries.
-  - Prompt-ready line: "Four small pan-fried quark pancakes, each a little
-    wider than the can, overlapping in a row on a small plate: golden-brown lightly
-    crisp faces, soft pale insides, dusted with sugar, with a dollop of
-    pale beige-gold, slightly grainy apple sauce beside them. Warm, homely,
-    faint steam; no syrup, no cream, no berries."
 
 #### Dish: Ketwurst (East Berlin nostalgia, niche)
 
+- Prompt-ready line: "One long white bread roll, nearly twice the can's
+  height, hollowed out down the middle and standing in a paper napkin,
+  the end of a sausage and glossy red ketchup sauce showing at its open
+  top, on a small paper plate at an Imbiss counter. Pale, soft crust;
+  not split lengthwise like a hot-dog bun. No toppings, no hands."
 - Category: Niche/nostalgia register. A long roll with a hollowed-out
   center, filled with a sausage and ketchup sauce.
 - **Use only on explicit request** — this is a specifically East-German-
   nostalgia item, not an everyday-relevance dish for most briefs.
-- Confidence: LOW-MEDIUM — carried from the draft without independent
-  re-verification this pass.
+- Confidence: LOW-MEDIUM.
 - **Composition & proportions (§4.7)** — one Ketwurst.
   - What dominates: the long roll ~75%; the sausage end and ketchup sauce
     at the opening ~25%. [EDITORIAL]
@@ -3665,16 +3648,17 @@ requirements; flagged explicitly here rather than left implicit.
     sausage inside, top end visible; sauce at the mouth. [EDITORIAL, LOW]
   - State cues: warm; sauce glossy.
   - Absent on purpose: a split hot-dog bun, toppings, hands.
-  - Prompt-ready line: "One long white bread roll, nearly twice the can's
-    height, hollowed out down the middle and standing in a paper napkin,
-    the end of a sausage and glossy red ketchup sauce showing at its open
-    top, on a small paper plate at an Imbiss counter. Pale, soft crust;
-    not split lengthwise like a hot-dog bun. No toppings, no hands."
 
 ### Seasonal specialities
 
 #### Dish: Spargel (white asparagus)
 
+- Prompt-ready line: "Nine thick white asparagus spears, each nearly
+  twice the can's height, laid parallel across a large white plate,
+  ivory and faintly translucent with closed tips, a ribbon of glossy
+  pale-yellow hollandaise across their middles. Small new potatoes on
+  one side, translucent ruby folds of cured ham on the other. Faint
+  steam."
 - Category: Seasonal (see FESTIVAL & OCCASION CALENDAR for the confirmed
   24 June/Johannistag end date), everyday during season.
 - Visual/plating characteristics: Thick white spears laid parallel with
@@ -3706,15 +3690,15 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: moist sheen, faint steam.
   - Absent on purpose: green asparagus as default, lemon slices, herb
     piles, sauce drowning the tips.
-  - Prompt-ready line: "Nine thick white asparagus spears, each nearly
-    twice the can's height, laid parallel across a large white plate,
-    ivory and faintly translucent with closed tips, a ribbon of glossy
-    pale-yellow hollandaise across their middles. Small new potatoes on
-    one side, translucent ruby folds of cured ham on the other. Faint
-    steam."
 
 #### Dish: Kartoffelsalat (potato salad) — major regional variant
 
+- Prompt-ready line (South): "A white bowl about two cans across filled
+  to the rim with thin sliced waxy potatoes, each about half the can's
+  width, glossy and slightly translucent in a clear vinegar-broth
+  dressing, edges softened and broken, flecked with chopped chives and
+  fine onion, a serving spoon resting in it. Wet and glistening; no
+  mayonnaise, no cubes, no mustard-yellow colour."
 - Category: Everyday and Christmas Eve tradition (widespread, paired with
   sausages).
 - Regional form variation (§4.6, genuinely coexisting, offer as a choice,
@@ -3730,10 +3714,7 @@ requirements; flagged explicitly here rather than left implicit.
 - Common confusion: US-style potato salad (cubed, mustard-yellow, celery,
   paprika dusting) — explicitly ruled out; neither German variant uses
   mustard-yellow coloring or a celery/paprika finish.
-- Confidence: MEDIUM-HIGH — the South/North vinegar-vs-mayonnaise split is
-  broadly and consistently documented across German food-culture sourcing,
-  though not independently re-verified with a dedicated new search this
-  pass beyond general confirmation.
+- Confidence: MEDIUM-HIGH.
 - **Composition & proportions (§4.7)** — one bowl, either variant.
   - What dominates: potato slices ~85–90%; onion, chives, pickle accents
     ~10–15%. [EDITORIAL]
@@ -3745,12 +3726,6 @@ requirements; flagged explicitly here rather than left implicit.
     creamy coating. Cold or room temperature.
   - Absent on purpose: potato cubes, mustard-yellow colour, celery,
     paprika dust, hard-boiled egg halves on top (South).
-  - Prompt-ready line (South): "A white bowl about two cans across filled
-    to the rim with thin sliced waxy potatoes, each about half the can's
-    width, glossy and slightly translucent in a clear vinegar-broth
-    dressing, edges softened and broken, flecked with chopped chives and
-    fine onion, a serving spoon resting in it. Wet and glistening; no
-    mayonnaise, no cubes, no mustard-yellow colour."
 
 #### Soups & Eintopf (compact catalog)
 
@@ -3771,6 +3746,12 @@ requirements; flagged explicitly here rather than left implicit.
 
 #### Dish: Roast goose (Christmas / St. Martin)
 
+- Prompt-ready line: "One roasted goose leg, nearly twice the can's
+  height, skin up on a white plate: deep bronze, crisp, lacquered skin
+  glossy with rendered fat. A smooth pale potato dumpling in dark gravy
+  and a heap of glossy purple-red cabbage beside it. The leg is the
+  largest thing on the plate. Steam rising; no orange slices, no
+  herbs."
 - Category: Special-occasion, seasonal (Christmas and 11 November St.
   Martin).
 - Visual/plating characteristics: A whole roasted goose or a leg, with red
@@ -3788,27 +3769,23 @@ requirements; flagged explicitly here rather than left implicit.
   - Arrangement: leg skin up, dumplings in gravy, cabbage beside.
   - State cues: lacquered skin with fat gloss; steam.
   - Absent on purpose: wine, orange slices, herb piles.
-  - Prompt-ready line: "One roasted goose leg, nearly twice the can's
-    height, skin up on a white plate: deep bronze, crisp, lacquered skin
-    glossy with rendered fat. A smooth pale potato dumpling in dark gravy
-    and a heap of glossy purple-red cabbage beside it. The leg is the
-    largest thing on the plate. Steam rising; no orange slices, no
-    herbs."
 
 #### Dish: New Year's Eve raclette (*Silvester*)
 
+- Prompt-ready line: "An electric tabletop raclette grill at the centre
+  of a home dinner table, about four cans long, with small nonstick pans
+  of bubbling, browned-blistered cheese slid in beneath it and meat and
+  vegetables on its top plate. Around it small bowls of boiled potatoes,
+  pickles and sliced meats; on a plate in front, two potatoes under
+  molten scraped cheese."
 - Category: Special-occasion, a specific and well-documented home-dinner
-  tradition for 31 December — confirmed this pass, not just a plausible
+  tradition for 31 December, not just a plausible
   guess.
 - Visual/plating characteristics: A tabletop electric raclette grill with
   small pans of bubbling cheese, a hot-stone top with meats and
   vegetables, boiled potatoes, and pickles — a genuinely common German NYE
-  home dinner. [CONFIDENCE: MEDIUM-HIGH — raclette/fondue are repeatedly
-  and independently cited across German-culture/lifestyle sourcing as
-  among the most common NYE dinner choices, though no single dedicated
-  survey with an exact popularity percentage was found this pass]
-  [SOURCE: general German New Year's Eve tradition sourcing, aggregated
-  across multiple independent culture/lifestyle sources] Cheese is
+  home dinner. [MEDIUM-HIGH]
+  [general German New Year's Eve tradition sourcing aggregated across multiple independent culture/lifestyle sources] Cheese is
   bubbling, browned-blistered, scraped molten over potatoes; small
   nonstick pans are slightly scorched.
 - Real-world scale (§4.5): Raclette grill ~40×25cm, with roughly 8 small
@@ -3828,12 +3805,6 @@ requirements; flagged explicitly here rather than left implicit.
   - State cues: bubbling, blistered cheese; steam from the potatoes.
   - Absent on purpose: sparkling wine, fireworks indoors, readable text on
     packaging.
-  - Prompt-ready line: "An electric tabletop raclette grill at the centre
-    of a home dinner table, about four cans long, with small nonstick pans
-    of bubbling, browned-blistered cheese slid in beneath it and meat and
-    vegetables on its top plate. Around it small bowls of boiled potatoes,
-    pickles and sliced meats; on a plate in front, two potatoes under
-    molten scraped cheese."
 
 ### Fair, festival & market snacks (compact catalog)
 
@@ -3890,12 +3861,12 @@ diet.
 |---|---|---|---|---|
 | Pizza (Italian-German pizzeria) | Dinner, delivery | Thin crust, lightly leopard-spotted rim, ample cheese; German-market staples include ham-and-pineapple and tuna-onion toppings; on a large white plate or in a delivery box | ~30cm | MEDIUM |
 | Spaghetti Bolognese | Canteen, home, kids | Rich red-brown meat sauce over spaghetti, grated cheese snowing on top — a thoroughly naturalized everyday dish, not a "foreign" one in practice | Deep plate 22–26cm | MEDIUM |
-| Gyros plate (Greek-German restaurant) | Dinner | Heaped, crisp-edged pork gyros, thick white tzatziki with cucumber flecks, fries or rice, raw onion, lettuce garnish; white-and-blue décor | 28–30cm plate | MEDIUM |
+| Gyros plate (Greek-German restaurant) | Dinner | Heaped, crisp-edged pork gyros, thick white tzatziki with cucumber flecks, fries or rice, raw onion, lettuce garnish; a neutral restaurant interior (no white-and-blue Greek-island décor unless the brief asks) | 28–30cm plate | MEDIUM |
 | Falafel wrap/plate | Lunch, late night | Craggy, deep brown-green-flecked falafel balls, broken to show a green interior; tahini drizzle | Balls ~4cm | MEDIUM |
-| Asia box (pan-Asian Imbiss) | Lunch, takeaway | Glossy wok-fried noodles or rice in a folded paper/plastic box, chopsticks stuck in, sesame seeds, steam | Box ~10×10×10cm | MEDIUM |
+| Asia box (Asia-Imbiss) | Lunch, takeaway | Glossy wok-fried noodles or rice in a folded paper/plastic box, chopsticks stuck in, sesame seeds, steam. Name the kitchen per dish: Vietnamese (common in Berlin and the East), Chinese or Thai; don't blend them | Box ~10×10×10cm | MEDIUM |
 | Lahmacun | Snack | A paper-thin round flatbread with a red spiced-meat smear, rolled with lettuce, parsley, lemon | ~30cm round | MEDIUM |
 | Plant-based currywurst/burgers | Canteens, urban | Visually resembles the meat version (see the Currywurst entry); canteen signage in German | As Currywurst entry above | MEDIUM |
-| Spaghettieis (Eiscafé snack) | Summer snack | **Invented in 1969 by Dario Fontanella, a then-17-year-old, at his family's ice cream shop in Mannheim** — confirmed this pass with a specific, sourced inventor and city, correcting the draft's own unsourced entry. [CONFIDENCE: HIGH] [SOURCE: [Smithsonian Magazine — How Germany's Spaghetti Ice Cream Came to Be](https://www.smithsonianmag.com/travel/how-germanys-spaghetti-ice-cream-came-to-be-180982461/)] Vanilla ice cream extruded into spaghetti-like strands (originally pushed through a Spätzle press) over whipped cream, topped with red strawberry sauce and white-chocolate shavings mimicking parmesan, in a glass coupe | Coupe ~15cm | HIGH for origin; MEDIUM for exact dimensions |
+| Spaghettieis (Eiscafé snack) | Summer snack | **Invented in 1969 by Dario Fontanella, a then-17-year-old, at his family's ice cream shop in Mannheim** with a specific, sourced inventor and city, correcting the draft's own unsourced entry. [HIGH] [S42] Vanilla ice cream extruded into spaghetti-like strands (originally pushed through a Spätzle press) over whipped cream, topped with red strawberry sauce and white-chocolate shavings mimicking parmesan, in a glass coupe | Coupe ~15cm | HIGH for origin; MEDIUM for exact dimensions |
 
 **Composition & proportions (§4.7), compact rows:**
 
@@ -3918,13 +3889,19 @@ diet.
 
 ### Kaffee und Kuchen & sweets (compact catalog)
 
+**Origin note**: Apfelstrudel, Kaiserschmarrn and Germknödel are Austrian
+in origin and common in southern Germany, especially Bavaria; say so when a
+brief asks for "German" sweets.
+
 **Serving norm**: cake plates 19–20cm, cake forks, a whipped-cream bowl,
-often a lace or patterned tablecloth. **No coffee cups or pots in frame**
-(beverage scope, per the standing rule).
+often a lace or patterned tablecloth. **No coffee in frame on an everyday
+afternoon**; on a special occasion (birthday, Easter, Christmas, a family
+celebration) a coffee pot and cups may sit soft in the background, never
+beside the Coke.
 
 | Item | Look & texture | Scale anchor | Confidence |
 |---|---|---|---|
-| Black Forest cake (*Schwarzwälder Kirschtorte*) | Dark chocolate sponge layers, white whipped-cream stripes, dark cherries, a chocolate-curl coating, a cream rosette with a cherry on top | Slice ~10cm tall from a 26cm torte | MEDIUM-HIGH — a well-known, iconic dish |
+| Black Forest cake (*Schwarzwälder Kirschtorte*) | Dark chocolate sponge layers, white whipped-cream stripes, dark cherries, a chocolate-curl coating, a cream rosette with a cherry on top | Slice ~10cm tall from a 26cm torte | MEDIUM-HIGH |
 | Bienenstich | A glossy caramelized flaked-almond top with a crackly sheen, a thick pale vanilla-cream middle, a yeast-cake base | ~8×8cm | MEDIUM |
 | Streuselkuchen | A sheet cake with large, craggy, buttery golden crumb nuggets | ~8×10cm | MEDIUM |
 | Plum cake (*Zwetschgendatschi*) | Rows of overlapping purple-violet plum halves, glistening jammy juices, a thin base | ~8×10cm | MEDIUM |
@@ -3955,8 +3932,8 @@ often a lace or patterned tablecloth. **No coffee cups or pots in frame**
   - *Composition & proportions (§4.7)*: torn pancake pieces (~3–5 cm) fill a ~24 cm pan to a loose heap; powdered sugar covers ~60% of the top; 10–20 raisins; plum compote in a small side bowl. Absent: whipped-cream towers, fresh berries. [EDITORIAL]
 - Germknödel
   - *Composition & proportions (§4.7)*: one dumpling ~12 cm (about the can's height) in a deep plate; melted butter pool around it; poppy-seed sugar covers the top ~60%; one side broken to show dark jam. Absent: vanilla sauce by default, fruit. [EDITORIAL]
-- St. Martin bread figure (*Weckmann*/*Stutenkerl*)
-  - *Composition & proportions (§4.7)*: one figure ~20–25 cm (about twice the can's height) lying flat on a plate or paper; 2 raisin eyes, 2–4 raisin buttons. Absent: icing, faces piped in sugar, the clay pipe some bakeries add (a tobacco cue). [EDITORIAL]
+- Bread figure (*Weckmann*/*Stutenkerl*/*Grittibänz*): for St. Martin (11 Nov) in the Rhineland and Westphalia, for St. Nicholas (6 Dec) in other regions; match the date to the region.
+  - *Composition & proportions (§4.7)*: one figure ~20–25 cm (about twice the can's height) lying flat on a plate or paper; 2 raisin eyes, 2–4 raisin buttons. Absent: icing, faces piped in sugar. The small white clay pipe is a traditional part of many versions; it is left out as a brand choice (no smoking cues near the product), not because it is inauthentic. [EDITORIAL]
 
 ### Variant summary (schema §4.6 quick reference)
 
@@ -4010,17 +3987,15 @@ drinks are never shown.
 | Format | Setting fit | Approx. dimensions | Confidence |
 |---|---|---|---|
 | 330mL can | Imbiss, Späti, beach, picnic, stadium, home | **115.2mm tall × 66.1mm diameter** — use `coca-cola-guidelines.md`'s already-verified non-US-market figure, not the draft's own rougher ~11.5cm×~6.6cm estimate | HIGH for the figure itself (verified for the general non-US-market standard); **not independently confirmed as a Germany-specific bottler figure, and this pass could not confirm whether Germany also uses a narrower "slim" 330mL can variant alongside the standard-diameter can** — flagged honestly as a remaining market-specific gap, not resolved by assumption |
-| 0.2L glass contour bottle (returnable) | Restaurants, cafés, Kaffee und Kuchen | Not independently confirmed this pass — carried from the draft as an estimate (~16–17cm) pending a dedicated source | LOW — genuinely unconfirmed, not papered over |
-| 0.33L glass contour bottle (returnable) | Inns, beer gardens, pizzerias | Not independently confirmed this pass — carried from the draft as an estimate (~19–20cm) pending a dedicated source | LOW — genuinely unconfirmed, not papered over |
-| 0.5L PET | On the go: kiosk, train, festival, Freibad | Per `coca-cola-guidelines.md` §4.3's general table, a 500mL PET bottle runs ~203mm tall, ~65mm diameter — carried over from the generic brand-file figure, not independently re-confirmed as Germany-specific | MEDIUM — generic figure applied to this market by inference, not independently verified for Germany |
-| 1.0L PET/glass (returnable) | Home table, family meals, allotment | Not independently confirmed this pass — carried from the draft as an estimate (~30cm) pending a dedicated source | LOW — genuinely unconfirmed |
+| 0.2L glass contour bottle (returnable) | Restaurants, cafés, Kaffee und Kuchen | Not independently confirmed this pass — carried from the draft as an estimate (~16–17cm) pending a dedicated source | LOW |
+| 0.33L glass contour bottle (returnable) | Inns, beer gardens, pizzerias | Not independently confirmed this pass — carried from the draft as an estimate (~19–20cm) pending a dedicated source | LOW |
+| 0.5L PET | On the go: kiosk, train, festival, Freibad | Per `coca-cola-guidelines.md` §4.3's general table, a 500mL PET bottle runs ~203mm tall, ~65mm diameter — carried over from the generic brand-file figure, not independently re-confirmed as Germany-specific | MEDIUM |
+| 1.0L PET/glass (returnable) | Home table, family meals, allotment | Not independently confirmed this pass — carried from the draft as an estimate (~30cm) pending a dedicated source | LOW |
 
 **Rule, unchanged**: never render US 12 fl oz (355mL/123mm) can proportions
 or US labelling for a Germany-set scene.
 
-**Condensation and pour texture** (carried from the draft, editorial/visual
-guidance rather than an independently sourced claim, consistent with how
-`coca-cola-guidelines.md` treats its own not-yet-tested pour guidance): a
+**Condensation and pour texture**: a
 chilled can shows fine, even beading with larger droplets running to the
 base ring; glass bottles show frosted beading on the contour; poured
 Coca-Cola is dark cola-brown, near-opaque, red-amber at the light-struck
@@ -4055,23 +4030,17 @@ documented throughout this file are accurate context only. In every image:
   deposit logo — a real, legally sized (14×16mm), trademarked blue symbol
   (a bottle, can, and curved arrow). Render it generic and illegible, or
   omit it, per the trademark-genericization table above — never render it
-  as sharp, legible brand IP. [CONFIDENCE: HIGH for the logo's legal
-  specification] [SOURCE: [DPG Deutsche Pfandsystem — About DPG](https://dpg-pfandsystem.de/en/the-one-way-deposit-system/about-dpg.html)]
+  as sharp, legible brand IP. [HIGH for the logo's legal
+  specification] [S14]
 - **Calibrated glassware**: German gastronomy glasses genuinely carry a
   printed fill line (colloquially "Eichstrich," more precisely a
   "Füllstrich"/fill mark under Germany's Mess- und Eichgesetz implementing
   an EU measurement directive), typically in comma-decimal format, e.g.
   "0,3 l" or "0,4 l" — a real, legally grounded realism cue, not
-  decorative. [CONFIDENCE: MEDIUM-HIGH — the legal framework and general
-  convention are confirmed; the precise everyday visual appearance of a
-  specific fill-line marking was not independently photographed/verified
-  this pass] [SOURCE: [Wikipedia (DE): Füllstrich](https://de.wikipedia.org/wiki/F%C3%BCllstrich);
-  [Wikipedia: Fill line](https://en.wikipedia.org/wiki/Fill_line)]
+  decorative. [MEDIUM-HIGH] [S43, S44]
 - **Returnable crates**: stacked plastic crates of glass bottles are a
   plausible, widely-recognized German domestic-realism cue tied to the
-  deposit system — see ENVIRONMENT & STAGING SCENES. [CONFIDENCE: MEDIUM —
-  not independently re-verified as a specifically photographed convention
-  this pass]
+  deposit system — see ENVIRONMENT & STAGING SCENES. [MEDIUM]
 - **Prices and signage**: German-language signage, euro prices in comma-
   decimal format (e.g. "2,50 €") — well-known, general knowledge, not
   independently re-sourced this pass.
@@ -4139,8 +4108,8 @@ not a sourced consumer-preference finding.
 15. **Visible branded condiments or props**: the specific brown seasoning-
     sauce bottle, named mustard/curry-ketchup brands, chain logos — see
     the trademark-genericization table.
-16. **Coffee cups at Kaffee und Kuchen** — out of this file's beverage
-    scope.
+16. **Coffee in focus, or coffee on an everyday afternoon** — coffee is
+    allowed only soft in the background on a special occasion.
 17. **Conflating Haxe and Eisbein** — one is roasted and crisp, the other
     boiled and soft; see the dedicated variant note.
 18. **A silent single default for a genuinely coexisting variant**
@@ -4169,6 +4138,24 @@ copyrighted design.
 ---
 
 ## GAP LOG
+
+- **External cultural review (13 Nov 2026), points for a native reviewer.**
+  Steckerlfisch's Oktoberfest origin (rated HIGH here); Brezel fat
+  content (Swabian 3–10% vs Bavarian ~3%); Labskaus beetroot mixed in vs
+  served separately in Bremen; "highest board-game purchases per capita";
+  the 2025 birth count as the lowest since 1946; Sauerbraten's regional
+  split (Saxony missing); Kartoffelsalat style in the East; current
+  Berlin Currywurst casing practice. Content gaps from the same review:
+  the East (Plattenbau home default, Broiler, Soljanka, Ketwurst),
+  Einschulung with the Schultüte, Volksfeste outside Munich (Cannstatter
+  Wasen, Hamburger Dom, Rhineland Kirmes), Schützenfest, Muttertag (coffee
+  and cake), Tag der Deutschen Einheit, Vatertag, Richtfest.
+- **Brand decisions raised by the same review, waiting on Fernando:**
+  coffee in soft background at Kaffee und Kuchen; a water or Apfelschorle
+  glass outside the hero zone; Kinderpunsch at Christmas markets; the ice
+  and lemon default (the Easter brunch client brief asks for it); beer
+  garden settings dropped for Coca-Cola briefs; children at the table with
+  the product (the client brief asks for it; flagged for TCCC compliance).
 
 - **Composition & proportions blocks (added 2026-09-27, `country-file-schema.md` §4.7) are mostly editorial synthesis.** Piece sizes are sourced where tagged; counts and shares are reasoned from recipe quantities and serving norms, tagged [EDITORIAL], and should be checked against image tests before being treated as reliable.
 - **PENDING UPDATE — an authoritative TCCC product-dimension/spec drop is
@@ -4420,3 +4407,186 @@ copyrighted design.
   restaurant (Modern bistro), city park lawn (Park), Wochenmarkt (Street
   market), Baltic beach and promenade (Beach or waterfront). Coverage
   table added. WebSearch only; no pages read at source.
+
+### DISH LINEAGE NOTES (moved from the dish entries, 2026-11-13)
+
+Origin and history notes, kept for reviewers. They describe where a dish comes from, not how it looks, so they sit here, outside the prompt excerpts.
+
+**Dish: Brötchen (bread rolls)**
+- Cuisine lineage: Native German; regional naming varies (*Semmel* in
+  Bavaria, *Schrippe* in Berlin, *Weckle* in Swabia, *Rundstück* in Hamburg)
+  without the roll's actual form changing — a prevalence/naming-only
+  variation per schema §4.2, not a style-map case. [CONFIDENCE: MEDIUM —
+  naming variation is widely known; not independently re-verified region by
+  region this pass]
+
+**Dish: Currywurst**
+- Cuisine lineage: Native German, invented dish, with a genuinely contested
+  origin — verified and corrected from the draft's own compact framing.
+  **Herta Heuwer's Berlin claim is the best-evidenced single account**: on 4
+  September 1949, at her food stand in Charlottenburg, West Berlin, she
+  mixed ketchup/Worcestershire sauce and curry powder (obtained from
+  British occupying soldiers) with other spices and poured it over a
+  grilled pork sausage; she patented her sauce under the name "Chillup" in
+  1951 (some sources say 1959). A competing claim places a similar dish in
+  Hamburg as early as 1947 (recalled by a single writer, Uwe Timm, decades
+  later, with no corroborating second source), and the Ruhr area separately
+  claims its own currywurst tradition from the 1950s onward, popular among
+  miners as an affordable, filling snack. **Disclose the Berlin claim as
+  best-evidenced, not as uncontested** — the same honest-dispute treatment
+  this project already gives the UK's fish-and-chips Malin-vs-Lees dispute.
+  [CONFIDENCE: HIGH that Heuwer's account is the best-documented and most
+  widely credited; MEDIUM that it is definitively "first," given the
+  uncorroborated Hamburg claim] [S18, S19, S20]
+
+**Dish: Döner Kebab (Turkish-German)**
+- Cuisine lineage: Turkish-German — genuinely everyday German food, not a
+  niche import; omitting it (along with pizza, Gyros, and pan-Asian Imbiss
+  food) would produce a folkloric, locally-unrecognizable Germany. This
+  project's own §4.1 spaghetti/meatballs-style honesty norm applies in
+  reverse here: Döner is correctly attributed to Turkish-German origin, and
+  that lineage should be stated plainly, not folded into "German food"
+  without context.
+
+**Dish: Käsespätzle**
+- Cuisine lineage — confirmed this pass: a traditional dish of Swabia,
+  Baden, and the Allgäu, said to have originated in Swabia specifically and
+  carried into Austria (Vorarlberg, Tyrol) by Swabian immigrants in the
+  18th century; also found in Switzerland and Liechtenstein. [CONFIDENCE:
+  HIGH] [S35]
+
+**Dish: Flammkuchen**
+- Cuisine lineage — confirmed this pass: originates from the Alsace region
+  of France, with the same tradition carried into the neighboring German
+  regions of Baden-Württemberg and the Palatinate. The dish's name in both
+  languages ("tarte flambée"/"Flammkuchen," both meaning "tart/cake baked
+  in flame") derives from its origin as a thin test-dough used to check a
+  wood-fired bread oven's temperature, before crème fraîche, onion, and
+  bacon toppings became standard. [CONFIDENCE: HIGH] [S37; general Flammkuchen-history sourcing corroborating the shared Alsace/Baden/ Palatinate origin]
+
+**Dish: Labskaus**
+- Cuisine lineage — confirmed and one detail corrected this pass: a
+  nautical dish from major North German port cities (Hamburg, Bremen,
+  Lübeck), made from ingredients with a long shelf life for sea voyages —
+  salted meat/corned beef, potatoes, and onion. **A real, genuinely
+  coexisting regional-presentation variant, not previously disclosed as a
+  choice in the draft**: some sources describe the mash itself as mixed
+  with beetroot (giving the coarse magenta-pink color the draft's texture
+  note describes), while a specifically **Bremen-style** presentation keeps
+  the beetroot and rollmops (rolled pickled herring) as separate side
+  garnishes rather than mixed into the mash itself. **Offer both as a
+  choice per §4.6** rather than assuming the beetroot is always mixed in.
+  [CONFIDENCE: MEDIUM-HIGH — corroborated across independent recipe/food-
+  history sourcing this pass, though not traced to a single named
+  Hamburg-vs-Bremen comparative source] [S38, S39]
+
+**Dish: Handkäs mit Musik (Hesse)**
+- Cuisine lineage/detail — confirmed this pass: a small, sour-milk cheese
+  (*Handkäse*, literally "hand cheese") marinated in a raw-onion vinaigrette
+  (vinegar, oil, sometimes mustard); the "music" name is popularly
+  explained as a joke about the flatulence the raw onions supposedly
+  cause, though at least one food historian argues it more simply refers
+  to the "fun" the marinade brings. Traditionally served with rye bread,
+  butter, and — in real life — a glass of Hessian apple wine (Apfelwein);
+  per this file's alcohol-exclusion rule, the Apfelwein itself and its
+  distinctive ribbed glass/stoneware jug are never depicted. [CONFIDENCE:
+  HIGH for composition and the apple-wine pairing as real market context]
+  [S40, S41]
+
+## SOURCES CONSULTED
+
+The [S#] tags in this file point here. The app leaves this section out of prompts.
+
+- S-BRIEF: TCCC / Studio X, "ProdX Meal Briefing Q4 2026" Easter brunch template for Germany (EOU), 12 Nov 2026, supplied by Fernando.
+- S1: The Coca-Cola Company — Responsible Marketing Policy — https://www.coca-colacompany.com/policies-and-practices/responsible-marketing-policy
+- S2: The Coca-Cola Company — Responsible Alcohol Marketing Policy — https://www.coca-colacompany.com/policies-and-practices/responsible-alcohol-marketing-policy
+- S3: DDR Museum — Hunter's Schnitzel with Tomato Sauce — https://www.ddr-museum.de/en/blog/2016/hunters-schnitzel-with-tomato-sauce
+- S4: Berlin.de — Späti: Meeting Point, Supermarket and Regional Treasure — https://www.berlin.de/en/shopping/4971123-2947095-spaeti-meeting-point-and-supermarket.en.html
+- S5: Lonely Planet — You'll see this everywhere: Spätis in Berlin — https://www.lonelyplanet.com/articles/spatis-in-berlin
+- S6: Federal Statistical Office of Germany (Destatis) — https://www.destatis.de/EN/Home/_node.html
+- S7: Worldometer — Germany Population — https://www.worldometers.info/world-population/germany-population/
+- S8: The Local — Is Germany falling out of love with Abendbrot? — https://www.thelocal.de/20220310/is-germany-falling-out-of-love-with-abendbrot
+- S9: The Local — Abendbrot: what time do Germans eat dinner? — https://www.thelocal.de/20230329/abendbrot-what-time-do-germans-eat-dinner
+- S10: Destatis —   Dwelling stock, Germany — https://www.destatis.de/EN/Themes/Society-Environment/Housing/_Graphic/_Interactive/dwelling-stock.html
+- S11: SpaceDaily/AFP — More than a   million German households have hung solar panels off their balcony   railings — https://spacedaily.com/b-more-than-a-million-german-households-have-hung-solar-panels-off-their-balcony-railings-and-plugged-them-into-a-wall-socket-and-the-law-caps-each-at-800-watts-a-fridge-and-a-laptop/
+- S12: home24 —   Gardens in Germany: Who Still Has Access to a Garden? — https://www.home24.de/garden-study/
+- S13: Eurostat   — Young people: housing conditions — https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Young_people_-_housing_conditions
+- S14: DPG Deutsche Pfandsystem — About DPG — https://dpg-pfandsystem.de/en/the-one-way-deposit-system/about-dpg.html
+- S15: Britannica — Oktoberfest — https://www.britannica.com/topic/Oktoberfest
+- S16: germanculture.com.ua — Why Germans Eat Green Food on Maundy Thursday — https://germanculture.com.ua/german-traditions/why-germans-eat-green-food-on-maundy-thursday-grundonnerstag/
+- S17: Frankfurt on Foot — Frankfurt Grüne Sosse — https://frankfurt-on-foot.com/2024/01/12/frankfurt-grune-sosse-or-green-sauce/
+- S18: Wikipedia: Currywurst — https://en.wikipedia.org/wiki/Currywurst
+- S19: Herta Heuwer — https://en.wikipedia.org/wiki/Herta_Heuwer
+- S20: Hamburg   Travel — Berlin or Hamburg: Who invented the currywurst? — https://www.hamburg-travel.com/blog/berlin-or-hamburg-who-invented-the-currywurst/
+- S21: doeatbetterexperience.com — Currywurst in     Berlin — https://doeatbetterexperience.com/blog/currywurst-berlin/
+- S22: Berlin     Food Tour — Berlin Currywurst, More Than Just a Sausage — https://www.berlinfoodtour.de/2025/02/04/berlin-currywurst-more-than-just-a-sausage/
+- S23: Wikipedia: Thuringian     sausage — https://en.wikipedia.org/wiki/Thuringian_sausage
+- S24: GOV.UK —     protected food name: Thüringer Rostbratwurst — https://www.gov.uk/protected-food-drink-names/thuringer-rostbratwurst
+- S25: Wikipedia: Nürnberger Rostbratwurst — https://en.wikipedia.org/wiki/N%C3%BCrnberger_Rostbratwurst
+- S26: Find My Seidla — The Nürnberger Rostbratwurst: History, PGI Protection — https://findmyseidla.de/en/blog/nuremberg-bratwurst
+- S27: The Daily Meal —   What Makes Bavarian Pretzels Different — https://www.thedailymeal.com/2062505/what-makes-bavarian-pretzels-different/
+- S28: My German Table — Swabian Pretzels — https://www.mygermantable.com/swabian-pretzels-schwabische-laugenbrezeln/
+- S29: The Daily Meal — Wiener   Schnitzel's Ingredients Are Actually Defined By Law — https://www.thedailymeal.com/1105865/wiener-schnitzels-ingredients-are-actually-defined-by-law/
+- S30: Wikipedia: Wiener schnitzel — https://en.wikipedia.org/wiki/Wiener_schnitzel
+- S31: Wikipedia: Jagdwurst — https://en.wikipedia.org/wiki/Jagdwurst
+- S32: germany-shop.info — Secrets of sauerbraten: a chef reveals the regional   differences — https://www.germany-shop.info/en/why-does-sauerbraten-taste-so-different-in-the-rhineland-compared-to-franconia-or-saxony/
+- S33: Craft Beering — Steckerlfisch aka   Bavarian Fish on a Stick — https://www.craftbeering.com/steckerlfisch/
+- S34: Wikipedia: Steckerlfisch — https://en.wikipedia.org/wiki/Steckerlfisch
+- S35: Wikipedia: Käsespätzle — https://en.wikipedia.org/wiki/K%C3%A4sesp%C3%A4tzle
+- S36: The Splendid Table — Käsespätzle — https://www.splendidtable.org/story/2024/11/08/ksesptzle-swabian-noodles-with-mountain-cheese-and-caramelized-onions
+- S37: Wikipedia:   Flammekueche — https://en.wikipedia.org/wiki/Flammekueche
+- S38: Wikipedia: Labskaus — https://en.wikipedia.org/wiki/Labskaus
+- S39: My Dinner — Hamburger Labskaus — https://mydinner.co.uk/labskaus/
+- S40: Atlas Obscura — Handkäse Mit Musik — https://www.atlasobscura.com/foods/handkase-mit-musik-handcheese-with-music
+- S41: Culture: the word on cheese — Handkäse mit Musik — https://culturecheesemag.com/travel/wheys-less-traveled/handkase-mit-musik/
+- S42: Smithsonian Magazine — How Germany's Spaghetti Ice Cream Came to Be — https://www.smithsonianmag.com/travel/how-germanys-spaghetti-ice-cream-came-to-be-180982461/
+- S43: Wikipedia (DE): Füllstrich — https://de.wikipedia.org/wiki/F%C3%BCllstrich
+- S44: Wikipedia: Fill line — https://en.wikipedia.org/wiki/Fill_line
+- S45: Küchen-Forum — kitchen in   an Altbau rental — https://www.kuechen-forum.de/forum/themen/kuechenplanung-in-mietwohnung-altbau.50220/
+- S46: Küchen-Forum — L-kitchen with low window and radiator — https://www.kuechen-forum.de/forum/themen/l-kueche-mit-niedrigem-fenster-und-heizkoerper.5525/
+- S47: Mieterverein München —   Balkonien and garden — https://www.mieterverein-muenchen.de/balkonien-und-garten-das-ist-erlaubt/
+- S48: Deutscher Mieterbund — balconies — https://mieterbund.de/aktuelles/meldungen/balkone-und-terrassen/
+- S49: OBI — balcony — https://www.obi.de/magazin/garten/balkon
+- S50: Falstaff — what makes a   real Wirtshaus — https://www.falstaff.com/at/news/alles-wirt-gut-was-das-echte-wirtshaus-ausmacht-und-wo-man-es-heute-noch-findet
+- S51: erlebe.bayern — historic Bavarian inns — https://erlebe.bayern/listicles/historische-wirtshaeuser-in-bayern/
+- S52: Alps Magazine — Tiroler Stube — https://www.alps-magazine.com/tiroler-stube-heimeliges-unterm-hergottswinkel/
+- S53: Servus Heimat — blue-check tablecloth — https://www.servusheimat.com/biergarten-tischdecke-blaukariert-klein.html
+- S54: coolibri — Imbissbuden im   Pott — https://coolibri.de/magazin/imbissbuden-im-pott/
+- S55: ruhr-guide — Kultimbisse — https://www.ruhr-guide.de/category/ausgehen/ausgehen-im-ruhrgebiet/kultimbisse/
+- S56: Hähnchen Finke — top Currywurst stands — https://hahnfinke.de/top-currywurstbuden-ruhrgebiet-2025-haehnchen-finke-mehr/
+- S57: myPOS — opening a Döner shop — https://www.mypos.com/de-de/blog/geschaftsratgeber/donerladen-eroeffnen-schritte-kosten-und-tipps
+- S58: CPGASTRO — Döner salad counters — https://cpgastro.de/collections/salattische-saladetten
+- S59: WG-Gesucht — Berlin Oberschöneweide — https://www.wg-gesucht.de/wg-zimmer-in-Berlin-Oberschoeneweide.13599454.html
+- S60: WG-Gesucht — Berlin Friedrichsfelde — https://www.wg-gesucht.de/wg-zimmer-in-Berlin-Friedrichsfelde.13964249.html
+- S61: WG-Gesucht — Leipzig Zentrum-Nord — https://www.wg-gesucht.de/wg-zimmer-in-Leipzig-Zentrum-Nord.10391567.html
+- S62: Hausbau-Forum — Kochinsel threads — https://www.hausbau-forum.de/category/K/kochinsel/
+- S63: Hausbau-Forum — kitchen planning for a new detached house — https://www.hausbau-forum.de/posts/629519/
+- S64: top10berlin — coffee — https://www.top10berlin.de/de/tags/coffee
+- S65: The Way to Coffee — specialty coffee Berlin — https://www.thewaytocoffee.com/specialtycoffeeberlin/
+- S66: ohne-makler — café for sale — https://www.ohne-makler.net/immobilie/474531/
+- S67: OpenTable — eins44   Kantine — https://www.opentable.hk/eins44-kantine-neukolln
+- S68: I Heart Berlin — eins44 — https://www.iheartberlin.de/tag/weserstrasse/
+- S69: The Berliner — best restaurants in Neukölln — https://www.the-berliner.com/food/best-restaurants-in-neukolln/
+- S70: top10berlin — Volkspark   Friedrichshain — https://www.top10berlin.de/de/cat/freizeit-268/parks-1375/volkspark-friedrichshain
+- S71: Berlin.de — best picnic spots — https://www.berlin.de/special/2471225-208-best-picnic-spots-in-berlin.html
+- S72: visitBerlin — top picnic spots — https://www.visitberlin.de/de/blog/berlins-top-11-picknickplaetze
+- S73: Kurz mal weg — best weekly   markets — https://www.kurz-mal-weg.de/reisemagazin/freizeitaktivitaeten/wochenmarkt-ranking
+- S74: Neckargemünd — market statute 2023 — https://neckargemuend.de/site/Neckargemuend_2019/get/params_E702721020/3392945/Wochenmarktsatzung%202023.pdf
+- S75: Germersheim — market statute 2025 — https://www.germersheim.eu/kultur-tourismus/feste-maerkte/germersheimer-maerkte/wochenmarkt/wochenmarktsatzung-2025.doc.pdf?cid=ix7
+- S76: viel-unterwegs —   Boltenhagen — https://viel-unterwegs.de/ostseebad-boltenhagen
+- S77: ab-in-den-urlaub — Ahlbeck — https://www.ab-in-den-urlaub.de/magazin/reisetipps/ahlbeck/
+- S78: Deutsche Bahn — Travemünde — https://www.bahn.de/angebot/urlaub/bahnreisen/summerrail/travemuende
+- S79: Statista — Umfrage zum   Essen an den Weihnachtsfeiertagen 2024 — https://de.statista.com/statistik/daten/studie/778023/umfrage/umfrage-in-deutschland-zum-essen-an-den-weihnachtsfeiertagen
+- S80: YouGov Deutschland — Lieblingsgerichte der Deutschen zu Weihnachten — https://yougov.de/consumer/articles/51178-die-lieblingsgerichte-und-lieblingslebensmittel-der-deutschen-zu-weihnachten
+- S81: Verbraucherfenster Hessen — Das   Osterlamm — https://verbraucherfenster.hessen.de/ernaehrung/essen-trinken/das-osterlamm-traditionelle-leckerei-aus-der-backform
+- S82: speisekarte.de — Das Osterlamm — https://www.speisekarte.de/blog/2025/04/11/das-osterlamm-bedeutung-brauch-zubereitung/
+- S83: deutschland-feiert.de —   Geburtstagstraditionen — https://www.deutschland-feiert.de/geburtstage/geburtstagstraditionen/
+- S84: familie.de — Essen zum Kindergeburtstag — https://www.familie.de/diy/rezepte/essen-zum-kindergeburtstag/
+- S85: Känguru — Kommunion und Konfirmation   richtig planen — https://www.kaenguru-online.de/themen/familienleben/kommunion-und-konfirmation-richtig-planen
+- S86: gastgewerbe-magazin — Hochzeitsreport   2026 — https://gastgewerbe-magazin.de/hochzeitsreport-2026-kleiner-kreis-statt-grosser-show-welche-hochzeiten-die-deutschen-wirklich-moegen-72991
+- S87: pureperfect-weddings — Zahlen & Fakten — https://pureperfect-weddings.de/hochzeit/zahlen-fakten-rund-um-das-thema-hochzeit/
+- S88: YouGov Deutschland —   Grillsaison-Bilanz 2026 — https://yougov.com/de-de/artikel/55433-grillsaison-bilanz-2026-fast-sieben-von-zehn-deutschen-haben-dieses-jahr-gegrillt
+- S89: The Local — Euro   2024 fan zones — https://www.thelocal.de/20240612/where-are-the-fan-zones-for-euro-2024-in-germany
+- S90: muenchen.de — Fan Zone Olympiapark — https://www.muenchen.de/en/events/uefaeuro2024/fan-zone-munich-olympic-park-public-viewig-concerts
+- S91: Wikipedia — Spiel — https://en.wikipedia.org/wiki/Spiel
+- S92: IMARC Germany board games — https://www.imarcgroup.com/germany-board-games-market

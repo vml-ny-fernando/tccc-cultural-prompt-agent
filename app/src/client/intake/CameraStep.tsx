@@ -137,7 +137,7 @@ export function CameraStep({
           focalMm={selectedLook?.focalMm}
           value={cam.angle}
           onChange={pick}
-          options={cfg.angles.map((a) => ({ id: a.id, label: a.label, pitchDeg: a.pitchDeg }))}
+          options={cfg.angles.map((a) => ({ id: a.id, label: a.label, pitchDeg: a.pitchDeg, test: a.test }))}
           recommendedId={recAngle?.id}
           views={views}
         />

@@ -35,7 +35,26 @@ export interface AngleOption {
   label: string;
   prompt: string;
   /** Framing on top of the pitch; see solver.ts Framing. */
-  hidden: { pitch_deg: number; setback_scale?: number; front_edge_min_y?: number; rear_edge_max_y?: number };
+  hidden: {
+    pitch_deg: number;
+    setback_scale?: number;
+    front_edge_min_y?: number;
+    rear_edge_max_y?: number;
+    /** Test angles: raise camera and aim this far above the tabletop (a level camera would sit on it). */
+    lift_m?: number;
+    /** Test angles: after framing, move the camera to this share of its distance (0.75 = about 25% tighter). */
+    distance_scale?: number;
+    /** Test angles: the hero group's target width as a share of the usual one (above 1 = tighter). */
+    span_scale?: number;
+    /** Where the camera stands, for the prompt (after "from"); default "a seated diner's eye height". */
+    viewpoint?: string;
+    /** An extra sentence the angle adds to the prompt. */
+    note?: string;
+    /** What this camera sees of the room behind the table, overriding the default by pitch. */
+    background?: string;
+  };
+  /** A test angle (Fernando, 2026-11-14): its own row, never recommended or used as a fallback. */
+  test?: boolean;
   status?: string;
 }
 
@@ -82,6 +101,8 @@ export function recommendAngle(entree: {
 
 export const LOOKS: LookOption[] = cameraOptions.look.options as LookOption[];
 export const ANGLES: AngleOption[] = cameraOptions.angle.options as AngleOption[];
+/** The three standard angles, without the test row. */
+export const STANDARD_ANGLES: AngleOption[] = ANGLES.filter((a) => !a.test);
 export const DEPTHS: DepthOption[] = cameraOptions.depth_of_field.options as DepthOption[];
 export const DEFAULT_LOOK = cameraOptions.look.default;
 export const DEFAULT_DEPTH = cameraOptions.depth_of_field.default;
@@ -159,8 +180,11 @@ export function angleSentence(angle: AngleOption): string {
       : place === "just-above"
         ? "the horizon (the camera's eye level) sits just above the top edge of the frame"
         : "the horizon (the camera's eye level) is well above the frame, so the room behind is seen from above";
+  const from = angle.hidden.viewpoint ?? "a seated diner's eye height";
+  const tilt = pitch === 0 ? "held level, not tilted at all" : `tilted about ${pitch} degrees down toward the table`;
   return (
-    `One camera, from a seated diner's eye height, tilted about ${pitch} degrees down toward the table; ${eyeLine}. ` +
+    `One camera, from ${from}, ${tilt}; ${eyeLine}. ` +
+    (angle.hidden.note ? `${angle.hidden.note} ` : "") +
     "Draw the room, walls, furniture and background from this same camera height and tilt, so their lines meet the same eye level as the table's; never draw the room from a different, standing viewpoint. " +
     "The table is an ordinary dining table at its real size and height, not enlarged or tipped up toward the camera."
   );
@@ -176,6 +200,7 @@ export function farEdgeSentence(angle: AngleOption): string {
 
 /** What this camera sees of the room behind the table, by where the eye level falls (agent and photo prompts). */
 export function backgroundView(angle: AngleOption): string {
+  if (angle.hidden.background) return angle.hidden.background;
   switch (horizonPlace(angle.hidden.pitch_deg)) {
     case "inside":
       return "the far wall seen nearly straight on, with chair backs, the tops of other tables and wall details at about table height";
@@ -193,7 +218,7 @@ export function backgroundView(angle: AngleOption): string {
  */
 export function backgroundPerspectiveSentence(angle: AngleOption): string {
   return (
-    `The tabletop and the background are seen through the same camera as the table, tilted about ${angle.hidden.pitch_deg} degrees down from a seated diner's eye height, ` +
+    `The tabletop and the background are seen through the same camera as the table, ${angle.hidden.pitch_deg === 0 ? "held level" : `tilted about ${angle.hidden.pitch_deg} degrees down`} from ${angle.hidden.viewpoint ?? "a seated diner's eye height"}, ` +
     `so the background shows ${backgroundView(angle)}. ` +
     "The edges of the tabletop, the floor, wall bases, shelves and window sills all recede to the same vanishing points and the same eye level as the table; " +
     "every upright (wall corners, door and window frames, shelf sides, chair and table legs) slants exactly as the table's own legs do in this view, never more or less; " +

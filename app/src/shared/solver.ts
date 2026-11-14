@@ -8,7 +8,7 @@
 import { heldLabel, holdingHand, poseById, poseRole, sideToward, toWorld, type PersonId } from "./poses";
 import { ASPECT, clipConvex, fovFromFocal, makeCameraParams, overlapArea, polyArea, Projector, rectPoly, screenBox, silhouette, type Poly, type ScreenBox } from "./camera";
 import { bottleClearance, footprintRadius, SURFACES, type ProxyDef } from "./registry";
-import { ANGLES, angleById, depthById, lookById, type AngleOption } from "./rules";
+import { STANDARD_ANGLES, angleById, depthById, lookById, type AngleOption } from "./rules";
 import layoutPreferences from "../../rules/layout-preferences.json";
 import { isMultiServe, sceneItems, type ItemSpec } from "./scene";
 import { isFamily } from "./spec";
@@ -692,6 +692,10 @@ interface Framing {
   front_edge_min_y?: number;
   /** Highest the table's rear edge, and every item's base, may sit in the frame. Unset: 0.5, the horizon clamp (H1, H2). */
   rear_edge_max_y?: number;
+  /** Test angles (rules.ts AngleOption): camera height off the tabletop, a tighter final distance, a wider or narrower hero group. */
+  lift_m?: number;
+  distance_scale?: number;
+  span_scale?: number;
 }
 
 const rearLimit = (f: Framing) => f.rear_edge_max_y ?? 0.5;
@@ -699,6 +703,12 @@ const rearLimit = (f: Framing) => f.rear_edge_max_y ?? 0.5;
 export function fitCamera(placed: Placed[], D: number, focal: number, pitch: number, targetSpan: number, framing: Framing = {}, frameAll = false): Fit | null {
   // frameAll (family style): frame the whole spread, not just the dish and its drink.
   const heroes = frameAll ? placed.map((p) => p.item.label) : heroLabels(placed);
+  targetSpan *= framing.span_scale ?? 1;
+  const lift = framing.lift_m ?? 0;
+  const makeCam = (f: number, p: number, x: number, td: number, dist: number): CameraParams => {
+    const c = makeCameraParams(f, p, x, td, dist);
+    return lift ? { ...c, position: [c.position[0], c.position[1] + lift, c.position[2]], target: [c.target[0], c.target[1] + lift, c.target[2]] } : c;
+  };
   const heroPlaced = placed.filter((p) => heroes.includes(p.item.label));
   const xs = heroPlaced.flatMap((p) => [p.x - radiusOf(p), p.x + radiusOf(p)]);
   const tx0 = (Math.min(...xs) + Math.max(...xs)) / 2;
@@ -716,7 +726,7 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
   const frame = (td: number, dist: number, fixedX?: number): { fit: Fit; score: number } | null => {
     const strict = fixedX !== undefined;
     let tx = fixedX ?? tx0;
-    let cam = makeCameraParams(focal, pitch, tx, td, dist);
+    let cam = makeCam(focal, pitch, tx, td, dist);
     let { boxes, proj } = project(placed, cam);
     const main = placed.find((p) => p.item.kind === "main")!;
     const perMeter = () => (proj.project(main.x + 1, 0, main.d).x - proj.project(main.x - 1, 0, main.d).x) / 2;
@@ -726,7 +736,7 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
         const u = unionBox(heroes.map((l) => boxes.get(l)!));
         const cx = (u.x0 + u.x1) / 2;
         tx += (cx - 0.5) / perMeter();
-        cam = makeCameraParams(focal, pitch, tx, td, dist);
+        cam = makeCam(focal, pitch, tx, td, dist);
         ({ boxes, proj } = project(placed, cam));
       }
       // A hero group wider than the center third (dish and drink only, framed tight) would push the
@@ -734,7 +744,7 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
       const over = Math.max(...heroes.filter((l) => l !== "MAIN").map((l) => boxes.get(l)!.x1 - thirdSlack(l, boxes.get(l)!))) - (2 / 3 - 0.004);
       if (over > 0 && !frameAll) {
         tx += over / perMeter();
-        cam = makeCameraParams(focal, pitch, tx, td, dist);
+        cam = makeCam(focal, pitch, tx, td, dist);
         ({ boxes, proj } = project(placed, cam));
       }
     }
@@ -778,7 +788,15 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
     }
     best ??= fitted;
   }
-  const fit = (best as { fit: Fit }).fit;
+  let fit = (best as { fit: Fit }).fit;
+  if (framing.distance_scale !== undefined && framing.distance_scale !== 1) {
+    // Test angles: step in (or out) along the line of sight once framed, cropping what falls outside.
+    const k = framing.distance_scale;
+    const c = fit.cam;
+    const cam: CameraParams = { ...c, position: [0, 1, 2].map((i) => c.target[i]! + (c.position[i]! - c.target[i]!) * k) as [number, number, number] };
+    const { boxes, proj } = project(placed, cam);
+    fit = { cam, boxes, sils: new Map(), rearY: proj.project(cam.target[0], 0, D).y };
+  }
   const proj = new Projector(fit.cam);
   for (const p of placed) fit.sils.set(p.item.label, silhouette(proj, p.item.def, p.x, p.d, p.yaw, p.item.extraHeight));
   return fit;
@@ -847,7 +865,8 @@ export function checkRules(placed: Placed[], fit: Fit, spec: SceneSpec): RuleRes
   const sku = get("SKU");
   const heroes = heroLabels(placed);
 
-  const rearMax = rearLimit(angleById(spec.camera.angle).hidden);
+  const angleOpt = angleById(spec.camera.angle);
+  const rearMax = rearLimit(angleOpt.hidden);
   out.push({ id: "H1", name: "Horizon clamp", pass: fit.rearY <= rearMax + 1e-6, detail: `table rear edge at y = ${fit.rearY.toFixed(3)} (≤ ${rearMax.toFixed(2)})` });
 
   const low = placed.filter((p) => !p.item.def.tall);
@@ -982,6 +1001,8 @@ export function checkRules(placed: Placed[], fit: Fit, spec: SceneSpec): RuleRes
       offenders: movable([main2.item.label]),
     });
   }
+  // Test angles (Fernando, 2026-11-14) break the standard framing on purpose: these only warn.
+  if (angleOpt.test) for (const r of out) if (["H1", "H2", "H12", "H14"].includes(r.id)) r.soft = true;
   return out;
 }
 
@@ -1294,7 +1315,7 @@ const LARGER_SURFACE: Partial<Record<Surface, Surface[]>> = {
 /** The other camera angles, nearest pitch first. */
 function nearestAngles(id: string): AngleOption[] {
   const pitch = angleById(id).hidden.pitch_deg;
-  return ANGLES.filter((a) => a.id !== id).sort((a, b) => Math.abs(a.hidden.pitch_deg - pitch) - Math.abs(b.hidden.pitch_deg - pitch));
+  return STANDARD_ANGLES.filter((a) => a.id !== id).sort((a, b) => Math.abs(a.hidden.pitch_deg - pitch) - Math.abs(b.hidden.pitch_deg - pitch));
 }
 
 function angleName(a: AngleOption): string {

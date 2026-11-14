@@ -154,3 +154,47 @@
 .card[data-selected] .viewNote {
   color: var(--neo-on-selected);
 }
+
+/* Test angles (Fernando, 2026-11-14): a second row in orange, so they read apart from the three standard angles. */
+.testNote {
+  margin: 14px 0 8px;
+  font-family: var(--bay-font-mono);
+  font-size: var(--app-text-min);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c85a00;
+}
+
+.grid[data-test] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@container (max-width: 520px) {
+  .grid[data-test] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card[data-test] {
+  border-color: #ff7a1a;
+  background: #fff4ea;
+}
+
+.card[data-test][data-hovered]:not([data-selected]),
+.card[data-test][data-pressed]:not([data-selected]) {
+  background: #ffe6d1;
+}
+
+.card[data-test][data-selected] {
+  border: 3px solid #ff7a1a;
+  background: #ff7a1a;
+}
+
+.card[data-test][data-selected] .label {
+  color: #fff;
+}
+
+.card[data-test] .media {
+  border-color: #ff7a1a;
+}

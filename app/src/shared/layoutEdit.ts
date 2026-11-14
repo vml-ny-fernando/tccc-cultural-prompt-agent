@@ -71,7 +71,7 @@ export function primitiveDef(p: Primitive): ProxyDef {
   if (p.role === "napkin-set" || p.role === "partner-napkin") return napkinDef(p.footprint ?? "rect", p.proxy.includes("-dinner") ? "dinner" : "luncheon");
   if (p.role === "sku" || p.role === "partner-sku") {
     // Rebuild from the blueprint's dimensions (the SKU proxy key is catalog-specific).
-    const kind = p.proxy.includes("can") ? "lathe-can" : "lathe-bottle";
+    const kind = p.proxy.includes("fountain-cup") ? "lathe-cup" : p.proxy.includes("can") ? "lathe-can" : "lathe-bottle";
     return { kind, radius: p.dimensions.width / 2, height: p.dimensions.height, tall: true };
   }
   return VESSELS[p.proxy as keyof typeof VESSELS] ?? { kind: "cylinder", radius: p.dimensions.width / 2, height: p.dimensions.height };

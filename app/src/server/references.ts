@@ -52,9 +52,16 @@ const SHOT_WORDS: Record<SkuShot, string> = {
 };
 
 /** Prompt lines naming each product photo by its image number. */
-export function skuReferenceLines(refs: Array<{ shot: SkuShot; n: number }>): string {
+export function skuReferenceLines(refs: Array<{ shot: SkuShot; n: number }>, skuId?: string): string {
   if (!refs.length) return '';
   const list = refs.map((r) => `image ${r.n} shows it ${SHOT_WORDS[r.shot]}`).join('; ');
+  if (skuId && SKU_CATALOG.find((s) => s.id === skuId)?.unbranded) {
+    return [
+      `Product photographs of the real cup: ${list}.`,
+      'These are close-ups: they show how the cup looks, not how big it is in the scene, so keep it at the real size given in this prompt. Match the cup exactly to these photographs: the same tapered shape and proportions, the flat lid, the straight straw and the printed stripes and colors.',
+      'The cup carries no logo, brand name or text of any kind; never add one, and never turn it into a branded Coca-Cola cup.',
+    ].join(' ');
+  }
   return [
     `Product photographs of the real package: ${list}.`,
     'These are close-ups: they show how the package looks, not how big it is in the scene, so keep it at the real size given in this prompt. Match the package exactly to these photographs: the same shape and proportions, cap or lid, label artwork, logo lettering and colors. Do not redraw, restyle or re-letter the label, and do not invent any text.',

@@ -8,6 +8,7 @@
 import * as THREE from 'three';
 import { Projector, toThreeCamera } from '../../shared/camera.ts';
 import { primitiveDef } from '../../shared/layoutEdit.ts';
+import { CUP_BASE_RATIO, CUP_STRAW_ABOVE_M } from '../../shared/registry.ts';
 import { poseById, poseOf, sideToward, toLocal, type PersonId, type PersonPose } from '../../shared/poses.ts';
 import type { LightingPreset } from '../../shared/rules.ts';
 import type { Blueprint, Primitive } from '../../shared/types.ts';
@@ -221,6 +222,18 @@ function buildItem(p: Primitive, bp?: Blueprint): THREE.Object3D {
     const c = mesh(new THREE.CylinderGeometry(def.radius!, def.radius!, def.height, 40), color);
     c.position.y = def.height / 2;
     g.add(c);
+  } else if (def.kind === 'lathe-cup') {
+    // Tapered paper cup, a flat lid a little wider than the rim, and the straw standing up through the lid.
+    const r = def.radius!;
+    const lidH = 0.01;
+    const body = mesh(new THREE.CylinderGeometry(r, r * CUP_BASE_RATIO, def.height - lidH, 40), color);
+    body.position.y = (def.height - lidH) / 2;
+    const lid = mesh(new THREE.CylinderGeometry(r * 1.04, r * 1.04, lidH, 40), shade(color, 1.12));
+    lid.position.y = def.height - lidH / 2;
+    const strawLen = def.height * 0.6 + CUP_STRAW_ABOVE_M;
+    const straw = mesh(new THREE.CylinderGeometry(0.0035, 0.0035, strawLen, 12), '#f4f4f4');
+    straw.position.set(r * 0.15, def.height + CUP_STRAW_ABOVE_M - strawLen / 2, 0);
+    g.add(body, lid, straw);
   } else if (def.kind === 'lathe-condiment') {
     g.add(mesh(lathe(CONDIMENT, def.radius!, def.height), color));
   } else if (def.kind === 'lathe-bell-glass') {

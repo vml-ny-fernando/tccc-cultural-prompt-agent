@@ -9,7 +9,7 @@ const plateRadius = (id: keyof typeof plateSpec.plates) => plateSpec.plates[id].
 /** Lip height 1.5-2 cm (flat profile). */
 const PLATE_HEIGHT = 0.02;
 
-export type ShapeKind = "cylinder" | "box" | "lathe-bottle" | "lathe-can" | "lathe-bell-glass" | "lathe-condiment" | "napkin" | "seated-person";
+export type ShapeKind = "cylinder" | "box" | "lathe-bottle" | "lathe-can" | "lathe-cup" | "lathe-bell-glass" | "lathe-condiment" | "napkin" | "seated-person";
 
 export interface ProxyDef {
   kind: ShapeKind;
@@ -169,6 +169,16 @@ export const SKU_CATALOG: Array<SkuInfo & { shortName: string; markets?: string[
     displayName: "Coca-Cola Zero Sugar 290 mL contour glass bottle", package: "contour-glass-bottle", volumeMl: 290, heightM: 0.204, radiusM: 0.0294, markets: ["united_arab_emirates"],
     appearance: "clear glass bottle in the classic contour shape, 20.4 cm tall and 5.9 cm across at its widest, with a pinched waist low on the body and a black crown cap; filled to the neck with dark cola that glows red-amber where light passes through, a thin ring of light foam at the surface and fine bubbles clinging to the glass, clear empty glass in the neck above it; a red label band around the upper body carries the black Coca-Cola script logo with ZERO SUGAR in black capitals beneath it",
   },
+  // Fountain drink (Fernando, 2026-11-13): a generic lidded paper cup with a straw, plain red and white stripes and
+  // no logo, so it is the one SKU that is not branded. All markets. Sized as a typical 22 fl oz paper cold cup
+  // (15.7 cm tall, 9.5-10 cm across the top, 6.3 cm at the base) plus about 1 cm of lid. Its photos are keyed by a
+  // made-up code (no GTIN): references/sku/FOUNTAIN-CUP-22OZ/front.jpg and public/sku/FOUNTAIN-CUP-22OZ.jpg are
+  // Fernando's reference photo with the stock watermark painted out.
+  {
+    id: "fountain-cup-22oz", gtin: "FOUNTAIN-CUP-22OZ", shortName: "22 fl oz fountain drink cup",
+    displayName: "22 fl oz (650 mL) fountain drink cup", package: "fountain-cup", volumeMl: 650, heightM: 0.167, radiusM: 0.0495, unbranded: true,
+    appearance: "medium paper fountain-drink cup that tapers from a wide rim to a narrower base, made of matte white paper printed with wide vertical red stripes, with a flat white plastic snap-on lid that has a small raised rim; it is filled with cola, hidden by the lid",
+  },
   // Retired provisional sizes (coca-cola-guidelines.md §4.3), hidden from the brief.
   { id: "coke-original-330ml-glass", shortName: "330 mL contour glass bottle", displayName: "Coca-Cola Original Taste 330 mL contour glass bottle", package: "contour-glass-bottle", volumeMl: 330, retired: true },
   { id: "coke-original-350ml-glass-es", shortName: "350 mL returnable glass (Spain)", displayName: "Coca-Cola Original Taste 350 mL returnable glass bottle (Spain on-premise)", package: "contour-glass-bottle", volumeMl: 350, markets: ["spain"], retired: true },
@@ -178,7 +188,22 @@ export const SKU_CATALOG: Array<SkuInfo & { shortName: string; markets?: string[
   { id: "coke-original-2l-pet", shortName: "2 L PET bottle", displayName: "Coca-Cola Original Taste 2 L PET bottle", package: "pet-bottle", volumeMl: 2000, retired: true },
 ];
 
+/** How far the fountain cup's straw rises above its lid, and the cup's base radius as a share of its rim. */
+export const CUP_STRAW_ABOVE_M = 0.07;
+export const CUP_BASE_RATIO = 0.64;
+
+/** The word for the package in the prompts: can, bottle or cup. */
+export function skuNoun(sku: Pick<SkuInfo, "package">): "can" | "bottle" | "cup" {
+  return sku.package === "can" ? "can" : sku.package === "fountain-cup" ? "cup" : "bottle";
+}
+
+/** "the Coca-Cola can" / "the Coca-Cola bottle", or "the drink cup" for the unbranded fountain cup. */
+export function skuThe(sku: Pick<SkuInfo, "package" | "unbranded">): string {
+  return sku.unbranded ? `the drink ${skuNoun(sku)}` : `the Coca-Cola ${skuNoun(sku)}`;
+}
+
 export function skuProxy(sku: SkuInfo): ProxyDef {
+  if (sku.package === "fountain-cup") return { kind: "lathe-cup", radius: sku.radiusM ?? 0.0495, height: sku.heightM ?? 0.167, tall: true };
   if (sku.heightM && sku.radiusM) return { kind: sku.package === "can" ? "lathe-can" : "lathe-bottle", radius: sku.radiusM, height: sku.heightM, tall: true };
   if (sku.package === "can") {
     return sku.volumeMl >= 355

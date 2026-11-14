@@ -257,6 +257,20 @@ function isCornerLayout(bp: Blueprint): boolean {
  * How the table sits in a corner layout's frame, in words (Fernando, 2026-10-17): the image model
  * otherwise redraws the table square-on with the plates side by side, ignoring image 1.
  */
+/**
+ * Skewed scenes drift most (Fernando, 2026-11-14): when the camera is turned toward a corner, the
+ * room was drawn squared to the frame while the table ran diagonally. Say the room turns with it.
+ */
+export function turnedRoomSentence(bp: Blueprint): string {
+  const c = bp.camera;
+  const turn = Math.round((Math.abs(Math.atan2(c.target[0] - c.position[0], -(c.target[2] - c.position[2]))) * 180) / Math.PI / 5) * 5;
+  if (turn < 10) return "";
+  return (
+    `The camera is turned about ${turn} degrees toward one corner of the table, so the table's edges run diagonally across the frame toward two vanishing points. ` +
+    "The room is turned exactly the same way: the walls, floor joints, rugs, shelves, windows and the other tables and chairs run toward those same two vanishing points, at the same angle to the frame as the table, never squared to the frame or seen straight on while the table is turned."
+  );
+}
+
 export function cornerViewSentence(spec: SceneSpec, bp: Blueprint): string {
   if (isOverShoulder(bp)) return overShoulderViewSentence(bp);
   if (!isCornerLayout(bp)) return "";
@@ -441,7 +455,7 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     skuLightSentence: skuLightSentence(spec.sku, spec.sku.glass, lighting.warmth),
     lookSentence: lookSentence(lookById(spec.camera.look), drinks, depthById(spec.camera.depth)),
     angleSentence: angleSentence(angleById(spec.camera.angle)),
-    backgroundPerspective: backgroundPerspectiveSentence(angleById(spec.camera.angle)),
+    backgroundPerspective: [backgroundPerspectiveSentence(angleById(spec.camera.angle)), turnedRoomSentence(bp)].filter(Boolean).join(" "),
     viewSentence: cornerViewSentence(spec, bp),
     framingSentence: solo === "hands"
       ? "The camera looks across the table at one person's meal, low and close like the brand's meal photography: the food and the Coca-Cola products sit sharp in the frame, and PERSON_1's hand and forearm reach in from the right edge toward their drink, the rest of them out of frame."

@@ -56,7 +56,7 @@
           "note": "The dish and the Coca-Cola are the subject, sharp in the lower middle of the frame, with plenty of the place around them: more of the room shows above the table than usual." }, "status": "placeholder" },
       { "id": "test-45", "test": true, "label": "45° table spread", "prompt": "[TEST_45_PROMPT]",
         "hidden": { "pitch_deg": 45, "span_scale": 1.15, "front_edge_min_y": 0.03, "rear_edge_max_y": 0.85,
-          "note": "The table spread fills the frame with a strip of background above it. Keep this 45-degree view for everything in the picture: the table, every dish, the floor, walls and furniture share one perspective, with no part drawn flatter or steeper. The framing is tight: if people are at or near the table, they are cropped at the chin or below, so no tops of heads, no eyes and no facial features show." }, "status": "placeholder" },
+          "note": "The table spread fills the frame with a strip of background above it. The framing is tight: if people are at or near the table, they are cropped at the chin or below, so no tops of heads, no eyes and no facial features show." }, "status": "placeholder" },
       { "id": "test-overhead", "test": true, "label": "Near overhead", "prompt": "[TEST_OVERHEAD_PROMPT]",
         "hidden": { "pitch_deg": 75, "front_edge_min_y": -2, "rear_edge_max_y": 1.5,
           "viewpoint": "high above the table",

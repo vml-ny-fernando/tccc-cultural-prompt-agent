@@ -186,6 +186,7 @@ export function angleSentence(angle: AngleOption): string {
     `One camera, from ${from}, ${tilt}; ${eyeLine}. ` +
     (angle.hidden.note ? `${angle.hidden.note} ` : "") +
     "Draw the room, walls, furniture and background from this same camera height and tilt, so their lines meet the same eye level as the table's; never draw the room from a different, standing viewpoint. " +
+    `Foreground and background share one perspective: everything in the picture, from the nearest dish to the far wall, is seen from this one ${pitch === 0 ? "level" : `${pitch}-degree`} view, with no part drawn flatter, steeper or from another direction. ` +
     "The table is an ordinary dining table at its real size and height, not enlarged or tipped up toward the camera."
   );
 }

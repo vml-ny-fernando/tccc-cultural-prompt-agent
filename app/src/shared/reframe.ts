@@ -172,7 +172,9 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
   const sameAngle = Math.abs(bp.camera.pitchDeg - angle.hidden.pitch_deg) < 1e-6 && Math.abs(bp.camera.focalLengthMm - look.hidden.focal_length_mm) < 1e-6;
   // Two place settings around a corner (and seated people) are seen down the corner's diagonal, which
   // the one-diner framing rules don't cover: the camera orbits its own aim point to the new pitch instead.
-  const yawed = Math.abs(bp.camera.position[0] - bp.camera.target[0]) > 1e-3 || bp.primitives.some((p) => p.role.startsWith("partner-") || p.role === "person");
+  // Family style has other people's drinks (partner roles) but a straight-on camera: it reframes like one diner, framing the whole spread.
+  const family = bp.layout_meta.archetype === "Family Style";
+  const yawed = Math.abs(bp.camera.position[0] - bp.camera.target[0]) > 1e-3 || bp.primitives.some((p) => (!family && p.role.startsWith("partner-")) || p.role === "person");
   if (yawed) return orbit(bp, angle.hidden.pitch_deg, sameAngle);
   const names = new Map(bp.primitives.map((p) => [p.id, p.component_name]));
   const named = (ids: string[] | undefined) => (ids ?? []).map((id) => names.get(id) ?? id);
@@ -187,7 +189,7 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
           const sils = new Map(placed.map((p) => [p.item.label, silhouette(proj, p.item.def, p.x, p.d, p.yaw, p.item.extraHeight)]));
           return { cam: bp.camera, boxes, sils, rearY: bp.horizon_clamp.max_table_rear_y_normalized };
         })()
-      : fitCamera(placed, D, look.hidden.focal_length_mm, angle.hidden.pitch_deg, hasL2 ? spans.with_sides : spans.meal_and_drink_only, angle.hidden);
+      : fitCamera(placed, D, look.hidden.focal_length_mm, angle.hidden.pitch_deg, family ? 0.88 : hasL2 ? spans.with_sides : spans.meal_and_drink_only, angle.hidden, family);
     if (!fit) return null;
     const rules = checkRules(placed, fit, { ...spec, camera: { ...spec.camera, angle: angleId } });
     const problems: FrameProblem[] = [];
@@ -207,7 +209,7 @@ function reframeRaw(spec: SceneSpec, bp: Blueprint, angleId: string): Reframe {
               ? `From here, the Coca-Cola logo is partly covered by the ${who.map(lower).join(" and ") || "items in front of it"}.`
               : `From here, the ${who.map(lower).join(" and ") || "items"} overlap other items in the shot.`,
         });
-      } else if (!sameAngle && ["H1", "H2", "H12", "H14", "H15"].includes(r.id)) {
+      } else if (!sameAngle && !family && ["H1", "H2", "H12", "H14", "H15"].includes(r.id)) {
         // At its own angle the layout keeps the framing the person set (a slid frame may break these on purpose).
         fatal ??= "From this angle the back of the table rises too high, or the dish and the drink can't both sit in the middle of the frame.";
       }

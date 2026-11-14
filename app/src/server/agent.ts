@@ -78,6 +78,14 @@ Examples of vesselStyle: ${tablewareStyle.examples.join('; ')}.
 The knowledge base below is an excerpt: the sections of each file most relevant to this step. If something you need isn't in it, treat it as not covered.`;
 
 /** Knowledge-base search words for where the meal is eaten. */
+/** Words that pull in a country file's sections for the brief's occasion (the occasion map, brunch, Kaffee und Kuchen, late-night food). */
+const OCCASION_WORDS: Partial<Record<string, string>> = {
+  brunch: 'brunch',
+  'weekend-lunch': 'sunday weekend',
+  'afternoon-snack': 'afternoon',
+  'late-night': 'late night',
+};
+
 function sceneWords(scene: { venue: Venue; venueType?: string | undefined } | undefined): string[] {
   if (!scene) return [];
   const place = venueType(scene.venue, scene.venueType);
@@ -107,7 +115,8 @@ function venueFit(sel: Selections, step: 'prep' | 'plating' | 'sides'): string {
   if (step === 'sides') return fit;
   const shared =
     scene.party === 'family' || scene.party === 'group'
-      ? ` The party is a ${scene.party}: use service "shared" when the dish is typically served family-style from one large vessel on the table (a whole roast, a pizza, a paella pan); the scene then shows that vessel plus one plated portion. Otherwise individual.`
+      ? ' The table is family style: about four people help themselves from the middle, with no laid places. Service is always "shared": the whole dish goes on one large serving vessel (a platter, tray, board or big bowl) sized for about four, with nobody\'s plated portion; the sides and breads are shared too.'
+
       : scene.party === '2'
         ? ' The party is two people, sitting at a right angle around one corner of the table, and each always gets their own plated portion. Also use service "shared" when the dish is typically brought to the table family-style for diners to plate from (mandi on a large tray, a whole roast, a paella pan, a big platter of rice and meat): the scene then adds that one serving vessel between the two plates, and the sides and breads are shared too. Otherwise individual.'
         : ' The party is one person, so service is always "individual": they get their own portion, never one large shared vessel.';
@@ -272,7 +281,7 @@ Fixed facts (use these, do not contradict them):
 - Framing: ${facts.framingSentence}
 - Product serving: ${facts.servingSentence}
 - Layout (from the chosen proxy): ${facts.labels.map((l) => `${l.label} = ${l.what}, ${l.where}`).join('; ')}
-${spec.scene.seated && spec.scene.solo ? `\nOne person sits at this table (PERSON_1), ${spec.scene.solo === 'hands' ? 'just out of frame, so only their hand and forearm reach in toward their drink' : 'across the table facing the camera, their face cropped by the top of the frame'}; this overrides the general "nobody sits at the table" rule for this scene only. Their looks, clothes and pose already have fixed text, so do not write a label for them and do not add other people at the table. Mention them briefly in the scene summary as someone enjoying the meal, and still describe no hands holding or lifting food.` : spec.scene.seated && spec.scene.party === '2' ? '\nTwo people sit at this table, at one corner (PERSON_1 and PERSON_2); this overrides the general "nobody sits at the table" rule for this scene only. Their looks, clothes and pose already have fixed text, so do not write labels for them and do not add other people at the table. Mention them briefly in the scene summary as two people sharing the meal, and still describe no hands holding or lifting food. The second diner\'s dish (MAIN_2) is the same plate as MAIN and already has fixed text, so do not write a separate food label for it.' : spec.scene.party === '2' ? '\nThis table is set for two, at a right angle around one corner (nobody sits at it in the image, only their place settings show). Mention briefly in the scene summary that the table is set for two; the second diner\'s dish (MAIN_2) is the same plate as MAIN and already has fixed text, so do not write a separate food label for it.' : ''}
+${spec.scene.seated && spec.scene.solo ? `\nOne person sits at this table (PERSON_1), ${spec.scene.solo === 'hands' ? 'just out of frame, so only their hand and forearm reach in toward their drink' : 'across the table facing the camera, their face cropped by the top of the frame'}; this overrides the general "nobody sits at the table" rule for this scene only. Their looks, clothes and pose already have fixed text, so do not write a label for them and do not add other people at the table. Mention them briefly in the scene summary as someone enjoying the meal, and still describe no hands holding or lifting food.` : spec.scene.seated && spec.scene.party === '2' ? '\nTwo people sit at this table, at one corner (PERSON_1 and PERSON_2); this overrides the general "nobody sits at the table" rule for this scene only. Their looks, clothes and pose already have fixed text, so do not write labels for them and do not add other people at the table. Mention them briefly in the scene summary as two people sharing the meal, and still describe no hands holding or lifting food. The second diner\'s dish (MAIN_2) is the same plate as MAIN and already has fixed text, so do not write a separate food label for it.' : spec.scene.party === 'family' || spec.scene.party === 'group' ? '\nThis table is family style for about four people (nobody sits at it in the image): the whole dish (MAIN) sits in the middle on its serving vessel, the shared dishes around it, a loose stack of small plates (PLATES) for people to serve themselves, and one drink per person spread around the table. No place is laid: no plated portions, napkin sets or cutlery at places. Mention briefly in the scene summary that it is a shared family-style table for about four. The other people\'s drinks (SKU_2 and on, GLASS_2 and on) already have fixed text, so do not write labels for them.' : spec.scene.party === '2' ? '\nThis table is set for two, at a right angle around one corner (nobody sits at it in the image, only their place settings show). Mention briefly in the scene summary that the table is set for two; the second diner\'s dish (MAIN_2) is the same plate as MAIN and already has fixed text, so do not write a separate food label for it.' : ''}
 
 Write:
 - sceneSummary: a few paragraphs of prose as a food stylist would brief it: what's on the table, where, the setting, the mood, and the cultural framing.
@@ -360,7 +369,7 @@ export function buildTask(req: AgentRequest): TextTask {
       ...sceneWords(spec.scene),
       // Party "2": pull in any knowledge-base sections about sharing, portions or serving
       // more than one person, since a second place setting is now part of the scene.
-      spec.scene.party === '2' ? 'second diner place setting sharing portions together' : undefined
+      spec.scene.party === '2' ? 'second diner place setting sharing portions together' : spec.scene.party === 'family' || spec.scene.party === 'group' ? 'family style shared platter group sharing together' : undefined
     );
     const dishTexts = [brief.heroDish, brief.sideDishRequest, JSON.stringify({ entree: spec.entree, accompaniments: spec.accompaniments })];
     if (req.kind === 'imageCheck') {
@@ -413,12 +422,17 @@ export function buildTask(req: AgentRequest): TextTask {
   // the prompt, with headroom for the wrapper tags.
   // The image check carries the whole generation prompt, so its excerpt may shrink further.
   const budget = Math.max(req.kind === 'imageCheck' ? 2_000 : 8_000, PROMPT_CAP - INSTRUCTIONS.length - prompt.length - 1_500);
+  const scene = sceneLevel ? req.spec?.scene : sel.scene;
   const kb = knowledgeBlock({
     country: brief.country,
     region: brief.region || undefined,
     focus,
-    words,
+    words: [...words, ...keywords(OCCASION_WORDS[brief.occasion])],
     budget: Math.min(budget, 34_000),
+    pins: {
+      dish: keywords(brief.heroDish),
+      venue: scene ? venueType(scene.venue, scene.venueType)?.label : undefined,
+    },
   });
   const big = sceneLevel;
   return {

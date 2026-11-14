@@ -323,7 +323,29 @@ const HARD_RULES = /hard staging rules/i;
 const GENERAL =
   /general norms|visual|plating|vessel|scale|environment|staging|quick-reference|texture|model failure|wording|zone characterization/i;
 
-function scoreSection(s: Section, words: string[], focus: RegExp): number {
+/**
+ * Sections that must reach the prompt when they exist, ranked just below the
+ * hard staging rules: the hero dish's own entry (every dish word in its
+ * heading) and the venue profile tagged for the chosen place ("· app: <label>").
+ */
+export interface Pins {
+  dish?: string[];
+  venue?: string | undefined;
+}
+
+function pinScore(s: Section, pins: Pins | undefined): number {
+  if (!pins) return 0;
+  const heading = fold(s.heading);
+  let score = 0;
+  if (pins.dish?.length && /^(dish|variant)\b/.test(heading) && pins.dish.every((w) => heading.includes(w))) score += 600;
+  if (pins.venue) {
+    const app = heading.match(/· app:\s*(.*)$/);
+    if (app?.[1] && app[1].split(',').some((o) => o.trim().startsWith(fold(pins.venue!)))) score += 500;
+  }
+  return score;
+}
+
+function scoreSection(s: Section, words: string[], focus: RegExp, pins?: Pins): number {
   const head = fold(s.path.join(' › '));
   const body = fold(s.body);
   let score = 0;
@@ -335,6 +357,7 @@ function scoreSection(s: Section, words: string[], focus: RegExp): number {
   if (focus.test(head)) score += 5;
   if (ALWAYS.test(s.heading)) score += 4;
   if (HARD_RULES.test(s.heading)) score += 1000;
+  score += pinScore(s, pins);
   if (GENERAL.test(head)) score += 2;
   return score;
 }
@@ -343,12 +366,13 @@ export function excerpt(
   f: KbFile,
   words: string[],
   focus: RegExp,
-  budget: number
+  budget: number,
+  pins?: Pins
 ): string {
   if (f.text.length <= budget) return f.text;
   const secs = sections(f.text).filter((s) => !SKIP.test(s.path.join(' ')));
   const ranked = secs
-    .map((s) => ({ s, score: scoreSection(s, words, focus) }))
+    .map((s) => ({ s, score: scoreSection(s, words, focus, pins) }))
     .filter((x) => x.score > 0)
     .sort((a, b) => b.score - a.score || a.s.order - b.s.order);
   const MAX_SECTION = Math.max(2500, Math.floor(budget * 0.45));
@@ -377,6 +401,8 @@ export interface ContextRequest {
   words: string[];
   /** Total characters available for the knowledge-base block. */
   budget: number;
+  /** Sections to keep whenever they exist: the hero dish entry and the chosen venue's profile. */
+  pins?: Pins;
 }
 
 /**
@@ -404,7 +430,7 @@ export function knowledgeBlock(req: ContextRequest): {
   const done: Array<{ f: KbFile; text: string; order: number }> = [];
   for (const p of plan) {
     const own = p.share >= 1 ? left : Math.floor(req.budget * p.share);
-    const text = excerpt(p.f, req.words, focus, Math.max(0, own));
+    const text = excerpt(p.f, req.words, focus, Math.max(0, own), req.pins);
     left -= text.length;
     done.push({ f: p.f, text, order: p.order });
   }

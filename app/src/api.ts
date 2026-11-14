@@ -367,6 +367,7 @@ export const AppRouter = router({
         label: a.label,
         pitchDeg: a.hidden.pitch_deg,
         placeholder: a.status === 'placeholder',
+        test: !!a.test,
       })),
       defaults: { look: DEFAULT_LOOK, angle: DEFAULT_ANGLE },
     };

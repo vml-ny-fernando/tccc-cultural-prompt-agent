@@ -9,6 +9,7 @@ import { Projector } from "./camera";
 import { seatedPeopleRule, hasSeatedPeople, isOverShoulder, personText, soloMode } from "./people";
 import { BACKGROUND_PEOPLE_RULE, type LightingPreset, angleById, angleSentence, backgroundPerspectiveSentence, farEdgeSentence, depthById, glassRules, isLargeSku, lookById, lookSentence, selectLighting, skuLightSentence, withoutHands } from "./rules";
 import { sceneItems } from "./scene";
+import { isFamily } from "./spec";
 import type { Blueprint, Primitive, SceneSpec, Vessel } from "./types";
 import { venueType } from "./venues";
 
@@ -141,6 +142,7 @@ function openingText(spec: SceneSpec): string {
 
 function labelVessel(spec: SceneSpec, proxy: string, role: string, style?: string, seated = false): { vessel: string; fixedText?: string } {
   const isPartnerDrink = role === "partner-sku" || role === "partner-glass";
+  const family = isFamily(spec.scene.party);
   if (proxy.startsWith("sku:")) {
     const h = cm(skuProxy(spec.sku).height);
     const cup = spec.sku.package === "fountain-cup";
@@ -160,12 +162,18 @@ function labelVessel(spec: SceneSpec, proxy: string, role: string, style?: strin
       : spec.sku.appearance
       ? `It is a ${spec.sku.appearance}; print nothing on it beyond that real label`
       : `${spec.sku.package === "can" ? "The can shows the white Coca-Cola script logo on red" : "A solid red label band wraps the middle of the bottle, with the white Coca-Cola script logo"}; print no other words, sizes or descriptions on it`;
-    const text = `exactly one ${shape}, about ${h} cm tall, standing upright and facing the camera straight on${spec.sku.unbranded ? "" : " so the full logo reads"}, ${cold}. ${openingText(spec)} ${label}.${isPartnerDrink ? " This is the second diner's own, a duplicate of the other one." : ""}`;
-    return { vessel: `the ${spec.sku.displayName}, about ${h} cm tall${isPartnerDrink ? " (the second diner's)" : ""}`, fixedText: text[0].toUpperCase() + text.slice(1) };
+    const text = `exactly one ${shape}, about ${h} cm tall, standing upright and facing the camera straight on${spec.sku.unbranded ? "" : " so the full logo reads"}, ${cold}. ${openingText(spec)} ${label}.${isPartnerDrink ? (family ? " This is another person's own, a duplicate of the hero one." : " This is the second diner's own, a duplicate of the other one.") : ""}`;
+    return { vessel: `the ${spec.sku.displayName}, about ${h} cm tall${isPartnerDrink ? (family ? " (another person's)" : " (the second diner's)") : ""}`, fixedText: text[0].toUpperCase() + text.slice(1) };
   }
   if (proxy === "bell-glass") {
-    const text = `Exactly one classic Coca-Cola bell glass, about ${cm(BELL_GLASS.height)} cm tall: a stemless tumbler with a heavy flat base and a narrow lower body that swells into a rounded bell shape near the top, the white Coca-Cola script on the bell (no stem, not a goblet, wine glass, pint glass or straight-sided tumbler). ${glassRules.glass.fill_prompt[0]!.toUpperCase()}${glassRules.glass.fill_prompt.slice(1)}, with ice and a thin head of foam, the logo facing the camera.${role === "partner-glass" ? " This is the second diner's own glass." : ""}`;
-    return { vessel: `a branded bell-shaped Coca-Cola glass, about ${cm(BELL_GLASS.height)} cm tall${role === "partner-glass" ? " (the second diner's)" : ""}`, fixedText: text };
+    const text = `Exactly one classic Coca-Cola bell glass, about ${cm(BELL_GLASS.height)} cm tall: a stemless tumbler with a heavy flat base and a narrow lower body that swells into a rounded bell shape near the top, the white Coca-Cola script on the bell (no stem, not a goblet, wine glass, pint glass or straight-sided tumbler). ${glassRules.glass.fill_prompt[0]!.toUpperCase()}${glassRules.glass.fill_prompt.slice(1)}, with ice and a thin head of foam, the logo facing the camera.${role === "partner-glass" ? (family ? " This is another person's glass." : " This is the second diner's own glass.") : ""}`;
+    return { vessel: `a branded bell-shaped Coca-Cola glass, about ${cm(BELL_GLASS.height)} cm tall${role === "partner-glass" ? (family ? " (another person's)" : " (the second diner's)") : ""}`, fixedText: text };
+  }
+  if (role === "plate-stack") {
+    return {
+      vessel: "a loose stack of small plates",
+      fixedText: `A loose, slightly offset stack of four empty small plates${style ? ` (${style})` : ""}, about ${cm(VESSELS["side-plate"].radius! * 2)} cm across, for people to serve themselves; nothing on them, no cutlery on top.`,
+    };
   }
   if (role === "napkin-set" || role === "partner-napkin") {
     const cutlery = spec.napkinSet ? spec.napkinSet.cutlery.join(" and ") : "fork and knife";
@@ -201,6 +209,14 @@ function whereInFrame(bp: Blueprint, p: Primitive): string {
   const h = b ? ((b.x0 + b.x1) / 2 < 0.38 ? "left" : (b.x0 + b.x1) / 2 > 0.62 ? "right" : "centre") : "centre";
   if (p.role === "person") return soloMode(bp) === "hands" ? "out of frame at the right; only their hand and forearm reach in" : `seated at the table, on the ${h} of the frame`;
   if (p.held_by) return `in ${p.held_by}'s hand, ${h === "centre" ? "centre of the frame" : `${h} of the frame`}`;
+  if (familyLayout(bp)) {
+    const v = b ? ((b.y0 + b.y1) / 2 < 0.3 ? "lower" : (b.y0 + b.y1) / 2 > 0.55 ? "upper" : "middle") : "middle";
+    const spot = h === "centre" ? `${v} centre of the frame` : `${v} ${h} of the frame`;
+    if (p.id === "MAIN") return `${spot}, in the middle of the table for everyone to share`;
+    if (p.role.startsWith("partner-")) return `${spot}, near the table's edge within one person's reach`;
+    if (p.role === "sku" || p.role === "glass") return `${spot}, in the foreground`;
+    return `${spot}, within reach of the shared dish`;
+  }
   const v = b ? ((b.y0 + b.y1) / 2 < 0.3 ? "lower" : (b.y0 + b.y1) / 2 > 0.55 ? "upper" : "middle") : "middle";
   const spot = h === "centre" ? `${v} centre of the frame` : `${v} ${h} of the frame`;
   const people = hasSeatedPeople(bp);
@@ -250,6 +266,20 @@ function isCornerLayout(bp: Blueprint): boolean {
  * How the table sits in a corner layout's frame, in words (Fernando, 2026-10-17): the image model
  * otherwise redraws the table square-on with the plates side by side, ignoring image 1.
  */
+/**
+ * Skewed scenes drift most (Fernando, 2026-11-14): when the camera is turned toward a corner, the
+ * room was drawn squared to the frame while the table ran diagonally. Say the room turns with it.
+ */
+export function turnedRoomSentence(bp: Blueprint): string {
+  const c = bp.camera;
+  const turn = Math.round((Math.abs(Math.atan2(c.target[0] - c.position[0], -(c.target[2] - c.position[2]))) * 180) / Math.PI / 5) * 5;
+  if (turn < 10) return "";
+  return (
+    `The camera is turned about ${turn} degrees toward one corner of the table, so the table's edges run diagonally across the frame toward two vanishing points. ` +
+    "The room is turned exactly the same way: the walls, floor joints, rugs, shelves, windows and the other tables and chairs run toward those same two vanishing points, at the same angle to the frame as the table, never squared to the frame or seen straight on while the table is turned."
+  );
+}
+
 export function cornerViewSentence(spec: SceneSpec, bp: Blueprint): string {
   if (isOverShoulder(bp)) return overShoulderViewSentence(bp);
   if (!isCornerLayout(bp)) return "";
@@ -302,8 +332,14 @@ function movedMainWhere(bp: Blueprint, p: Primitive): string {
   return `${onTable}, ${inFrame}, exactly where its shape sits in image 1`;
 }
 
+/** Family style (Fernando, 2026-11-14): about four people share from the middle, no laid places. */
+export function familyLayout(bp: Blueprint): boolean {
+  return bp.layout_meta.archetype === "Family Style";
+}
+
 function whereOnTable(bp: Blueprint, id: string): string {
   const p = bp.primitives.find((q) => q.id === id)!;
+  if (familyLayout(bp)) return whereInFrame(bp, p);
   // Two diners sit at a right angle around a corner (seated people or just their settings): the
   // camera looks across that corner, so say where things land in the frame.
   if (isCornerLayout(bp)) return whereInFrame(bp, p);
@@ -345,6 +381,19 @@ export function countsSentence(bp: Blueprint): string {
   const skuProxyKey = bp.primitives.find((p) => p.role === "sku")?.proxy ?? "";
   const cup = skuProxyKey.includes("fountain-cup");
   const pkg = cup ? "cup" : skuProxyKey.includes("can") ? "can" : "bottle";
+  const big = ["main", "partner-main", "shared-hero", "glass", "partner-glass", "sku", "partner-sku", "person"];
+  if (familyLayout(bp)) {
+    const plates = bp.primitives.filter((p) => p.role === "plate-stack");
+    const fam = [
+      "exactly one serving vessel holding the whole main dish (MAIN), in the middle of the table for everyone, never split across plates",
+      ...plates.map((p) => `one loose stack of empty small plates (${p.id}); no plate is laid at a place and nobody has a plated portion`),
+      `${w(glasses)} Coca-Cola ${glasses === 1 ? "glass" : "glasses"}, spread around the table for different people`,
+      `${w(products)} ${cup ? "drink" : "Coca-Cola"} ${products === 1 ? pkg : `${pkg}s`}`,
+    ];
+    const small = bp.primitives.filter((p) => !big.includes(p.role) && p.role !== "plate-stack" && !p.proxy.includes("napkin")).map((p) => p.id);
+    if (small.length) fam.push(`${w(small.length)} shared ${small.length === 1 ? "dish" : "dishes"} (${small.join(", ")}), one of each, none repeated`);
+    return `Count: ${fam.join("; ")}. Add no other plates, bowls, ramekins, glasses, cups or bottles anywhere on the table, and no place settings, cutlery sets or napkins at places.`;
+  }
   const parts = [
     // A test split each burger and its onion rings onto two plates (Fernando, 2026-10-17): one serving is one vessel.
     `exactly ${w(portions)} ${portions === 1 ? "serving" : "servings"} of the main dish (${portions === 2 ? "one at each diner's place, MAIN and MAIN_2" : "MAIN"}), ${portions === 1 ? "all of it together on its one vessel" : "each all together on its one vessel"}, never split across a second plate`,
@@ -353,7 +402,6 @@ export function countsSentence(bp: Blueprint): string {
     `${w(products)} ${cup ? "drink" : "Coca-Cola"} ${products === 1 ? pkg : `${pkg}s`}`,
   ];
   // Every side, sauce, bread and accent dish once (Fernando, 2026-10-17): a test doubled the amba ramekin.
-  const big = ["main", "partner-main", "shared-hero", "glass", "partner-glass", "sku", "partner-sku", "person"];
   const small = bp.primitives.filter((p) => !big.includes(p.role) && !p.proxy.includes("napkin")).map((p) => p.id);
   if (small.length) parts.push(`${w(small.length)} smaller ${small.length === 1 ? "dish" : "dishes"} (${small.join(", ")}), one of each, none repeated`);
   return `Count: ${parts.join("; ")}. Add no other plates, bowls, ramekins, glasses, cups or bottles anywhere on the table.`;
@@ -399,7 +447,12 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
   const holders = bp.primitives.filter((p) => p.held_by).map((p) => p.held_by!);
   const holding = holders.length === 2 ? " Both people hold their own drink." : holders.length ? ` ${holders[0]} holds their own drink.` : "";
   const solo = soloMode(bp);
-  const serving = solo
+  const family = familyLayout(bp);
+  const serving = family
+    ? isLargeSku(spec.sku)
+      ? `A ${spec.sku.displayName} stands in the foreground as the one shared bottle for the table, fully visible with nothing in front of it, its label to the camera${spec.sku.glass ? ", with branded bell-shaped Coca-Cola glasses filled to the top spread around the table, one per person" : ""}.`
+      : `Each person at the table has their own ${spec.sku.displayName}${spec.sku.glass ? " with a branded bell-shaped Coca-Cola glass filled to the top" : ", served as is, no glass"}; the hero one stands in the foreground, the others spread around the table.`
+    : solo
     ? (spec.sku.glass
       ? `A ${spec.sku.displayName} with a branded bell-shaped Coca-Cola glass filled to the top beside PERSON_1's plate.`
       : `A ${spec.sku.displayName} beside PERSON_1's plate, served as is, no glass.`) + holding
@@ -430,7 +483,7 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     skuLightSentence: skuLightSentence(spec.sku, spec.sku.glass, lighting.warmth),
     lookSentence: lookSentence(lookById(spec.camera.look), drinks, depthById(spec.camera.depth)),
     angleSentence: angleSentence(angleById(spec.camera.angle)),
-    backgroundPerspective: backgroundPerspectiveSentence(angleById(spec.camera.angle)),
+    backgroundPerspective: [backgroundPerspectiveSentence(angleById(spec.camera.angle)), turnedRoomSentence(bp)].filter(Boolean).join(" "),
     viewSentence: cornerViewSentence(spec, bp),
     framingSentence: solo === "hands"
       ? "The camera looks across the table at one person's meal, low and close like the brand's meal photography: the food and the Coca-Cola products sit sharp in the frame, and PERSON_1's hand and forearm reach in from the right edge toward their drink, the rest of them out of frame."

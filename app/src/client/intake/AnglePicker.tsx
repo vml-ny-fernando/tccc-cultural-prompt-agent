@@ -9,6 +9,8 @@ export type AnglePickerOption = {
   id: string;
   label: string;
   pitchDeg?: number;
+  /** A test angle (Fernando, 2026-11-14): shown in a second, orange row. */
+  test?: boolean;
 };
 
 export type AnglePickerProps = {
@@ -34,17 +36,17 @@ export type AngleView = { url: string | null; unavailable?: string | undefined; 
 
 /** Three cards, one per camera angle, each showing the same scene from that angle, framed like the currently selected look. */
 export function AnglePicker({ 'aria-label': ariaLabel, value, onChange, options, lookId, lookLabel, focalMm, recommendedId, views }: AnglePickerProps) {
-  return (
-    <RadioGroup aria-label={ariaLabel} value={value ?? ''} onChange={onChange} className={styles.group}>
-      {lookLabel && !views && <p className={styles.framingNote}>Shown with the {lookLabel} framing.</p>}
-      <div className={styles.grid}>
-        {options.map((o) => (
+  const standard = options.filter((o) => !o.test);
+  const test = options.filter((o) => o.test);
+  const cards = (row: AnglePickerOption[]) =>
+    row.map((o) => (
           <Radio
             key={o.id}
             value={o.id}
             isDisabled={!!views?.[o.id]?.unavailable}
             aria-label={o.id === recommendedId ? `${o.label} (recommended)` : o.label}
             className={styles.card}
+            data-test={o.test || undefined}
           >
             {({ isSelected }) => {
               const view = views?.[o.id];
@@ -78,8 +80,19 @@ export function AnglePicker({ 'aria-label': ariaLabel, value, onChange, options,
               );
             }}
           </Radio>
-        ))}
-      </div>
+    ));
+  return (
+    <RadioGroup aria-label={ariaLabel} value={value ?? ''} onChange={onChange} className={styles.group}>
+      {lookLabel && !views && <p className={styles.framingNote}>Shown with the {lookLabel} framing.</p>}
+      <div className={styles.grid}>{cards(standard)}</div>
+      {test.length > 0 && (
+        <>
+          <p className={styles.testNote}>Test angles</p>
+          <div className={styles.grid} data-test>
+            {cards(test)}
+          </div>
+        </>
+      )}
     </RadioGroup>
   );
 }

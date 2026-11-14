@@ -11,6 +11,7 @@ import { bottleClearance, footprintRadius, SURFACES, type ProxyDef } from "./reg
 import { ANGLES, angleById, depthById, lookById, type AngleOption } from "./rules";
 import layoutPreferences from "../../rules/layout-preferences.json";
 import { isMultiServe, sceneItems, type ItemSpec } from "./scene";
+import { isFamily } from "./spec";
 import type { Blueprint, CameraParams, Primitive, RuleResult, SceneSpec, Surface } from "./types";
 
 export interface Placed {
@@ -36,7 +37,8 @@ export type Archetype =
   | "corner"
   | "seated-corner"
   | "seated-across"
-  | "seated-solo";
+  | "seated-solo"
+  | "family-spread";
 
 export const ARCHETYPE_INFO: Record<Archetype, { name: string; idea: string }> = {
   "triangle-loop": { name: "Triangle Loop", idea: "a depth triangle from the entree to the drink and back to a far-left accent" },
@@ -51,6 +53,7 @@ export const ARCHETYPE_INFO: Record<Archetype, { name: string; idea: string }> =
   "seated-corner": { name: "Seated Corner", idea: "two people sit at a right angle around a far corner of the table, seen from the opposite corner" },
   "seated-across": { name: "Over the Shoulder", idea: "two people face each other across the table, seen over the near person's shoulder" },
   "seated-solo": { name: "One at the Table", idea: "one person at the table, mid-meal: across from the camera, or only their hands" },
+  "family-spread": { name: "Family Style", idea: "the whole dish in the middle of the table for about four to share, loose plates and a drink for each person around it" },
 };
 
 export interface LayoutOption {
@@ -228,6 +231,8 @@ const VARIANTS: Record<Archetype, Variant[]> = {
   // Placed by solveSeatedAcross, not by variants.
   "seated-across": [{ condAngle: 180, accentAngle: 150 }],
   "seated-solo": [{ condAngle: 180, accentAngle: 150 }],
+  // Placed by solveFamily, not by variants.
+  "family-spread": [{ condAngle: 180, accentAngle: 150 }],
 };
 
 function preferredPositions(items: ItemSpec[], spec: SceneSpec, archetype: Archetype, v: Variant): Map<string, Anchor> {
@@ -691,8 +696,9 @@ interface Framing {
 
 const rearLimit = (f: Framing) => f.rear_edge_max_y ?? 0.5;
 
-export function fitCamera(placed: Placed[], D: number, focal: number, pitch: number, targetSpan: number, framing: Framing = {}): Fit | null {
-  const heroes = heroLabels(placed);
+export function fitCamera(placed: Placed[], D: number, focal: number, pitch: number, targetSpan: number, framing: Framing = {}, frameAll = false): Fit | null {
+  // frameAll (family style): frame the whole spread, not just the dish and its drink.
+  const heroes = frameAll ? placed.map((p) => p.item.label) : heroLabels(placed);
   const heroPlaced = placed.filter((p) => heroes.includes(p.item.label));
   const xs = heroPlaced.flatMap((p) => [p.x - radiusOf(p), p.x + radiusOf(p)]);
   const tx0 = (Math.min(...xs) + Math.max(...xs)) / 2;
@@ -726,7 +732,7 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
       // A hero group wider than the center third (dish and drink only, framed tight) would push the
       // drink out on the right (H14): slide the group left so the drink stays in and the dish leads.
       const over = Math.max(...heroes.filter((l) => l !== "MAIN").map((l) => boxes.get(l)!.x1 - thirdSlack(l, boxes.get(l)!))) - (2 / 3 - 0.004);
-      if (over > 0) {
+      if (over > 0 && !frameAll) {
         tx += over / perMeter();
         cam = makeCameraParams(focal, pitch, tx, td, dist);
         ({ boxes, proj } = project(placed, cam));
@@ -738,11 +744,13 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
     if (boxes.get("MAIN")!.y0 < MAIN_BOTTOM_MARGIN) return null;
     if (frontMin !== undefined && proj.project(tx, 0, 0).y < frontMin) return null;
     // Every base, and every low item in full, stays below the rear-edge limit (H2).
-    if (placed.some((p) => (p.item.def.tall ? boxes.get(p.item.label)!.y0 : boxes.get(p.item.label)!.y1) > rearMax)) return null;
+    // Family style only holds each base under it: a full spread's back dishes may rise past the far edge.
+    if (placed.some((p) => (p.item.def.tall || frameAll ? boxes.get(p.item.label)!.y0 : boxes.get(p.item.label)!.y1) > rearMax)) return null;
     if (u.y1 > 0.97) return null;
-    if (strict && !inHeroZone(boxes, heroes)) return null;
+    if (frameAll && (u.x0 < 0.03 || u.x1 > 0.97)) return null;
+    if (strict && !frameAll && !inHeroZone(boxes, heroes)) return null;
     // Prefer framings that keep the heroes in the center third; widen a little rather than fail H14.
-    const score = -Math.abs(u.x1 - u.x0 - targetSpan) - 0.3 * (rearMax - rearY) - (inHeroZone(boxes, heroes) ? 0 : 1);
+    const score = -Math.abs(u.x1 - u.x0 - targetSpan) - 0.3 * (rearMax - rearY) - (frameAll || inHeroZone(boxes, heroes) ? 0 : 1);
     return { fit: { cam, boxes, sils: new Map(), rearY }, score };
   };
 
@@ -766,7 +774,7 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
     for (let k = framing.setback_scale; k < 1 + 1e-9; k += 0.05) {
       best = null;
       for (let td = tdMin; td <= D + 1.2; td += 0.01) keep(frame(td, (setback0 * k + td) / cosP));
-      if (best && inHeroZone((best as { fit: Fit }).fit.boxes, heroes)) break;
+      if (best && (frameAll || inHeroZone((best as { fit: Fit }).fit.boxes, heroes))) break;
     }
     best ??= fitted;
   }
@@ -1229,6 +1237,8 @@ export function describe(archetype: Archetype, placed: Placed[]): string {
       return "a second place setting sits directly opposite the hero, across the table";
     case "across-offset":
       return "a second place setting sits across the table, shifted aside so the hero's drink doesn't hide it";
+    case "family-spread":
+      return "the whole dish sits in the middle of the table for about four to share, the shared sides and bread around it, a loose stack of small plates at the front left, the hero Coca-Cola and its glass in the foreground at the right and the other drinks spread around the table";
     case "seated-solo":
       return "one person at the table mid-meal, their plate in front of them, the Coca-Cola beside it";
     case "seated-across":
@@ -1366,6 +1376,11 @@ export function solve(spec: SceneSpec, maxOptions = 3): SolveResult {
 function solveSpec(spec: SceneSpec, maxOptions: number): Pick<SolveResult, "options" | "infeasible"> {
   const items = sceneItems(spec);
   const infeasible: SolveResult["infeasible"] = [];
+  if (isFamily(spec.scene.party)) {
+    // Family style (Fernando, 2026-11-14): about four people, the dish in the middle, no fixed places.
+    const r = solveFamily(spec, items);
+    return typeof r === "string" ? { options: [], infeasible: [{ archetype: "family-spread", reason: r }] } : { options: [r], infeasible };
+  }
   if (spec.scene.party === "1" && spec.scene.solo) {
     // One person at the table (Fernando, 2026-10-27).
     const r = solveSolo(spec, items, spec.scene.solo);
@@ -2257,5 +2272,110 @@ function solveSolo(spec: SceneSpec, items: ItemSpec[], mode: "facing" | "hands")
   });
   bp.layout_meta.rationale = `One at the table (${mode}): ${describe(archetype, placed)}.`;
   if (dropped.length) bp.layout_meta.rationale += ` The table was full, so the napkin and cutlery (${dropped.join(", ")}) were left out.`;
+  return { archetype, blueprint: bp };
+}
+
+// ---------------------------------------------------------------------------
+// Family style: about four people share from the middle of the table (Fernando, 2026-11-14)
+// ---------------------------------------------------------------------------
+
+/**
+ * The whole dish in the middle of the table, the shared sides and bread around it, a loose stack
+ * of small plates, the hero drink in the foreground at the right (a shared bottle stays whole and
+ * unblocked) and one more drink per person spread around the table's edge. Nobody's place is set.
+ */
+function solveFamily(spec: SceneSpec, items: ItemSpec[]): LayoutOption | string {
+  const archetype: Archetype = "family-spread";
+  const surf = SURFACES[spec.scene.surface];
+  const W = surf.width,
+    D = surf.depth;
+  const main = items.find((i) => i.kind === "main");
+  if (!main) return "no dish to share";
+  const R = footprintRadius(main.def);
+  // The spread stays within about 1.4 m, so every drink and dish is in the picture.
+  const half = Math.min(W / 2 - 0.08, 0.55);
+  // A shallow band (about half a metre deep) the lens can hold sharp and whole at every angle.
+  const M: Anchor = { x: -0.05, d: R + 0.1 };
+  const want = new Map<string, Anchor>();
+  want.set("MAIN", M);
+  const sku = items.find((i) => i.kind === "sku")!;
+  const rs = footprintRadius(sku.def);
+  const multi = isMultiServe(spec) ? { sku: "SKU", clearance: bottleClearance(spec.sku) } : null;
+  const clear = multi ? Math.max(multi.clearance, rs + 0.02) : rs;
+  const S = polar(M, -35, R + 0.06 + clear);
+  want.set("SKU", S);
+  const glass = items.find((i) => i.kind === "glass");
+  if (glass) want.set(glass.label, { x: S.x + clear + 0.03 + footprintRadius(glass.def), d: Math.max(0.08, S.d - 0.04) });
+  // Shared dishes ring the platter's sides and back, never in front of it (H3).
+  const ring = [150, 50, 110, 75, 170, 30, 95];
+  const around = items.filter((i) => i.kind === "side" || i.kind === "shared-side" || i.kind === "bread" || i.kind === "shared-hero");
+  around.forEach((it, k) => want.set(it.label, polar(M, ring[k % ring.length]!, R + 0.03 + footprintRadius(it.def) + Math.floor(k / ring.length) * 0.15)));
+  const conds = items.filter((i) => i.kind === "condiment");
+  conds.forEach((c, k) => want.set(c.label, polar(M, 175 - k * 18, R + 0.04 + footprintRadius(c.def))));
+  const accent = items.find((i) => i.kind === "accent");
+  if (accent) want.set(accent.label, polar(M, 140, R + 0.045 + footprintRadius(accent.def)));
+  const plates = items.find((i) => i.kind === "plate-stack");
+  if (plates) want.set(plates.label, { x: M.x - R - 0.12 - footprintRadius(plates.def), d: 0.14 });
+  // The other people's drinks, each at someone's reach along the table's edges: back left,
+  // back right, then the left end.
+  const backD = Math.min(D - 0.1, M.d + R + 0.1);
+  const spots: Anchor[] = [
+    { x: -half + 0.15, d: backD },
+    { x: half - 0.12, d: backD - 0.02 },
+    { x: -half + 0.04, d: M.d - 0.05 },
+  ];
+  const n = (l: string) => Number(l.split("_")[1]);
+  for (const it of items.filter((i) => i.kind === "partner-sku" || i.kind === "partner-glass")) {
+    const at = spots[(n(it.label) - 2) % spots.length]!;
+    const pair = it.kind === "partner-glass" && items.some((j) => j.kind === "partner-sku");
+    want.set(it.label, pair ? { x: at.x + 0.1, d: at.d - 0.02 } : at);
+  }
+
+  const rank = (i: ItemSpec) => ["main", "sku", "glass", "shared-hero", "side", "shared-side", "bread", "plate-stack", "condiment", "partner-sku", "partner-glass", "accent"].indexOf(i.kind);
+  const order = [...items].sort((a, b) => (rank(a) < 0 ? 99 : rank(a)) - (rank(b) < 0 ? 99 : rank(b)));
+  const placed: Placed[] = [];
+  const dropped: string[] = [];
+  for (const it of order) {
+    const p: Placed = { item: it, x: 0, d: 0, yaw: 0 };
+    if (!settle(p, want.get(it.label) ?? { x: M.x, d: D - 0.2 }, placed, W, D, multi)) {
+      if (it.kind === "accent" || it.kind === "condiment" || it.kind === "plate-stack") {
+        dropped.push(it.label);
+        continue;
+      }
+      return `no room for ${it.label} on ${spec.scene.surface}`;
+    }
+    placed.push(p);
+  }
+  // Like the other layouts, push the spread toward the back so the empty front of the table falls
+  // below the frame, unless the angle shows the table's front edge.
+  const angle = angleById(spec.camera.angle);
+  const rear = Math.max(...placed.map((p) => p.d + radiusOf(p)));
+  const shift = angle.hidden.front_edge_min_y !== undefined ? 0 : Math.max(0, D - REAR_MARGIN - rear);
+  for (const p of placed) p.d += shift;
+  const P1 = placed.find((p) => p.item.label === "MAIN")!;
+
+  const look = lookById(spec.camera.look);
+  // Frame the whole spread: every dish and every drink on the table is in the picture.
+  const fit = fitCamera(placed, D, look.hidden.focal_length_mm, angle.hidden.pitch_deg, 0.88, angle.hidden, true);
+  if (!fit) return "no camera position keeps the table in the lower half with the shared dish in frame";
+  const out = placed.filter((p) => {
+    const b = fit!.boxes.get(p.item.label)!;
+    return b.x0 < 0 || b.x1 > 1 || b.y1 > 1;
+  });
+
+  const rules: RuleResult[] = [
+    {
+      id: "S4",
+      name: "Family style",
+      pass: !out.length,
+      soft: true,
+      detail: out.length
+        ? `Partly out of frame: ${out.map((p) => p.item.label).join(", ")}.`
+        : "Family style: the one-diner framing rules (H1-H14) aren't checked on this layout yet.",
+    },
+  ];
+  const bp = toBlueprint(spec, placed, fit, archetype, 0, {}, rules, D, W, P1);
+  bp.layout_meta.rationale = `Family Style: ${describe(archetype, placed)}.`;
+  if (dropped.length) bp.layout_meta.rationale += ` The table was full, so ${dropped.join(", ")} were left out.`;
   return { archetype, blueprint: bp };
 }

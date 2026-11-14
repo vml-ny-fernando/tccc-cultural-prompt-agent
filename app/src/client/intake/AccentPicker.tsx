@@ -30,6 +30,7 @@ const KIND_LABEL: Record<ItemKind, string> = {
   'partner-napkin': 'Second diner’s napkin set',
   'partner-sku': 'Second diner’s Coca-Cola',
   'partner-glass': 'Second diner’s glass',
+  'plate-stack': 'Small plates',
 };
 
 export type TableItem = { kind: ItemKind; name: string };

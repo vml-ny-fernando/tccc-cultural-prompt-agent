@@ -56,6 +56,14 @@ export function limitScene<S extends { party: SceneSpec["scene"]["party"]; seate
   return next;
 }
 
+/** Family style (Fernando, 2026-11-14): about four people, shared platters, no fixed place settings. */
+export function isFamily(party: SceneSpec["scene"]["party"] | undefined): boolean {
+  return party === "family" || party === "group";
+}
+
+/** How many people a family-style table serves: one glass, or one single-serve pack, each. */
+export const FAMILY_SIZE = 4;
+
 export function skuById(id: string): SkuInfo | undefined {
   return SKU_CATALOG.find((s) => s.id === id);
 }
@@ -78,6 +86,8 @@ export interface TableBudget {
 
 export function tableBudget(surface: Surface, party: SceneSpec["scene"]["party"]): TableBudget {
   const two = party === "2";
+  // Family style: about four people help themselves from the middle, so the long table takes more.
+  if (party === "family" || party === "group") return surface === "long-table" || surface === "dining-table" ? { sides: 3, condiments: 3 } : { sides: 2, condiments: 2 };
   switch (surface) {
     case "long-table":
     case "table-4top":
@@ -107,7 +117,7 @@ export function tableBudget(surface: Surface, party: SceneSpec["scene"]["party"]
 export function selectionSurface(sel: Pick<Selections, "scene" | "plating">): Surface | undefined {
   if (!sel.scene) return undefined;
   const scene = limitScene(sel.scene);
-  const shared = sel.plating?.service === "shared";
+  const shared = sel.plating?.service === "shared" || isFamily(scene.party);
   const place = venueType(scene.venue, scene.venueType);
   return scene.surface ?? (shared ? undefined : place?.surface) ?? defaultSurface(scene.venue, scene.party, shared);
 }
@@ -127,7 +137,10 @@ export function buildSpec(brief: IntakeInput & { countryLabel?: string }, sel: S
   const scene = limitScene(sel.scene);
   const time = scene.time ?? timeFromOccasion(brief.occasion) ?? "midday";
   const venue = scene.venue;
-  const shared = sel.plating.service === "shared";
+  const family = isFamily(scene.party);
+  // Family style always serves from the middle of the table (Fernando, 2026-11-14).
+  const plating: PlatingChoice = family ? { ...sel.plating, service: "shared" } : sel.plating;
+  const shared = plating.service === "shared";
   const place = venueType(venue, scene.venueType);
   return {
     specVersion: "0.2",
@@ -153,10 +166,12 @@ export function buildSpec(brief: IntakeInput & { countryLabel?: string }, sel: S
     },
     camera: sel.camera,
     sku: { ...sku, glass: resolveGlass(sku, venue, sel.glass) },
-    entree: { name: brief.heroDish, prep: sel.prep, plating: sel.plating },
+    entree: { name: brief.heroDish, prep: sel.prep, plating },
     accompaniments: sel.sides.accompaniments.map((a) => (shared && a.role !== "condiment" && a.role !== "sauce" && a.role !== "garnish" ? { ...a, service: "shared" as const } : a)),
-    napkinSet:
-      venue === "on-the-go"
+    // Family style has no fixed place settings, so no napkin set either.
+    napkinSet: family
+      ? null
+      : venue === "on-the-go"
         ? sel.napkin
           ? { napkinShape: "rect", material: "paper", size: "luncheon", cutlery: [], targets: "MAIN" }
           : null

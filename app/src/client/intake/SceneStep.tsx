@@ -47,6 +47,7 @@ const SOLO_OPTIONS: Array<{ value: 'facing' | 'hands'; label: string }> = [
 const PARTY_OPTIONS: Array<{ value: Scene['party']; label: string }> = [
   { value: '1', label: 'For one' },
   { value: '2', label: 'For two' },
+  { value: 'family', label: 'Family style' },
 ];
 
 const ANY_PLACE = 'any';
@@ -216,14 +217,18 @@ export function SceneStep({
       <div className={styles.field}>
         <SegmentedControl
           label="Place settings"
-          value={scene.party === '2' ? '2' : '1'}
+          value={scene.party === '2' || scene.party === 'family' ? scene.party : '1'}
           onChange={(v) => update({ party: v as Scene['party'] })}
           options={PARTY_OPTIONS.map((o) => ({
             ...o,
             disabled: o.value === '2' && !SCENE_LIMITS.twoDiners,
           }))}
         />
-        <div className={styles.hint}>How many places are set at the table. Nobody sits at it; the place settings show who the meal is for.</div>
+        <div className={styles.hint}>
+          {scene.party === 'family'
+            ? 'About four people share the whole dish from the middle of the table: no laid places, a stack of small plates and a drink for each person.'
+            : 'How many places are set at the table. Nobody sits at it; the place settings show who the meal is for.'}
+        </div>
       </div>
 
       {scene.seated && solo && (

@@ -46,7 +46,18 @@ date_drafted: 2026-09-24
   may allow children aged 6–12 with faces hidden (Easter brunch brief,
   approved by Fernando, 13 Nov 2026).
 - **No religious symbols as subjects** (crucifix, church blessing), even
-  at Easter and Christmas.
+  at Easter and Christmas. This is brand policy, not a claim that German
+  homes are secular: Catholic homes in Bavaria often have a corner
+  crucifix (*Herrgottswinkel*); keep it out of frame or soft.
+- **Banned names.** Never use these in captions, menus or labels:
+  *Zigeunerschnitzel* / *Zigeunersauce* (say "paprika schnitzel" or
+  "paprika sauce"; "Zigeuner" is a slur against Sinti and Roma),
+  *Mohrenkopf* and *Negerkuss* (say *Schokokuss*, chocolate marshmallow
+  kiss; both old names are racist).
+- **Bavarian dishes only on a Bavarian brief.** When the app suggests
+  sides, accents or a second dish, use national dishes; Weißwurst,
+  Haxe, Obatzda, Leberkäse and Knödel only when the brief names Bavaria
+  or the hero dish is Bavarian.
 
 ### Occasion map (app occasion → what to stage)
 
@@ -285,7 +296,7 @@ profile. Coverage:
   layout (in Germany the washing machine more often sits in the bathroom).
 - Never stage: beer, wine or schnapps in any form; the DPG deposit symbol
   legible; legible calendar or labels; a crucifix as a subject.
-- Confidence and sources: MEDIUM; one search (; , practitioner forums) plus GENERAL NORMS (Destatis); LOW for the Eckbank prevalence and the washing-machine location (model knowledge); S45, S46
+- Confidence and sources: MEDIUM; one search (practitioner forums) plus GENERAL NORMS (Destatis); LOW for the Eckbank prevalence and the washing-machine location (model knowledge); S45, S46
 
 #### Venue: Apartment balcony (*Balkonien*), with the allotment variant (home, outdoor) · app: Dining room, outdoor
 - Prompt-ready line: "A German apartment balcony on a summer evening:
@@ -331,7 +342,7 @@ profile. Coverage:
 - Never stage: beer, wine, a beer crate; legible screens or labels;
   a full flag on the railing (a cropped black-red-gold pattern at most in
   tournament summers).
-- Confidence and sources: MEDIUM; one search (; , retail tier); S47, S48, S49
+- Confidence and sources: MEDIUM; one search (retail tier); S47, S48, S49
 
 #### Venue: Traditional inn (*Wirtshaus*, *Gasthaus*, *Gasthof*) · app: Sit-down
 - Prompt-ready line: "A traditional German Gasthaus at Sunday lunch: a
@@ -396,7 +407,7 @@ profile. Coverage:
 - Never stage: beer, steins, glasses, taps, beer mats, the bar's glass
   racks, brewery signs or umbrellas; schnapps; legible menus or the
   Stammtisch sign; a crucifix as subject.
-- Confidence and sources: MEDIUM; two searches (; , retail tier); LOW for the northern and eastern variants; S50, S51, S52, S53
+- Confidence and sources: MEDIUM; two searches (retail tier); LOW for the northern and eastern variants; S50, S51, S52, S53
 
 #### Venue: Imbiss stand (*Imbissbude*, *Pommesbude*) (street, on the go) · app: Counter service, Food truck
 - Prompt-ready line: "A German Imbiss stand at lunchtime: a paper tray of
@@ -436,7 +447,7 @@ profile. Coverage:
   (*Pommesgabel*), a paper napkin [HIGH — catalog: Currywurst, Pommes].
 - Subregional variants and the national default: Ruhr and Rhineland
   (*Pommesbude*, the *Büdchen* kiosk, Pommes "rot-weiß" with mayo and
-  ketchup); Berlin (Currywurst without casing, an S-Bahn arch stand);
+  ketchup); Berlin (Currywurst with or without casing; skinless is the classic East Berlin style; an S-Bahn arch stand);
   Bavaria (Leberkäse in a roll at a butcher's counter is the stronger
   on-the-go register); North (Fischbrötchen at a harbour kiosk, see the
   register). National default: a city Imbiss stand at lunchtime, steel
@@ -447,7 +458,7 @@ profile. Coverage:
   Ruhr stand.
 - Never stage: beer bottles, beer cups or beer signs; legible menu boards,
   prices or stand names; branded sauce bottles or fridges.
-- Confidence and sources: MEDIUM; one search (; , a business's own page) plus the catalog entries; S54, S55, S56
+- Confidence and sources: MEDIUM; one search (a business's own page) plus the catalog entries; S54, S55, S56
 
 #### Venue: Döner shop (*Dönerladen*, *Kebabladen*) · app: Counter service
 - Prompt-ready line: "A German Döner shop at night: a paper-wrapped Döner
@@ -470,8 +481,9 @@ profile. Coverage:
   [MEDIUM for the equipment — business-setup and catering-supplier
   sources; LOW for the decor palette, not described in sources found].
   The sit-in area: a few small tables with laminate tops, chairs in
-  plastic or bentwood style, a mirror wall or framed photos of Turkish
-  landscapes, sometimes an evil-eye ornament (*nazar*) by the till.
+  plastic or bentwood style, plain tiled or painted walls. (Turkish
+  landscape photos and an evil-eye ornament are LOW-confidence clichés:
+  use them only when a brief asks for them.)
   Light: bright cool LED panels or fluorescent tubes; the warm glow of
   the spit's heating element; at night, the shop window glowing onto the
   street. Palette: steel, glass, white tile, the browned spit, the
@@ -493,7 +505,7 @@ profile. Coverage:
   German-Turkish fast-food register, not a Turkish restaurant.
 - Never stage: beer (some shops sell it); legible menu, prices or shop
   name; branded drinks in the cooler; a full flag of any country.
-- Confidence and sources: MEDIUM-LOW; one search, business and supplier sources only (; , commercial tier). Mirror walls, nazar and landscape photos are LOW; S57, S58
+- Confidence and sources: MEDIUM-LOW; one search, business and supplier sources only (commercial tier). Mirror walls, nazar and landscape photos are LOW; S57, S58
 
 #### Venue: Public Viewing fan mile (other) · app: Stadium or event
 - Prompt-ready line: "A German Public Viewing fan zone at night: a paper
@@ -582,7 +594,7 @@ profile. Coverage:
   appear); graffiti everywhere as Berlin shorthand.
 - Never stage: beer, crates, wine or spirits, the deposit symbol; legible
   rotas, posters or book spines; brand logos.
-- Confidence and sources: MEDIUM-LOW; one search, individual listings (; ); EDITORIAL for staging; S59, S60, S61
+- Confidence and sources: MEDIUM-LOW; one search, individual listings ; EDITORIAL for staging; S59, S60, S61
 
 #### Venue: New-build or house kitchen with island (*Kochinsel*) (home, indoor) · app: Kitchen island
 - Prompt-ready line: "A new German house kitchen: the grey quartz island
@@ -628,7 +640,7 @@ profile. Coverage:
   Bavarian rustic pine; a beer crate by the pantry.
 - Never stage: beer, wine, crates; legible appliance displays or labels;
   brand logos.
-- Confidence and sources: LOW-MEDIUM; one search, practitioner forums only (; ); no prevalence figure found; S62, S63
+- Confidence and sources: LOW-MEDIUM; one search, practitioner forums only ; no prevalence figure found; S62, S63
 
 #### Venue: Neighbourhood café (*Kiezcafé*), with the bakery-café variant (restaurant, indoor) · app: Café
 - Prompt-ready line: "A German neighbourhood café in an old corner
@@ -671,7 +683,7 @@ profile. Coverage:
   Bavarian rustic décor; latte art in the hero zone.
 - Never stage: alcohol (many cafés also serve beer and wine; keep it
   out); legible menus and cups; chain logos.
-- Confidence and sources: MEDIUM-LOW; one search, café guides and a sale listing (; ); EDITORIAL for staging; S64, S65, S66
+- Confidence and sources: MEDIUM-LOW; one search, café guides and a sale listing ; EDITORIAL for staging; S64, S65, S66
 
 #### Venue: Modern neighbourhood restaurant, new German cooking (restaurant, indoor) · app: Modern bistro
 - Prompt-ready line: "A modern Berlin neighbourhood restaurant: small
@@ -716,7 +728,7 @@ profile. Coverage:
   Berlin graffiti and techno-club cliché.
 - Never stage: a bar, bottle walls, taps, wine glasses, carafes of wine;
   legible menus; white tablecloths.
-- Confidence and sources: MEDIUM-LOW; one search (; ); concrete and pickle jars are LOW (not in the sources found); S67, S68, S69
+- Confidence and sources: MEDIUM-LOW; one search ; concrete and pickle jars are LOW (not in the sources found); S67, S68, S69
 
 #### Venue: City park lawn (*Volkspark*, *Stadtpark*, *Liegewiese*) (on the go, outdoor) · app: Park
 - Prompt-ready line: "A German city park on a summer evening: a picnic
@@ -755,7 +767,7 @@ profile. Coverage:
   grills everywhere.
 - Never stage: beer bottles on the blanket (the strongest prior),
   Späti bottles, beer-garden mugs; legible signs; identifiable children.
-- Confidence and sources: MEDIUM; one search (; ); regional variants LOW; S70, S71, S72
+- Confidence and sources: MEDIUM; one search ; regional variants LOW; S70, S71, S72
 
 #### Venue: Weekly market (*Wochenmarkt*) (on the go, outdoor) · app: Street market
 - Prompt-ready line: "A German weekly market on a cobbled town square: a
@@ -795,7 +807,7 @@ profile. Coverage:
   market.
 - Never stage: beer, wine stalls, Federweißer; legible price cards and
   stall signs; brand logos.
-- Confidence and sources: MEDIUM; one search (; ); the regional variants are LOW; S73, S74, S75
+- Confidence and sources: MEDIUM; one search ; the regional variants are LOW; S73, S74, S75
 
 #### Venue: Baltic beach and promenade (*Strandkorb*, *Strandpromenade*) (on the go, outdoor) · app: Beach or waterfront
 - Prompt-ready line: "A German Baltic beach in summer: a Fischbrötchen on
@@ -833,7 +845,7 @@ profile. Coverage:
   water; palm trees; a beach bar with cocktails; tropical sun as default.
 - Never stage: beach-bar beer, cocktails, wine; legible kiosk signs or
   beach-chair numbers; identifiable children; a full flag.
-- Confidence and sources: MEDIUM; one search (; , travel-marketing tier); the Strandkorb is HIGH (also in the regional map above); S76, S77, S78
+- Confidence and sources: MEDIUM; one search (travel-marketing tier); the Strandkorb is HIGH (also in the regional map above); S76, S77, S78
 
 ---
 
@@ -941,13 +953,10 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   This directly supports the draft's own "Balkonien" (the balcony-staycation
   joke) as a genuine, representative outdoor-meal setting for an apartment-
   dwelling household, not a novelty.
-- **Young adults leave the parental home earlier than the UK or EU
-  average — a genuine, measured cross-country contrast.** Roughly 14% of
-  German 25–29-year-olds still live with their parents, well below the EU-
-  wide average (around 49% of 18–34-year-olds EU-wide, per Eurostat) and
-  below the UK's own documented ~33% of 20–34-year-old men. [MEDIUM-HIGH — Eurostat-sourced, though the exact age bands compared differ
-  slightly across the UK and Germany figures, so treat the contrast as
-  directional rather than a precise like-for-like ratio] [S13]
+- **Young adults leave the parental home early.** Roughly 14% of German
+  25–29-year-olds still live with their parents (Eurostat). An EU or UK
+  comparison needs matched age bands and is left out until recomputed.
+  [MEDIUM] [S13]
   A young-adult German household scene is therefore at least as plausibly a
   shared-flat (*Wohngemeinschaft*/WG) or a solo rental as a parental home —
   do not default a Gen-Z-lens scene to a family kitchen.
@@ -976,7 +985,10 @@ FESTIVAL & OCCASION CALENDAR for why both defaults are specifically wrong.
   dominated palette than the UK's chip-shop register. Color relief comes
   from burgundy-violet red cabbage, olive-green stewed kale or sauerkraut,
   and — regionally — the vivid spring-green of Grüne Soße or the magenta of
-  Labskaus's beetroot mash. [EDITORIAL, grounded in the dish entries below]
+  Labskaus's beetroot mash. Spring and summer food is light and fresh:
+  white asparagus, radishes, herb quark, Grüne Soße, strawberries and red
+  berries, so don't push every scene toward brown. [EDITORIAL, grounded in
+  the dish entries below]
 - **Texture lexicon** — this file's own visual/texture synthesis, aggregated
   across recipe, food-history, and food-photography sourcing consulted this
   pass rather than independently footnoted line by line (the same treatment
@@ -1288,7 +1300,7 @@ Kaffeetafel scene.
   Frankfurter sausages), named by about a third of Germans in Statista's
   2024 survey (36%) and in YouGov's (32%). [HIGH — Statista and YouGov
   Deutschland, both 2024] See catalog: Kartoffelsalat (match the region:
-  vinegar style in the South, mayonnaise style in the North and East).
+  vinegar style in the South, mayonnaise style further north; the East is mixed, so check with a native reviewer).
   Sausages are heated whole, pale pink, about 15 to 20cm, in a pot or a
   bowl; mustard on the table. Fish (carp, salmon) and raclette or fondue
   are real alternatives. A real table carries 2 to 4 shared vessels: a
@@ -1309,7 +1321,7 @@ Kaffeetafel scene.
 - Never stage: beer bottles or Sekt beside the potato salad (a strong
   prior); church service or nativity scenes as the subject; a child as
   the drinker.
-- Confidence and sources: HIGH for the dish (; ); EDITORIAL for staging; S79, S80
+- Confidence and sources: HIGH for the dish ; EDITORIAL for staging; S79, S80
 
 #### Celebration: Christmas feast (1. und 2. Weihnachtsfeiertag, 25–26 December)
 - Type: calendar holiday.
@@ -1447,9 +1459,11 @@ Kaffeetafel scene.
   with painted eggs (*Osterstrauch*); a bowl of dyed eggs; bright spring
   light. [EDITORIAL]
 - Decor and cues: the Easter-egg branch, pastel napkins. Avoid: US-style
-  Easter-bunny props.
+  Easter-bunny props in a cartoon or branded style. A generic chocolate
+  Easter hare (*Osterhase*) is a German motif (documented in German-speaking
+  lands since the 1600s) and is fine: no gold foil, red ribbon or bell.
 - Never stage: the church blessing of the Osterlamm cake; wine.
-- Confidence and sources: MEDIUM (; ); EDITORIAL for staging; S81, S82
+- Confidence and sources: MEDIUM ; EDITORIAL for staging; S81, S82
 
 #### Celebration: Birthday Kaffeetafel and children's party (Geburtstag)
 - Type: life event.
@@ -1479,10 +1493,10 @@ Kaffeetafel scene.
   a garland. Avoid: legible name banners.
 - Never stage: coffee cups or pots (beverage scope); Sekt for the
   toast; a child under about 13 as the drinker.
-- Confidence and sources: MEDIUM (; ); EDITORIAL for staging; S83, S84
+- Confidence and sources: MEDIUM ; EDITORIAL for staging; S83, S84
 
 #### Celebration: Confirmation and First Communion (Konfirmation, Erstkommunion)
-- Type: life event (religious milestone; staging is the family meal only).
+- Type: life event (religious milestone; staging is the family meal only). Konfirmation is Protestant (strongest in the North and centre); Erstkommunion is Catholic (South and West). In the former East, where church membership is low, the secular **Jugendweihe** is the common coming-of-age (see the entry below).
 - When: spring, from the Sunday after Easter through mid-May; a
   restaurant lunch after the church service (intake time midday), then
   Kaffee und Kuchen in the afternoon. [MEDIUM — Känguru]
@@ -1512,7 +1526,21 @@ Kaffeetafel scene.
   or communion candle as a prop next to the product.
 - Never stage: the service, crosses, chalices or the communion wafer;
   wine at the table; the child honoree as the drinker.
-- Confidence and sources: MEDIUM (; restaurant event pages, lower tier); EDITORIAL for staging; S85
+- Confidence and sources: MEDIUM (restaurant event pages, lower tier); EDITORIAL for staging; S85
+
+#### Celebration: Jugendweihe (secular coming-of-age, mainly the East)
+- Prompt-ready line: "A family lunch for a Jugendweihe in eastern Germany:
+  a restaurant side room with a long white-clothed table, plated roast with
+  dumplings and red cabbage, a small flower arrangement and a gift envelope
+  at one place, spring light."
+- Type: secular life event for 14-year-olds, introduced in the GDR in 1954
+  and still widely held in the former East. A ceremony in a hall, then a
+  family lunch and Kaffee und Kuchen, the same pattern as Konfirmation.
+- When: spring (March to June), midday.
+- Staging: as for Konfirmation, a family restaurant lunch or a meal at
+  home; the teenager is never identifiable.
+- Never stage: alcohol toasts, GDR symbols or flags.
+- Confidence: MEDIUM (general knowledge; needs a native reviewer).
 
 #### Celebration: Wedding (Hochzeit)
 - Type: life event.
@@ -1541,9 +1569,10 @@ Kaffeetafel scene.
   [EDITORIAL]
 - Decor and cues: white linen, greenery runners, candles. Avoid: the
   couple as identifiable subjects; legible seating plans.
-- Never stage: Sekt reception, wine, beer, the toast; the Polterabend
-  (a drinking-led eve-of-wedding party).
-- Confidence and sources: MEDIUM (; ); EDITORIAL for staging; S86, S87
+- Never stage: Sekt reception, wine, beer, the toast; drinks at the
+  Polterabend (the eve-of-wedding party where old porcelain is smashed for
+  luck; stage the shards and the sweeping, not the drinks).
+- Confidence and sources: MEDIUM ; EDITORIAL for staging; S86, S87
 
 #### Celebration: Summer Grillfest (Grillen with friends and neighbours)
 - Type: community or family gathering (recurring, May to September).
@@ -1646,7 +1675,7 @@ and needs no separate entry.
   other than the hero product"); national or club kits with crests or
   sponsor marks; face paint on children; a legible screen or sponsor
   banner; flares or crowd crush.
-- Confidence and sources: HIGH for fan-zone scale (; ); LOW-MEDIUM for food; LOW for kick-off times; EDITORIAL for staging; S89, S90
+- Confidence and sources: HIGH for fan-zone scale ; LOW-MEDIUM for food; LOW for kick-off times; EDITORIAL for staging; S89, S90
 
 #### Watch party: tournament game at home with the garden grill
 - When: tournament summers, an 18:00 or 21:00 kick-off with the grill lit
@@ -1739,7 +1768,7 @@ staged only as a home table.
   boxes and boards, branded decks); legible cards or score pads; money
   or stakes on the table (Skat is sometimes played for small stakes)
   [LOW]; beer or wine glasses.
-- Confidence and sources: MEDIUM for popularity (; , market-research tier, flagged); LOW for the spread; EDITORIAL for staging; S91, S92
+- Confidence and sources: MEDIUM for popularity (market-research tier, flagged); LOW for the spread; EDITORIAL for staging; S91, S92
 
 #### Game night: holiday games (Advent, Christmas and Silvester)
 - When: Advent and Christmas afternoons (golden-hour, dark by about
@@ -2415,10 +2444,10 @@ requirements; flagged explicitly here rather than left implicit.
   third of the plate. Dry, crisp, no sauce."
 - Category: Everyday and special-occasion. Lunch, dinner; inn, canteen,
   family-restaurant register.
-- **Naming rule — confirmed, and this is a real, legally grounded naming
-  distinction, not just a culinary convention.** "Wiener Schnitzel" is a
-  legally protected name in both Austria and Germany and may only be used
-  for the **veal** version; a pork cutlet prepared the same way must be
+- **Naming rule.** Under the food-standards guidelines of Germany
+  (*Leitsätze* of the German Food Code) and Austria, "Wiener Schnitzel"
+  means the **veal** version, and selling pork under that name counts as
+  misleading; a pork cutlet prepared the same way must be
   called **"Schnitzel Wiener Art"** ("Viennese-style schnitzel") or "Wiener
   Schnitzel vom Schwein." Germany's everyday, high-frequency version is
   overwhelmingly the pork one. [CONFIDENCE: HIGH — this corrects and
@@ -2656,7 +2685,7 @@ requirements; flagged explicitly here rather than left implicit.
   white plate. Three boiled potatoes beside them and a few glossy
   magenta beetroot slices. The meatballs are not browned at all. Steam
   rising."
-- Category: Everyday/home-cooking classic.
+- Category: Everyday/home-cooking classic. Origin: East Prussia (Königsberg, now Kaliningrad); it came west with postwar expellee families and is now national, strongest in Berlin and the East. Don't present it as a Berlin dish.
 - Visual/plating characteristics: 3–4 poached meatballs in a white caper
   sauce, with boiled potatoes and sometimes beetroot. Pale, soft, matte
   grey-beige meatballs — **not browned**, a genuinely distinctive,
@@ -2817,9 +2846,9 @@ requirements; flagged explicitly here rather than left implicit.
   sweet brown mustard and one sausage peeled open to show pale, fine
   interior with green parsley flecks, and a dark lacquered pretzel with
   coarse salt. Late-morning light."
-- Category: **Late-morning Brotzeit specifically — never depict as
-  breakfast**, a scope rule carried directly from the draft and not
-  contradicted by anything found this pass. Bavaria-specific.
+- Category: **Morning to late morning, eaten before the noon bell**: the
+  classic *Weißwurstfrühstück* (a Bavarian second breakfast or Brotzeit).
+  Use it for Brunch, never for lunch or dinner. Bavaria-specific.
 - Serving format: Two pale sausages in a lidded bowl of hot water, with
   sweet mustard and a Brezel; traditionally peeled or sucked from the
   casing rather than eaten whole, casing and all.
@@ -3756,9 +3785,9 @@ diet.
 |---|---|---|---|---|
 | Pizza (Italian-German pizzeria) | Dinner, delivery | Thin crust, lightly leopard-spotted rim, ample cheese; German-market staples include ham-and-pineapple and tuna-onion toppings; on a large white plate or in a delivery box | ~30cm | MEDIUM |
 | Spaghetti Bolognese | Canteen, home, kids | Rich red-brown meat sauce over spaghetti, grated cheese snowing on top — a thoroughly naturalized everyday dish, not a "foreign" one in practice | Deep plate 22–26cm | MEDIUM |
-| Gyros plate (Greek-German restaurant) | Dinner | Heaped, crisp-edged pork gyros, thick white tzatziki with cucumber flecks, fries or rice, raw onion, lettuce garnish; white-and-blue décor | 28–30cm plate | MEDIUM |
+| Gyros plate (Greek-German restaurant) | Dinner | Heaped, crisp-edged pork gyros, thick white tzatziki with cucumber flecks, fries or rice, raw onion, lettuce garnish; a neutral restaurant interior (no white-and-blue Greek-island décor unless the brief asks) | 28–30cm plate | MEDIUM |
 | Falafel wrap/plate | Lunch, late night | Craggy, deep brown-green-flecked falafel balls, broken to show a green interior; tahini drizzle | Balls ~4cm | MEDIUM |
-| Asia box (pan-Asian Imbiss) | Lunch, takeaway | Glossy wok-fried noodles or rice in a folded paper/plastic box, chopsticks stuck in, sesame seeds, steam | Box ~10×10×10cm | MEDIUM |
+| Asia box (Asia-Imbiss) | Lunch, takeaway | Glossy wok-fried noodles or rice in a folded paper/plastic box, chopsticks stuck in, sesame seeds, steam. Name the kitchen per dish: Vietnamese (common in Berlin and the East), Chinese or Thai; don't blend them | Box ~10×10×10cm | MEDIUM |
 | Lahmacun | Snack | A paper-thin round flatbread with a red spiced-meat smear, rolled with lettuce, parsley, lemon | ~30cm round | MEDIUM |
 | Plant-based currywurst/burgers | Canteens, urban | Visually resembles the meat version (see the Currywurst entry); canteen signage in German | As Currywurst entry above | MEDIUM |
 | Spaghettieis (Eiscafé snack) | Summer snack | **Invented in 1969 by Dario Fontanella, a then-17-year-old, at his family's ice cream shop in Mannheim** with a specific, sourced inventor and city, correcting the draft's own unsourced entry. [HIGH] [S42] Vanilla ice cream extruded into spaghetti-like strands (originally pushed through a Spätzle press) over whipped cream, topped with red strawberry sauce and white-chocolate shavings mimicking parmesan, in a glass coupe | Coupe ~15cm | HIGH for origin; MEDIUM for exact dimensions |
@@ -3783,6 +3812,10 @@ diet.
   - *Composition & proportions (§4.7)*: vanilla "spaghetti" strands ~60% of the ~15 cm coupe's top; red strawberry sauce ~30% over the centre; white-chocolate shavings a light scatter; the cream underneath visible only at the edge. Absent: wafers, extra fruit, sprinkles. [EDITORIAL]
 
 ### Kaffee und Kuchen & sweets (compact catalog)
+
+**Origin note**: Apfelstrudel, Kaiserschmarrn and Germknödel are Austrian
+in origin and common in southern Germany, especially Bavaria; say so when a
+brief asks for "German" sweets.
 
 **Serving norm**: cake plates 19–20cm, cake forks, a whipped-cream bowl,
 often a lace or patterned tablecloth. **No coffee cups or pots in frame**
@@ -3821,8 +3854,8 @@ often a lace or patterned tablecloth. **No coffee cups or pots in frame**
   - *Composition & proportions (§4.7)*: torn pancake pieces (~3–5 cm) fill a ~24 cm pan to a loose heap; powdered sugar covers ~60% of the top; 10–20 raisins; plum compote in a small side bowl. Absent: whipped-cream towers, fresh berries. [EDITORIAL]
 - Germknödel
   - *Composition & proportions (§4.7)*: one dumpling ~12 cm (about the can's height) in a deep plate; melted butter pool around it; poppy-seed sugar covers the top ~60%; one side broken to show dark jam. Absent: vanilla sauce by default, fruit. [EDITORIAL]
-- St. Martin bread figure (*Weckmann*/*Stutenkerl*)
-  - *Composition & proportions (§4.7)*: one figure ~20–25 cm (about twice the can's height) lying flat on a plate or paper; 2 raisin eyes, 2–4 raisin buttons. Absent: icing, faces piped in sugar, the clay pipe some bakeries add (a tobacco cue). [EDITORIAL]
+- Bread figure (*Weckmann*/*Stutenkerl*/*Grittibänz*): for St. Martin (11 Nov) in the Rhineland and Westphalia, for St. Nicholas (6 Dec) in other regions; match the date to the region.
+  - *Composition & proportions (§4.7)*: one figure ~20–25 cm (about twice the can's height) lying flat on a plate or paper; 2 raisin eyes, 2–4 raisin buttons. Absent: icing, faces piped in sugar. The small white clay pipe is a traditional part of many versions; it is left out as a brand choice (no smoking cues near the product), not because it is inauthentic. [EDITORIAL]
 
 ### Variant summary (schema §4.6 quick reference)
 
@@ -4027,6 +4060,24 @@ copyrighted design.
 ---
 
 ## GAP LOG
+
+- **External cultural review (13 Nov 2026), points for a native reviewer.**
+  Steckerlfisch's Oktoberfest origin (rated HIGH here); Brezel fat
+  content (Swabian 3–10% vs Bavarian ~3%); Labskaus beetroot mixed in vs
+  served separately in Bremen; "highest board-game purchases per capita";
+  the 2025 birth count as the lowest since 1946; Sauerbraten's regional
+  split (Saxony missing); Kartoffelsalat style in the East; current
+  Berlin Currywurst casing practice. Content gaps from the same review:
+  the East (Plattenbau home default, Broiler, Soljanka, Ketwurst),
+  Einschulung with the Schultüte, Volksfeste outside Munich (Cannstatter
+  Wasen, Hamburger Dom, Rhineland Kirmes), Schützenfest, Muttertag (coffee
+  and cake), Tag der Deutschen Einheit, Vatertag, Richtfest.
+- **Brand decisions raised by the same review, waiting on Fernando:**
+  coffee in soft background at Kaffee und Kuchen; a water or Apfelschorle
+  glass outside the hero zone; Kinderpunsch at Christmas markets; the ice
+  and lemon default (the Easter brunch client brief asks for it); beer
+  garden settings dropped for Coca-Cola briefs; children at the table with
+  the product (the client brief asks for it; flagged for TCCC compliance).
 
 - **Composition & proportions blocks (added 2026-09-27, `country-file-schema.md` §4.7) are mostly editorial synthesis.** Piece sizes are sourced where tagged; counts and shares are reasoned from recipe quantities and serving norms, tagged [EDITORIAL], and should be checked against image tests before being treated as reliable.
 - **PENDING UPDATE — an authoritative TCCC product-dimension/spec drop is

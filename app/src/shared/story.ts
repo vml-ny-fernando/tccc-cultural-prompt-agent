@@ -7,7 +7,7 @@ import { z } from "zod";
 import { BELL_GLASS, NAPKIN_SIZES, SURFACES, VESSELS, RECTANGULAR_TABLE_RULE, VESSEL_SHORT, napkinFoldedCm, CUP_BASE_RATIO, skuNoun, skuProxy, skuThe, CUP_STRAW_ABOVE_M, vesselPhrase, withoutRoundTable } from "./registry";
 import { Projector } from "./camera";
 import { seatedPeopleRule, hasSeatedPeople, isOverShoulder, personText, soloMode } from "./people";
-import { BACKGROUND_PEOPLE_RULE, type LightingPreset, angleById, angleSentence, backgroundPerspectiveSentence, farEdgeSentence, depthById, glassRules, isLargeSku, lookById, lookSentence, selectLighting, skuLightSentence, withoutHands } from "./rules";
+import { NO_HANDS_RULE, viewKind, viewLeadSentence, groundWord, BACKGROUND_PEOPLE_RULE, type LightingPreset, angleById, angleSentence, backgroundPerspectiveSentence, farEdgeSentence, depthById, glassRules, isLargeSku, lookById, lookSentence, selectLighting, skuLightSentence, withoutHands } from "./rules";
 import { sceneItems } from "./scene";
 import { isFamily } from "./spec";
 import type { Blueprint, Primitive, SceneSpec, Vessel } from "./types";
@@ -73,6 +73,10 @@ export interface StoryFacts {
   colorSentence?: string;
   /** The photodocumentary look: subject, place, lens, film and light. Optional so older stories still load. */
   filmSentence?: string;
+  /** Steep views only: one opening line that states the view first (rules.ts viewLeadSentence). */
+  viewLead?: string;
+  /** Looking down or Overhead: the camera line leads the Camera segment. */
+  steepView?: boolean;
   lookSentence: string;
   angleSentence: string;
   /** The tabletop and background seen through the same camera (rules.ts backgroundPerspectiveSentence). Optional so older stories still load. */
@@ -162,7 +166,7 @@ function labelVessel(spec: SceneSpec, proxy: string, role: string, style?: strin
       : spec.sku.appearance
       ? `It is a ${spec.sku.appearance}; print nothing on it beyond that real label`
       : `${spec.sku.package === "can" ? "The can shows the white Coca-Cola script logo on red" : "A solid red label band wraps the middle of the bottle, with the white Coca-Cola script logo"}; print no other words, sizes or descriptions on it`;
-    const text = `exactly one ${shape}, about ${h} cm tall, standing upright and facing the camera straight on${spec.sku.unbranded ? "" : " so the full logo reads"}, ${cold}. ${openingText(spec)} ${label}.${isPartnerDrink ? (family ? " This is another person's own, a duplicate of the hero one." : " This is the second diner's own, a duplicate of the other one.") : ""}`;
+    const text = `exactly one ${shape}, about ${h} cm tall, ${skuStance(spec)}, ${cold}. ${openingText(spec)} ${label}.${isPartnerDrink ? (family ? " This is another person's own, a duplicate of the hero one." : " This is the second diner's own, a duplicate of the other one.") : ""}`;
     return { vessel: `the ${spec.sku.displayName}, about ${h} cm tall${isPartnerDrink ? (family ? " (another person's)" : " (the second diner's)") : ""}`, fixedText: text[0].toUpperCase() + text.slice(1) };
   }
   if (proxy === "bell-glass") {
@@ -407,6 +411,18 @@ export function countsSentence(bp: Blueprint): string {
   return `Count: ${parts.join("; ")}. Add no other plates, bowls, ramekins, glasses, cups or bottles anywhere on the table.`;
 }
 
+/**
+ * How the hero product stands. From a steep camera (Fernando, 2026-11-16) a "full logo" pulled the
+ * camera down to eye level; there the label shows foreshortened on the side instead.
+ */
+function skuStance(spec: SceneSpec): string {
+  const steep = viewKind(angleById(spec.camera.angle)) !== "level";
+  if (spec.sku.unbranded) return steep ? "standing upright, seen from above" : "standing upright and facing the camera straight on";
+  return steep
+    ? "standing upright with its logo turned toward the camera; seen from above, the label shows on the side, foreshortened, and the camera is never lowered to show more of it"
+    : "standing upright and facing the camera straight on so the full logo reads";
+}
+
 /** A drink a seated person holds: in their hand (or standing with their hand around it), logo to the camera. */
 function heldText(text: string, p: Primitive): string {
   const lifted = p.world.elevation > 0;
@@ -480,10 +496,16 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     lightingWarmth: lighting.warmth,
     colorSentence: COLOR_BY_WARMTH[lighting.warmth],
     filmSentence: filmSentence(spec, lighting),
+    viewLead: viewLeadSentence(angleById(spec.camera.angle), spec.scene.venue),
+    steepView: viewKind(angleById(spec.camera.angle)) !== "level",
     skuLightSentence: skuLightSentence(spec.sku, spec.sku.glass, lighting.warmth),
-    lookSentence: lookSentence(lookById(spec.camera.look), drinks, depthById(spec.camera.depth)),
-    angleSentence: angleSentence(angleById(spec.camera.angle)),
-    backgroundPerspective: [backgroundPerspectiveSentence(angleById(spec.camera.angle)), turnedRoomSentence(bp)].filter(Boolean).join(" "),
+    lookSentence: lookSentence(lookById(spec.camera.look), drinks, depthById(spec.camera.depth), angleById(spec.camera.angle), spec.scene.venue),
+    angleSentence: angleSentence(angleById(spec.camera.angle), {
+      venue: spec.scene.venue,
+      surface: spec.scene.surface,
+      surfaceText: withoutRoundTable(spec.scene.surfaceText || SURFACES[spec.scene.surface].promptText),
+    }),
+    backgroundPerspective: [backgroundPerspectiveSentence(angleById(spec.camera.angle), spec.scene.venue), turnedRoomSentence(bp)].filter(Boolean).join(" "),
     viewSentence: cornerViewSentence(spec, bp),
     framingSentence: solo === "hands"
       ? "The camera looks across the table at one person's meal, low and close like the brand's meal photography: the food and the Coca-Cola products sit sharp in the frame, and PERSON_1's hand and forearm reach in from the right edge toward their drink, the rest of them out of frame."
@@ -513,11 +535,12 @@ export function storyFacts(spec: SceneSpec, bp: Blueprint): StoryFacts {
     }),
     labelInstruction:
       "The labeled shapes in the reference layout are placement guides only. Match each shape to the segment with the same label, and do not render the labels or any text as part of the image.",
-    proxyInstruction:
-      "Transform image 1 into a photograph. Image 1 is a layout guide: each colored shape is one object, and its label names the text below that describes it. Keep every object exactly where its shape sits, at the same size, and keep the same camera position and framing; do not zoom in, crop tighter or add objects. Remove all shapes, labels and outlines. The faint grid on the table top, the floor and the back wall, and the thin light line across the frame where there is one (the camera's eye level), are perspective guides: build the floor, walls, doorways, windows, shelves and furniture on that same floor plane and wall, so their lines recede to the same vanishing points and meet the same eye level as the table, and the wall grid's upright lines show the slant every upright in the room (door and window frames, shelf sides, chair and table legs) takes in this view. Do not draw the grid or the line.",
+    proxyInstruction: viewKind(angleById(spec.camera.angle)) !== "level"
+      ? steepProxyInstruction(viewKind(angleById(spec.camera.angle)) === "overhead", groundWord(spec.scene.venue))
+      : "Transform image 1 into a photograph. Image 1 is a layout guide: each colored shape is one object, and its label names the text below that describes it. Keep every object exactly where its shape sits, at the same size, and keep the same camera position and framing; do not zoom in, crop tighter or add objects. Remove all shapes, labels and outlines. The faint grid on the table top, the floor and the back wall, and the thin light line across the frame where there is one (the camera's eye level), are perspective guides: build the floor, walls, doorways, windows, shelves and furniture on that same floor plane and wall, so their lines recede to the same vanishing points and meet the same eye level as the table, and the wall grid's upright lines show the slant every upright in the room (door and window frames, shelf sides, chair and table legs) takes in this view. Do not draw the grid or the line.",
     scaleSentence: scaleSentence(bp),
     productScale: productScaleSentence(spec, bp),
-    exclusions: `Only the ${tableItems} objects described above are on the table${seated ? " or in hand" : ""}, and no other drinks or glasses (no beer, wine, water or juice). ${countsSentence(bp)} No text anywhere except the Coca-Cola product's own label: no menus, signs, posters or writing in the background either.${spec.napkinSet && !spec.napkinSet.cutlery.length ? " No fork, knife, spoon or chopsticks anywhere on the table." : ""} ${seated ? seatedPeopleRule(bp) : BACKGROUND_PEOPLE_RULE}`,
+    exclusions: `Only the ${tableItems} objects described above are on the table${seated ? " or in hand" : ""}, and no other drinks or glasses (no beer, wine, water or juice). ${countsSentence(bp)} No text anywhere except the Coca-Cola product's own label: no menus, signs, posters or writing in the background either.${spec.napkinSet && !spec.napkinSet.cutlery.length ? " No fork, knife, spoon or chopsticks anywhere on the table." : ""} ${seated ? seatedPeopleRule(bp) : viewKind(angleById(spec.camera.angle)) === "overhead" ? NO_HANDS_RULE : BACKGROUND_PEOPLE_RULE}`,
   });
 }
 
@@ -534,13 +557,27 @@ function filmSentence(spec: SceneSpec, lighting: LightingPreset): string {
   const where = [region, spec.countryLabel].filter(Boolean).join(", ");
   const lens = lookById(spec.camera.look).hidden.focal_length_mm;
   const light = lighting.condition ?? lighting.prompt.split(/[,.:]/)[0].toLowerCase();
+  // From a steep camera the place is only ground beyond the table; naming it here asked for an eye-level scene.
+  const setting = viewKind(angleById(spec.camera.angle)) !== "level" ? "seen from above" : `${place}${where ? ` in ${where}` : ""}`;
   return (
-    `Candid photodocumentary shot of ${food}, ${place}${where ? ` in ${where}` : ""}. ` +
+    `Candid photodocumentary shot of ${food}, ${setting}. ` +
     "Authentic slice-of-life moment, unstyled and realistic texture. " +
     `Shot on ${lens}mm lens, crisp focus. ` +
     "Enhanced color richness with deep true-to-life tones, emphasizing selective rich red tones, well-rounded contrast, " +
     `clean analog look with fine film grain, ${light}. ` +
     "Cinematic realism, documentary aesthetic."
+  );
+}
+
+/** How to read the proxy from a steep camera: no back wall, eye-level line, doorways or windows are in frame. */
+function steepProxyInstruction(overhead: boolean, ground: "ground" | "floor"): string {
+  return (
+    "Transform image 1 into a photograph. Image 1 is a layout guide: each colored shape is one object, and its label names the text below that describes it. " +
+    "Keep every object exactly where its shape sits, at the same size, and keep the same camera position, height, tilt and framing; do not zoom in, crop tighter, lower the camera or add objects. Remove all shapes, labels and outlines. " +
+    (overhead
+      ? `The faint grid on the table top and the ${ground} is a perspective guide: build the ${ground} beyond the table on that same plane, a full table height below the tabletop, so its lines recede to the same vanishing points as the table's. `
+      : `The faint grid on the table top, the ${ground} and any wall is a perspective guide: build the ${ground} and the bases of what stands on it on that same plane, so their lines recede to the same vanishing points as the table's, and any upright slants as the grid's upright lines do. `) +
+    "Do not draw the grid."
   );
 }
 
@@ -695,7 +732,14 @@ export function sketchInstruction(facts: StoryFacts): string {
 
 export function compositionSegments(story: Story, facts: StoryFacts): CompositionSegment[] {
   const camera = [
-    { label: "Camera", text: [facts.filmSentence, facts.angleSentence, facts.viewSentence, facts.lookSentence].filter(Boolean).join(" ") },
+    {
+      label: "Camera",
+      // Steep views put the camera first and the style after it, so the angle is read before the style.
+      text: (facts.steepView
+        ? [facts.angleSentence, facts.viewSentence, facts.filmSentence, facts.lookSentence]
+        : [facts.filmSentence, facts.angleSentence, facts.viewSentence, facts.lookSentence]
+      ).filter(Boolean).join(" "),
+    },
     { label: "Lighting", text: `${facts.lightingSentence} ${facts.skuLightSentence}`.trim() },
     { label: "Color", text: facts.colorSentence ?? COLOR_BY_WARMTH.neutral },
   ];
@@ -708,6 +752,7 @@ export function compositionSegments(story: Story, facts: StoryFacts): Compositio
       note: "Keep every shape's position and size; states the real-world scale",
       fixed: true,
       text: [
+        facts.viewLead,
         facts.layoutSketch ? sketchInstruction(facts) : facts.proxyInstruction,
         // The sketch already fixes how big everything is in the frame; the planned scale would contradict it.
         facts.layoutSketch ? "" : facts.scaleSentence,

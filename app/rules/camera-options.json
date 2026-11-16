@@ -48,8 +48,8 @@
       { "id": "high",       "label": "Looking down",          "prompt": "[HIGH_ANGLE_PROMPT]",       "hidden": { "pitch_deg": 45, "front_edge_min_y": 0.03, "rear_edge_max_y": 0.8 }, "status": "placeholder" },
       { "$comment": "Overhead (Fernando, 2026-11-15): moved up beside the three standard angles; 0° profile, 15° and 45° spread removed. Keeps test: true so it is never recommended or used as a fallback and its framing rules (H1, H2, H12, H14) only warn. Id kept for saved drafts.", "id": "test-overhead", "test": true, "label": "Overhead", "prompt": "[TEST_OVERHEAD_PROMPT]",
         "hidden": { "pitch_deg": 75, "front_edge_min_y": -2, "rear_edge_max_y": 0.88,
-          "viewpoint": "high above the table, about 1.5 to 2 m above the tabletop (2.3 to 2.7 m off the floor), as from a step ladder",
-          "note": "The camera looks almost straight down at the tabletop, tilted just enough that the Coca-Cola label still reads on the side of the product. The tablescape is the subject and fills the frame; if people sit at the table, they show only as hints at the edges (forearms, hands, a shoulder), never a face.",
+          "viewpoint": "high above the table, about 1.5 to 2 m above the tabletop, as from a step ladder",
+          "note": "The camera looks almost straight down at the tabletop; the Coca-Cola label shows on the side of the product, foreshortened as seen from above, and the camera is never lowered to show more of it. The tablescape is the subject and fills the frame; if people sit at the table, they show only as hints at the edges (forearms, hands, a shoulder), never a face.",
           "background": "almost nothing beyond the table: past its far edge only a narrow strip of floor, seen from high above and a full table height (about 75 cm) below the tabletop, with at most the seat of a chair or the corner of a rug in it; no walls, counters, sofa backs, windows or lamps, which are all out of frame above" }, "status": "placeholder" }
     ],
 

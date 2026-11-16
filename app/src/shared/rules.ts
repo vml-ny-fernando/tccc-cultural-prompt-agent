@@ -3,7 +3,7 @@ import cameraOptions from "../../rules/camera-options.json";
 import lightingPresets from "../../rules/lighting-presets.json";
 import glassRules from "../../rules/glass-rules.json";
 import foodStyling from "../../rules/food-styling.json";
-import type { Occasion, SceneSpec, SkuInfo } from "./types";
+import type { Occasion, SceneSpec, SkuInfo, Surface } from "./types";
 
 export { cameraOptions, lightingPresets, glassRules };
 
@@ -155,10 +155,63 @@ export function angleById(id: string): AngleOption {
  * Placeholder prompt text ("[CLOSE_HERO_PROMPT]") is replaced by the depth-of-field preset's
  * focus and layer sentences, then the look's food texture sentence.
  */
-export function lookSentence(look: LookOption, drinks: string, depth: DepthOption = depthById(undefined)): string {
+export function lookSentence(look: LookOption, drinks: string, depth: DepthOption = depthById(undefined), angle?: AngleOption, venue?: Venue): string {
   if (!look.prompt.startsWith("[")) return look.prompt;
   // The lens itself is named by the film sentence (story.ts filmSentence).
-  return [depth.focus.replaceAll("{drinks}", drinks), depth.layers, look.texture].filter(Boolean).join(" ");
+  return [depth.focus.replaceAll("{drinks}", drinks), angle ? steepLayers(angle, venue) ?? depth.layers : depth.layers, look.texture].filter(Boolean).join(" ");
+}
+
+type Venue = SceneSpec["scene"]["venue"];
+
+/**
+ * Steep views (Fernando, 2026-11-16): an overhead render came out at eye level with the market behind,
+ * because about ten lines written for an eye-level view (three depth planes, people far behind, walls and
+ * windows, a full-logo can) outweighed the one 75-degree line. Looking down and Overhead get their own
+ * wording; Low and Diner's eye keep theirs unchanged.
+ */
+export function viewKind(angle: AngleOption): "level" | "steep" | "overhead" {
+  if (angle.hidden.pitch_deg >= 60) return "overhead";
+  return horizonPlace(angle.hidden.pitch_deg) === "well-above" ? "steep" : "level";
+}
+
+/** What lies beyond the table: ground outdoors on the go, floor indoors. */
+export function groundWord(venue?: Venue): "ground" | "floor" {
+  return venue === "on-the-go" ? "ground" : "floor";
+}
+
+/** Real height of each surface's top, in cm (counters and ledges stand higher than a dining table). */
+const SURFACE_HEIGHT_CM: Partial<Record<Surface, number>> = {
+  "counter-top": 100,
+  "food-truck-counter": 105,
+  "street-ledge": 100,
+  "kitchen-island": 90,
+  bench: 45,
+};
+
+export function surfaceHeightCm(surface?: Surface): number {
+  return (surface && SURFACE_HEIGHT_CM[surface]) ?? 75;
+}
+
+/** The depth planes for a steep view, replacing the eye-level "three planes" line; undefined for Low and Diner's eye. */
+function steepLayers(angle: AngleOption, venue?: Venue): string | undefined {
+  const kind = viewKind(angle);
+  const g = groundWord(venue);
+  if (kind === "overhead")
+    return `The table setting is the picture, sharp from edge to edge; beyond the table's far edge only a thin, soft strip of the ${g} far below shows, never a view of the place behind.`;
+  if (kind === "steep")
+    return `The picture reads in two planes: the table setting sharp, filling most of the frame, and beyond its far edge a soft strip of the ${g} and the bases of what stands on it, seen from above.`;
+  return undefined;
+}
+
+/** One sentence that opens the prompt for a steep view, so the angle is the first thing the model reads. */
+export function viewLeadSentence(angle: AngleOption, venue?: Venue): string {
+  const kind = viewKind(angle);
+  const g = groundWord(venue);
+  if (kind === "overhead")
+    return `View: almost straight down from high above the table, about ${angle.hidden.pitch_deg} degrees: the tabletop fills the frame, with only a narrow strip of the ${g} at the top edge. Keep this view throughout; never lower the camera to show the place.`;
+  if (kind === "steep")
+    return `View: about ${angle.hidden.pitch_deg} degrees down from above the table: the table setting fills most of the frame and the ${g} beyond it fills the top; no horizon and nothing seen at eye level. Keep this view throughout.`;
+  return "";
 }
 
 /** How far down the frame the horizon (the camera's eye level) falls, for the locked lens on a 24 mm-tall frame; negative is above it. */
@@ -172,8 +225,9 @@ function horizonPlace(pitch: number): "inside" | "just-above" | "well-above" {
   return fromTop >= 0.05 ? "inside" : fromTop >= -0.4 ? "just-above" : "well-above";
 }
 
-export function angleSentence(angle: AngleOption): string {
+export function angleSentence(angle: AngleOption, ctx: { venue?: Venue; surface?: Surface; surfaceText?: string } = {}): string {
   if (!angle.prompt.startsWith("[")) return angle.prompt;
+  const kind = viewKind(angle);
   const pitch = angle.hidden.pitch_deg;
   const place = horizonPlace(pitch);
   const eyeLine =
@@ -184,6 +238,21 @@ export function angleSentence(angle: AngleOption): string {
         : "the horizon (the camera's eye level) is well above the frame, so the room behind is seen from above";
   const from = angle.hidden.viewpoint ?? "a seated diner's eye height";
   const tilt = pitch === 0 ? "held level, not tilted at all" : `tilted about ${pitch} degrees down toward the table`;
+  if (kind !== "level") {
+    const g = groundWord(ctx.venue);
+    // Outdoors there is no room: what lies beyond the table is seen from above.
+    const steepEyeLine = eyeLine.replace("so the room behind is seen from above", `so everything beyond the table is seen from above`);
+    return (
+      `One camera, from ${from}, ${tilt}; ${steepEyeLine}. ` +
+      (angle.hidden.note ? `${angle.hidden.note} ` : "") +
+      (kind === "overhead"
+        ? `Draw what shows beyond the table (only the ${g} far below its far edge) from this same camera height and tilt; never draw it from a different, standing viewpoint, and never lower the camera to show more of the place. `
+        : `Draw the ${g} and the lower part of the place from this same camera height and tilt, so their lines recede to the same vanishing points as the table's; never draw them from a different, standing viewpoint, and never lower the camera to show walls, sky or the horizon. `) +
+      `Foreground and background share one perspective: everything in the picture, from the nearest dish to the ${g} beyond the table, is seen from this one ${pitch}-degree view, with no part drawn flatter, steeper or from another direction. ` +
+      `The table is ${ctx.surfaceText?.trim() || "an ordinary dining table"} at its real size and height, not enlarged or tipped up toward the camera. ` +
+      realHeights(ctx.venue, ctx.surface)
+    );
+  }
   return (
     `One camera, from ${from}, ${tilt}; ${eyeLine}. ` +
     (angle.hidden.note ? `${angle.hidden.note} ` : "") +
@@ -202,6 +271,16 @@ export function angleSentence(angle: AngleOption): string {
 export const REAL_HEIGHTS =
   "Real heights stay true to the room: the tabletop is about 75 cm off the floor, chair seats about 45 cm, a sofa seat about 45 cm and its back about 85 cm, kitchen counters about 90 cm; the floor is always a full table height below the tabletop, never drawn level with it or just under it.";
 
+/** REAL_HEIGHTS for a steep view, from the surface's own height and the kind of place. */
+function realHeights(venue?: Venue, surface?: Surface): string {
+  const h = surfaceHeightCm(surface);
+  if (venue === "on-the-go")
+    return `Real heights stay true: the tabletop is about ${h} cm off the ground, and the ground is always a full ${h} cm below it, never drawn level with it or just under it.`;
+  if (venue === "restaurant")
+    return `Real heights stay true to the room: the tabletop is about ${h} cm off the floor and chair seats about 45 cm; the floor is always a full table height below the tabletop, never drawn level with it or just under it.`;
+  return REAL_HEIGHTS.replace("the tabletop is about 75 cm", `the tabletop is about ${h} cm`);
+}
+
 /** Where the table's far edge sits in the frame, matching the solver's limit for this angle (solver.ts rearLimit). */
 export function farEdgeSentence(angle: AngleOption): string {
   const rear = angle.hidden.rear_edge_max_y ?? 0.5;
@@ -214,7 +293,12 @@ export function farEdgeSentence(angle: AngleOption): string {
 }
 
 /** What this camera sees of the room behind the table, by where the eye level falls (agent and photo prompts). */
-export function backgroundView(angle: AngleOption): string {
+export function backgroundView(angle: AngleOption, venue?: Venue): string {
+  const kind = viewKind(angle);
+  if (venue === "on-the-go" && kind === "overhead")
+    return "almost nothing beyond the table: past its far edge only a narrow strip of the ground, seen from high above and a full table height below the tabletop, with at most the foot of a stall, a bench or a planter in it; no stalls, awnings, people, walls or sky, which are all out of frame above";
+  if (venue === "on-the-go" && kind === "steep")
+    return `looking down about ${angle.hidden.pitch_deg} degrees, mostly the ground beyond the table seen from above: paving, grass or sand, the feet of stalls, benches or other tables; no sky, and nothing seen at eye level`;
   if (angle.hidden.background) return angle.hidden.background;
   switch (horizonPlace(angle.hidden.pitch_deg)) {
     case "inside":
@@ -227,10 +311,18 @@ export function backgroundView(angle: AngleOption): string {
 }
 
 /** Which background details the agent may name: a steep camera sees floor, not walls and windows (agent.ts environmentalOverview). */
-export function backgroundDetails(angle: AngleOption): string {
-  return horizonPlace(angle.hidden.pitch_deg) === "well-above" && angle.hidden.pitch_deg >= 60
-    ? "the floor's material and color, the edge of a rug, the seat of a chair, all seen from high above; never a wall, window, counter or sofa back, which are out of frame"
-    : "wall color, tile, chairs, plants, a window where one would be in view";
+export function backgroundDetails(angle: AngleOption, venue?: Venue): string {
+  const kind = viewKind(angle);
+  const out = venue === "on-the-go";
+  if (kind === "overhead")
+    return out
+      ? "the ground's material and color (paving, grass, sand), the foot of a stall or a bench, all seen from high above; never stalls, awnings, people or sky, which are out of frame"
+      : "the floor's material and color, the edge of a rug, the seat of a chair, all seen from high above; never a wall, window, counter or sofa back, which are out of frame";
+  if (kind === "steep")
+    return out
+      ? "the ground (paving, grass, sand), the feet of stalls, benches or other tables, seen from above; never sky, awnings or anything at eye level"
+      : "the floor's material and color, chair seats, other tabletops and the bases of walls and furniture, seen from above; never a window or wall detail at eye level";
+  return "wall color, tile, chairs, plants, a window where one would be in view";
 }
 
 /**
@@ -238,7 +330,19 @@ export function backgroundDetails(angle: AngleOption): string {
  * the table. The tabletop and background segment restates the camera, so the room is built on the
  * table's own perspective rather than described as if from anywhere.
  */
-export function backgroundPerspectiveSentence(angle: AngleOption): string {
+export function backgroundPerspectiveSentence(angle: AngleOption, venue?: Venue): string {
+  const kind = viewKind(angle);
+  if (kind !== "level") {
+    const g = groundWord(venue);
+    const lead = `The tabletop and the background are seen through the same camera as the table, tilted about ${angle.hidden.pitch_deg} degrees down from ${angle.hidden.viewpoint ?? "a seated diner's eye height"}, so the background shows ${backgroundView(angle, venue)}. `;
+    return kind === "overhead"
+      ? lead + `The edges of the tabletop and the ${g} beyond it recede to the same vanishing points as the table; table and chair legs, where any show, slant exactly as the table's own legs do in this view; and anything on the ${g} beyond the table is drawn smaller with distance at the same rate as the table itself.`
+      : lead +
+          (venue === "on-the-go"
+            ? "The edges of the tabletop and the ground, and the feet of stalls, benches and other tables, all recede to the same vanishing points as the table; every upright (stall poles, bench and table legs) slants exactly as the table's own legs do in this view, never more or less; "
+            : "The edges of the tabletop, the floor and the bases of walls and furniture all recede to the same vanishing points as the table; every upright (chair and table legs, the lower part of wall corners) slants exactly as the table's own legs do in this view, never more or less; ") +
+          "and everything behind the table gets smaller with distance at the same rate as the table itself, so a chair two meters back is drawn smaller than the chairs at this table.";
+  }
   return (
     `The tabletop and the background are seen through the same camera as the table, ${angle.hidden.pitch_deg === 0 ? "held level" : `tilted about ${angle.hidden.pitch_deg} degrees down`} from ${angle.hidden.viewpoint ?? "a seated diner's eye height"}, ` +
     `so the background shows ${backgroundView(angle)}. ` +

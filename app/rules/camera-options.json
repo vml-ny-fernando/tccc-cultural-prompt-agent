@@ -47,10 +47,10 @@
       { "id": "diners-eye", "label": "Diner's eye (default)", "prompt": "[DINERS_EYE_ANGLE_PROMPT]", "hidden": { "pitch_deg": 20 }, "status": "placeholder" },
       { "id": "high",       "label": "Looking down",          "prompt": "[HIGH_ANGLE_PROMPT]",       "hidden": { "pitch_deg": 45, "front_edge_min_y": 0.03, "rear_edge_max_y": 0.8 }, "status": "placeholder" },
       { "$comment": "Test angles (Fernando, 2026-11-14): a second, orange row on the Camera step, tried on main next to the three above. Never recommended and never used as a fallback. Their framing rules (H1, H2, H12, H14) only warn.", "id": "test-profile", "test": true, "label": "0° profile", "prompt": "[TEST_PROFILE_PROMPT]",
-        "hidden": { "pitch_deg": 0, "lift_m": 0.03, "distance_scale": 0.75, "rear_edge_max_y": 0.75,
-          "viewpoint": "just above the tabletop",
-          "note": "This is a true side profile: the tabletop reads as a thin band, and the dish and the drink are seen from the side at their full height. The framing is tight: the dish and the drink fill most of the frame.",
-          "background": "the room straight on at tabletop height: the edge of the table, chair seats and table legs behind it, the lower part of the far wall, all soft" }, "status": "placeholder" },
+        "hidden": { "pitch_deg": 0, "lift_m": 0.03, "distance_scale": 0.75, "over_table": true, "rear_edge_max_y": 0.75,
+          "viewpoint": "a low, level position a little above the tabletop, high enough that the near edge of the table stays out of frame",
+          "note": "This is a level side profile: the tabletop runs right up to the bottom of the frame and reads as a band, and the dish and the drink are seen from the side at their full height. The table's front edge, its side and anything below the tabletop are out of frame; nothing under the tabletop shows. The framing is tight: the dish and the drink fill most of the frame.",
+          "background": "the room straight on at tabletop height beyond the table's far edge: chair backs and the far wall, all soft; never the front edge of this table, its legs or the floor in front of it" }, "status": "placeholder" },
       { "id": "test-15", "test": true, "label": "15° entree & product", "prompt": "[TEST_15_PROMPT]",
         "hidden": { "pitch_deg": 15, "span_scale": 0.8, "rear_edge_max_y": 0.45,
           "note": "The dish and the Coca-Cola are the subject, sharp in the lower middle of the frame, with plenty of the place around them: more of the room shows above the table than usual." }, "status": "placeholder" },
@@ -58,10 +58,10 @@
         "hidden": { "pitch_deg": 45, "span_scale": 1.15, "front_edge_min_y": 0.03, "rear_edge_max_y": 0.85,
           "note": "The table spread fills the frame with a strip of background above it. The framing is tight: if people are at or near the table, they are cropped at the chin or below, so no tops of heads, no eyes and no facial features show." }, "status": "placeholder" },
       { "id": "test-overhead", "test": true, "label": "Near overhead", "prompt": "[TEST_OVERHEAD_PROMPT]",
-        "hidden": { "pitch_deg": 75, "front_edge_min_y": -2, "rear_edge_max_y": 1.5,
-          "viewpoint": "high above the table",
+        "hidden": { "pitch_deg": 75, "front_edge_min_y": -2, "rear_edge_max_y": 0.88,
+          "viewpoint": "high above the table, about 1.5 to 2 m above the tabletop (2.3 to 2.7 m off the floor), as from a step ladder",
           "note": "The camera looks almost straight down at the tabletop, tilted just enough that the Coca-Cola label still reads on the side of the product. The tablescape is the subject and fills the frame; if people sit at the table, they show only as hints at the edges (forearms, hands, a shoulder), never a face.",
-          "background": "almost nothing beyond the table: the tabletop fills the frame, with at most a sliver of floor or chair seats at an edge" }, "status": "placeholder" }
+          "background": "almost nothing beyond the table: past its far edge only a narrow strip of floor, seen from high above and a full table height (about 75 cm) below the tabletop, with at most the seat of a chair or the corner of a rug in it; no walls, counters, sofa backs, windows or lamps, which are all out of frame above" }, "status": "placeholder" }
     ],
 
     "recommendations": {

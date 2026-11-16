@@ -125,7 +125,7 @@
   font-size: var(--app-text-min);
   font-weight: 700;
   line-height: 14px;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--app-pill-tracking);
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--bay-text-on-accent);
@@ -142,7 +142,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   color: var(--bay-text-3);
 }
@@ -161,9 +161,9 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
-  color: #c85a00;
+  color: var(--neo-test-ink);
 }
 
 .grid[data-test] {
@@ -177,24 +177,24 @@
 }
 
 .card[data-test] {
-  border-color: #ff7a1a;
-  background: #fff4ea;
+  border-color: var(--neo-test);
+  background: var(--neo-test-soft);
 }
 
 .card[data-test][data-hovered]:not([data-selected]),
 .card[data-test][data-pressed]:not([data-selected]) {
-  background: #ffe6d1;
+  background: var(--neo-test-hover);
 }
 
 .card[data-test][data-selected] {
-  border: 3px solid #ff7a1a;
-  background: #ff7a1a;
+  border: 3px solid var(--neo-test);
+  background: var(--neo-test);
 }
 
 .card[data-test][data-selected] .label {
-  color: #fff;
+  color: var(--neo-on-test);
 }
 
 .card[data-test] .media {
-  border-color: #ff7a1a;
+  border-color: var(--neo-test);
 }

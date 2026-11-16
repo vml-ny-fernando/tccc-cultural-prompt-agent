@@ -298,9 +298,7 @@ export function FeedbackDialog({
                   {[brief.heroDish, brief.countryLabel].filter(Boolean).join(' · ')}
                 </p>
               </div>
-              <button type="button" className={styles.iconBtn} aria-label="Close" onClick={onClose}>
-                <X size={18} aria-hidden />
-              </button>
+              <Button size="sm" variant="ghost" icon={<X size={16} aria-hidden />} aria-label="Close" onPress={onClose} />
             </header>
 
             <div className={styles.body}>

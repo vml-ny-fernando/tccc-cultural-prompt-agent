@@ -32,8 +32,9 @@
   z-index: 25;
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  /* Overlay close (style guide): 44px square, 3px border, X at 24. Same as the learning image modal. */
+  width: 44px;
+  height: 44px;
   padding: 0;
   background: var(--neo-card);
   color: var(--neo-ink);
@@ -46,7 +47,7 @@
 }
 
 .close:focus-visible {
-  outline: 3px solid var(--neo-selected);
+  outline: 3px solid var(--neo-ink);
   outline-offset: 2px;
 }
 
@@ -60,7 +61,5 @@
   .close {
     top: 8px;
     right: 8px;
-    width: 44px;
-    height: 44px;
   }
 }

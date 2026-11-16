@@ -89,7 +89,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-pill-tracking);
   text-transform: uppercase;
   color: var(--neo-ink);
   background: var(--neo-card);

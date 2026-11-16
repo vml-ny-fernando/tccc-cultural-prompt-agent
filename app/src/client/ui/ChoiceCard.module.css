@@ -9,7 +9,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   color: var(--bay-text-2);
 }
@@ -127,7 +127,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--app-pill-tracking);
   text-transform: uppercase;
   color: var(--neo-card);
 }
@@ -178,7 +178,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-pill-tracking);
   text-transform: uppercase;
   color: var(--neo-ink);
   cursor: pointer;
@@ -388,7 +388,7 @@
   font-size: var(--app-text-min);
   font-weight: 700;
   line-height: 16px;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   color: var(--bay-text-2);
   cursor: pointer;
@@ -547,7 +547,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   color: var(--bay-text);
 }

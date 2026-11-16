@@ -14,7 +14,7 @@
   font-family: var(--app-font-head);
   font-size: 30px;
   line-height: 1;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   pointer-events: none;
 }

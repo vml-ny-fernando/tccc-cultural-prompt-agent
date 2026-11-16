@@ -30,7 +30,7 @@
   background: none;
   font-family: var(--bay-font-mono);
   font-size: 12px;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   text-align: left;
   color: var(--bay-text-3);
@@ -74,7 +74,7 @@
   margin: 0 0 12px;
   font-family: var(--bay-font-mono);
   font-size: 12px;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   color: var(--neo-selected);
 }

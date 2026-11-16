@@ -24,7 +24,7 @@
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   color: var(--neo-ink);
   background: var(--neo-card);
   border: 2px solid var(--neo-ink);
@@ -126,7 +126,7 @@
   padding: 10px 12px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   cursor: pointer;
   outline: none;

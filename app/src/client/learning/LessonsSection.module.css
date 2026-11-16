@@ -32,7 +32,7 @@
   font-size: var(--app-text-min);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   color: var(--bay-text-4);
   background: var(--bay-bg-subtle);
   border-bottom: var(--neo-border-thin);

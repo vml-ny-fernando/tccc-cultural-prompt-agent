@@ -27,7 +27,7 @@ export function WorkspaceOverlay({ isOpen, onClose, children }: { isOpen: boolea
     <div className={styles.scrim}>
       <div className={styles.frame} role="dialog" aria-modal="true" aria-label="Node Workspace">
         <button ref={closeRef} type="button" className={styles.close} aria-label="Close the node workspace" onClick={onClose}>
-          <X size={28} strokeWidth={2.5} aria-hidden />
+          <X size={24} strokeWidth={2.5} aria-hidden />
         </button>
         <div className={styles.body}>{children}</div>
       </div>

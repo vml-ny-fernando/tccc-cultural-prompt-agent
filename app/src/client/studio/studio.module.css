@@ -145,7 +145,7 @@
 
 .columnValue {
   font-family: var(--bay-font-mono);
-  font-size: 11px;
+  font-size: var(--app-text-min);
   margin-bottom: 2px;
 }
 

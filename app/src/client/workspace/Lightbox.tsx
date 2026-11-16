@@ -60,7 +60,7 @@ export function Lightbox({ state, onClose }: { state: LightboxState | null; onCl
                   Rate image
                 </Button>
               )}
-              <Button size="sm" variant="ghost" icon={<X size={14} aria-hidden />} aria-label="Close" onPress={onClose} />
+              <Button size="sm" variant="ghost" icon={<X size={16} aria-hidden />} aria-label="Close" onPress={onClose} />
             </div>
             <div className={styles.imgWrap}>
               <img className={styles.img} src={state.src} alt={state.alt} />

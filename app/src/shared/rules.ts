@@ -44,6 +44,8 @@ export interface AngleOption {
     lift_m?: number;
     /** Test angles: after framing, move the camera to this share of its distance (0.75 = about 25% tighter). */
     distance_scale?: number;
+    /** Test angles: bring a level camera in over the table so its front edge drops out of frame (solver.ts Framing). */
+    over_table?: boolean;
     /** Test angles: the hero group's target width as a share of the usual one (above 1 = tighter). */
     span_scale?: number;
     /** Where the camera stands, for the prompt (after "from"); default "a seated diner's eye height". */

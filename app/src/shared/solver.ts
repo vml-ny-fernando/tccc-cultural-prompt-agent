@@ -695,6 +695,8 @@ interface Framing {
   /** Test angles (rules.ts AngleOption): camera height off the tabletop, a tighter final distance, a wider or narrower hero group. */
   lift_m?: number;
   distance_scale?: number;
+  /** Level test angle (Fernando, 2026-11-15): bring the camera in over the table until its front edge, and everything below the tabletop, drops out of the bottom of the frame. */
+  over_table?: boolean;
   span_scale?: number;
 }
 
@@ -796,6 +798,20 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
     const cam: CameraParams = { ...c, position: [0, 1, 2].map((i) => c.target[i]! + (c.position[i]! - c.target[i]!) * k) as [number, number, number] };
     const { boxes, proj } = project(placed, cam);
     fit = { cam, boxes, sils: new Map(), rearY: proj.project(cam.target[0], 0, D).y };
+  }
+  if (framing.over_table) {
+    // Camera height, not angle (Fernando, 2026-11-15): the level camera stays where it was framed
+    // and rises until the frame's lowest ray lands on the tabletop, h / tan(half vertical fov)
+    // ahead of the lens, at or behind the front edge (z = 0). The table edge and everything below
+    // the tabletop then fall out of the bottom of the frame.
+    const c = fit.cam;
+    const tanV = Math.tan(((c.fovDeg / 2) * Math.PI) / 180);
+    const h = Math.max(c.position[1], (c.position[2] * tanV) / 0.92);
+    if (h > c.position[1]) {
+      const cam: CameraParams = { ...c, position: [c.position[0], h, c.position[2]], target: [c.target[0], h, c.target[2]] };
+      const r = project(placed, cam);
+      fit = { cam, boxes: r.boxes, sils: new Map(), rearY: r.proj.project(cam.target[0], 0, D).y };
+    }
   }
   const proj = new Projector(fit.cam);
   for (const p of placed) fit.sils.set(p.item.label, silhouette(proj, p.item.def, p.x, p.d, p.yaw, p.item.extraHeight));

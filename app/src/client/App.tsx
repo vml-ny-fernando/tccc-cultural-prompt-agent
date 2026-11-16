@@ -14,7 +14,6 @@ import { EmptyState } from './ui/EmptyState.tsx';
 import { SegmentedControl } from './ui/SegmentedControl.tsx';
 import { ErrorBoundary } from './ui/ErrorBoundary.tsx';
 import { BriefStep } from './intake/BriefStep.tsx';
-import { CameraStep } from './intake/CameraStep.tsx';
 import { ArrangementBar, OPTION_LETTERS } from './intake/ArrangementBar.tsx';
 import { TableStep } from './intake/TableStep.tsx';
 import { PlatingStep } from './intake/PlatingStep.tsx';
@@ -84,7 +83,7 @@ const STEP_META: Record<StepId, { label: string }> = {
   plating: { label: 'Plating' },
   sides: { label: 'Sides' },
   camera: { label: 'Camera Angle' },
-  layout: { label: 'Tablescape' },
+  layout: { label: 'Tablescape & Camera' },
   review: { label: 'Sketch Review' },
   story: { label: 'Story & Scene' },
   workspace: { label: 'Node workspace' },
@@ -206,7 +205,7 @@ export function App() {
       case 'sides':
         return !!draft.sel.plating;
       case 'layout':
-        // Tablescape: the table is laid out before the camera (2026-11-12).
+        // Tablescape & Camera: the table is laid out, then seen from each angle, on one page (2026-11-12).
         return !!draft.sel.sides && !!draft.sel.scene;
       case 'camera':
         return !!draft.sel.sides && !!draft.sel.scene && !!draft.compose && draft.picked !== null;
@@ -246,7 +245,7 @@ export function App() {
   // The table is laid out before the Camera Angle step, through the angle recommended for the dish
   // until one is picked (the solver and the rules need a camera).
   useEffect(() => {
-    if (draft.step === 'layout' && !draft.sel.camera) ensureCamera(defaultCamera({ dish: draft.brief.heroDish, prep: draft.sel.prep, plating: draft.sel.plating }));
+    if ((draft.step === 'layout' || draft.step === 'camera') && !draft.sel.camera) ensureCamera(defaultCamera({ dish: draft.brief.heroDish, prep: draft.sel.prep, plating: draft.sel.plating }));
   }, [draft.step, draft.sel.camera, draft.brief.heroDish, draft.sel.prep, draft.sel.plating, ensureCamera]);
 
   const renderStep = (step: typeof draft.step) => {
@@ -319,18 +318,6 @@ export function App() {
         );
 
       case 'camera':
-        return (
-          <CameraStep
-            dish={draft.brief.heroDish}
-            sel={draft.sel}
-            onCamera={(c) => choose('camera', c)}
-            compose={draft.compose}
-            option={pickedOption}
-            onLayout={(bp, camera) => setWorkingLayout(bp, camera)}
-            onNext={() => setStep('review')}
-          />
-        );
-
       case 'layout':
       case 'review': {
         const accentDecision = (draft.decisions.accent as Decision<AccentChoice> | undefined) ?? null;
@@ -343,7 +330,7 @@ export function App() {
         };
         const compose = draft.compose;
         const option = compose && draft.picked !== null ? compose.options[draft.picked] : undefined;
-        if (step === 'layout') {
+        if (step === 'layout' || step === 'camera') {
           return (
             <TableStep
               brief={draft.brief}
@@ -358,8 +345,8 @@ export function App() {
               onCompose={setCompose}
               onPick={setPicked}
               onBackToSides={() => setStep('sides')}
-              onWorkingLayout={(bp) => setWorkingLayout(bp)}
-              onNext={() => setStep('camera')}
+              onWorkingLayout={(bp, camera) => setWorkingLayout(bp, camera)}
+              onNext={() => setStep('review')}
             />
           );
         }
@@ -368,7 +355,7 @@ export function App() {
             <EmptyState
               title="Lay out the table first"
               hint="The sketch is drawn from your tablescape and the camera angle you pick for it."
-              action={<Button onPress={() => setStep('layout')}>Go to Tablescape</Button>}
+              action={<Button onPress={() => setStep('layout')}>Go to Tablescape &amp; Camera</Button>}
             />
           );
         }

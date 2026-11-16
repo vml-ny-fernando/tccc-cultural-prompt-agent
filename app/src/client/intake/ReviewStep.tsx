@@ -208,7 +208,7 @@ export function ReviewStep({
       try {
         setSketch(renderSketch(bp, compose.lighting, { width: 1280 }));
       } catch (err) {
-        setSketchError(friendlyError(err, 'Reload the page to try again. If it still fails, go back to Camera Angle and pick another angle.'));
+        setSketchError(friendlyError(err, 'Reload the page to try again. If it still fails, go back to Tablescape & Camera and pick another angle.'));
       }
     });
     return () => cancelAnimationFrame(frame);

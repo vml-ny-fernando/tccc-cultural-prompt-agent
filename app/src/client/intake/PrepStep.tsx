@@ -6,7 +6,6 @@ import { useAgentTask } from '../lib/useAgentTask.ts';
 import { trpc } from '../trpc.ts';
 import { useOnSignedIn } from '../lib/useOnSignedIn.ts';
 import { DecisionStep } from './DecisionStep.tsx';
-import { OptionPicture } from './OptionPictures.tsx';
 import { keepCustom, useCustomOption } from './useCustomOption.ts';
 import { countryPhrase, isOrAre, placeName } from './optionText.ts';
 import type { Brief } from './types.ts';
@@ -84,9 +83,7 @@ export function PrepStep({
       renderOption={(v) => ({
         label: v.label,
         summary: v.detail,
-        media: brief.country && brief.heroDish ? (
-          <OptionPicture kind="prep" country={brief.country} countryLabel={brief.countryLabel} heroDish={brief.heroDish} label={v.label} promptText={v.promptText} />
-        ) : undefined,
+        // No reference photos on Preparation (Fernando, 2026-11-15): the option text carries it.
         facts: [
           { label: 'Silhouette', value: v.massClass },
           { label: 'In the image', value: v.promptText },

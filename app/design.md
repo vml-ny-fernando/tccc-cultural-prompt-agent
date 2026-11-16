@@ -50,7 +50,7 @@ Status (via `Alert`): success #c8f0d4, error #ffd1cc, info white, warning grey
 with an amber triangle.
 
 - Grey and amber are fills behind black text, never text colours.
-- Red is for selection, the camera frame and the slider knob. As text it is
+- Red is for selection, the camera frame and the selected angle tab. As text it is
   allowed for warnings only (the ⚠ fix count) and the "Did you know?"
   kicker.
 - White text appears only on red and charcoal.
@@ -129,7 +129,7 @@ with an amber triangle.
 | Text input / area | Free text the agents read | Hero dish, side request, "Describe what you would like to see" |
 | Segmented control | 2–6 short exclusive words | Time & Place: kind of place, time of day, Place settings |
 | Choice cards (3 equal columns) | Options needing a sentence or picture | Preparation, Plating, Sides, Accent, layouts |
-| Angle slider | One camera angle; the big drawing shows the table from it | Tablescape & Camera: Low, Diner's eye, Looking down, Overhead |
+| Angle tabs (4 equal, spanning the drawing; selected red) | One camera angle; the big drawing shows the table from it | Tablescape & Camera: Low, Diner's eye, Looking down, Overhead |
 | Switch | One on/off | Show guides, segment bypass |
 | Accordion | Detail the user may skip | Rule checks, prompt segments |
 | Code block | Exact prompt or JSON | Story & Scene, Prompt node |

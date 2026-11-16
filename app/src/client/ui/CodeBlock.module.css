@@ -32,7 +32,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   color: var(--bay-text-2);
   cursor: pointer;
 }

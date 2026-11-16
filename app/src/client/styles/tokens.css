@@ -67,6 +67,9 @@
   --app-frame-max-w: max(560px, calc((100vh - 360px) * 16 / 9));
   /* Smallest text size (12px floor from the main text pass). */
   --app-text-min: 12px;
+  /* Tracking for ALL CAPS text: field labels, kickers, tags; and the round pills (Suggested, RECOMMENDED). */
+  --app-label-tracking: 0.06em;
+  --app-pill-tracking: 0.08em;
 
   /* --- Shared tokens, remapped --- */
   --bay-text: #000000;
@@ -107,6 +110,8 @@
   --bay-ok-fg: #0b4d2c;
   --bay-warn-bg: var(--neo-amber);
   --bay-warn-fg: #000000;
+  /* Warning text on white (amber is never a text colour): a dark ochre that passes contrast. */
+  --bay-warn-text: #8a5a00;
   --bay-err-bg: #ffd1cc;
   --bay-err-fg: #8f1409;
   --bay-info-bg: #ffffff;

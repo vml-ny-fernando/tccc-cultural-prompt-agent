@@ -1,92 +1,175 @@
-# Scene Composer — design system
+# Scene Composer — style guide
 
-How this app looks, which building blocks it is made of, and the rules a UI
-change has to follow. Read this before adding or restyling anything under
-`src/client/`. Where this file and the code disagree, fix one of them in the
-same change. The visual reference the user picked is
-`uploads/design-reference.png` ("Poster grid").
+The rules every UI change follows, and when each one applies. This file is the
+source of truth for the app's look; the shareable copy is the Claude Doc
+"Scene Composer style guide". Where this file and the code disagree, fix one of
+them in the same change.
+
+Scene Composer has one look, a neo-brutalist "poster grid": paper canvas, white
+cards, black ink, hard offset shadows in dusty rose, and red for whatever is
+selected. Desktop only.
 
 ## 1. Principles
 
-1. **Neo-brutalist poster grid.** Retro paper canvas, white cards, pitch-black
-   text. Every panel, card, button and dialog has a 3px black border and a
-   hard offset shadow with no blur (`5px 5px 0`). No gradients, no soft
-   shadows, no translucency except modal backdrops. Corners are small
-   (3–6px); only pills and circles go round.
-2. **Four fills, one ink.** Light grey `--neo-hover` (`#e5e5e5`) means
-   *actively selecting*: the hover/press state of anything you can pick. Mid
-   grey `--neo-cta` (`#a7a7a7`) is the primary call-to-action button.
-   Coca-Cola red `--neo-selected` (`#e7223a`, user-picked) with white text (`--neo-on-selected`) means *selected*: the
-   chosen card, segment, chip, dropdown item, the current step, the selected
-   node and sketch item. Amber `--neo-amber` (`#ffcc33`)
-   means "Change" and is **always** layered with `--neo-hatch` black stripes
-   (and a pencil icon where there is room). Grey and amber are only ever
-   fills behind black text — never a text colour.
-3. **Poster type.** Headings are Tilt Warp, sentence case, tight
-   (`--app-font-head`, one weight: never set bold on it; `font-synthesis` is
-   off). A step's `<h1>` is `clamp(32px, 4.2vw, 56px)`, line-height 1.0.
-   Paragraphs are Space Grotesk (`--bay-font-sans`, 400/500/700). Labels,
-   step numbers, tags, IDs, prompts and JSON are Space Mono
-   (`--bay-font-mono`). Every field label is the same: Space Mono 12px bold
-   caps, black, a short name only ("Time of day", "Dining surface") — never an
-   explanation; that goes in a hint line under the control if it is needed.
-4. **Tactile.** Clickable things press: `transform: var(--neo-press)` with
-   `box-shadow: var(--neo-shadow-active)` (small controls use
-   `--neo-press-sm`). Hover on any button fills it light grey.
-5. **Feedback is inline and plain.** Status lines name what the agent is
-   doing and for how long; errors are an `Alert` next to what failed, in one
-   sentence, naming the next step. Loading is a skeleton shaped like the real
-   content, never a bare spinner.
-6. **Everything works from the keyboard and reads to a screen reader.**
-   Focus is a 3px black outline (`global.css`); never remove it.
+1. **One look, everywhere.** Every panel, card, button and dialog uses a black
+   border and a hard shadow with no blur. No gradients, no soft shadows, no
+   translucency except the loading scrim.
+2. **Colour has a job.** Grey means choosing, red means chosen, charcoal means
+   go, amber with stripes means change. A colour
+   never does a second job.
+3. **One main action per screen.** Among buttons, only the primary carries a
+   shadow. Cards, pill rows and alerts keep theirs; the rule is about buttons.
+4. **Say what is happening.** Every wait names what the app is doing; every
+   error says what to do next, next to what failed.
+5. **Desktop only.** Design and review at desktop widths.
+6. **Brand-neutral shell.** Interface copy never names a brand. The brand
+   appears only where the user's SKU appears.
 
-## 2. Foundations
+## 2. Color
 
-All colours, borders, shadows and type come from custom properties in
-`src/client/styles/tokens.css`. Never hard-code a colour in a component.
+All colours come from `src/client/styles/tokens.css`; components never
+hard-code one. The only exception is the staging band (`ui/EnvBand`). Light
+only.
 
-| Facet | Value |
+| Role | Token | Value | In play |
+| --- | --- | --- | --- |
+| Canvas | `--neo-paper` | #f4f1ea | Page background; no white window |
+| Surface | `--neo-card` | #ffffff | Cards, panels, inputs, dialogs, secondary buttons |
+| Ink | `--neo-ink` | #000000 | Text, borders, icons, focus outline |
+| Choosing | `--neo-hover` | #e5e5e5 | Hover/press on anything you can pick; open accordion; warning alert |
+| Chosen | `--neo-selected` (+ `-hover`, `--neo-on-selected`) | #e7223a, white text | Selected card, chip, segment, item, current step; the camera frame |
+| Go | `--neo-cta-button` (+ `-hover`, `--neo-on-cta-button`) | #2b2b2b, white text | Primary buttons only |
+| Fill grey | `--neo-cta` | #a7a7a7 | Progress fill, workspace edges |
+| Change | `--neo-amber` + `--neo-hatch` | #ffcc33 under black stripes | Items marked to change in Sketch Review, always striped |
+| Shadow | `--neo-shadow-color` | #cc9999 | Every hard shadow; loader blush |
+| Hairline | `--bay-border-hair` | #c9c4b8 | Dividers, canvas grids |
+| Secondary text | `--bay-text-3` / `-4` | #45433f / #77746d | Hints, intro copy / disabled, placeholders |
+| Warning text | `--bay-warn-text` | #8a5a00 | Warning words on white |
+
+Status (via `Alert`): success #c8f0d4, error #ffd1cc, info white, warning grey
+with an amber triangle.
+
+- Grey and amber are fills behind black text, never text colours.
+- Red is for selection, the camera frame and the slider knob. As text it is
+  allowed for warnings only (the ⚠ fix count) and the "Did you know?"
+  kicker.
+- White text appears only on red and charcoal.
+
+## 3. Typography
+
+| Face | Token | Weights | Used for |
+| --- | --- | --- | --- |
+| Tilt Warp | `--app-font-head` | 400 only, never bold | Headlines, section titles, primary button labels, loader title, rail numbers |
+| Space Grotesk | `--bay-font-sans` | 400, 500, 700 | Body, card copy, secondary button labels, alerts |
+| Space Mono | `--bay-font-mono` | 400, 700 | Field labels, pills, step numbers, IDs, prompts, JSON |
+
+| Element | Size |
 | --- | --- |
-| Canvas | `--neo-paper` / `--bay-bg-canvas` `#f4f1ea`; `--bay-bg-sunken` `#ebe7dc`, `--bay-bg-subtle` `#faf8f3` |
-| Surfaces | `--neo-card` / `--bay-bg-surface` `#ffffff` |
-| Text | `--bay-text` `#000`, `-2` `#1c1c1c`, `-3` `#45433f` (hints, intro copy), `-4` `#77746d` (disabled, placeholders) |
-| Borders | `--neo-border` (3px ink) for panels, cards, buttons, dialogs; `--neo-border-thin` (2px) for rows, inputs, pills, chips; `--bay-border-hair` `#c9c4b8` only for faint dividers and canvas grids |
-| Shadows | `--neo-shadow` (5px), `--neo-shadow-sm` (3px, small buttons, change rows), `--neo-shadow-active` (pressed). Inputs, pills and anything inside a node card get no shadow |
-| Fills | `--neo-hover` (hover/press), `--neo-cta` (primary buttons), `--neo-selected` / `--neo-selected-hover` + `--neo-on-selected` text (selected), `--neo-amber` + `--neo-hatch` (Change) |
-| Legacy aliases | `--bay-accent` and `--app-highlight` are ink (text/borders); `--bay-accent-soft` and `--app-highlight-soft` are the hover grey (fills) |
-| Status | `--bay-ok-*` pale green, warning alerts light grey (#e5e5e5) with an amber-filled triangle icon, `--bay-err-*` pale red, `--bay-info-*` white — black border from the component, via `Alert` |
-| Fonts | Loaded in `index.html`: Tilt Warp, Space Grotesk 400/500/700, Space Mono 400/700 |
+| Step headline | clamp(32px, 4.2vw, 56px), line-height 1.0 |
+| Loader title | 34px |
+| Panel and page titles | 20–29px |
+| Body | 14.5px (90% of 16px), line-height 1.25 |
+| Card titles, alert titles, button labels | 12.5–13.5px bold |
+| Labels, pills, hints, segments | 12px (`--app-text-min`) |
 
-The app ships light-only. The `data-theme='dark'` selector in `tokens.css`
-re-asserts the light values so nothing picks up a dark ramp. The `--bay-*`
-names are kept from the original build; `tokens.css` defines all of them.
+- **12px floor.** Nothing smaller than `--app-text-min`.
+- **Field labels:** Space Mono 12px bold ALL CAPS, a short name only; any
+  explanation goes in a hint under the control.
+- **ALL CAPS** is for labels, pills, segments, buttons and the loader kicker.
+  Tracking: `--app-label-tracking` (0.06em) for labels and kickers,
+  `--app-pill-tracking` (0.08em) for round pills.
+- **Names** of steps, nav items and pages are Title Case, with "&" for "and"
+  (Time & Place, Story & Scene). Sentences are sentence case.
 
-## 3. Layout
+## 4. Layout, borders & shadows
 
-Set in `src/client/App.tsx` + `App.module.css`. No white window: content
-sits directly on the paper canvas.
+| Region | Rule |
+| --- | --- |
+| Header | Gray wordmark at left over the rail; nav and user menu at right |
+| Step rail | 240px, sticky. Big Tilt Warp number, name, check when done. Current = red row, white text |
+| Step headline | Sticky band, paper background, no rule; intro max 640px |
+| Action bar | Sticky bottom, 3px top rule. Back (secondary) left, the one primary action right |
+| Image frame | 16:9, at most `--app-frame-max-w` so it fits without scrolling |
 
-- **Header row**: the logo (unboxed) at the left, Learning / Start over / the user's name at the right, on one tight line aligned with the page column.
-- **Step rail** (sticky, left): one
-  bordered stack of rows — big step number in Tilt Warp, step name,
-  a check on completed steps; the current step is a solid red row with
-  white text, hover is light grey. An
-  unreachable step is disabled. "Draft saved" sits below in Space Mono. On
-  narrow screens the rail becomes a horizontal scroller above the step.
-- **Step** (the main column): the step's own sentence-case `<h1>` as a frozen
-  band (sticky at the top, paper background, no rule under it; the step
-  scrolls behind it; App.tsx publishes its height as `--app-step-head-h` for
-  other sticky parts), a short intro,
-  then its content; `StepActions` is the sticky bottom bar (Back on the left
-  as a white button, the primary action as a grey one). On Workspace the
-  node canvas takes the full width.
-- **Sketch review** is two columns on wide screens: the items list on the
-  left, the sketch frame sticky on the right; the status bar runs full width
-  above, scene notes and the prompt-changes box full width below.
+- Spacing on a 4px rhythm: 8px inside groups, 12px between related controls,
+  16px between cards, 24px between regions.
+- Borders: 3px ink (`--neo-border`) for panels, cards, md buttons, dialogs,
+  alerts; 2px (`--neo-border-thin`) for rows, inputs, pills, chips, small
+  buttons, image frames; hairline only for dividers.
+- Corners: 3px, 4px (cards, buttons), 6px (windows). Only pills and circles
+  are round. The loader card and overlay close buttons are square.
+- Shadows: hard rose offsets, no blur: 6.25px cards and primary buttons,
+  3.75px small controls, 1.25px pressed, 8.75px on a hovered choice card.
+  Pressing moves the control down-right by the shadow it loses. Inputs, pills,
+  secondary buttons and anything inside a node card get none.
 
-## 4. Building blocks
+## 5. Buttons & actions
 
-### 4.1 Controls: `src/client/ui/`
+| Tier | Look | Use |
+| --- | --- | --- |
+| Primary | Charcoal, white Tilt Warp caps, 3px border, shadow | The single forward action on a screen |
+| Secondary (`default`) | White, outlined, bold caps, no shadow | Back, Ask again, Download, Re-arrange |
+| Ghost | No border until hover | Icon-only and low-weight actions in cards and dialogs |
+
+- md: 40px tall, 12.5px label. sm: 32px, 12px. Icon-only buttons are square
+  and always labelled.
+- Labels are verbs. Disabled = 50% opacity, no shadow, and a reason nearby.
+- **Close controls, two kinds only.** Inside a dialog: the shared ghost `sm`
+  `Button` with `X` at 16, top right, and no second Close button. Over a
+  full-screen overlay (node workspace, enlarged image): a 44px white square,
+  3px border, `X` at 24, black focus ring.
+- Icons are `lucide-react` with an explicit size: 16 in md buttons and the
+  header, 14 in sm buttons and chips, 20 in the rail. No emoji.
+
+## 6. Inputs & choosers
+
+| Control | Use when | In play |
+| --- | --- | --- |
+| Select (searchable) | A long list known by name | Getting Started: country, region, SKU, occasion |
+| Text input / area | Free text the agents read | Hero dish, side request, "Describe what you would like to see" |
+| Segmented control | 2–6 short exclusive words | Time & Place: kind of place, time of day, Place settings |
+| Choice cards (3 equal columns) | Options needing a sentence or picture | Preparation, Plating, Sides, Accent, layouts |
+| Angle slider | One camera angle; the big drawing shows the table from it | Tablescape & Camera: Low, Diner's eye, Looking down, Overhead |
+| Switch | One on/off | Show guides, segment bypass |
+| Accordion | Detail the user may skip | Rule checks, prompt segments |
+| Code block | Exact prompt or JSON | Story & Scene, Prompt node |
+
+- One recommended option carries a black **Suggested** pill; no A/B/C letters.
+- The user's own option is "Describe what you would like to see".
+- Longer detail sits behind a "More details" pill that opens a dialog.
+- Changing an answer that clears later choices warns first, inline.
+- Options that can't work yet are hidden; disabled ones say why.
+- Keyboard: Tab between controls, arrows within a group, a 3px black focus
+  outline that is never removed.
+
+## 7. Dialogs, loaders & feedback
+
+| Pattern | When |
+| --- | --- |
+| Full-page loader (`LoadingOverlay`): NOW LOADING kicker, step name, pan toss, what is being prepared, percent to 100; no tips | A whole step waits on a model call |
+| Progress ring + "Did you know?" tip | Work inside a step: layout, sketch, scene render |
+| Inline agent status + skeleton cards, with elapsed seconds | Any other agent call |
+| `Alert` | An outcome the user must read, next to what failed |
+| `EmptyState` | Nothing there yet, saying why |
+
+- Errors are one friendly sentence on what happened and how to get out; never
+  a raw code. Keep the action armed. Limit and permission errors are terminal.
+- An expired session shows `SignInPrompt`, not an error.
+
+## 8. Copy & voice
+
+- No "Coca-Cola" or "ProdX" in interface copy; the SKU's own name only where
+  the product appears.
+- "&" in headlines and nav. Buttons are verbs. Labels are short nouns.
+- Knowledge base size is a page count (about 1,800 pages).
+- Loading lines say what is happening now; tips are one food-styling fact tied
+  to the step.
+- Sentences under about 20 words; stylist's words ("charred lemon"); no emoji;
+  no exclamation marks except the home CTA "LET'S MAKE A SCENE!".
+
+## 9. Building blocks
+
+### Controls: `src/client/ui/`
 
 Built on `react-aria-components` and styled with a sibling
 `<Component>.module.css`. **This directory is the only place that imports
@@ -94,7 +177,7 @@ Built on `react-aria-components` and styled with a sibling
 
 | Component | Use it for | Notes |
 | --- | --- | --- |
-| `Button` | Every clickable action | `variant` `primary` (mid grey, Tilt Warp uppercase) / `default` (white, bordered) / `ghost`; `size` `md` (3px border, 5px shadow) / `sm` (2px, 3px shadow); `icon`, `loading`, `onPress`. No `autoFocus` prop |
+| `Button` | Every clickable action | `variant` `primary` (charcoal, white Tilt Warp caps, rose shadow) / `default` (white, outlined, no shadow) / `ghost`; `size` `md` (40px, 3px border) / `sm` (32px, 2px); `icon`, `loading`, `onPress`. No `autoFocus` prop |
 | `TextInput`, `TextArea` | Single/multi-line text | White, 2px border, no shadow; `onPressEnter` submits |
 | `Select` | Country / region / SKU / occasion dropdowns | Popover is a bordered card with the full shadow |
 | `ChoiceCardGroup` | Mutually exclusive option cards | White card, 3px border + shadow; hover/press = light grey, selected = red with white text; "More details" is a white Space Mono pill that opens the detail dialog |
@@ -113,7 +196,7 @@ Built on `react-aria-components` and styled with a sibling
 the session expired; its Reconnect button refreshes the magic-link session.
 Signing in itself is `src/client/auth/LoginPage.tsx`.
 
-### 4.2 Icons: `lucide-react`
+### Icons: `lucide-react`
 
 One icon set; `size` always explicit (20 in the rail, 16 in `md` buttons/the
 header, 14 in `sm` buttons and chips). Never emoji. In use here: `ClipboardList`
@@ -127,129 +210,24 @@ header, 14 in `sm` buttons and chips). Never emoji. In use here: `ClipboardList`
 (zoom, fit), `Undo2`/`Redo2`, `GripVertical` (node drag handle), `Wand2`
 (generate scene), `Keyboard` (shortcuts popover).
 
-### 4.3 Images
 
-Visuals are icons, client-rendered three.js proxies
-(`src/client/lib/renderProxy.ts`), the camera illustrations in
-`public/camera/`, the logo and the loading bottle, and the Gemini-generated
-sketches and scenes. Images sit in a 2–3px black frame.
+## 10. Code rules
 
-## 5. Rules
+- CSS modules only. Colours, borders, shadows, fonts and caps tracking via
+  tokens.
+- Inside `src/client/ui/`, interactive states use react-aria data attributes
+  (`[data-hovered]`, `[data-selected]`, `[data-focus-visible]`,
+  `[data-disabled]`), never `:hover`. Native buttons elsewhere may use `:hover`.
+- `src/client/ui/` is the only place that imports `react-aria-components`
+  controls (dialogs in `workspace/` use its `Modal`/`Dialog`).
 
-### 5.1 Styling
+## 11. Checklist for a UI change
 
-CSS modules only; interactive states via react-aria's data attributes
-(`[data-hovered]`, `[data-selected]`, `[data-focus-visible]`,
-`[data-disabled]`) inside `src/client/ui/`, never `:hover`. The rail's plain
-native `<button>`s (not react-aria) are the one exception and use ordinary
-`:hover`/`:disabled`.
-
-### 5.2 Feedback and copy
-
-- Every agent-backed step (prep, plating, sides, surface, accent, story,
-  validate) shows a status line naming what the agent is doing plus elapsed
-  seconds, and 2–3 skeleton option cards, for the whole 10–90s a model call
-  can take.
-- A sign-in requirement renders `SignInPrompt`; a monthly-limit or permission denial (`FORBIDDEN`)
-  renders a terminal `Alert` with no retry action; anything else renders an
-  `Alert` with the server's own message and keeps the action armed.
-- Changing an answer that has downstream choices already made shows an
-  inline warning naming what will clear, before the operator commits to the
-  change.
-- Sentence case everywhere; buttons are a verb.
-
-## 6. Surfaces
-
-### Brief (`src/client/intake/BriefStep.tsx`)
-
-The entry point: operating unit, country, region, product SKU, hero dish,
-optional side request, occasion. Explains what the rest of the wizard does
-in one line. `Select`s for country/region/SKU/occasion, `TextInput`s for the
-free-text fields (Enter submits), a `primary` `Button` gated on every
-required field.
-
-### Preparation / Plating / Sides (`PrepStep.tsx`, `PlatingStep.tsx`,
-`SidesStep.tsx`, sharing `DecisionStep.tsx`)
-
-Each: an intro line, the cultural agent's status while it answers, then its
-options as a `ChoiceCardGroup` (1 card when "resolved" and auto-picked, up
-to 3 when "choose", A marked "Suggested"). "Ask again" re-runs the same
-call; changing an earlier one of these three re-triggers the later ones.
-
-### Scene (`SceneStep.tsx`)
-
-Venue / setting / people / time as `SegmentedControl` rows, with hints for
-disabled options (large SKUs are home-only, multi-person layouts aren't
-built yet); an embedded surface decision (cards) that only appears for
-"on the go"; the branded-glass yes/no toggle only when the rule allows a
-choice; the resolved lighting preset shown as read-only text.
-
-### Camera (`CameraStep.tsx`)
-
-Look as a `ChoiceCardGroup` (2 columns), angle as a `SegmentedControl`.
-
-### Accent (`AccentStep.tsx`)
-
-Gated on the composition's item-count parity (`rules.needsAccent`, from
-`trpc.rules`): a plain "no accent needed" message when the count is
-already odd, or the cultural agent's small-accent options otherwise.
-
-### Layout (`LayoutStep.tsx`)
-
-`trpc.compose` solves up to 3 rule-compliant layouts; each renders as a
-`ChoiceCardGroup` card whose `media` slot is the labeled 3D proxy
-(`renderProxy`, 16:9) for that option, with its archetype name, one-line
-rationale and score. A "show guides" `Switch` overlays the center-third and
-horizon lines on every proxy. Zero options renders an `EmptyState` listing
-why each archetype was infeasible.
-
-### Story (`StoryStep.tsx`)
-
-Two columns: the labeled proxy (widened framing, for the image model) with
-its downloads (proxy PNG × 2, blueprint JSON, story JSON, both prompts) and
-a collapsible rule-check list; and the agent-written story (scene summary,
-cultural notes, a "Check cultural accuracy" action, and — on failure — the
-validation notes with a "Rewrite with these notes" action). Below both: the
-prompt segments, the per-label segments, and the composition/product-swap
-prompts as `CodeBlock`s with copy buttons.
-
-### Workspace (`WorkspaceStep.tsx`, `src/client/workspace/`)
-
-Step 10: the composition prompt as an editable, node-based canvas — a
-pannable/zoomable viewport (drag empty canvas to pan, ctrl/cmd+scroll to
-zoom, toolbar zoom in/out/fit) holding absolutely positioned cards wired by
-an SVG bezier layer underneath. Node types: **Proxy** (image 1, uploaded to
-storage lazily on first scene generation), **Segment** (one per prompt
-segment — editable text, a bypass `Switch`, and for objects/the environment
-a Nano Banana Pro preview that can feed the scene as a reference image),
-**Prompt** (the exact assembled prompt as a read-only `CodeBlock` plus the
-numbered reference list), and **Generate** (aspect ratio / image size /
-variant count, the Generate action, and the results — latest batch large,
-older ones as a history strip). Every segment always wires to Prompt; Prompt
-and the proxy both wire to Generate; a segment used as a reference gets a
-second, dashed-accent wire straight to Generate. Click/shift-click a node
-header to select it, shift-drag empty canvas to marquee-select, drag a
-selected node's header to move the whole selection (snaps to a 16px grid).
-Keyboard: arrow keys nudge the selection, `B` toggles bypass, Escape clears
-selection, Ctrl/Cmd+Z / Shift+Z undo/redo canvas changes (never a generated
-result), Ctrl/Cmd+Enter generates the scene from anywhere — a `Keyboard`
-icon popover in the toolbar lists these. A full-size lightbox (`Modal`/
-`Dialog`) opens on any image; Escape closes it.
-
-## 7. Checklist for a UI change
-
-- [ ] Built from `src/client/ui/` and `src/client/layouts/`; nothing new
-      installed.
-- [ ] New styles are in a `.module.css`; colours, borders, shadows and fonts
-      via tokens; no `:hover` inside `ui/`. Yellow/amber only as fills;
-      amber always with `--neo-hatch`.
-- [ ] Icons from `lucide-react` with an explicit `size`; icon-only controls
-      labelled. No emoji anywhere.
-- [ ] Loading, empty and error states exist and use `Skeleton*`,
-      `EmptyState`, `Alert`, `AgentStatus`. Every agent call shows elapsed
-      time; every compose/story/validate call shows a loader for its whole
-      duration.
-- [ ] Works from the keyboard (Tab through it; arrow keys move between
-      radio/segmented options).
-- [ ] This file still describes the app — §4 for a new control, §6 for a
-      new step surface.
+- [ ] Built from `src/client/ui/` and `src/client/layouts/`; nothing new installed.
+- [ ] No hard-coded colours; no text under 12px; amber only with `--neo-hatch`.
+- [ ] Only the primary button has a shadow; one primary per screen.
+- [ ] Icons from `lucide-react` with an explicit size; icon-only controls labelled.
+- [ ] Loading, empty and error states use `Skeleton*`, `EmptyState`, `Alert`, `AgentStatus`.
+- [ ] Works from the keyboard.
+- [ ] Copy is brand-neutral, names use "&", buttons are verbs.
+- [ ] This file still describes the app.

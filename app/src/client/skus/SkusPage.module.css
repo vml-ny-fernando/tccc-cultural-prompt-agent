@@ -27,7 +27,7 @@
   aspect-ratio: 1;
   padding: 12px;
   border-bottom: var(--neo-border);
-  background: #fff;
+  background: var(--neo-card);
 }
 
 .photo img {

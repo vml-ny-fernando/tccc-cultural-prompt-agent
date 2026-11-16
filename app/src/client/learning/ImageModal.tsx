@@ -28,7 +28,7 @@ export function ImageModal({ src, alt, onClose }: { src: string; alt: string; on
     >
       <div className={styles.dialog} role="dialog" aria-modal="true" aria-label={alt} tabIndex={-1} ref={dialogRef}>
         <button type="button" className={styles.close} onClick={onClose} aria-label="Close enlarged image">
-          <X size={18} aria-hidden />
+          <X size={24} strokeWidth={2.5} aria-hidden />
         </button>
         <img src={src} alt={alt} className={styles.image} />
       </div>

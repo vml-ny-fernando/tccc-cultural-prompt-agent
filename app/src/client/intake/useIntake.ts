@@ -164,7 +164,7 @@ export function normalizeDraft(rawParsed: Record<string, unknown>): Draft {
   // Old drafts saved on the since-removed 'accent' or 'layout' steps land on Sketch review, which now composes and picks the layout itself;
   // one left on the removed Express step restarts at the brief.
   const rawStep = typeof rawParsed.step === 'string' ? rawParsed.step : undefined;
-  const step = (rawStep === 'accent' || rawStep === 'layout' ? 'review' : rawStep === 'express' ? 'brief' : rawStep) as StepId | undefined;
+  const step = (rawStep === 'accent' ? 'review' : rawStep === 'camera' ? 'layout' : rawStep === 'express' ? 'brief' : rawStep) as StepId | undefined;
   const { mode: _mode, ...saved } = parsed as Partial<Draft> & { mode?: unknown };
   return {
     ...EMPTY_DRAFT,

@@ -8,6 +8,30 @@ date_drafted: 2026-10-09
 
 # Iraq
 
+## HARD STAGING RULES
+
+These rules hold for every Iraq scene, whatever the brief. Every "never" also works as a negative prompt. (Baghdad pass, Fernando's rulings 13–15 Nov 2026.)
+
+**City.** If the brief names no city, the scene is set in Baghdad: family houses in Mansour, Zayouna or Yarmouk, flats in Karrada, restaurants on the Karrada and Mansour streets, Zayouna and the Abu Nuwas riverside. When the brief names another city, drop every Baghdad profile; if that city isn't profiled yet (Basra, Erbil, Sulaymaniyah, Duhok, Mosul, Najaf, Karbala), use the national content. Kurdistan scenes carry no Arabic signage. Never a generic "Middle East": no Gulf towers, Moroccan tiles or Levantine cafés.
+
+**Legal, brand and political**
+- No alcohol in any form: no bottles, glasses, bars or alcohol branding, and Coca-Cola is never a mixer.
+- Pork: follow the meal the user submits. Avoid pork-forward dishes unless the brief names one or it is culturally acceptable in the setting (for example a Christian family celebration). Meat is halal by default; lamb, then chicken, beef, goat and fish. Pepperoni is beef or chicken. (Still to confirm with the client.)
+- No brand marks except the hero SKU: no restaurant logos, and nothing copied from the matrix reference images. The prompt never says "Zinger" (a KFC trademark); it says spicy chicken fillet sandwich.
+- No flags, political figures, party colours, militia or security insignia, portraits of leaders or slogans.
+- No generated text: no Arabic, Kurdish or English on menus, signs, packaging, screens or clothing. Signs are soft colour blocks.
+
+**Religious** (needs TCCC Iraq or legal sign-off)
+- No shrines, domes of named mosques, religious figures, religious text or verse calligraphy in the hero zone, and no religious slogans on clothing. Framed calligraphy at home stays soft and unreadable.
+- During Ramadan daylight hours, nobody eats or drinks in public scenes. Muharram and Ashura are mourning: no festive scenes on those dates.
+
+**Custom and composition**
+- Tea (istikan) stays out of the hero zone so the Coke is the only drink in focus. Nargileh stays in the far background or out.
+- Shoes come off at the door in homes: no shoes on rugs or at a floor spread.
+- Portions follow the pack. With a single-serve pack (250 mL glass bottle, 450 mL plastic bottle), one portion. Quzi, mandi, masgouf and mashawi are shared platters and always use the 1.75 L bottle, never the 250 mL glass.
+- The app's "Sunday Lunch" means Friday lunch, the big family meal of the week.
+- People: follow who the user's brief asks for; this file doesn't pick a cast. People are removed from scenes for now. No identifiable children.
+
 ## FILE ROLE & METHOD
 
 This file is Iraq's country file: a single national staging brief with five
@@ -25,11 +49,12 @@ is staged; others are documented in ICONIC BEVERAGES.
 
 ### Hard staging rules specific to Iraq (read before any scene)
 
-- **Halal by default, no pork, no alcohol.** Pork is forbidden per Sharia;
-  lamb is the default meat, then chicken, beef, goat and fish. No alcohol
-  cues, vessels or branding in any scene; Coca-Cola never appears as a
-  mixer. Arak and other alcohol appear in ICONIC BEVERAGES as documented
-  context only. [CONFIDENCE: HIGH] [S7]
+The rules now live in HARD STAGING RULES at the top of the file, where the
+app always includes them. The notes below are kept as background.
+
+- **Halal by default, no alcohol.** Lamb is the default meat, then chicken,
+  beef, goat and fish. Arak and other alcohol appear in ICONIC BEVERAGES as
+  documented context only. [CONFIDENCE: HIGH] [S7]
 - **No sectarian or political staging.** No flags in hero position, no party
   symbols, militia cues, Ashura blood-ritual imagery, shrine interiors in
   sharp focus, or identifiable religious processions. Ashura qeema
@@ -71,15 +96,16 @@ usage ever exceeds ~30% of prompt volume — not an action item now.
 
 ### Default when no zone is named
 
-Baghdad & Central, midday or evening family table with timman anbar rice +
-stew, samoon on the side, hero SKU per brief.
+Baghdad (see HARD STAGING RULES): midday or evening family table with
+timman anbar rice + stew, samoon on the side, hero SKU per brief.
 
 ### METHOD NOTE (read first)
 
-- **Scale anchor:** Iraq uses the non-US 330mL-class can unless the brief or
-  `coca-cola-guidelines.md` §4.3 documents a different confirmed local
-  standard. No Iraq-specific pack dimension was confirmed this pass —
-  provisional, flag for the TCCC spec drop. Tableware fallback:
+- **Scale anchor:** the brief sets the pack. Iraq packs in the app: the
+  1.75 L plastic bottle (31.6 cm tall) and the 450 mL contour plastic
+  bottle (21 cm tall). The client's matrix also uses a 250 mL glass bottle,
+  which is being added. Older notes below that mention a 330 mL can are
+  superseded. Tableware fallback:
   `tableware-composition-reference.md` §2.
 - **Confidence tags match prose (§6):** HIGH = 2+ independent corroboration;
   MEDIUM = 1 credible source; LOW = weak or inferred. Unverified counts and
@@ -98,7 +124,7 @@ stew, samoon on the side, hero SKU per brief.
 
 | Generic scene type | What to draw on |
 |---|---|
-| **Family rice-and-stew table** | Large oval platter or individual plates of timman anbar rice + stew bowl (bamia, fasolia, margat baytinijan), samoon torn at the edge, jajik or a small salad, hikakeh pieces shared, on a rectangular table under a clear plastic cover over white cotton, a plain tissue box and bread basket. Default home register. |
+| **Family rice-and-stew table** | Large oval platter or individual plates of timman anbar rice + stew bowl (bamia, fasolia, margat baytinijan), samoon torn at the edge, jajik or a small salad, hikakeh pieces shared, on a rectangular table with a plain or lace cloth (clear plastic over cotton in older-generation homes), a plain tissue box and bread basket. Default home register. |
 | **Tigris masgouf restaurant** | Open-cut carp grilled on stakes by the river, simple tables with flatbread, onion, tomato and lemon, evening river haze. Signature away-from-home venue. |
 | **Kebab / tikka shop** | Skewered lamb or chicken over charcoal, samoon wrap, amba + turshi on the side, steel counter, night street through glass. |
 | **Bakery / samoon oven** | Clay-oven (tannour) mouth with stacked diamond samoon, flour dust, paper bags; daytime on-the-go. |
@@ -121,27 +147,33 @@ profile. Coverage:
 
 | App option | Iraq profile |
 |---|---|
-| Dining room | Family dining room; Courtyard / roof (outdoor) |
-| Gen Z apartment | none yet (generic look) |
-| Kitchen island | none yet (generic look) |
-| Sit-down | Masgouf restaurant; Mandi house |
+| Dining room | Family dining room; Modest family home; Older courtyard house; Courtyard / roof (outdoor) |
+| Gen Z apartment | Karrada flat, young adults |
+| Kitchen island | Baghdad house kitchen with a counter |
+| Sit-down | Family restaurant hall; Masgouf restaurant; Mandi house |
 | Counter service | Burger, broast and fried-chicken shop; Kebab corner shop; Falafel and kass counter |
-| Café | Casual café-restaurant |
-| Modern bistro | Casual café-restaurant (nearest; upmarket riverside places); the design-led burger concepts in the burger shop profile |
+| Café | Modern Karrada café; Heritage café (when the brief asks for a traditional café); Casual café-restaurant |
+| Modern bistro | Design-led riverside restaurant |
 | Street market | Kebab corner shop; Samoon bakery; Falafel and kass counter |
-| Food truck | Falafel and kass counter (nearest) |
-| Park, Beach or waterfront, Stadium or event | none yet (generic look) |
+| Food truck | Food cart by a Baghdad park; Falafel and kass counter |
+| Park, Beach or waterfront | Abu Nuwas riverside park (Baghdad has no beach) |
+| Stadium or event | none yet (generic look) |
 
 #### Venue: Family dining room, Baghdad apartment or house (home, indoor) · app: Dining room
 - Prompt-ready line: "A Baghdad family dining room: the meal sharp on a
-  rectangular dark-walnut table under a clear plastic cover over white
-  cotton, a plain tissue box and bread basket beside it; behind, softly
+  rectangular dark-walnut table with a plain or lace cloth, or bare and
+  polished, a plain tissue box and bread basket beside it; behind, softly
   blurred, cream plaster walls, a tall glass-fronted cabinet of gold-rim
   tea glasses, a gilded calligraphy frame, burgundy drapes over lace at a
   grilled window, a red medallion rug and a ceiling fan."
 - Use for: home indoor; lunch (the main meal) or dinner; 2 to a large
   family; everyday meals, Friday lunch, iftar, casual guests. The default
-  home. See HOME TABLE DRESSING and HOME INTERIOR ELEMENTS (TRUSTED
+  home: a two-storey family house of 200–300 m² in Mansour or Zayouna,
+  built between the 1970s and 2000s behind a gate and wall, the dining area
+  opening off the main salon. Upper-middle homes add a gypsum ceiling cove
+  with a warm LED strip and a crystal or brass chandelier. [LOW · B1]
+  The clear plastic table cover is an older-generation look (grandparents'
+  houses), not the default. See HOME TABLE DRESSING and HOME INTERIOR ELEMENTS (TRUSTED
   CONTENT) for the parts list.
 - Soft background (the core): smooth matte plaster walls in off-white,
   cream or pale warm grey; in homes built before the 1990s often two-tone,
@@ -179,7 +211,8 @@ profile. Coverage:
   2.8–3.2 m; tall windows (150–200 cm) with exterior grilles and often an
   aluminium roller shutter; kitchen hatch or doorway behind. [MEDIUM —
   import]
-- Table dressing: everyday, a full-length clear plastic cover (mafresh
+- Table dressing (older-generation homes; the default is a plain or lace
+  cloth or a bare table): everyday, a full-length clear plastic cover (mafresh
   nylon, مفرش نايلون), plain or with a faint small print, over a plain white
   or cream cotton cloth; it reads as a slight gloss over flat cotton and
   stays on between meals. For guests, the plastic comes off and a white or
@@ -546,16 +579,72 @@ kebab venues above already cover masgouf, kebab and mashawi.
 - Never stage: alcohol, legible menus, pork toppings.
 - Confidence and sources: LOW-MEDIUM.
 
+### Baghdad pass (added 2026-11-15)
+
+Shared rules for every home profile: shoes off at the door; takeaway boxes
+are fine on any home table (delivery is real), with no brand marks; a
+building generator keeps lights on through power cuts.
+
+#### Venue: Karrada flat, young adults (home, indoor) · app: Gen Z apartment
+- Prompt-ready line: "A newly built Baghdad flat in Karrada at night: the meal sharp on a small white or light-oak four-seat table, behind it softly blurred a neutral grey or beige L-shaped sofa with patterned cushions, a round marble-top coffee table, a large window with long plain curtains and the lights of the street below, a white split AC unit high on the wall, one framed floral print, warm ceiling downlights."
+- Use for: young adults sharing a meal (who appears follows the brief), delivery nights, game nights, Late Night.
+- Soft background: a flat in a new mid-rise secure building in Karrada (Arasat) or a gated compound. Small balcony, porcelain-tile floor, plain painted walls, a mirrored white wardrobe glimpsed through a door. [LOW · B1]
+- Hallucination traps: a Western loft with exposed brick; a Gulf skyline of skyscrapers (Baghdad's towers are mid-height); the parents' formal fetrina look, which would turn a young flat into a family house.
+- Never stage: alcohol, legible screens, flags.
+
+#### Venue: Baghdad house kitchen with a counter (home, indoor) · app: Kitchen island
+- Prompt-ready line: "A Baghdad family house kitchen by day: the meal on a pale stone-look counter that juts into the room, behind it softly blurred high-gloss cream or wood-grain cabinets, a white tiled splashback, a big double-door fridge, a tall gas cooker with a steel hood, a window with a steel grille and a sheer curtain, a plastic bread bag and a steel tray on the side."
+- A true free-standing island is rare. Newer houses in Mansour and Yarmouk have open kitchens with a peninsula or breakfast counter. [LOW · B1]
+- Use for: a quick lunch or snack at home. An Iraqi "Brunch" brief becomes a late weekend breakfast (eggs, cheese, bread, jam), tea out of the hero zone.
+- Never stage: a Western minimalist island with a row of bar stools and pendant lights.
+
+#### Venue: Modest family home, Baghdad (home, indoor) · app: Dining room
+- Prompt-ready line: "A modest Baghdad family home by day: the meal sharp on a plain wooden or laminate table with a printed oilcloth cover, behind it softly blurred painted plaster walls in pale green or cream, a ceiling fan, a floor rug, a simple glass cabinet, a window with a grille and a patterned curtain, a cooler fan in the corner."
+- Use for: everyday family meals; Friday lunch where the brief doesn't say affluent. One-storey or older two-storey houses in districts such as Shaab, Baladiyat or parts of Karkh. [UNSOURCED]
+
+#### Venue: Older courtyard house, Adhamiya, Kadhimiya or old Rusafa and Karkh (home, indoor) · app: Dining room
+- Prompt-ready line: "An older Baghdad courtyard house: the meal sharp on a low table, behind it softly blurred yellow brick walls, a wooden mashrabiya-style window (shanasheel), a tiled floor, a small inner courtyard with a potted plant, warm afternoon light."
+- Use for: heritage briefs and family gatherings where the brief asks for old Baghdad. Shanasheel shown maintained but worn. [UNSOURCED]
+- Never stage: a named shrine or mosque dome through the window.
+
+#### Venue: Modern Karrada café (restaurant, indoor) · app: Café
+- Prompt-ready line: "A modern Baghdad café in Karrada in the evening: the dish sharp on a small marble or wood table, behind it softly blurred upholstered sofas and armchairs, potted plants and string lights, a long counter with a coffee machine and a cake display, warm amber light."
+- The big-budget cafés opened since 2003 in Mansour, Zayouna and Karrada, serving cakes, juices, coffee and desserts. Men and women both go. [LOW-MEDIUM · B2, B3]
+- Never stage: nargileh in the hero zone, legible TV sport, alcohol.
+
+#### Venue: Heritage café, Baghdad (restaurant, indoor) · app: Café (when the brief asks for a traditional café)
+- Prompt-ready line: "A traditional Baghdad café: the dish sharp on a small table, behind it softly blurred wooden benches, framed old black-and-white photographs of the city, a ceiling fan, dim warm light, dominoes and backgammon boards on other tables."
+- Tea glasses and game boards are everyday features, not period props; tea stays out of the hero zone. Photographs show the old city, never political figures. [LOW-MEDIUM · B2, B4]
+
+#### Venue: Design-led riverside restaurant, Abu Nuwas or Mansour (restaurant, indoor) · app: Modern bistro
+- Prompt-ready line: "A design-led Baghdad restaurant on the riverside at night: the dish sharp on a dark stone or walnut table, behind it softly blurred concrete and timber walls, large glass looking onto the lit Tigris, statement pendant lamps, an open grill glowing at the back."
+- Newer restaurants on Abu Nuwas and in Mansour, opened since about 2017. [LOW · B5]
+- Never stage: a bar, bottles, wine glasses or a white tablecloth.
+
+#### Venue: Family restaurant hall, Baghdad (restaurant, indoor) · app: Sit-down
+- Prompt-ready line: "A family restaurant hall in Baghdad: the meal sharp on a plain light-wood or laminate four-seat table, behind it softly blurred tiled floor, beige walls with a large framed photo of old Baghdad, a glass partition to a family section, a steel water jug, warm overhead light."
+- Restaurants are Baghdad's main evening outing: lit, cool and seen as safe, with family sections. [LOW-MEDIUM · B6]
+- Use for: pasta, falafel plate, mashawi, quzi, mandi, masgouf and kebab.
+
+#### Venue: Abu Nuwas riverside park, Baghdad (outdoor) · app: Park, Beach or waterfront
+- Prompt-ready line: "The Abu Nuwas riverside park in Baghdad at dusk: the meal sharp on a folding table or a low wall, behind it softly blurred a lawn running to the wide brown Tigris, young palms, a paved riverside walk with lamp posts lit, the far bank in haze and golden evening light."
+- The promenade on the east bank of the Tigris in Karrada, between the Republic and Mu'allaq bridges, restored in 2023. Show the restored stretch. [MEDIUM · B5, B7]
+- Baghdad has no beach: a beach brief goes to Basra's Shatt al-Arab corniche once Basra is profiled.
+- Never stage: the Abu Nuwas statue, litter, alcohol, legible kiosk signs.
+
+#### Venue: Food cart by a Baghdad park (street, night) · app: Food truck
+- Prompt-ready line: "A converted old car turned food cart at a Baghdad park at night: the sandwich sharp on its steel serving ledge, behind it softly blurred string lights, the cart's warm glow, and the lit trees of the park."
+- Carts made from old vehicles, parked by public gardens in Mansour and al-Ataifiyah, busy at weekends. [LOW-MEDIUM · B8]
+
 ## TRUSTED CONTENT
 
 ### HERO PRODUCT SLOT
 
 One TCCC hero beverage per scene, chosen per brief — never a default red
-can assumed. Stage it chilled: a beaded 330mL-class can or contour-style
-glass per `coca-cola-guidelines.md` once the Iraq pack is confirmed; until
-then use the non-US 330mL default and tag it provisional. Glass pour only
-when the brief names it. No mixer framing, no alcohol adjacency.
-[EDITORIAL + provisional]
+can assumed. Stage it chilled, in the pack the brief names: the 1.75 L or
+450 mL plastic bottle, or the 250 mL glass bottle once it is in the app.
+Shared platters (quzi, mandi, masgouf, mashawi) always use the 1.75 L. No
+mixer framing, no alcohol adjacency.
 
 ### ICONIC BEVERAGES (documented context — staging rules follow)
 
@@ -609,7 +698,8 @@ MEDIUM and its MEDIUM tags at LOW, unless this file already agreed.
 Brand names in it (tissues, water, lanterns) were dropped, as was its
 "branded tissue box", under the file-wide no-brands rule.
 
-- **Everyday cover:** a full-length clear plastic cover (mafresh nylon),
+- **Everyday cover (older-generation homes; default to a plain or lace
+  cloth or a bare table):** a full-length clear plastic cover (mafresh nylon),
   plain or with a faint small geometric or floral print in pale blue or
   white, over a plain white or cream cotton cloth. It is practical, wiped
   between meals and left on the table. [MEDIUM]
@@ -677,8 +767,8 @@ above; "agrees" means this file already said it.
 
 ### SCALE REFERENCE — IRAQ
 
-- UK/EU 330mL can, 11.52cm tall × 6.61cm diameter, as the scale anchor
-  until the Iraq pack is confirmed (provisional).
+- The brief's pack is the scale anchor: 1.75 L plastic bottle 31.6 cm
+  tall, 450 mL plastic bottle 21 cm tall.
 - Samoon ~20–25cm long [MEDIUM-LOW — flag]. Rice platter 35–40cm oval; stew
   bowl 15–18cm; masgouf carp 40–60cm whole before portioning [LOW — flag
   for SME; use the vessel fallback per schema §4.5, not a guessed fish
@@ -883,14 +973,16 @@ SKU. No gambling cues. [LOW]
 
 ## DISH CATALOG
 
-**Scale note:** the non-US 330mL can (11.52cm × 6.61cm) anchors every entry
-until the Iraq pack is confirmed (provisional).
+**Scale note:** the brief's pack anchors every entry (1.75 L bottle 31.6 cm
+tall, 450 mL bottle 21 cm tall). Quzi, mandi, masgouf and mashawi are
+shared platters with the 1.75 L.
 
 #### Dish: Masgouf (national dish — Baghdad/Basra/Tigris)
 - Prompt-ready line: "Half butterflied river carp about two can-heights
   long, amber turmeric glaze with crisp skin, laid over a round flatbread
   on a large steel tray with lemon, onion rings and tomato wedges. No
   rice, no fried batter, no alcohol."
+- Baghdad serving: a shared platter for the table with the 1.75 L bottle, never a single portion or the 250 mL glass (HARD STAGING RULES).
 - Prompt-ready line (briefing archive look): "A butterflied grilled
   carp, opened flat and golden-brown with dark char streaks, about one
   and a half bottle heights long, on a long dark-grey oval platter over
@@ -954,6 +1046,7 @@ until the Iraq pack is confirmed (provisional).
 - Prompt-ready line: "Slow-roast lamb joint with crisp brown crust atop a
   large oval mound of fluffy rice scattered with raisins and nuts, on a
   steel platter. No skewers, no sauce pool."
+- Baghdad serving: a shared platter for the table with the 1.75 L bottle, never a single portion or the 250 mL glass (HARD STAGING RULES).
 - Prompt-ready line (briefing look): "A large round polished steel tray,
   about twice the bottle's height across, heaped with yellow basmati
   under a thick layer of browned vermicelli rice studded with green
@@ -1272,6 +1365,7 @@ anchor above. The Iraq pack is still unconfirmed (GAP LOG).
   logs, cubes of dark lamb tikka and orange-red chicken tikka, ringed by
   blistered tomatoes, grilled green peppers, small charred onions,
   magenta pickled turnip and lemon wedges. No slate board."
+- Baghdad serving: a shared platter for the table with the 1.75 L bottle, never a single portion or the 250 mL glass (HARD STAGING RULES).
 - Category: Shared grill; family dinner, Friday, groups, delivery.
 - Cuisine lineage: Iraqi grill (shared mixed grill).
 - Authentic preparation: kebab (above), lamb tikka (lamb chunks buried in
@@ -1362,6 +1456,7 @@ anchor above. The Iraq pack is still unconfirmed (GAP LOG).
   top, lemon halves and whole green chilies around it, a small bowl of
   red chili-tomato sauce beside, the tray about one and a half bottle
   heights across. No biryani layers, no curry."
+- Baghdad serving: a shared platter for the table with the 1.75 L bottle, never a single portion or the 250 mL glass (HARD STAGING RULES).
 - Category: Restaurant and delivery favourite; lunch, dinner, gatherings.
 - Cuisine lineage: Yemeni (Hadramawt), widespread across the Gulf and now
   in Iraq through dedicated mandi chains. Iraqi branches pair the Yemeni
@@ -1484,7 +1579,7 @@ anchor above. The Iraq pack is still unconfirmed (GAP LOG).
   - Absent on purpose: branded bowl, chopsticks, sesame seeds, vegetables
     mixed in.
 
-#### Dish: Zinger-style sandwich (زنگر)
+#### Dish: Spicy chicken fillet sandwich, Zinger-style (زنگر)
 - Prompt-ready line: "A spicy crispy chicken sandwich about half the
   bottle's height: a soft sesame bun around a craggy golden-orange fried
   fillet that sticks out past the bun, white mayo and shredded lettuce,
@@ -1704,7 +1799,7 @@ anchor above. The Iraq pack is still unconfirmed (GAP LOG).
   - State cues: melted cheese pull, oil sheen.
   - Absent on purpose: pork, ham, bacon, basil-leaf Neapolitan styling.
 
-#### Dish: Creamy chicken fettuccine (پاستا / باستا)
+#### Dish: Creamy chicken fettuccine pasta (پاستا / باستا)
 - Prompt-ready line: "A tall twisted nest of fettuccine in a glossy
   cream and parmesan sauce in a wide white bowl with a dark rim, flecked
   with chopped parsley and grated cheese, a fork resting in it, the
@@ -1738,6 +1833,16 @@ anchor above. The Iraq pack is still unconfirmed (GAP LOG).
 Source notes moved out of the entries above on 2026-10-18 so the app's
 excerpts carry more staging text. Each [S#] tag in the file points here.
 The app skips this section when it builds prompts.
+
+- B1: Airbnb Baghdad listings, host copy (Mansour, Karrada/Arasat, Yarmouk). Undated; layout and furniture only, affluent and foreign-facing. Checked 13 Nov 2026.
+- B2: Wikipedia, "Coffeehouse culture of Baghdad". Pointer only.
+- B3: The National, Baghdad café culture, 14 Nov 2024.
+- B4: Shafaq News, Baghdad's historic cafés, May 2026.
+- B5: Al Jazeera Arabic, Abu Nuwas Street, 10 May 2022 (full URL to be found).
+- B6: Jummar, why restaurants became Iraqis' main entertainment, Dec 2022.
+- B7: Shafaq News, Abu Nuwas neglected, Mar 2025; PilgriMaps, masgouf at dusk, Nov 2025 (tourist-facing, LOW).
+- B8: Shafaq News, food carts in Baghdad, Nov 2025.
+- Baghdad pass working draft, rulings and full links: /mnt/project-files/knowledge-base/iraq-baghdad/baghdad-draft.md (v3, 15 Nov 2026).
 
 - S1 (Venue: Family dining room, Baghdad apartment or house (home, indoor)): Sources: this file's earlier profile; Fernando's research import (2026-10-17, compiled from training data without live search; the sources it names were not checked)
 - S2 (Venue: Masgouf restaurant on the Tigris (riverside, open or semi-open)): [SOURCE: Wikipedia: Masgouf; Wikipedia: Iraqi cuisine]

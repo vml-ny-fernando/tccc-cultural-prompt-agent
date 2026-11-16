@@ -13,15 +13,15 @@
 
 .dialog {
   --fb-text: var(--bay-text);
-  --fb-muted: #5f5b52;
+  --fb-muted: var(--bay-text-3);
   --fb-line: var(--neo-ink);
   --fb-hair: var(--bay-border-hair);
   --fb-soft: var(--bay-bg-subtle);
   --fb-good: var(--bay-ok-fg);
   --fb-good-bg: var(--bay-ok-bg);
   --fb-bad: var(--neo-selected);
-  --fb-bad-bg: #fdecee;
-  --fb-warn: #8a5a00;
+  --fb-bad-bg: var(--bay-err-bg);
+  --fb-warn: var(--bay-warn-text);
   --fb-accent: var(--neo-cta-button);
 
   width: min(96vw, 1040px);
@@ -67,22 +67,6 @@
   color: var(--fb-muted);
 }
 
-.iconBtn {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid transparent;
-  border-radius: var(--bay-r-sm);
-  background: transparent;
-  color: var(--fb-text);
-  cursor: pointer;
-}
-
-.iconBtn:hover {
-  border-color: var(--fb-line);
-}
-
 .actions {
   display: flex;
   align-items: center;
@@ -106,7 +90,7 @@
   font-family: var(--bay-font-mono) !important;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -192,7 +176,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   color: var(--fb-muted);
 }
@@ -299,7 +283,7 @@
   color: var(--fb-muted);
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
 }
 
@@ -371,7 +355,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
 }
 
@@ -466,7 +450,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
 }
 
@@ -492,7 +476,7 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   white-space: nowrap;
 }

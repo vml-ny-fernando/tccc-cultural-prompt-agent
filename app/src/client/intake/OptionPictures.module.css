@@ -23,7 +23,7 @@
   font-size: var(--app-text-min);
   font-weight: var(--app-weight-subhead);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
 }
 
 .waiting {

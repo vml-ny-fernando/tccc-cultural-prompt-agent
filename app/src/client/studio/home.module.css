@@ -159,7 +159,7 @@
   font-family: var(--bay-font-mono);
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--app-label-tracking);
 }
 
 .phaseItems {

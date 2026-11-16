@@ -44,6 +44,8 @@ export interface AngleOption {
     lift_m?: number;
     /** Test angles: after framing, move the camera to this share of its distance (0.75 = about 25% tighter). */
     distance_scale?: number;
+    /** Test angles: bring a level camera in over the table so its front edge drops out of frame (solver.ts Framing). */
+    over_table?: boolean;
     /** Test angles: the hero group's target width as a share of the usual one (above 1 = tighter). */
     span_scale?: number;
     /** Where the camera stands, for the prompt (after "from"); default "a seated diner's eye height". */
@@ -187,13 +189,25 @@ export function angleSentence(angle: AngleOption): string {
     (angle.hidden.note ? `${angle.hidden.note} ` : "") +
     "Draw the room, walls, furniture and background from this same camera height and tilt, so their lines meet the same eye level as the table's; never draw the room from a different, standing viewpoint. " +
     `Foreground and background share one perspective: everything in the picture, from the nearest dish to the far wall, is seen from this one ${pitch === 0 ? "level" : `${pitch}-degree`} view, with no part drawn flatter, steeper or from another direction. ` +
-    "The table is an ordinary dining table at its real size and height, not enlarged or tipped up toward the camera."
+    "The table is an ordinary dining table at its real size and height, not enlarged or tipped up toward the camera. " +
+    REAL_HEIGHTS
   );
 }
+
+/**
+ * Table height drift (Fernando, 2026-11-14): at the near-overhead test angle the table was drawn at
+ * bar height, level with the sofa back and the kitchen counters, with the room seen from eye level.
+ * Every angle states the real heights the room is built around.
+ */
+export const REAL_HEIGHTS =
+  "Real heights stay true to the room: the tabletop is about 75 cm off the floor, chair seats about 45 cm, a sofa seat about 45 cm and its back about 85 cm, kitchen counters about 90 cm; the floor is always a full table height below the tabletop, never drawn level with it or just under it.";
 
 /** Where the table's far edge sits in the frame, matching the solver's limit for this angle (solver.ts rearLimit). */
 export function farEdgeSentence(angle: AngleOption): string {
   const rear = angle.hidden.rear_edge_max_y ?? 0.5;
+  if (rear >= 1) return "the tabletop runs past the top of the frame, so no background shows above it.";
+  if (horizonPlace(angle.hidden.pitch_deg) === "well-above" && angle.hidden.pitch_deg >= 60)
+    return `the table's far edge sits no higher than about ${Math.round(rear * 100)}% of the way up the frame; the narrow strip above it shows only the floor beyond the table, seen from high above, never a wall or furniture seen from the side.`;
   return rear <= 0.5
     ? "the table's far edge sits at or below the middle of the frame, leaving the upper half for soft background."
     : `the table's far edge sits no higher than about ${Math.round(rear * 100)}% of the way up the frame, leaving the strip above it for soft background.`;
@@ -210,6 +224,13 @@ export function backgroundView(angle: AngleOption): string {
     default:
       return `looking down about ${angle.hidden.pitch_deg} degrees, mostly the floor and the lower part of the room seen from above: chair seats, other tabletops, the bases of walls and furniture; no ceiling, and no window or wall detail seen at eye level`;
   }
+}
+
+/** Which background details the agent may name: a steep camera sees floor, not walls and windows (agent.ts environmentalOverview). */
+export function backgroundDetails(angle: AngleOption): string {
+  return horizonPlace(angle.hidden.pitch_deg) === "well-above" && angle.hidden.pitch_deg >= 60
+    ? "the floor's material and color, the edge of a rug, the seat of a chair, all seen from high above; never a wall, window, counter or sofa back, which are out of frame"
+    : "wall color, tile, chairs, plants, a window where one would be in view";
 }
 
 /**

@@ -58,7 +58,7 @@
   aspect-ratio: 16 / 9;
   border: var(--neo-border);
   border-radius: var(--bay-r-sm);
-  background: #ffffff;
+  background: var(--neo-card);
   overflow: hidden;
   touch-action: none;
   user-select: none;

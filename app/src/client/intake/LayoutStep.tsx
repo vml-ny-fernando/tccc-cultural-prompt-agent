@@ -55,7 +55,7 @@ export function PrepareLayout({
   compose: ComposeResult | null;
   onCompose: (c: ComposeResult) => void;
   onPick: (i: number) => void;
-  /** Back to the Camera Angle step (older drafts that reach this from Sketch Review). */
+  /** Back to Tablescape & Camera (older drafts that reach this from Sketch Review). */
   onBack?: (() => void) | undefined;
   /** Back to Sides, to pick a smaller set when nothing fits. */
   onBackToSides: () => void;
@@ -159,7 +159,7 @@ export function PrepareLayout({
               </Button>
               {onBack && (
                 <Button icon={<ArrowLeft size={16} aria-hidden />} onPress={onBack}>
-                  Back to Camera Angle
+                  Back to Tablescape &amp; Camera
                 </Button>
               )}
             </div>

@@ -36,12 +36,13 @@
   position: absolute;
   top: -16px;
   right: -16px;
-  width: 34px;
-  height: 34px;
+  /* Overlay close (style guide): 44px square, 3px border, X at 24. Same as the node workspace. */
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 0;
   border: var(--neo-border);
   background: var(--neo-card);
   color: var(--bay-text);

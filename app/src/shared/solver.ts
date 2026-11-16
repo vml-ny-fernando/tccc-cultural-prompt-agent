@@ -695,6 +695,8 @@ interface Framing {
   /** Test angles (rules.ts AngleOption): camera height off the tabletop, a tighter final distance, a wider or narrower hero group. */
   lift_m?: number;
   distance_scale?: number;
+  /** Level test angle (Fernando, 2026-11-15): bring the camera in over the table until its front edge, and everything below the tabletop, drops out of the bottom of the frame. */
+  over_table?: boolean;
   span_scale?: number;
 }
 
@@ -796,6 +798,46 @@ export function fitCamera(placed: Placed[], D: number, focal: number, pitch: num
     const cam: CameraParams = { ...c, position: [0, 1, 2].map((i) => c.target[i]! + (c.position[i]! - c.target[i]!) * k) as [number, number, number] };
     const { boxes, proj } = project(placed, cam);
     fit = { cam, boxes, sils: new Map(), rearY: proj.project(cam.target[0], 0, D).y };
+  }
+  if (framing.over_table) {
+    // Camera height, not angle (Fernando, 2026-11-15): the level camera stays where it was framed
+    // and rises until the frame's lowest ray lands on the tabletop, h / tan(half vertical fov)
+    // ahead of the lens, at or behind the front edge (z = 0). The table edge and everything below
+    // the tabletop then fall out of the bottom of the frame.
+    const c = fit.cam;
+    const tanV = Math.tan(((c.fovDeg / 2) * Math.PI) / 180);
+    const h = Math.max(c.position[1], (c.position[2] * tanV) / 0.92);
+    if (h > c.position[1]) {
+      // At that height, stepping in keeps the edge out of frame, so step toward the dish (re-centred
+      // on the dish and the drink) while both stay whole in frame and the dish isn't left far back.
+      // The dish and the product only: a glass beside them may be cropped at this test angle.
+      const pair = heroLabels(placed).filter((l) => !/^GLASS/.test(l));
+      const main = placed.find((p) => p.item.kind === "main")!;
+      const at = (z: number) => {
+        let cam: CameraParams = { ...c, position: [c.position[0], h, z], target: [c.target[0], h, c.target[2]] };
+        let r = project(placed, cam);
+        for (let it = 0; it < 2; it++) {
+          const u = unionBox(pair.map((l) => r.boxes.get(l)!));
+          const perMeter = (r.proj.project(main.x + 1, 0, main.d).x - r.proj.project(main.x - 1, 0, main.d).x) / 2;
+          const dx = ((u.x0 + u.x1) / 2 - 0.5) / perMeter;
+          cam = { ...cam, position: [cam.position[0] + dx, h, z], target: [cam.target[0] + dx, h, cam.target[2]] };
+          r = project(placed, cam);
+        }
+        const u = unionBox(pair.map((l) => r.boxes.get(l)!));
+        const m = r.boxes.get(main.item.label)!;
+        // A tall bottle seen level may lose its cap at the top, never more than its top quarter.
+        const shown = (b: { y0: number; y1: number }) => (Math.min(b.y1, 1) - Math.max(b.y0, 0)) / (b.y1 - b.y0);
+        const drinksOk = pair.filter((l) => l !== main.item.label).every((l) => shown(r.boxes.get(l)!) >= 0.75);
+        return { cam, r, ok: u.x0 >= 0.02 && u.x1 <= 0.98 && u.y0 >= 0.02 && m.y1 <= 0.97 && drinksOk };
+      };
+      let pick = at(c.position[2]);
+      for (let z = c.position[2] - 0.02; z > -main.d + 0.25; z -= 0.02) {
+        const t = at(z);
+        if (!t.ok) break;
+        pick = t;
+      }
+      fit = { cam: pick.cam, boxes: pick.r.boxes, sils: new Map(), rearY: pick.r.proj.project(pick.cam.target[0], 0, D).y };
+    }
   }
   const proj = new Projector(fit.cam);
   for (const p of placed) fit.sils.set(p.item.label, silhouette(proj, p.item.def, p.x, p.d, p.yaw, p.item.extraHeight));

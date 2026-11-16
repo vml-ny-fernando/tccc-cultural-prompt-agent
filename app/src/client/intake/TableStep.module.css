@@ -87,7 +87,7 @@
   margin: 12px 0 0;
 }
 
-/* The camera angle as a three-notch slider (Fernando, 2026-11-13). */
+/* The camera angle as four equal tabs across the drawing's width (Fernando, 2026-11-16). */
 .angleGroup {
   display: flex;
   flex-direction: column;
@@ -99,101 +99,82 @@
   font-family: var(--bay-font-mono);
   font-size: var(--app-text-min);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--app-label-tracking);
   text-transform: uppercase;
   color: var(--bay-text);
 }
 
-.slider {
-  --knob: 22px;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+/* One bordered strip like the drawing's frame: equal cells split by ink rules. */
+.tabs {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  border: var(--neo-border);
+  border-radius: var(--bay-r-sm);
+  background: var(--neo-card);
+  box-shadow: var(--neo-shadow);
+  overflow: hidden;
 }
 
-/* The rail runs from the first notch's centre to the last; both are measured (useNotchCenters). */
-.track {
-  position: absolute;
-  top: calc(var(--knob) / 2 - 2px);
-  height: 4px;
-  border-radius: 2px;
-  background: var(--neo-ink);
-}
-
-.knob {
-  position: absolute;
-  top: 0;
-  left: calc(var(--x) - var(--knob) / 2);
-  width: var(--knob);
-  height: var(--knob);
-  border: var(--neo-border-thin);
-  border-radius: 50%;
-  background: var(--neo-selected);
-  box-shadow: var(--neo-shadow-sm);
-  pointer-events: none;
-  z-index: 1;
-  transition: left 180ms var(--bay-ease);
-}
-
-/* Until the notches are measured, the rail and knob stay hidden rather than jump into place. */
-.slider:not([data-measured]) .track,
-.slider:not([data-measured]) .knob {
-  visibility: hidden;
-}
-
-.stop {
+.tab {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.notch {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  margin-top: calc(var(--knob) / 2 - 7px);
-  margin-bottom: calc(var(--knob) / 2 - 7px);
-  border: var(--neo-border-thin);
-  border-radius: 50%;
+  justify-content: center;
+  gap: 6px;
+  min-height: 60px;
+  padding: 10px 8px;
+  border-left: var(--neo-border);
   background: var(--neo-card);
+  cursor: pointer;
+  transition: background var(--bay-dur) var(--bay-ease);
 }
 
-.stop[data-hovered]:not([data-disabled]) .notch {
+.tab:first-child {
+  border-left: none;
+}
+
+.tab[data-hovered]:not([data-selected]):not([data-disabled]),
+.tab[data-pressed]:not([data-selected]) {
   background: var(--neo-hover);
 }
 
-.stop[data-focus-visible] .notch {
-  outline: 2px solid var(--bay-border-focus);
-  outline-offset: 6px;
+.tab[data-selected] {
+  background: var(--neo-selected);
 }
 
-.stopLabel {
+.tab[data-selected][data-hovered] {
+  background: var(--neo-selected-hover);
+}
+
+.tab[data-focus-visible] {
+  outline: 3px solid var(--neo-ink);
+  outline-offset: -6px;
+}
+
+.tabLabel {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  font-weight: var(--app-weight-subhead);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--bay-text-2);
-  text-align: center;
-  white-space: nowrap;
-}
-
-.stop[data-selected] .stopLabel {
-  color: var(--bay-text);
+  font-size: 12.5px;
   font-weight: 700;
+  letter-spacing: var(--app-label-tracking);
+  text-transform: uppercase;
+  color: var(--bay-text);
+  text-align: center;
 }
 
-.stop[data-disabled] {
+.tab[data-selected] .tabLabel,
+.tab[data-selected] .fix {
+  color: var(--neo-on-selected);
+}
+
+.tab[data-disabled] {
   cursor: not-allowed;
 }
 
-.stop[data-disabled] .stopLabel {
-  color: var(--bay-text-3);
+.tab[data-disabled] .tabLabel {
+  color: var(--bay-text-4);
   text-decoration: line-through;
 }
 

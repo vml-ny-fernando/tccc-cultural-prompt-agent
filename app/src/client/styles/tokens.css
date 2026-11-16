@@ -34,13 +34,6 @@
   --neo-on-selected: #ffffff;
   /* "Change" (Sketch review and anything marked to change). Always with --neo-hatch. */
   --neo-amber: #ffcc33;
-  /* Experimental: the test camera angles (Fernando, 2026-11-14), so they read apart from the standard three.
-     The only orange in the app. White text on --neo-test; --neo-test-ink is the label colour on paper. */
-  --neo-test: #ff7a1a;
-  --neo-test-soft: #fff4ea;
-  --neo-test-hover: #ffe6d1;
-  --neo-test-ink: #c85a00;
-  --neo-on-test: #ffffff;
   --neo-hatch: repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.55) 0 1.5px, transparent 1.5px 6px);
   --neo-border-w: 3px;
   --neo-border: 3px solid var(--neo-ink);

@@ -15,7 +15,7 @@ selected. Desktop only.
    border and a hard shadow with no blur. No gradients, no soft shadows, no
    translucency except the loading scrim.
 2. **Colour has a job.** Grey means choosing, red means chosen, charcoal means
-   go, amber with stripes means change, orange means experimental. A colour
+   go, amber with stripes means change. A colour
    never does a second job.
 3. **One main action per screen.** Among buttons, only the primary carries a
    shadow. Cards, pill rows and alerts keep theirs; the rule is about buttons.
@@ -41,7 +41,6 @@ only.
 | Go | `--neo-cta-button` (+ `-hover`, `--neo-on-cta-button`) | #2b2b2b, white text | Primary buttons only |
 | Fill grey | `--neo-cta` | #a7a7a7 | Progress fill, workspace edges |
 | Change | `--neo-amber` + `--neo-hatch` | #ffcc33 under black stripes | Items marked to change in Sketch Review, always striped |
-| Experimental | `--neo-test` (+ `-soft`, `-hover`, `-ink`, `--neo-on-test`) | #ff7a1a | The test camera angles only |
 | Shadow | `--neo-shadow-color` | #cc9999 | Every hard shadow; loader blush |
 | Hairline | `--bay-border-hair` | #c9c4b8 | Dividers, canvas grids |
 | Secondary text | `--bay-text-3` / `-4` | #45433f / #77746d | Hints, intro copy / disabled, placeholders |
@@ -51,10 +50,10 @@ Status (via `Alert`): success #c8f0d4, error #ffd1cc, info white, warning grey
 with an amber triangle.
 
 - Grey and amber are fills behind black text, never text colours.
-- Red is for selection and the camera frame. As text it is allowed for
-  warnings only (the angle card warning, the ⚠ count) and the "Did you know?"
+- Red is for selection, the camera frame and the slider knob. As text it is
+  allowed for warnings only (the ⚠ fix count) and the "Did you know?"
   kicker.
-- White text appears only on red, charcoal and orange.
+- White text appears only on red and charcoal.
 
 ## 3. Typography
 
@@ -130,7 +129,7 @@ with an amber triangle.
 | Text input / area | Free text the agents read | Hero dish, side request, "Describe what you would like to see" |
 | Segmented control | 2–6 short exclusive words | Time & Place: kind of place, time of day, Place settings |
 | Choice cards (3 equal columns) | Options needing a sentence or picture | Preparation, Plating, Sides, Accent, layouts |
-| Angle cards | Camera views that must be seen | Camera Angle: three standard, four test in orange |
+| Angle slider | One camera angle; the big drawing shows the table from it | Tablescape & Camera: Low, Diner's eye, Looking down, Overhead |
 | Switch | One on/off | Show guides, segment bypass |
 | Accordion | Detail the user may skip | Rule checks, prompt segments |
 | Code block | Exact prompt or JSON | Story & Scene, Prompt node |
